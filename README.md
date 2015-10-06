@@ -1,7 +1,7 @@
 # roblox-js
 ## About
 
-Roblox-js is a node module that provides functions for performing action on [roblox](http://www.roblox.com), mostly for use with their HttpService feature.
+Roblox-js is a node module that provides functions for performing actions on [roblox](http://www.roblox.com), mostly for use with their HttpService feature.
 
 ## Documentation Info
 
