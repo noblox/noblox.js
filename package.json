@@ -1,0 +1,28 @@
+{
+  "name": "roblox-js",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FroastJ/roblox-js.git"
+  },
+  "keywords": [
+    "roblox",
+    "bots"
+  ],
+  "author": "Joshua Lanese <froastj@gmail.com>",
+  "dependencies": {
+    "request": "^2.63.0"
+    "jquery": "^2.1.4",
+    "jsdom": "^3.1.2"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FroastJ/roblox-js/issues"
+  },
+  "homepage": "https://github.com/FroastJ/roblox-js"
+}
