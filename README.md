@@ -116,7 +116,7 @@ options [object]:
   - `error`
 - _optional_ always _or_ callback: function
 
-### getSettings([jar])
+### getSession([jar])
 Returns the .ROBLOSECURITY cookie extracted from `jar` if it exists.
 
 options [object]:
