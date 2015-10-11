@@ -11,7 +11,7 @@ var jar = request.jar();
 ```
 Be default, however, there is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. You can get the global cookie jar with the undocumented `getJar` function.
 
-The login function populates the cookie jar with the users cookies, including their .ROBLOSECURITY (session), if successful and any functions that perform non-guest actions need a cookie jar to do so. If you are only using this module for a single group with one promotion user I recommend simply using the default global cookie jar.
+The login function populates the cookie jar with the users cookies, including their `.ROBLOSECURITY` (session), if successful and any functions that perform non-guest actions need a cookie jar to do so. If you are only using this module for a single group with one promotion user I recommend simply using the default global cookie jar.
 
 Be aware that you must set something to refresh this token every once in a while: otherwise it will expire. Logging in every server restart and making a login interval of 1 day should be enough.
 
@@ -73,6 +73,20 @@ options [object]:
   - `error`
 - _optional_ always _or_ callback: function
 
+### message(recipient, subject, body[, token, jar, success, failure, always])
+Message `recipient` with the message `body` and subject `subject` and returns a detailed error if unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
+
+options [object]:
+- recipient: number,
+- subject: string,
+- body: string,
+- _optional_ token: string,
+- _optional_ jar: CookieJar,
+- _optional_ success: function,
+- _optional_ failure: function,
+  - `error`
+- _optional_ always _or_ callback: function
+
 ## Utility Functions
 
 Includes `login`,`getRoles`,`getCurrentUser`,`getSettings`.
@@ -88,6 +102,17 @@ options [object]:
 - _optional_ failure: function,
   - `error`
 - _optional_ always _or_ callback: function
+
+### getToken(url[, jar, callback, failure])
+Sends the X-CSRF-TOKEN used by the URL to `callback`. This only needs to be used if you want to custom handle tokens, normally it is handled automatically.
+
+options [object]:
+- url: string
+- _optional_ jar: CookieJar
+- _optional_ callback: function,
+  - `token [string]`
+- _optional_ failure: function,
+  - `error`
 
 ### getRoles(group[, rank, success, failure, always])
 Returns role information of a group in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`. To best used with `setRank`.
