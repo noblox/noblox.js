@@ -99,6 +99,18 @@ options [object]:
   - `error`
 - _optional_ always _or_ callback: function
 
+### post(group, message[, jar, success, failure, always])
+Posts `message` on `group` wall and returns a general error if unsuccessful.
+
+options [object]:
+- group: number
+- message: string
+- _optional_ jar: CookieJar,
+- _optional_ success: function,
+- _optional_ failure: function,
+  - `error`
+- _optional_ always _or_ callback: function
+
 ## Utility Functions
 
 Includes `login`,`getRoles`,`getCurrentUser`,`getSettings`.
