@@ -87,6 +87,18 @@ options [object]:
   - `error`
 - _optional_ always _or_ callback: function
 
+### shout(group, message[, jar, success, failure, always])
+Shouts `message` in `group` and returns a general error if unsuccessful.
+
+options [object]:
+- group: number
+- message: string
+- _optional_ jar: CookieJar,
+- _optional_ success: function,
+- _optional_ failure: function,
+  - `error`
+- _optional_ always _or_ callback: function
+
 ## Utility Functions
 
 Includes `login`,`getRoles`,`getCurrentUser`,`getSettings`.
@@ -146,3 +158,16 @@ Returns the .ROBLOSECURITY cookie extracted from `jar` if it exists.
 
 options [object]:
 - _optional_ jar: CookieJar
+
+### getInputs(html[, find])
+Returns verification inputs on the page with the names in find - or all inputs if not provided. Typically used for ROBLOX requests working with ASP.NET.
+
+options [object]:
+- html: string
+- _optional_ find: array
+
+### getVerificationInputs(html)
+Short for `getInputs(html,['__VIEWSTATE','__VIEWSTATEGENERATOR','__EVENTVALIDATION]')`. Typically used for ROBLOX requests working with ASP.NET.
+
+options [object]:
+- html: string
