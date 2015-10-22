@@ -9,7 +9,7 @@ ROBLOX user sessions are stored in a `CookieJar`, which can be created like so:
 var request = require('request');
 var jar = request.jar();
 ```
-Be default, however, there is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. You can get the global cookie jar with the undocumented `getJar` function.
+Be default, however, there is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. You can get the global cookie jar with the `getJar` function and set a new one with `setJar`.
 
 The login function populates the cookie jar with the users cookies, including their `.ROBLOSECURITY` (session), if successful and any functions that perform non-guest actions need a cookie jar to do so. If you are only using this module for a single group with one promotion user I recommend simply using the default global cookie jar.
 
@@ -70,7 +70,24 @@ options [object]:
 - _optional_ jar: CookieJar,
 - _optional_ success: function,
 - _optional_ failure: function,
-  - `error`
+  - `error [string]`
+- _optional_ always _or_ callback: function
+
+### exile(group, target[, deleteAllPosts, senderRoleSetId, token, jar, success, failure, always])
+Exiles `target` in `group` and returns a general error if unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
+
+options [object]:
+- group: number
+- message: string
+- _optional_ deleteAllPosts: boolean,
+ - _Defaults to false._
+- _optional_ senderRoleSetId: number,
+  - _Used for custom handling of the sender's roleset, which is required by the exile API. If not specified_ `getRolesetInGroupWithJar` _will be used._
+- _optional_ token: string,
+- _optional_ jar: CookieJar,
+- _optional_ success: function,
+- _optional_ failure: function,
+  - `error [string]`
 - _optional_ always _or_ callback: function
 
 ### message(recipient, subject, body[, token, jar, success, failure, always])
@@ -84,7 +101,7 @@ options [object]:
 - _optional_ jar: CookieJar,
 - _optional_ success: function,
 - _optional_ failure: function,
-  - `error`
+  - `error [string]`
 - _optional_ always _or_ callback: function
 
 ### shout(group, message[, jar, success, failure, always])
@@ -96,7 +113,7 @@ options [object]:
 - _optional_ jar: CookieJar,
 - _optional_ success: function,
 - _optional_ failure: function,
-  - `error`
+  - `error [string]`
 - _optional_ always _or_ callback: function
 
 ### post(group, message[, jar, success, failure, always])
@@ -108,7 +125,7 @@ options [object]:
 - _optional_ jar: CookieJar,
 - _optional_ success: function,
 - _optional_ failure: function,
-  - `error`
+  - `error [string]`
 - _optional_ always _or_ callback: function
 
 ## Utility Functions
@@ -124,7 +141,7 @@ options [object]:
 - _optional_ jar: CookieJar,
 - _optional_ success: function,
 - _optional_ failure: function,
-  - `error`
+  - `error [string]`
 - _optional_ always _or_ callback: function
 
 ### getToken(url[, jar, callback, failure])
@@ -136,7 +153,7 @@ options [object]:
 - _optional_ callback: function,
   - `token [string]`
 - _optional_ failure: function,
-  - `error`
+  - `error [string]`
 
 ### getRoles(group[, rank, success, failure, always])
 Returns role information of a group in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`. To best used with `setRank`.
@@ -148,7 +165,7 @@ options [object]:
 - _optional_ success: function,
   - `roles [object]`
 - _optional_ failure: function,
-  - `error`
+  - `error [string]`
 - _optional_ always _or_ callback: function
 
 ### getCurrentUser([option, jar, success, failure, always])
@@ -160,9 +177,45 @@ options [object]:
   - `UserID`, `UserName`, `RobuxBalance`, `TicketsBalance`, `ThumbnailUrl`, `IsAnyBuildersClubMember`
 - _optional_ jar: CookieJar,
 - _optional_ success: function,
-  - `option` _or_ all options [object]
+  - `option [string]` _or_ all options [object]
 - _optional_ failure: function,
-  - `error`
+  - `error [string]`
+- _optional_ always _or_ callback: function
+
+### getRankInGroup(player, group[, success, failure, always])
+Gets the rank of `player` in group `group`.
+
+options [object]:
+- player: number
+- group: number
+- _optional_ success: function,
+  - `rank [number]`
+- _optional_ failure: function,
+  - `error [string]`
+- _optional_ always _or_ callback: function
+
+### getRolesetInGroup(player, group[, success, failure, always])
+Gets the roleset ID of `player` in group `group`.
+
+options [object]:
+- player: number
+- group: number
+- _optional_ success: function,
+  - `roleset [number]`
+- _optional_ failure: function,
+  - `error [string]`
+- _optional_ always _or_ callback: function
+
+### getRolesetInGroupWithJar(group[, jar, success, failure, always])
+Gets the roleset ID of player logged into `jar` in group `group`.
+
+options [object]:
+- group: number
+- _optional_ jar: CookieJar
+- _optional_ success: function,
+  - `roleset [number]`
+- _optional_ failure: function,
+  - `error [string]`
 - _optional_ always _or_ callback: function
 
 ### getSession([jar])
@@ -170,6 +223,14 @@ Returns the .ROBLOSECURITY cookie extracted from `jar` if it exists.
 
 options [object]:
 - _optional_ jar: CookieJar
+
+### getJar()
+Returns the global cookie jar in use by the module.
+
+### setJar(jar)
+Sets the global cookie jar for the module to use.
+
+- jar: CookieJar
 
 ### getInputs(html[, find])
 Returns verification inputs on the page with the names in find - or all inputs if not provided. Typically used for ROBLOX requests working with ASP.NET.
