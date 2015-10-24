@@ -74,7 +74,7 @@ options [object]:
 - _optional_ always _or_ callback: function
 
 ### exile(group, target[, deleteAllPosts, senderRoleSetId, token, jar, success, failure, always])
-Exiles `target` in `group` and returns a general error if unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
+Exiles `target` in `group` and does not return an error if the action was unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
 
 options [object]:
 - group: number
