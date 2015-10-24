@@ -73,6 +73,20 @@ options [object]:
   - `error [string]`
 - _optional_ always _or_ callback: function
 
+### handleJoinRequest(group, username, accept[, token, jar, success, failure, always])
+Accepts or denies `username`'s join request in `group`. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
+
+options [object]:
+- group: number
+- username: string
+-  accept: boolean,
+- _optional_ token: string,
+- _optional_ jar: CookieJar,
+- _optional_ success: function,
+- _optional_ failure: function,
+  - `error [string]`
+- _optional_ always _or_ callback: function
+
 ### exile(group, target[, deleteAllPosts, senderRoleSetId, token, jar, success, failure, always])
 Exiles `target` in `group` and does not return an error if the action was unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
 
