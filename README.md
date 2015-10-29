@@ -3,13 +3,17 @@
 
 Roblox-js is a node module that provides functions for performing actions on [roblox](http://www.roblox.com), mostly for use with their HttpService feature.
 
+This is mostly a collection of functions to perform actions for groups, though others are included. The list of main functions is in the contents section, they all have detailed documentation.
+
+Many of the functions use caches in order to server requests faster. Cache time and enablement can be changed in settings.json. Cached items include XCSRF tokens and group roles: unless you change your group roles often the default cache settings should be fine. The cache works by saving request responses for a set amount of time (of course), but will refresh immediately if the item has expired and, for specific things, serve the cached item but then refresh silently even if the cached item has not expired.
+
 ## Usage
 ROBLOX user sessions are stored in a `CookieJar`, which can be created like so:
 ```javascript
 var request = require('request');
 var jar = request.jar();
 ```
-Be default, however, there is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. You can get the global cookie jar with the `getJar` function and set a new one with `setJar`.
+Be default, however, there is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. You can get the global cookie jar with the `getJar` function and set a new one with `setJar`. There is a custom property of the CookieJar `user` which is an object containing the `id` and `name` of the logged in player retrieved during the login.
 
 The login function populates the cookie jar with the users cookies, including their `.ROBLOSECURITY` (session), if successful and any functions that perform non-guest actions need a cookie jar to do so. If you are only using this module for a single group with one promotion user I recommend simply using the default global cookie jar.
 
@@ -18,6 +22,33 @@ Be aware that you must set something to refresh this token every once in a while
 Also remember to check the scripts in the examples and tests folder to see the module in action.
 
 Function usage is below.
+
+## Contents
+- [roblox-js](#roblox-js)
+- [About](#about)
+- [Usage](#usage)
+- [Contents](#contents)
+- [Documentation Info](#documentation-info)
+- [Main Functions](#main-functions)
+  - [setRank](#setrankgroup-target-roleset-token-jar-success-failure-always)
+  - [handleJoinRequest](#handlejoinrequestgroup-username-accept-token-jar-success-failure-always)
+  - [exile](#exilegroup-target-deleteallposts-senderrolesetid-token-jar-success-failure-always)
+  - [message](#messagerecipient-subject-body-token-jar-success-failure-always)
+  - [shout](#shoutgroup-message-jar-success-failure-always)
+  - [post](#postgroup-message-jar-success-failure-always)
+- [Utility Functions](#utility-functions)
+  - [login](#loginusername-password-jar-success-failure-always)
+  - [getToken](#gettokenurl-jar-callback-failure)
+  - [getRoles](#getrolesgroup-rank-success-failure-always)
+  - [getUserId](#getuseridjar)
+  - [getCurrentUser](#getcurrentuseroption-jar-success-failure-always)
+  - [getRankInGroup](#getrankingroupplayer-group-success-failure-always)
+  - [getRolesetInGroup](#getrolesetingroupplayer-group-success-failure-always)
+  - [getSession](#getsessionjar)
+  - [getJar](#getjar)
+  - [setJar](#setjarjar)
+  - [getInputs](#getinputshtml-find)
+  - [getVerificationInputs](#getverificationinputshtml)
 
 ## Documentation Info
 
@@ -53,7 +84,7 @@ _Success, failure, and always callbacks are executed when the goal of the functi
 
 _Cookie jars are all optional, if one isn't specified the function will automatically use the default global cookie jar._
 
-## Main functions
+## Main Functions
 
 Includes `setRank`.
 
@@ -181,6 +212,12 @@ options [object]:
 - _optional_ failure: function,
   - `error [string]`
 - _optional_ always _or_ callback: function
+
+### getUserId([jar])
+Returns the `UserId` that the logged in user had. This is simply a saved ID and is not an accurate check if the user is still logged in.
+
+options [object]:
+- _optional_ jar: CookieJar
 
 ### getCurrentUser([option, jar, success, failure, always])
 Gets the current user from the ROBLOX website and feeds `option` or all options if successful, otherwise returns detailed error.
