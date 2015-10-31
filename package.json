@@ -17,8 +17,7 @@
   "author": "Joshua Lanese <froastj@gmail.com>",
   "dependencies": {
     "request": "^2.63.0",
-    "jquery": "^2.1.4",
-    "jsdom": "3.1.2"
+    "cheerio": "^0.19.0"
   },
   "license": "MIT",
   "bugs": {
