@@ -5,5 +5,5 @@ var user = {
   success: function() {
     rbx.getCurrentUser(undefined,undefined,console.log);
   }
-}
+};
 rbx.login(user);
