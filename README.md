@@ -95,8 +95,6 @@ _Cookie jars are all optional, if one isn't specified the function will automati
 
 ## Main Functions
 
-Includes `setRank`.
-
 ### setRank(group, target, roleset[, token, jar, success, failure, always])
 Changes the role of `target` (UserID) in `group` to `roleset` or returns a general error if unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
 
@@ -183,8 +181,6 @@ options [object]:
 - _optional_ always _or_ callback: function
 
 ## Utility Functions
-
-Includes `login`,`getRoles`,`getCurrentUser`,`getSettings`.
 
 ### login(username, password[, jar, success, failure, always])
 Logs in with `username` and `password` and puts the new cookie into `jar` (or the default global jar if unspecified) or returns a detailed error if unsuccessful.
