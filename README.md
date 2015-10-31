@@ -5,9 +5,16 @@ Roblox-js is a node module that provides functions for performing actions on [ro
 
 This is mostly a collection of functions to perform actions for groups, though others are included. The list of main functions is in the contents section, they all have detailed documentation.
 
-Many of the functions use caches in order to server requests faster. Cache time and enablement can be changed in settings.json. Cached items include XCSRF tokens and group roles: unless you change your group roles often the default cache settings should be fine. The cache works by saving request responses for a set amount of time (of course), but will refresh immediately if the item has expired and, for specific things, serve the cached item but then refresh silently even if the cached item has not expired.
+Many of the functions use caches in order to server requests faster. Cache time can be changed in settings.json. Cached items include XCSRF tokens and group roles: unless you change your group roles often the default cache settings should be fine. The cache works by saving request responses for a set amount of time (of course), but will refresh immediately if the item has expired and, for specific things, serve the cached item but then refresh silently even if the cached item has not expired.
+
+To use this with HttpService simply set up API's on your node server for accessing the functions, this module does not provide examples or support for doing that specifically.
+
+## Installation
+
+Simply install with npm: `npm install roblox-js`, no need to download anything manually.
 
 ## Usage
+
 ROBLOX user sessions are stored in a `CookieJar`, which can be created like so:
 ```javascript
 var request = require('request');
@@ -24,8 +31,10 @@ Also remember to check the scripts in the examples and tests folder to see the m
 Function usage is below.
 
 ## Contents
+
 - [roblox-js](#roblox-js)
 - [About](#about)
+- [Installation](#installation)
 - [Usage](#usage)
 - [Contents](#contents)
 - [Documentation Info](#documentation-info)
