@@ -1,6 +1,8 @@
 {
   "cache": {
     "XCSRF": 120,
-    "Roles": 600
+    "xcsrf_desc": "XCSRF tokens should last a couple minutes without problem, there's no reason to change this value.",
+    "Roles": 600,
+    "roles_desc": "This should be fine unless your group changes its ranks often."
   }
 }
