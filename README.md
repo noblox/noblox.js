@@ -5,7 +5,7 @@ Roblox-js is a node module that provides functions for performing actions on [ro
 
 This is mostly a collection of functions to perform actions for groups, though others are included. The list of main functions is in the contents section, they all have detailed documentation.
 
-Many of the functions use caches in order to server requests faster. Cache time can be changed in settings.json. Cached items include XCSRF tokens and group roles: unless you change your group roles often the default cache settings should be fine. The cache works by saving request responses for a set amount of time (of course), but will refresh immediately if the item has expired and, for specific things, serve the cached item but then refresh silently even if the cached item has not expired.
+Many of the functions use simple caches in order to server requests faster. Cache time can be changed in settings.json. Cached items include XCSRF tokens and group roles: unless you change your group roles often the default cache settings should be fine. The cache works by saving request responses for a set amount of time (of course), but will refresh immediately if the item has expired. You may also set a time (or boolean) in which the item will serve an item based on the conditions above but silently refresh it if that has expired.
 
 To use this with HttpService simply set up API's on your node server for accessing the functions, this module does not provide examples or support for doing that specifically.
 
@@ -48,6 +48,7 @@ Function usage is below.
 - [Utility Functions](#utility-functions)
   - [login](#login)
   - [getToken](#gettoken)
+  - [getVerification](#getverification)
   - [setFailureHandler](#setfailurehandler)
   - [getFailureHandler](#getfailurehandler)
   - [getRoles](#getroles)
@@ -102,8 +103,8 @@ _Cookie jars are all optional, if one isn't specified the function will automati
 ## Main Functions
 
 ### setRank
-##### group, target, roleset[, token, jar, success, failure, always]
-Changes the role of `target` (UserID) in `group` to `roleset` or returns a general error if unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
+##### group, target, roleset[, jar, success, failure, always]
+Changes the role of `target` (UserID) in `group` to `roleset` or returns a general error if unsuccessful.
 
 options [object]:
 - group [number]
@@ -111,7 +112,6 @@ options [object]:
 - roleset [number]
 - rank [number]
   - _NOTE: Rank can only be used in the options array and will override roleset (making it not required). The rank in the specified group will be converted to its corresponding roleset id._
-- _optional_ token [string]
 - _optional_ jar [CookieJar]
 - _optional_ success [function]
 - _optional_ failure [function]
@@ -119,14 +119,13 @@ options [object]:
 - _optional_ always _or_ callback [function]
 
 ### handleJoinRequest
-##### group, username, accept[, token, jar, success, failure, always]
-Accepts or denies `username`'s join request in `group`. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
+##### group, username, accept[, jar, success, failure, always]
+Accepts or denies `username`'s join request in `group`.
 
 options [object]:
 - group [number]
 - username [string]
 -  accept [boolean]
-- _optional_ token [string]
 - _optional_ jar [CookieJar]
 - _optional_ success [function]
 - _optional_ failure [function]
@@ -134,8 +133,8 @@ options [object]:
 - _optional_ always _or_ callback [function]
 
 ### exile
-##### group, target[, deleteAllPosts, senderRoleSetId, token, jar, success, failure, always]
-Exiles `target` in `group` and does not return an error if the action was unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
+##### group, target[, deleteAllPosts, senderRoleSetId, jar, success, failure, always]
+Exiles `target` in `group` and does not return an error if the action was unsuccessful.
 
 options [object]:
 - group [number]
@@ -144,7 +143,6 @@ options [object]:
  - _Defaults to false._
 - _optional_ senderRoleSetId [number]
   - _Used for custom handling of the sender's roleset, which is required by the exile API. If not specified_ `getRolesetInGroupWithJar` _will be used._
-- _optional_ token [string]
 - _optional_ jar [CookieJar]
 - _optional_ success [function]
 - _optional_ failure [function]
@@ -152,14 +150,13 @@ options [object]:
 - _optional_ always _or_ callback [function]
 
 ### message
-##### recipient, subject, body[, token, jar, success, failure, always]
-Message `recipient` with the message `body` and subject `subject` and returns a detailed error if unsuccessful. Token is the X-CSRF-TOKEN and should only be included if you intend to manually handle them (normally they are automatically retrieved every request).
+##### recipient, subject, body[, jar, success, failure, always]
+Message `recipient` with the message `body` and subject `subject` and returns a detailed error if unsuccessful.
 
 options [object]:
 - recipient [number]
 - subject [string]
 - body [string]
-- _optional_ token [string]
 - _optional_ jar [CookieJar]
 - _optional_ success [function]
 - _optional_ failure [function]
@@ -186,6 +183,32 @@ Posts `message` on `group` wall and returns a general error if unsuccessful.
 options [object]:
 - group [number]
 - message [string]
+- _optional_ jar [CookieJar]
+- _optional_ success [function]
+- _optional_ failure [function]
+  - `error [string]`, `errorId [string]`
+- _optional_ always _or_ callback [function]
+
+### buy
+##### asset, [currency, jar, success, failure, always]
+Buys `asset` using `currency`, which can be 'robux' or default 'tickets' and return a detailed error if unsuccessful.
+
+options [object]:
+- asset [number]
+- _optional_ currency [string]
+- _optional_ jar [CookieJar]
+- _optional_ success [function]
+- _optional_ failure [function]
+  - `error [string]`, `errorId [string]`
+- _optional_ always _or_ callback [function]
+
+### upload
+##### data, [asset, jar, success, failure, always]
+Uploads `data` to `asset` (or creates a new one) and returns the assetId it uploaded to.
+
+options [object]:
+- data [string]
+- _optional_ asset [number]
 - _optional_ jar [CookieJar]
 - _optional_ success [function]
 - _optional_ failure [function]
@@ -219,6 +242,18 @@ options [object]:
 - _optional_ failure [function]
   - `error [string]`, `errorId [string]`
 
+### getVerification
+##### url[, jar, callback, failure]
+Sends verification inputs used by URL to `callback`. This includes `__VIEWSTATE`, `__VIEWSTATEGENERATOR`, and `__EVENTVALIDATION`.
+
+options [object]:
+- url [string]
+- _optional_ jar [CookieJar]
+- _optional_ callback [function]
+  - `token [string]`
+- _optional_ failure [function]
+  - `error [string]`, `errorId [string]`
+
 ### setFailureHandler
 ##### handler
 Sets the default failure handler for all requests that will be used if none is specified for the request. This can be set to false to disable failure handling.
@@ -227,6 +262,17 @@ options [object]:
 - handler [function or boolean]
 
 ### getFailureHandler
+
+### getProductInfo
+##### asset[, success, failure, always]
+Gets detailed `productInfo` on `asset`.
+
+- asset [number]
+- _optional_ success [function]
+  - `productInfo [object]`
+- _optional_ failure [function]
+  - `error [string]`, `errorId [string]`
+- _optional_ always _or_ callback [function]
 
 ### getRoles
 ##### group[, rank, success, failure, always]
