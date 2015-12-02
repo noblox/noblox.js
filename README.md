@@ -203,14 +203,22 @@ options [object]:
 - _optional_ always _or_ callback [function]
 
 ### upload
-##### data, [asset, jar, success, failure, always]
+##### data, itemOptions,[asset, jar, success, failure, always]
 Uploads `data` to `asset` (or creates a new one) and returns the assetId it uploaded to.
 
 options [object]:
 - data [string]
+- itemOptions [object]
+  - _This is not required if asset is specified, otherwise it has to be set for the new item_
+  - name [string]
+  - _optional_ description [string]
+  - locked [boolean]
+  - allowComments [boolean]
+  - _optional_ groupId [number]
 - _optional_ asset [number]
 - _optional_ jar [CookieJar]
 - _optional_ success [function]
+  - assetId [number]
 - _optional_ failure [function]
   - `error [string]`, `errorId [string]`
 - _optional_ always _or_ callback [function]
