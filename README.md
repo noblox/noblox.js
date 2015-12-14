@@ -50,6 +50,8 @@ Function usage is below.
 - [Utility Functions](#utility-functions)
   - [login](#login)
   - [getToken](#gettoken)
+  - [httpGet](#httpget)
+  - [httpPost](#httppost)
   - [getVerification](#getverification)
   - [setFailureHandler](#setfailurehandler)
   - [getFailureHandler](#getfailurehandler)
@@ -253,6 +255,45 @@ options [object]:
   - `token [string]`
 - _optional_ failure [function]
   - `error [string]`, `errorId [string]`
+
+### httpGet
+##### url[, opt, callback, jar]
+Sends an httpGet request to `url` using `jar` or default jar.
+
+options [object]:
+- url [string]
+- _optional_ opt [object]
+- _optional_ callback [function]
+  - `err [error]`
+  - `res [object]`
+  - `body [string]`
+- _optional_ jar [CookieJar]
+
+### httpGet
+##### url[, jar, opt, callback]
+Sends an http GET request to `url` using `jar` or default jar.
+
+options [object]:
+- url [string]
+- _optional_ jar [CookieJar]
+- _optional_ opt [object]
+- _optional_ callback [function]
+  - `err [error]`
+  - `res [object]`
+  - `body [string]`
+
+### httpPost
+##### url[, jar, opt, callback]
+Sends an http POST request to `url` using `jar` or default jar.
+
+options [object]:
+- url [string]
+- _optional_ jar [CookieJar]
+- _optional_ opt [object]
+- _optional_ callback [function]
+  - `err [error]`
+  - `res [object]`
+  - `body [string]`
 
 ### getVerification
 ##### url[, jar, callback, failure]
