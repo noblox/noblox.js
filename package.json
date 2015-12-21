@@ -1,6 +1,6 @@
 {
   "name": "roblox-js",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A package that provides functions for performing actions on roblox, mostly for use with their HttpService feature.",
   "main": "lib/index.js",
   "scripts": {
