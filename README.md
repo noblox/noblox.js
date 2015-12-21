@@ -47,6 +47,7 @@ Function usage is below.
   - [post](#post)
   - [buy](#buy)
   - [upload](#upload)
+  - [getPlayers](#getplayers)
 - [Utility Functions](#utility-functions)
   - [login](#login)
   - [getToken](#gettoken)
@@ -117,7 +118,7 @@ options [object]:
 - target [number]
 - roleset [number]
 - rank [number]
-  - _NOTE: Rank can only be used in the options array and will override roleset (making it not required). The rank in the specified group will be converted to its corresponding roleset id._
+  - _Rank can only be used in the options array and will override roleset (making it not required). The rank in the specified group will be converted to its corresponding roleset id_
 - _optional_ jar [CookieJar]
 - _optional_ success [function]
 - _optional_ failure [function]
@@ -196,7 +197,7 @@ options [object]:
 - _optional_ always _or_ callback [function]
 
 ### buy
-##### asset, [currency, jar, success, failure, always]
+##### asset[, currency, jar, success, failure, always]
 Buys `asset` using `currency`, which can be 'robux' or default 'tickets' and return a detailed error if unsuccessful.
 
 options [object]:
@@ -209,7 +210,7 @@ options [object]:
 - _optional_ always _or_ callback [function]
 
 ### upload
-##### data, itemOptions,[asset, jar, success, failure, always]
+##### data, itemOptions[, asset, jar, success, failure, always]
 Uploads `data` to `asset` (or creates a new one) and returns the assetId it uploaded to.
 
 options [object]:
@@ -225,6 +226,29 @@ options [object]:
 - _optional_ jar [CookieJar]
 - _optional_ success [function]
   - assetId [number]
+- _optional_ failure [function]
+  - `error [string]`, `errorId [string]`
+- _optional_ always _or_ callback [function]
+
+### getPlayers
+##### group[, roleset, online, limit, success, failure, always]
+Gets players with in `group` with `roleset` (or all members) up to `limit` (if there is one), `online` only or not.
+
+options [object]:
+- group [number]
+- _optional_ roleset [number] or [array]
+  - _Gets players of all ranks if none is specified_
+  - _Can be a single role as a number or multiple roles in an array eg. [11, 60]_
+- rank [number] or [array]
+  - _Rank can only be used in the options array and will override roleset. The rank in the specified group will be converted to its corresponding roleset id_
+  - _Can be a single rank as a number or multiple ranks in an array eg. [11, 60]_
+- _optional_ online [boolean]
+  - _Defaults to false_
+  - _Gets online players only_
+- _optional_ limit [number]
+  - _Continues up to the last page of members if none is specified_
+- _optional_ success [function]
+  - players [object]
 - _optional_ failure [function]
   - `error [string]`, `errorId [string]`
 - _optional_ always _or_ callback [function]
@@ -329,14 +353,18 @@ Gets detailed `productInfo` on `asset`.
 
 ### getRoles
 ##### group[, rank, success, failure, always]
-Returns role information of a group in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`. To best used with `setRank`.
+Returns role information of a group in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`. To be used with `setRank`.
 
 options [object]:
 - group [number]
-- _optional_ rank [number]
+- _optional_ rank [number] or [object]
   - _Used to select a specific role from the roles array._
+  - _Can be a single role as a number or multiple roles in an array eg. [11, 60]_
 - _optional_ success [function]
   - `roles [object]`
+    - `ID [number]`
+    - `Name [string]`
+    - `Rank [number]`
 - _optional_ failure [function]
   - `error [string]`, `errorId [string]`
 - _optional_ always _or_ callback [function]
