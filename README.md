@@ -51,6 +51,7 @@ Function usage is below.
 - [Utility Functions](#utility-functions)
   - [login](#login)
   - [getToken](#gettoken)
+  - [getGeneralToken](#getgeneraltoken)
   - [httpGet](#httpget)
   - [httpPost](#httppost)
   - [getVerification](#getverification)
@@ -269,8 +270,22 @@ options [object]:
 - _optional_ always _or_ callback [function]
 
 ### getToken
+##### url[, jar, callback, failure, form, json]
+Sends the X-CSRF-TOKEN used by the URL to `callback`. This only needs to be used if you want to custom handle tokens, normally it is handled automatically. `Form` and `json` are any options that need to be sent to the API to make it return a token at all, using urlencoded and json respectively.
+
+options [object]:
+- url [string]
+- _optional_ jar [CookieJar]
+- _optional_ callback [function]
+  - `token [string]`
+- _optional_ failure [function]
+  - `error [string]`, `errorId [string]`
+- _optional_ form [object]
+- _optional_ json [object]
+
+### getGeneralToken
 ##### url[, jar, callback, failure]
-Sends the X-CSRF-TOKEN used by the URL to `callback`. This only needs to be used if you want to custom handle tokens, normally it is handled automatically.
+Gets a general X-CSRF-TOKEN for APIs that don't return it after failure.
 
 options [object]:
 - url [string]
