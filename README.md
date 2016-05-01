@@ -39,6 +39,7 @@ Function usage is below.
 - [Contents](#contents)
 - [Documentation Info](#documentation-info)
 - [Main Functions](#main-functions)
+  - [message](#message)
   - [post](#post)
   - [setRank](#setrank)
   - [shout](#shout)
@@ -89,6 +90,20 @@ _All asynchronous functions are promises. Use .then as a callback for when the f
 _Cookie jars are all optional, if one isn't specified the function will automatically use the default global cookie jar._
 
 ## Main Functions
+
+### message
+##### recipient, subject, message[, jar]
+Sends a message `message` with subject `subject` to the user with id `recipient`.
+
+**Arguments**
+- recipient (number)
+- subject (string)
+- message (string)
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
 
 ### post
 ##### group, message[, jar]
@@ -219,11 +234,13 @@ Returns X-CSRF-TOKEN from `url` after posting to it with `form` which is `json` 
 - x-csrf-token (string)
 
 ### getVerification
-##### url[, jar]
-Gets verification inputs off of `url` using `jar` and caches them.
+##### url[, getBody, jar]
+Gets verification inputs off of `url` using `jar` and caches them. If `getBody` is true, the body and inputs will both be returned in an object.
 
 **Arguments**
 - url (string)
+- _optional_ getBody (boolean)
+  - _default_ false
 - _optional_ jar (CookieJar)
 
 **Returns**
@@ -231,6 +248,9 @@ Gets verification inputs off of `url` using `jar` and caches them.
 (Promise)
 - inputs (object)
   - name (string): value (string)
+- _or_ response (object)
+  - body: body (string)
+  - inputs: name (string): value (string)
 
 ### getVerificationInputs
 ##### html
