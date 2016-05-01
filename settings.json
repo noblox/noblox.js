@@ -9,6 +9,9 @@
     "Roles": 600,
     "roles_refresh": true,
     "roles_desc": "This should be fine unless your group changes its ranks often.",
+    "RolesetId": 600,
+    "rolesetid_refresh": false,
+    "rolesetid_desc": "This will be fine if you don't change your exile bot's rank often.",
     "Product": 86400,
     "product_refresh": 600,
     "product_desc": "Product info rarely changes, especially for ROBLOX assets. If you are working with 3rd party assets that may change you can also change the expiration time."
