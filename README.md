@@ -39,10 +39,13 @@ Function usage is below.
 - [Contents](#contents)
 - [Documentation Info](#documentation-info)
 - [Main Functions](#main-functions)
+  - [buy](#buy)
+  - [handleJoinRequest](#handleJoinRequest)
   - [message](#message)
   - [post](#post)
   - [setRank](#setrank)
   - [shout](#shout)
+  - [upload](#upload)
 - [Utility Functions](#utility-functions)
   - [getCurrentUser](#getcurrentuser)
   - [getGeneralToken](#getgeneraltoken)
@@ -91,9 +94,38 @@ _Cookie jars are all optional, if one isn't specified the function will automati
 
 ## Main Functions
 
+### buy
+##### asset, [price, jar]
+Buys `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets).
+
+**Arguments**
+- asset (number)
+- _optional_ price (number/object)
+  - high (number)
+  - low (number)
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
+
+### handleJoinRequest
+##### group, username, accept[, jar]
+`Accept`s user with `username` into `group`.
+
+**Arguments**
+- group (number)
+- username (string)
+- accept (boolean)
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
+
 ### message
 ##### recipient, subject, message[, jar]
-Sends a message `message` with subject `subject` to the user with id `recipient`.
+Sends a `message` with `subject` to the user with id `recipient`.
 
 **Arguments**
 - recipient (number)
@@ -112,6 +144,7 @@ Posts message `message` on the group wall with groupId `group`.
 **Arguments**
 - group (number)
 - _optional_ message (string)
+- _optional_ jar (CookieJar)
 
 **Returns**
 
@@ -139,11 +172,36 @@ Shouts message `message` in the group with groupId `group`. Leaving `message` em
 **Arguments**
 - group (number)
 - _optional_ message (string)
-  - _default_ ''
+  - _default_ ""
+- _optional_ jar (CookieJar)
 
 **Returns**
 
 (Promise)
+
+### upload
+##### data[, itemOptions, asset, type, jar]
+Uploads `data` to `asset` with `itemOptions` and `type`. If asset is empty a new asset will be created. The ID of the asset is always returned in the promise. Note that `itemOptions` is _required_ when creating a new asset. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
+
+**Arguments**
+- data (String)
+- _optional_ itemOptions (object)
+  - name (String)
+  - _optional_ description (String)
+    - _default_ ""
+  - copyLocked (boolean)
+  - allowComments (boolean)
+  - _optional_ groupId (number)
+- asset (number)
+- _optional_ type (String)
+  - "Model"
+  - "Place"
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
+- assetID/assetVersionID (number)
 
 ## Utility Functions
 
