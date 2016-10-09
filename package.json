@@ -12,13 +12,15 @@
   },
   "keywords": [
     "roblox",
-    "bot"
+    "bot",
+    "clans"
   ],
   "author": "Joshua Lanese <froastj@gmail.com>",
   "dependencies": {
-    "cheerio": "^0.19.0",
-    "bluebird": "^3.3.5",
-    "request-promise": "^3.0.0"
+    "whacko": "^0.19.0",
+    "bluebird": "^3.4.0",
+    "request-promise": "^3.0.0",
+    "JSONStream": "^1.1.1"
   },
   "license": "MIT",
   "bugs": {
