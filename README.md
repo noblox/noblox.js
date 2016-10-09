@@ -40,6 +40,8 @@ Function usage is below.
 - [Documentation Info](#documentation-info)
 - [Main Functions](#main-functions)
   - [buy](#buy)
+  - [exile](#exile)
+  - [getPlayers](#getplayers)
   - [handleJoinRequest](#handleJoinRequest)
   - [message](#message)
   - [post](#post)
@@ -47,11 +49,19 @@ Function usage is below.
   - [shout](#shout)
   - [upload](#upload)
 - [Utility Functions](#utility-functions)
+  - [generalRequest](#generalrequest)
   - [getCurrentUser](#getcurrentuser)
   - [getGeneralToken](#getgeneraltoken)
+  - [getIdFromUsername](#getidfromusername)
   - [getInputs](#getinputs)
+  - [getProductInfo](#getproductinfo)
+  - [getRankInGroup](#getrankingroup)
+  - [getRole](#getrole)
   - [getRoles](#getroles)
+  - [getRolesetInGroupWithJar](#getrolesetingroupwithjar)
+  - [getSession](#getsession)
   - [getToken](#gettoken)
+  - [getUsernameFromId](#getusernamefromid)
   - [getVerification](#getverification)
   - [getVerificationInputs](#getverificationinputs)
   - [http](#http)
@@ -63,14 +73,14 @@ All functions have alternate forms, arguments are either passed:
 - Through a single options object
 - Individually
 
-The options object has all the arguments listed are manually named.
+The options object has all the manually named arguments.
 
 For example, you could do:
 ```javascript
 login('shedletsky', 'hunter2', jar)
 .then(function (info) {
   console.log('Logged in with ID ' + info.UserID)
-})
+});
 ```
 _or_
 ```javascript
@@ -85,8 +95,6 @@ login(options)
   console.log('Logged in with ID ' + info.UserID)
 });
 ```
-
-_Note that raw functions (required individually) require that arguments are served in an options object, this is because support for the alternate form of the function is added when the module is required._
 
 _All asynchronous functions are promises. Use .then as a callback for when the function has completed and .catch to catch errors._
 
@@ -108,6 +116,95 @@ Buys `asset` with `price` restrictions. This can be a single value or an object 
 **Returns**
 
 (Promise)
+
+### exile
+##### group, target[, deleteAllPosts, senderRolesetId, jar]
+Exiles user with userId `target` from `group` and using option `deleteAllPosts`. The `senderRolesetId` is retrieved automatically if it is not provided.
+
+**Arguments**
+- group (number)
+- target (number)
+- _optional_ deleteAllPosts
+  - _default_ false
+- _optional_ senderRolesetId
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
+
+### getPlayers
+##### group, rank[, limit, online]
+Gets all players to `limit` in `group` with `rank`. If `rank` is not specified or is set to `-1`, all players from `group` are retrieved.
+
+`Limit` guarantees the outputted players are in the same order as they appear on the group page and that the number of these players is less than or equal to `limit`. A limit of `-1` is the same as no limit _but players will still be retrieved in order_, a limit of `-2` is the same as leaving limit empty. Note that because the pages have to be retrieved in order, adding a `limit` will make the function take considerably more time to complete.
+
+If `online` is `true`, only players that are online at the time of the scraping will be outputted. Note that if `limit` is also set that the number of outputted players may not be equal to limit even if there are actually enough online players in the rank. This is because limit does not set the number of players to output, it only sets the number of pages (and players on those pages) to scan. You can find the number of pages that will be scanned with `ceil(limit / 12)` online players will be collected from this number of pages as long as the total is less than `limit`.
+
+Please note that if someone leaves the group while the function is executing and the pages therefore get pushed ahead or behind, the function will not anticipate the change and could possibly duplicate players (depending on where the player was who left and what page the function was executing at the time). Although _who_ joined or left the group cannot be determined, _if_ and _how many_ people did can be and the number is returned in `changed`.
+
+Unlike other functions, this does not only return a promise: it returns both a promise a readable stream that you can pipe to a file or the output. You can access the promise with `.promise`, which returns information about the execution and you can access the stream with `.stream`, which outputs the actual players. Because it may take quite a while to complete, it also returns a function you can access with `.getStatus` which returns the percent completion of the job. The function has to be very careful with memory when handling requests for big groups with tens of thousands to hundreds of thousands of players so there are different settings you can set to fit your memory needs. When working with small to medium groups, setting the delay to 0 and the interval to something higher should be fine. When working with larger groups the default settings are recommended. In either case a better server will also allow more flexibility of the settings.
+
+Ordering rules of the output is as follows:
+- People in a single rank are _not_ guaranteed be in the same order as they show up on the actual group pages **except when limit is enabled**.
+- Every page of players (12 players) _is_ guaranteed to be in the same order. It should be noted, though, that this doesn't mean every 12 players will be a single page. This is because the last page (which may not have 12 players) may not be added to the list last **except when limit is enabled** (in which case every 12 players is guaranteed to be one page).
+- If rank was not specified and all players in the group are collected, every rank of players _is_ guaranteed to be in ascending order (lowest to highest rank). For example, the owner of the group is always the last player in the list (except when a bug has been used to add more players to the highest rank).
+
+Example usage:
+```javascript
+var status;
+var fs = require('fs');
+var rbx = require('roblox-js');
+var players = rbx.getPlayers(7013, 2);
+players.promise.then(function (info) {
+  console.log('Total players: ' + info.total + '\nChange: ' + info.changed);
+  clearInterval(status);
+});
+var read = players.stream;
+read.pipe(fs.createWriteStream('./players.txt'));
+// read.pipe(process.stdout);
+status = setInterval(function () {
+  console.log(players.getStatus() + '%')
+}, 3000);
+```
+
+**Settings**
+- interval (number)
+  - _default_ 1000
+  - This is how large a batch of requests is. To prevent the app from running out of memory, only a certain number of requests are made at once.
+- delay (number)
+  - _default_ 2000
+  - This is the time (in milliseconds) that is waited after every batch of requests. This is mainly to stop ROBLOX from blocking you because of excessive scraping.
+
+**Arguments**
+- group (number)
+- target (number)
+- _optional_ online (boolean)
+  - _default_ false
+- _optional_ limit (number)
+  - _default_ -2
+
+**Returns**
+
+(object)
+- promise (Promise)
+  - (object)
+    - joined (number)
+      - The number of players that joined the group during execution.
+    - left (number)
+      - The number of players that joined the group during execution.
+    - changed (boolean)
+      - If any players joined or left during execution this will be set to true. If this is true, the output may be missing players or contain duplicate players; otherwise, the output is probably accurate.
+    - total (number)
+      - The total number of players indexed.
+- getStatus (function)
+  - percent (number)
+    - Current percentage of players indexed (out of the total number of members in the group)
+      - This may not be very accurate due to ROBLOX's semi-broken member counter but it is guaranteed to be 100 when the function is complete.
+- stream (Stream)
+  - players (json string)
+    - {userId: name,
+      userId: name}
 
 ### handleJoinRequest
 ##### group, username, accept[, jar]
@@ -205,6 +302,24 @@ Uploads `data` to `asset` with `itemOptions` and `type`. If asset is empty a new
 
 ## Utility Functions
 
+### generalRequest
+##### url, events[, getBody, jar]
+Gets the verification inputs from `url` and sends a post request with data from `events`, returning the original body before the post request according to `getBody`. Used for primitive site functions that involve ASP viewstates.
+
+**Arguments**
+- url (String)
+- events (object)
+- _optional_ getBody (boolean)
+  - _default_ false
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
+- (object)
+  - res (Promise)
+  - body (String)
+
 ### getCurrentUser
 ##### [option, jar]
 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
@@ -231,6 +346,18 @@ Gets a general X-CSRF-TOKEN for APIs that don't return it after failure.
 (Promise)
 - x-csrf-token (string)
 
+### getIdFromUsername
+##### username
+Gets the `id` of user with `username` and caches according to settings.
+
+**Arguments**
+- username (string)
+
+**Returns**
+
+(Promise)
+- id (number)
+
 ### getInputs
 ##### html[, find]
 Returns verification inputs on the page with the names in `find` - or all inputs if not provided. Typically used for ROBLOX requests working with ASP.NET.
@@ -243,6 +370,32 @@ Returns verification inputs on the page with the names in `find` - or all inputs
 
 - inputs (object)
   - name (string): value (string)
+
+### getProductInfo
+##### asset
+Gets `info` of `asset` and caches according to settings.
+
+**Arguments**
+- asset (number)
+
+**Returns**
+
+(Promise)
+- info (object)
+  - `{ "AssetId":123456789, "ProductId":24870409, "Name":"Hat", "Description":"", "AssetTypeId":8, "Creator":{"Id":1,"Name":"ROBLOX"}, "IconImageAssetId":0, "Created":"2015-06-25T20:07:49.147Z", "Updated":"2015-07-11T20:07:51.863Z", "PriceInRobux":350, "PriceInTickets":null, "Sales":0, "IsNew":true, "IsForSale":true, "IsPublicDomain":false, "IsLimited":false, "IsLimitedUnique":false, "Remaining":null, "MinimumMembershipLevel":0, "ContentRatingTypeId":0 }`
+
+### getRankInGroup
+##### group, userId
+Gets `rank` of user with `userId` in `group` and caches according to settings.
+
+**Arguments**
+- group (number)
+- userId (number)
+
+**Returns**
+
+(Promise)
+- rank (number)
 
 ### getRole
 ##### roles, rank
@@ -274,6 +427,28 @@ Returns role information of a group with groupId `group` in the form `[{"ID":num
   - Name (string)
   - Rank (number)
 
+### getRolesetInGroupWithJar
+##### group[, jar]
+Gets the `roleset` of the logged in user in `group`.
+
+**Arguments**
+- group (number)
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
+- rolesetId (number)
+
+### getSession
+##### jar
+Gets the `.ROBLOSECURITY` session cookie from `jar`.
+
+**Arguments**
+- jar (CookieJar)
+
+**Returns**
+- session (String)
 
 ### getToken
 ##### url, form[, json, jar]
@@ -290,6 +465,18 @@ Returns X-CSRF-TOKEN from `url` after posting to it with `form` which is `json` 
 
 (Promise)
 - x-csrf-token (string)
+
+### getUsernameFromId
+##### id
+Gets `username` of user with `id` and caches according to settings.
+
+**Arguments**
+- id (number)
+
+**Returns**
+
+(Promise)
+- username (string)
 
 ### getVerification
 ##### url[, getBody, jar]
@@ -324,7 +511,7 @@ Gets verification inputs from `html`. Short for `getInputs(html,['__VIEWSTATE','
 
 ### http
 ##### url[, options]
-Sends an http request to `url` with `options`.
+Sends an http request to `url` with `options`. _Note that if jar is a key in the options object but is still null, the default jar will be used_
 
 **Arguments**
 - url (string)
