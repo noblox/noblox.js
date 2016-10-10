@@ -491,9 +491,7 @@ Gets verification inputs off of `url` using `jar` and caches them. If `getBody` 
 **Returns**
 
 (Promise)
-- inputs (object)
-  - name (string): value (string)
-- _or_ response (object)
+- response (object)
   - body: body (string)
   - inputs: name (string): value (string)
 
