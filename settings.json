@@ -2,6 +2,11 @@
   "session_only": true,
   "session_only_desc": "Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well.",
 
+  "getPlayers": {
+    "interval": 1000,
+    "delay": 3000
+  },
+
   "cache": {
     "XCSRF": 120,
     "xcsrf_refresh": false,
