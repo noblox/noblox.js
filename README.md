@@ -222,12 +222,12 @@ status = setInterval(function () {
 
 ### message
 ##### recipient, subject, message[, jar]
-Sends a `message` with `subject` to the user with id `recipient`.
+Sends a message with `body` and `subject` to the user with id `recipient`.
 
 **Arguments**
 - recipient (number)
 - subject (string)
-- message (string)
+- body (string)
 - _optional_ jar (CookieJar)
 
 **Returns**
