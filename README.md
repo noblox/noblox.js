@@ -103,7 +103,7 @@ _Cookie jars are all optional, if one isn't specified the function will automati
 ## Main Functions
 
 ### buy
-##### asset, [price, jar]
+##### asset[, price, jar]
 Buys `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets).
 
 **Arguments**
@@ -141,32 +141,10 @@ Gets all players to `limit` in `group` with `rank`. If `rank` is not specified o
 
 If `online` is `true`, only players that are online at the time of the scraping will be outputted. Note that if `limit` is also set that the number of outputted players may not be equal to limit even if there are actually enough online players in the rank. This is because limit does not set the number of players to output, it only sets the number of pages (and players on those pages) to scan. You can find the number of pages that will be scanned with `ceil(limit / 12)` online players will be collected from this number of pages as long as the total is less than `limit`.
 
-Please note that if someone leaves the group while the function is executing and the pages therefore get pushed ahead or behind, the function will not anticipate the change and could possibly duplicate players (depending on where the player was who left and what page the function was executing at the time). Although _who_ joined or left the group cannot be determined, _if_ and _how many_ people did can be and the number is returned in `changed`.
-
-Unlike other functions, this does not only return a promise: it returns both a promise a readable stream that you can pipe to a file or the output. You can access the promise with `.promise`, which returns information about the execution and you can access the stream with `.stream`, which outputs the actual players. Because it may take quite a while to complete, it also returns a function you can access with `.getStatus` which returns the percent completion of the job. The function has to be very careful with memory when handling requests for big groups with tens of thousands to hundreds of thousands of players so there are different settings you can set to fit your memory needs. When working with small to medium groups, setting the delay to 0 and the interval to something higher should be fine. When working with larger groups the default settings are recommended. In either case a better server will also allow more flexibility of the settings.
-
 Ordering rules of the output is as follows:
 - People in a single rank are _not_ guaranteed be in the same order as they show up on the actual group pages **except when limit is enabled**.
 - Every page of players (12 players) _is_ guaranteed to be in the same order. It should be noted, though, that this doesn't mean every 12 players will be a single page. This is because the last page (which may not have 12 players) may not be added to the list last **except when limit is enabled** (in which case every 12 players is guaranteed to be one page).
 - If rank was not specified and all players in the group are collected, every rank of players _is_ guaranteed to be in ascending order (lowest to highest rank). For example, the owner of the group is always the last player in the list (except when a bug has been used to add more players to the highest rank).
-
-Example usage:
-```javascript
-var status;
-var fs = require('fs');
-var rbx = require('roblox-js');
-var players = rbx.getPlayers(7013, 2);
-players.promise.then(function (info) {
-  console.log('Total players: ' + info.total + '\nChange: ' + info.changed);
-  clearInterval(status);
-});
-var read = players.stream;
-read.pipe(fs.createWriteStream('./players.txt'));
-// read.pipe(process.stdout);
-status = setInterval(function () {
-  console.log(players.getStatus() + '%')
-}, 3000);
-```
 
 **Settings**
 - interval (number)
@@ -188,23 +166,13 @@ status = setInterval(function () {
 
 (object)
 - promise (Promise)
-  - (object)
-    - joined (number)
-      - The number of players that joined the group during execution.
-    - left (number)
-      - The number of players that joined the group during execution.
-    - changed (boolean)
-      - If any players joined or left during execution this will be set to true. If this is true, the output may be missing players or contain duplicate players; otherwise, the output is probably accurate.
-    - total (number)
-      - The total number of players indexed.
+  - players (object)
+  - {userId: name,
+    userId: name}
 - getStatus (function)
   - percent (number)
     - Current percentage of players indexed (out of the total number of members in the group)
-      - This may not be very accurate due to ROBLOX's semi-broken member counter but it is guaranteed to be 100 when the function is complete.
-- stream (Stream)
-  - players (json string)
-    - {userId: name,
-      userId: name}
+      - This may be somewhat inaccurate due to ROBLOX's semi-broken member counter but it is guaranteed to be 100 when the function is complete.
 
 ### handleJoinRequest
 ##### group, username, accept[, jar]
@@ -263,7 +231,7 @@ Promotes player with userId `target` in group with groupId `group` to rank `rank
 (Promise)
 
 ### shout
-##### group, [message, jar]
+##### group[, message, jar]
 Shouts message `message` in the group with groupId `group`. Leaving `message` empty will clear the shout.
 
 **Arguments**
@@ -334,8 +302,8 @@ Gets the current user logged into `jar` and returns an `option` if specified or 
 - option (string) / options (object)
 
 ### getGeneralToken
-##### url[, jar]
-Gets a general X-CSRF-TOKEN for APIs that don't return it after failure.
+##### [jar]
+Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This uses the https://api.roblox.com/sign-out/v1 API to get tokens.
 
 **Arguments**
 - url (string)
