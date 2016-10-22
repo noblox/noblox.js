@@ -1,14 +1,14 @@
 {
   "name": "roblox-js",
   "version": "2.0.0",
-  "description": "A package that provides functions for performing actions on roblox, mostly for use with their HttpService feature.",
-  "main": "index.js",
+  "description": "A node module that provides an interface for performing actions on ROBLOX, mostly for use with their HttpService feature.",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FroastJ/roblox-js.git"
+    "url": "https://github.com/sentanos/roblox-js.git"
   },
   "keywords": [
     "roblox",
@@ -17,15 +17,13 @@
   ],
   "author": "Joshua Lanese <froastj@gmail.com>",
   "dependencies": {
-    "JSONStream": "^1.1.1",
     "bluebird": "^3.4.0",
-    "entities": "^1.1.1",
     "request-promise": "^3.0.0",
     "whacko": "^0.19.0"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FroastJ/roblox-js/issues"
+    "url": "https://github.com/sentanos/roblox-js/issues"
   },
-  "homepage": "https://github.com/FroastJ/roblox-js"
+  "homepage": "https://github.com/sentanos/roblox-js"
 }
