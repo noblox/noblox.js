@@ -134,7 +134,7 @@ Exiles user with userId `target` from `group` and using option `deleteAllPosts`.
 (Promise)
 
 ### getPlayers
-##### group, rank[, limit, online]
+##### group[, rank, limit, online]
 Gets all players to `limit` in `group` with `rank`. If `rank` is not specified or is set to `-1`, all players from `group` are retrieved.
 
 `Limit` guarantees the outputted players are in the same order as they appear on the group page and that the number of these players is less than or equal to `limit`. A limit of `-1` is the same as no limit _but players will still be retrieved in order_, a limit of `-2` is the same as leaving limit empty. Note that because the pages have to be retrieved in order, adding a `limit` will make the function take considerably more time to complete.
@@ -167,8 +167,7 @@ Ordering rules of the output is as follows:
 (object)
 - promise (Promise)
   - players (object)
-  - {userId: name,
-    userId: name}
+    - name (string): userId (number)
 - getStatus (function)
   - percent (number)
     - Current percentage of players indexed (out of the total number of members in the group)
