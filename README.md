@@ -410,7 +410,7 @@ Gets the `roleset` of the logged in user in `group`.
 
 ### getSession
 ##### jar
-Gets the `.ROBLOSECURITY` session cookie from `jar`.
+Gets the `.ROBLOSECURITY` session cookie from `jar`. _Note: Will not work if session_only is enabled_
 
 **Arguments**
 - jar (CookieJar)
