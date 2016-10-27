@@ -1,7 +1,7 @@
 # roblox-js
 ## About
 
-Roblox-js is a node module that provides an interface for  [roblox](http://www.roblox.com) site actions, mostly for use with their HttpService feature.
+Roblox-js is a node module that provides an interface for [ROBLOX](http://www.roblox.com) site actions, mostly for use with their HttpService feature.
 
 Most functions are related to group service but there are other general functions as well. The list of main functions is in the contents section, they all have detailed documentation.
 
@@ -15,18 +15,27 @@ Simply install with npm: `npm install roblox-js`, no need to download anything m
 
 ## Usage
 
-ROBLOX user sessions are stored in a `CookieJar`, which can be created like so:
+User session are stored in two ways. The default is simply an object containing the session, structured like so:
+```javascript
+var jar = {'session': 'AAAAA'};
+```
+
+If `session_only` is disabled, jars are stored in a `CookieJar`, which can be created with:
 ```javascript
 var request = require('request-promise');
 var jar = request.jar();
 ```
-Be default, however, there is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. You can get the global cookie jar with the `getJar` function and set a new one with `setJar`.
+CookieJar contains all cookies, including the session. For the most part these are just useless things that make requests larger, session only should be fine most of the time.
 
-The login function populates the cookie jar with the users cookies, including their `.ROBLOSECURITY` (session), if successful and any functions that perform non-guest actions need a cookie jar to do so. If you are only using this module for a single group with one promotion user I recommend simply using the default global cookie jar.
+There is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. If you only use the module with one user at a time this should be fine. The global cookie jar is stored in options. Example of retrieving it:
+```javascript
+var rbx = require('roblox-js');
+var jar = rbx.options.jar;
+```
 
-Be aware that you must set something to refresh this token every once in a while: otherwise it will expire. Logging in every server restart and making a login interval of 1 day should be enough.
+Be aware that you must set something to refresh this token every once in a while: otherwise it will expire. Logging in every server restart and making a login interval of 1 day should be enough. The module does not check to make sure if you are logged in, you have to make sure of it yourself.
 
-Also remember to check the scripts in the examples and tests folder to see the module in action.
+An example of usage is available on the [roblox-js-server](#https://github.com/sentanos/roblox-js-server) repository.
 
 Function usage is below.
 
@@ -52,6 +61,7 @@ Function usage is below.
   - [generalRequest](#generalrequest)
   - [getCurrentUser](#getcurrentuser)
   - [getGeneralToken](#getgeneraltoken)
+  - [getHash](#gethash)
   - [getIdFromUsername](#getidfromusername)
   - [getInputs](#getinputs)
   - [getProductInfo](#getproductinfo)
@@ -73,17 +83,24 @@ All functions have alternate forms, arguments are either passed:
 - Through a single options object
 - Individually
 
-The options object has all the manually named arguments.
+The options object has all the manually named arguments, passing arguments individually required them to be in the same order as they are shown in the documentation. Use .then to get results and to continue after the function is complete. To catch errors you follow up with a catch function which will receive any errors that occur during the function call, these often contain important information. Also remember that promises can be chained.
 
-For example, you could do:
+Example:
 ```javascript
-login('shedletsky', 'hunter2', jar)
+var rbx = require('roblox-js');
+
+rbx.login('shedletsky', 'hunter2', jar)
 .then(function (info) {
   console.log('Logged in with ID ' + info.UserID)
+})
+.catch(function (err) {
+  console.error(err.stack);
 });
 ```
 _or_
 ```javascript
+var rbx = require('roblox-js');
+
 var options = {
   username: 'shedletsky',
   password: 'hunter2',
@@ -93,10 +110,11 @@ var options = {
 login(options)
 .then(function (info) {
   console.log('Logged in with ID ' + info.UserID)
+})
+.catch(function (err) {
+  console.error(err.stack);
 });
 ```
-
-_All asynchronous functions are promises. Use .then as a callback for when the function has completed and .catch to catch errors._
 
 _Cookie jars are all optional, if one isn't specified the function will automatically use the default global cookie jar._
 
@@ -215,8 +233,8 @@ Posts message `message` on the group wall with groupId `group`.
 (Promise)
 
 ### setRank
-##### group, target, rank/roleset[, jar]
-Promotes player with userId `target` in group with groupId `group` to rank `rank` or roleset `roleset`. One is required but not both, use `roleset` to speed up requests.
+##### group, target, roleset/rank/name[, jar]
+Promotes player with userId `target` in group with groupId `group` to rank `rank`, roleset `roleset`, or name `name`. One is required but not all, use `roleset` to speed up requests and `name` if there are ambiguous ranks (same rank number).
 
 **Arguments**
 - group (number)
@@ -313,6 +331,17 @@ Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This us
 (Promise)
 - x-csrf-token (string)
 
+### getHash
+##### [jar]
+Generates a unique hash for the given jar file `jar` or default if none is specified. Typically used to cache items that depend on session.
+
+**Arguments**
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+- hash (string)
+
 ### getIdFromUsername
 ##### username
 Gets the `id` of user with `username` and caches according to settings.
@@ -365,8 +394,8 @@ Gets `rank` of user with `userId` in `group` and caches according to settings.
 - rank (number)
 
 ### getRole
-##### roles, rank
-Returns role information of rank `rank`, which can be a single rank or an array of ranks, from a `roles` group role object (that can be retrieved from getRoles).
+##### roles, rank/name
+Returns role information of rank `rank`, which can be a single rank or an array of ranks, from a `roles` group role object (that can be retrieved from getRoles). Alternatively, the name `name` of the role can be searched for.
 
 **Arguments**
 - roles (object)
@@ -409,7 +438,7 @@ Gets the `roleset` of the logged in user in `group`.
 
 ### getSession
 ##### jar
-Gets the `.ROBLOSECURITY` session cookie from `jar`. _Note: Will not work if session_only is enabled_
+Gets the `.ROBLOSECURITY` session cookie from `jar`.
 
 **Arguments**
 - jar (CookieJar)
