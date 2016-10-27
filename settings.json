@@ -4,7 +4,9 @@
 
   "getPlayers": {
     "interval": 1000,
-    "delay": 3000
+    "interval_desc": "Number of requests (pages) sent at once (a loop runs this number of times creating requests)",
+    "delay": 3000,
+    "delay_desc": "Time (in ms) to wait after each interval, otherwise ROBLOX may block your requests and too many requests will be made at once to be processed correctly."
   },
 
   "cache": {
@@ -20,9 +22,9 @@
     "roles_refresh": true,
     "roles_desc": "This should be fine unless your group changes its ranks often.",
 
-    "RolesetId": 600,
+    "RolesetId": 86400,
     "rolesetid_refresh": false,
-    "rolesetid_desc": "This will be fine if you don't change your exile bot's rank often.",
+    "rolesetid_desc": "Disable this completely if you don't plan on ever changing your exile bot's rank.",
 
     "Product": false,
     "product_refresh": false,
@@ -34,7 +36,7 @@
 
     "IDFromName": true,
     "idfromname_refresh": false,
-    "idfromname_desc": "Permanent cache for a user's ID based on their name. There is no reason this would ever change (changing names would re-match it and old names cannot be reused by other accounts).",
+    "idfromname_desc": "Permanent cache for a user's ID based on their name. There is no reason this would ever change (changing names would re-match it and old names cannot be reused by other accounts). Only disable if you want this to match current names only.",
 
     "Rank": false,
     "rank_refresh": false,
