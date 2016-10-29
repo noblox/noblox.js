@@ -272,18 +272,22 @@ Uploads `data` to `asset` with `itemOptions` and `type`. If asset is empty a new
   - _optional_ description (String)
     - _default_ ""
   - copyLocked (boolean)
+    - _default_ true
   - allowComments (boolean)
+    - _default_ true
   - _optional_ groupId (number)
 - asset (number)
 - _optional_ type (String)
-  - "Model"
+  - _default_ "Model"
   - "Place"
 - _optional_ jar (CookieJar)
 
 **Returns**
 
 (Promise)
-- assetID/assetVersionID (number)
+- (object)
+  - AssetId (number)
+  - AssetVersionId (number)
 
 ## Utility Functions
 
