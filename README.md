@@ -262,8 +262,8 @@ Shouts message `message` in the group with groupId `group`. Leaving `message` em
 (Promise)
 
 ### upload
-##### data[, itemOptions, asset, type, jar]
-Uploads `data` to `asset` with `itemOptions` and `type`. If asset is empty a new asset will be created. The ID of the asset is always returned in the promise. Note that `itemOptions` is _required_ when creating a new asset. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
+##### data[, itemOptions, asset, jar]
+Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will be created. Both the assetId as well as the assetVersionId are returned in a object. Note that `itemOptions` is _required when creating a new asset_. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
 
 **Arguments**
 - data (String)
@@ -277,9 +277,6 @@ Uploads `data` to `asset` with `itemOptions` and `type`. If asset is empty a new
     - _default_ true
   - _optional_ groupId (number)
 - asset (number)
-- _optional_ type (String)
-  - _default_ "Model"
-  - "Place"
 - _optional_ jar (CookieJar)
 
 **Returns**
