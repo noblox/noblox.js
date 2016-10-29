@@ -116,16 +116,34 @@ login(options)
 });
 ```
 
-_Cookie jars are all optional, if one isn't specified the function will automatically use the default global cookie jar._
+### example function: name
+##### argument 1, argument 2/other argument 2[, optional argument 1, optional argument 2]
+Description. When calling functions without an options object and you come across a multi argument (argument 2 or other argument 2) `argument 2` will be used. The only way to get `other argument 2` is by using an options object and specifying the name.
+
+**Arguments**
+- argument name (argument type)
+  - _structure(for objects)_
+  - index (index type)
+
+**Returns**
+(type)
+- _structure (for objects)_
+
+_Cookie jars are always optional, if one isn't specified the function will automatically use the default global cookie jar._
 
 ## Main Functions
 
 ### buy
-##### asset[, price, jar]
-Buys `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets).
+##### asset/product[, price, jar]
+Buys asset `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets). You are able to use product instead of asset, the options in `product` are collected automatically if not provided.
 
 **Arguments**
-- asset (number)
+- _either_ asset (number)
+- _or_ product (object)
+  - ProductId (number)
+  - Creator (object)
+    - Id (number)
+  - PriceInRobux (number)
 - _optional_ price (number/object)
   - high (number)
   - low (number)
@@ -134,6 +152,9 @@ Buys `asset` with `price` restrictions. This can be a single value or an object 
 **Returns**
 
 (Promise)
+- (object)
+  - productId (number)
+  - price (number)
 
 ### exile
 ##### group, target[, deleteAllPosts, senderRolesetId, jar]
@@ -241,6 +262,7 @@ Promotes player with userId `target` in group with groupId `group` to rank `rank
 - target (number)
 - _either_ rank (number)
 - _or_ roleset (number)
+- _or_ name (string)
 - _optional_ jar (CookieJar)
 
 **Returns**
