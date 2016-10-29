@@ -144,6 +144,7 @@ Buys asset `asset` with `price` restrictions. This can be a single value or an o
   - Creator (object)
     - Id (number)
   - PriceInRobux (number)
+  - _optional_ UserAssetId (number)
 - _optional_ price (number/object)
   - high (number)
   - low (number)
