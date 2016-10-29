@@ -268,6 +268,7 @@ Promotes player with userId `target` in group with groupId `group` to rank `rank
 **Returns**
 
 (Promise)
+- newRoleSetId (number)
 
 ### shout
 ##### group[, message, jar]
