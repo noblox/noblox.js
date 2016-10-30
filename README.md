@@ -173,6 +173,24 @@ Exiles user with userId `target` from `group` and using option `deleteAllPosts`.
 
 (Promise)
 
+### forumPost
+##### forumId/postId, body[, subject, locked, jar]
+Creates a new forum thread with subject `subject` and body `body` in the subforum with ID `forumId`. Alternatively, reply to an existing post by providing `postId` instead. If `locked` is true, replies will be disabled (this technically works with both new threads and replies, but the latter obviously won't make a difference). Note that `subject` is required when making a new post but is optional when replying. To find `forumId` go to the subforum you want in a browser and check the end of the URL.
+
+**Arguments**
+- _either_ forumId (number)
+- _or_ postId (number)
+- body (string)
+- _optional_ subject (string)
+- _optional_ locked (boolean)
+  - _default_ false
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
+- postId (number)
+
 ### getPlayers
 ##### group[, rank, limit, online]
 Gets all players to `limit` in `group` with `rank`. If `rank` is not specified or is set to `-1`, all players from `group` are retrieved.
@@ -313,12 +331,14 @@ Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will
 ## Utility Functions
 
 ### generalRequest
-##### url, events[, getBody, jar]
-Gets the verification inputs from `url` and sends a post request with data from `events`, returning the original body before the post request according to `getBody`. Used for primitive site functions that involve ASP viewstates.
+##### url, events[, http, ignoreCache, getBody, jar]
+Gets the verification inputs from `url` and sends a post request with data from `events`, returning the original body before the post request according to `getBody` and obeying the cache based on `ignoreCache`. Use `http` for custom request options; if url is contained, it will not replace the main url but the url used for getting verification tokens. This function is used for primitive site functions that involve ASP viewstates.
 
 **Arguments**
 - url (String)
 - events (object)
+- _optional_ ignoreCache (boolean)
+  - _default_ false
 - _optional_ getBody (boolean)
   - _default_ false
 - _optional_ jar (CookieJar)
@@ -327,7 +347,7 @@ Gets the verification inputs from `url` and sends a post request with data from 
 
 (Promise)
 - (object)
-  - res (Promise)
+  - res (object)
   - body (String)
 
 ### getCurrentUser
@@ -500,11 +520,13 @@ Gets `username` of user with `id` and caches according to settings.
 - username (string)
 
 ### getVerification
-##### url[, getBody, jar]
-Gets verification inputs off of `url` using `jar` and caches them. If `getBody` is true, the body and inputs will both be returned in an object.
+##### url[, ignoreCache, getBody, jar]
+Gets verification inputs off of `url` using `jar` and caches them. If `getBody` is true, the body and inputs will both be returned in an object. If `ignoreCache` is enabled, the resulting tokens will not be cached.
 
 **Arguments**
 - url (string)
+- _optional_ ignoreCache (boolean)
+  - _default_ false
 - _optional_ getBody (boolean)
   - _default_ false
 - _optional_ jar (CookieJar)
