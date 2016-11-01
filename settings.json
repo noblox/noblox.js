@@ -1,16 +1,61 @@
 {
+  "session_only": true,
+  "session_only_desc": "Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well.",
+
+  "getPlayers": {
+    "interval": 1000,
+    "interval_desc": "Number of requests (pages) sent at once (a loop runs this number of times creating requests)",
+    "delay": 3000,
+    "delay_desc": "Time (in ms) to wait after each interval, otherwise ROBLOX may block your requests and too many requests will be made at once to be processed correctly."
+  },
+
   "cache": {
-    "XCSRF": 120,
-    "xcsrf_refresh": false,
-    "xcsrf_desc": "XCSRF tokens should last a couple minutes without problem, there's no reason to change this value.",
-    "Verify": 120,
-    "verify_refresh": false,
-    "verify_desc": "Verification tokens should last a couple minutes without issue.",
-    "Roles": 600,
-    "roles_refresh": true,
-    "roles_desc": "This should be fine unless your group changes its ranks often.",
-    "Product": 86400,
-    "product_refresh": 600,
-    "product_desc": "Product info rarely changes, especially for ROBLOX assets. If you are working with 3rd party assets that may change you can also change the expiration time."
+    "XCSRF": {
+      "expire": 120,
+      "refresh": false,
+      "desc": "XCSRF tokens should last a couple minutes without problem, there's no reason to change this value."
+    },
+
+    "Verify": {
+      "expire": 120,
+      "refresh": false,
+      "desc": "Verification tokens should last a couple minutes without issue."
+     },
+
+    "Roles": {
+      "expire": 600,
+      "refresh": true,
+      "desc": "This should be fine unless your group changes its ranks often."
+     },
+
+    "RolesetId": {
+      "expire": 86400,
+      "refresh": false,
+      "desc": "Disable this completely if you don't plan on ever changing your exile bot's rank."
+     },
+
+    "Product": {
+      "expire": false,
+      "refresh": false,
+      "desc": "Disabled by default for security (price checks). If you are only working with ROBLOX assets, however, you can set this to something high (since ROBLOX product info rarely changes)."
+     },
+
+    "NameFromID": {
+      "expire": false,
+      "refresh": false,
+      "desc": "Caches a user's username based on their ID. It is not on by default because it is an uncontrollable change but the option is there to cache it if you would like."
+     },
+
+    "IDFromName": {
+      "expire": true,
+      "refresh": false,
+      "desc": "Permanent cache for a user's ID based on their name. There is no reason this would ever change (changing names would re-match it and old names cannot be reused by other accounts). Only disable if you want this to match current names only."
+     },
+
+    "Rank": {
+      "expire": false,
+      "refresh": false,
+      "desc": "Caches rank by user ID. Changes cannot be anticipated so this is not enabled by default."
+     }
   }
 }
