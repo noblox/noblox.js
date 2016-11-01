@@ -134,7 +134,7 @@ Function usage is below.
   - [getVerification](#getverification)
   - [getVerificationInputs](#getverificationinputs)
   - [http](#http)
-  - [jar](#jar)
+  - [jar](#jar-3)
   - [login](#login)
 
 ### example function: name
