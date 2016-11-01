@@ -7,13 +7,19 @@ Most functions are related to group service but there are other general function
 
 Many of the functions use simple caches in order to server requests faster. Cache time can be changed in settings.json. Cached items include XCSRF tokens and group roles: unless you change your group roles often the default cache settings should be fine. The cache works by saving request responses for a set amount of time (of course), but will refresh immediately if the item has expired. You may also set a time (or boolean) in which the item will serve an item based on the conditions above but silently refresh it if that has expired.
 
-To use this with HttpService simply set up API's on your node server for accessing the functions, this module does not provide examples or support for doing that specifically.
+To use this with HttpService simply set up API's on your node server for accessing the functions, you can use the example server outlined in the below example server section as a base.
 
 ## Installation
 
 Simply install with npm: `npm install roblox-js`, no need to download anything manually.
 
+## Example Server
+
+A usable express server utilizing this module is available [here](https://github.com/sentanos/roblox-js-server) and includes a video tutorial for setup and lua scripts for using in-game.
+
 ## Usage
+
+#### Cookies
 
 User session are stored in two ways. The default is simply an object containing the session, structured like so:
 ```javascript
@@ -35,49 +41,7 @@ var jar = rbx.options.jar;
 
 Be aware that you must set something to refresh this token every once in a while: otherwise it will expire. Logging in every server restart and making a login interval of 1 day should be enough. The module does not check to make sure if you are logged in, you have to make sure of it yourself.
 
-An example of usage is available on the [roblox-js-server](#https://github.com/sentanos/roblox-js-server) repository.
-
-Function usage is below.
-
-## Contents
-
-- [roblox-js](#roblox-js)
-- [About](#about)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contents](#contents)
-- [Documentation Info](#documentation-info)
-- [Main Functions](#main-functions)
-  - [buy](#buy)
-  - [exile](#exile)
-  - [getPlayers](#getplayers)
-  - [handleJoinRequest](#handleJoinRequest)
-  - [message](#message)
-  - [post](#post)
-  - [setRank](#setrank)
-  - [shout](#shout)
-  - [upload](#upload)
-- [Utility Functions](#utility-functions)
-  - [generalRequest](#generalrequest)
-  - [getCurrentUser](#getcurrentuser)
-  - [getGeneralToken](#getgeneraltoken)
-  - [getHash](#gethash)
-  - [getIdFromUsername](#getidfromusername)
-  - [getInputs](#getinputs)
-  - [getProductInfo](#getproductinfo)
-  - [getRankInGroup](#getrankingroup)
-  - [getRole](#getrole)
-  - [getRoles](#getroles)
-  - [getRolesetInGroupWithJar](#getrolesetingroupwithjar)
-  - [getSession](#getsession)
-  - [getToken](#gettoken)
-  - [getUsernameFromId](#getusernamefromid)
-  - [getVerification](#getverification)
-  - [getVerificationInputs](#getverificationinputs)
-  - [http](#http)
-  - [login](#login)
-
-## Documentation Info
+#### Functions
 
 All functions have alternate forms, arguments are either passed:
 - Through a single options object
@@ -116,13 +80,70 @@ login(options)
 });
 ```
 
+#### Settings
+
+If you can you should change settings directly from the `settings.json` file. You can also use `rbx.settings` directly as shown below, remember to call `rbx.options.init()` once you are done to update some things which are normally created off settings at startup.
+
+```javascript
+var rbx = require('roblox-js');
+var request = require('request');
+rbx.settings.session_only = false;
+rbx.settings.cache.XCSRF.expire = 60;
+rbx.options.init();
+```
+
+An example of usage is available on the [roblox-js-server](#https://github.com/sentanos/roblox-js-server) repository.
+
+Function usage is below.
+
+## Contents
+
+- [roblox-js](#roblox-js)
+- [About](#about)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Example Server](#example-server)
+- [Contents](#contents)
+- [Documentation Info](#documentation-info)
+- [Main Functions](#main-functions)
+  - [buy](#buy)
+  - [exile](#exile)
+  - [forumPost](#forumpost)
+  - [getPlayers](#getplayers)
+  - [handleJoinRequest](#handleJoinRequest)
+  - [message](#message)
+  - [post](#post)
+  - [setRank](#setrank)
+  - [shout](#shout)
+  - [upload](#upload)
+- [Utility Functions](#utility-functions)
+  - [generalRequest](#generalrequest)
+  - [getCurrentUser](#getcurrentuser)
+  - [getGeneralToken](#getgeneraltoken)
+  - [getHash](#gethash)
+  - [getIdFromUsername](#getidfromusername)
+  - [getInputs](#getinputs)
+  - [getProductInfo](#getproductinfo)
+  - [getRankInGroup](#getrankingroup)
+  - [getRole](#getrole)
+  - [getRoles](#getroles)
+  - [getRolesetInGroupWithJar](#getrolesetingroupwithjar)
+  - [getSession](#getsession)
+  - [getToken](#gettoken)
+  - [getUsernameFromId](#getusernamefromid)
+  - [getVerification](#getverification)
+  - [getVerificationInputs](#getverificationinputs)
+  - [http](#http)
+  - [jar](#jar)
+  - [login](#login)
+
 ### example function: name
 ##### argument 1, argument 2/other argument 2[, optional argument 1, optional argument 2]
 Description. When calling functions without an options object and you come across a multi argument (argument 2 or other argument 2) `argument 2` will be used. The only way to get `other argument 2` is by using an options object and specifying the name.
 
 **Arguments**
 - argument name (argument type)
-  - _structure(for objects)_
+  - _structure (for objects)_
   - index (index type)
 
 **Returns**
@@ -562,6 +583,17 @@ Sends an http request to `url` with `options`. _Note that if jar is a key in the
 
 (Promise)
 - body (string)
+
+### jar
+##### [sessionOnly]
+Creates a jar file based on `sessionOnly`. Normally you will not need this argument as the function will use the default from settings.json. If for some other reason you need a jar file you can collect it this way, but without changing the settings it will not work.
+
+**Arguments**
+- sessionOnly (boolean)
+
+**Returns**
+
+- jar (CookieJar)
 
 ### login
 ##### username, password[, jar]
