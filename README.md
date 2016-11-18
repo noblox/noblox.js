@@ -461,15 +461,17 @@ Gets `rank` of user with `userId` in `group` and caches according to settings.
 
 ### getRole
 ##### roles, rank/name
-Returns role information of rank `rank`, which can be a single rank or an array of ranks, from a `roles` group role object (that can be retrieved from getRoles). Alternatively, the name `name` of the role can be searched for.
+Returns role information of rank `rank`, which can be a single rank or an array of ranks, from a `roles` group role object (that can be retrieved from getRoles). If an array of ranks is inputted a parallel array of roles is returned. Alternatively, the name `name` of the role can be searched for, this should be used if there are "ambiguous roles" that have the same rank. If ambiguous roles cannot be resolved an error will be thrown.
 
 **Arguments**
 - roles (object)
-- _optional_ rank (number/array)
+- _either_ rank (number/array)
+- _or_ name (string/array)
+
 
 **Returns**
 
-- role (number/array)
+- role (object)
   - ID (number)
   - Name (string)
   - Rank (number)
