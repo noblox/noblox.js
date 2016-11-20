@@ -15,7 +15,7 @@ Simply install with npm: `npm install roblox-js`, no need to download anything m
 
 ## Example Server
 
-A usable express server utilizing this module is available [here](https://github.com/sentanos/roblox-js-server) and includes a video tutorial for setup and lua scripts for using in-game.
+A usable express server utilizing this module is available [here](https://github.com/sentanos/roblox-js-server) and includes a detailed tutorial for setup on a free host as well as Lua scripts for sending requests to the server from in-game.
 
 ## Usage
 
