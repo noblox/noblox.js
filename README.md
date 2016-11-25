@@ -110,6 +110,7 @@ Function usage is below.
   - [exile](#exile)
   - [forumPost](#forumpost)
   - [getPlayers](#getplayers)
+  - [groupPayout](#grouppayout)
   - [handleJoinRequest](#handleJoinRequest)
   - [message](#message)
   - [post](#post)
@@ -129,7 +130,6 @@ Function usage is below.
   - [getRoles](#getroles)
   - [getRolesetInGroupWithJar](#getrolesetingroupwithjar)
   - [getSession](#getsession)
-  - [getToken](#gettoken)
   - [getUsernameFromId](#getusernamefromid)
   - [getVerification](#getverification)
   - [getVerificationInputs](#getverificationinputs)
@@ -252,6 +252,29 @@ Ordering rules of the output is as follows:
     - Current percentage of players indexed (out of the total number of members in the group)
       - This may be somewhat inaccurate due to ROBLOX's semi-broken member counter but it is guaranteed to be 100 when the function is complete.
 
+### groupPayout
+##### group, member, amount[, recurring, usePercentage, jar]
+
+Performs a payout in group with the groupId `group`. If `recurring` is true this will configure the recurring options for the group's payout _replacing all old values_, otherwise a one-time-payout is made. To clear the recurring payouts, pass in empty arrays to both member and amount. Argument `member` can either be a single userId or an array of userIds. If it is a single value `amount` must be as well, otherwise `amount` has to be a parallel array of equal length. If `usePercentage` is true `amount` percentage of the total group funds is paid to the members, otherwise it pays `amount` ROBUX. Note that recurring payouts are always percentages, and when `recurring` is true `usePercentage` is ignored.
+
+**Arguments**
+- group (number)
+- members (number/Array)
+  - _either_ `userId`
+  - _or_ `[userId1, userId2]`
+- amount (number/Array)
+  - _either_ `amount`
+  - _or_ `[amount1, amount2]`
+- _optional_ recurring
+  - _default_ false
+- _optional_ usePercentage
+  - _default_ false
+- _optional_ jar (CookieJar)
+
+**Returns**
+
+(Promise)
+
 ### handleJoinRequest
 ##### group, username, accept[, jar]
 `Accept`s user with `username` into `group`.
@@ -286,7 +309,7 @@ Posts message `message` on the group wall with groupId `group`.
 
 **Arguments**
 - group (number)
-- _optional_ message (string)
+- message (string)
 - _optional_ jar (CookieJar)
 
 **Returns**
@@ -513,22 +536,6 @@ Gets the `.ROBLOSECURITY` session cookie from `jar`.
 
 **Returns**
 - session (String)
-
-### getToken
-##### url, form[, json, jar]
-Returns X-CSRF-TOKEN from `url` after posting to it with `form` which is `json` or not.
-
-**Arguments**
-- url (string)
-- form (object)
-- _optional_ json (boolean)
-  - default: false
-- _optional_ jar (CookieJar)
-
-**Returns**
-
-(Promise)
-- x-csrf-token (string)
 
 ### getUsernameFromId
 ##### id
