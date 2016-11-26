@@ -123,6 +123,7 @@ Function usage is below.
   - [shout](#shout)
   - [upload](#upload)
 - [Utility Functions](#utility-functions)
+  - [clearSession](#clearsession)
   - [generalRequest](#generalrequest)
   - [getCurrentUser](#getcurrentuser)
   - [getGeneralToken](#getgeneraltoken)
@@ -322,7 +323,7 @@ Posts message `message` on the group wall with groupId `group`.
 (Promise)
 
 ### setRank
-##### group, target, roleset/rank/name[, jar]
+##### group, target, rank/roleset/name[, jar]
 Promotes player with userId `target` in group with groupId `group` to rank `rank`, roleset `roleset`, or name `name`. One is required but not all, use `roleset` to speed up requests and `name` if there are ambiguous ranks (same rank number).
 
 **Arguments**
@@ -378,6 +379,16 @@ Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will
   - AssetVersionId (number)
 
 ## Utility Functions
+
+### clearSession
+##### jar
+Removes the `.ROBLOSECURITY` cookie from `jar`. Note that this does not return a new jar, it simply changes the existing one.
+
+**Arguments**
+- jar (CookieJar)
+
+**Returns**
+- session (String)
 
 ### generalRequest
 ##### url, events[, http, ignoreCache, getBody, jar]
