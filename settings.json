@@ -11,15 +11,15 @@
 
   "cache": {
     "XCSRF": {
-      "expire": 120,
+      "expire": 1800,
       "refresh": false,
-      "desc": "XCSRF tokens should last a couple minutes without problem, there's no reason to change this value."
+      "desc": "XCSRF tokens expire 30 minutes after being created. Until they expire, however, no new tokens can be made. Sometimes an XCSRF token has already been created for the user so the server doesn't know when to collect a new one. During transitions some requests may use invalid tokens. For now, new XCSRF tokens are automatically retrieved when cached ones get rejected."
     },
 
     "Verify": {
-      "expire": 120,
-      "refresh": false,
-      "desc": "Verification tokens should last a couple minutes without issue."
+      "expire": 7200,
+      "refresh": 3600,
+      "desc": "Verification tokens seem to last extremely long times."
      },
 
     "Roles": {
