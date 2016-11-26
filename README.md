@@ -116,7 +116,7 @@ Function usage is below.
   - [forumPost](#forumpost)
   - [getPlayers](#getplayers)
   - [groupPayout](#grouppayout)
-  - [handleJoinRequest](#handleJoinRequest)
+  - [handleJoinRequest](#handlejoinrequest)
   - [message](#message)
   - [post](#post)
   - [setRank](#setrank)
