@@ -1,6 +1,6 @@
 {
   "name": "roblox-js",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "A node module that provides an interface for performing actions on ROBLOX, mostly for use with their HttpService feature.",
   "main": "lib/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "bluebird": "^3.4.0",
     "entities": "^1.1.1",
     "request-promise": "^3.0.0",
-    "whacko": "^0.19.0"
+    "cheerio": "^0.22.0"
   },
   "license": "MIT",
   "bugs": {
