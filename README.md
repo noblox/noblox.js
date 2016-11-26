@@ -19,28 +19,6 @@ A usable express server utilizing this module is available [here](https://github
 
 ## Usage
 
-#### Cookies
-
-User session are stored in two ways. The default is simply an object containing the session, structured like so:
-```javascript
-var jar = {'session': 'AAAAA'};
-```
-
-If `session_only` is disabled, jars are stored in a `CookieJar`, which can be created with:
-```javascript
-var request = require('request-promise');
-var jar = request.jar();
-```
-CookieJar contains all cookies, including the session. For the most part these are just useless things that make requests larger, session only should be fine most of the time.
-
-There is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. If you only use the module with one user at a time this should be fine. The global cookie jar is stored in options. Example of retrieving it:
-```javascript
-var rbx = require('roblox-js');
-var jar = rbx.options.jar;
-```
-
-Be aware that you must set something to refresh this token every once in a while: otherwise it will expire. Logging in every server restart and making a login interval of 1 day should be enough. The module does not check to make sure if you are logged in, you have to make sure of it yourself.
-
 #### Functions
 
 All functions have alternate forms, arguments are either passed:
@@ -53,7 +31,7 @@ Example:
 ```javascript
 var rbx = require('roblox-js');
 
-rbx.login('shedletsky', 'hunter2', jar)
+rbx.login('shedletsky', 'hunter2')
 .then(function (info) {
   console.log('Logged in with ID ' + info.UserID)
 })
@@ -67,8 +45,7 @@ var rbx = require('roblox-js');
 
 var options = {
   username: 'shedletsky',
-  password: 'hunter2',
-  jar: jar,
+  password: 'hunter2'
 }
 
 login(options)
@@ -79,6 +56,34 @@ login(options)
   console.error(err.stack);
 });
 ```
+
+#### Cookies
+
+There is a single global cookie jar stored in the module which will automatically be used if you don't specify a custom jar. If you only use the module with one user at a time this is the recommended method. The global cookie jar is stored in options. Example of retrieving it:
+```javascript
+var rbx = require('roblox-js');
+var jar = rbx.options.jar;
+```
+
+If you want to work with multiple users you can work directly with jar files. User session are stored in two ways: the default is simply an object containing the session and is structured like so:
+```javascript
+var jar = {'session': 'AAAAA'};
+```
+
+If `session_only` is disabled, jars are stored in a `CookieJar`, which can be created with:
+```javascript
+var request = require('request-promise');
+var jar = request.jar();
+```
+CookieJar contains all cookies, including the session. For the most part these are just useless things that make requests larger, session only should be fine most of the time.
+
+The easiest thing to do would be to simply get a jar file from the module, which will obey the `session_only` rule and return a corresponding jar file:
+```javascript
+var rbx = require('roblox-js');
+var jar = rbx.jar();
+```
+
+Be aware that you must set something to refresh this token every once in a while: otherwise it will expire. Logging in every server restart and making a login interval of 1 day should be enough. The module does not check to make sure if you are logged in, you have to make sure of it yourself.
 
 #### Settings
 
