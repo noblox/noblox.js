@@ -33,7 +33,7 @@ var rbx = require('roblox-js');
 
 rbx.login('shedletsky', 'hunter2')
 .then(function (info) {
-  console.log('Logged in with ID ' + info.UserID)
+  console.log('Logged in with ID ' + info.userId)
 })
 .catch(function (err) {
   console.error(err.stack);
@@ -48,9 +48,9 @@ var options = {
   password: 'hunter2'
 }
 
-login(options)
+rbx.login(options)
 .then(function (info) {
-  console.log('Logged in with ID ' + info.UserID)
+  console.log('Logged in with ID ' + info.userId)
 })
 .catch(function (err) {
   console.error(err.stack);
@@ -633,9 +633,4 @@ Logs into `username` with `password` and stores their cookie in `jar`.
 
 (Promise)
 - userInfo (object)
-  - UserID (number)
-  - UserName (string)
-  - RobuxBalance (number)
-  - TicketsBalance (number)
-  - ThumbnailUrl (string)
-  - IsAnyBuildersClubMember (boolean)
+  - userId (number)
