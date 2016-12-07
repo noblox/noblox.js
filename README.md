@@ -283,7 +283,7 @@ Performs a payout in group with the groupId `group`. If `recurring` is true this
 
 ### handleJoinRequest
 ##### group, username, accept[, jar]
-`Accept`s user with `username` into `group`.
+`Accept`s user with `username` into `group`. Note that `username` is case-sensitive.
 
 **Arguments**
 - group (number)
