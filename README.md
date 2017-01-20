@@ -125,6 +125,7 @@ Function usage is below.
 - [Utility Functions](#utility-functions)
   - [clearSession](#clearsession)
   - [generalRequest](#generalrequest)
+  - [getBlurb](#getblurb)
   - [getCurrentUser](#getcurrentuser)
   - [getGeneralToken](#getgeneraltoken)
   - [getHash](#gethash)
@@ -409,6 +410,18 @@ Gets the verification inputs from `url` and sends a post request with data from 
 - (object)
   - res (object)
   - body (String)
+
+### getBlurb
+##### userId
+Gets the `blurb` of the user with userId.
+
+**Arguments**
+- userId (number)
+
+**Returns**
+
+(Promise)
+- blurb (string)
 
 ### getCurrentUser
 ##### [option, jar]
