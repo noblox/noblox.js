@@ -56,6 +56,12 @@
       "expire": false,
       "refresh": false,
       "desc": "Caches rank by user ID. Changes cannot be anticipated so this is not enabled by default."
+     },
+     
+     "GetBlurb": {
+       "expire": false,
+       "refresh": false,
+       "desc": "Caches blurb by user ID. The next blurb's content and timing will not be known so refresh and expire are disabled."
      }
   }
 }
