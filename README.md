@@ -413,7 +413,7 @@ Gets the verification inputs from `url` and sends a post request with data from 
 
 ### getBlurb
 ##### userId
-Gets the `blurb` of the user with userId.
+Gets the `blurb` of the specified user.
 
 **Arguments**
 - userId (number)
