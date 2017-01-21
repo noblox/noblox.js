@@ -2,8 +2,8 @@
   <h1> roblox-js </h1>
     [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
     <br/>
-    [![NPM](https://nodei.co/npm/roblox-js.png)](https://nodei.co/npm/roblox-js/)<br/>
-    *A module that allows you to use ROBLOX web functions with node.js.*
+    [![NPM](https://nodei.co/npm/roblox-js.png)](http://npmjs.com/package/roblox-js)<br/>
+    *Execute ROBLOX website actions in node.js*
 </div><br/>
   
 ## About
@@ -18,12 +18,12 @@ To use this with HttpService simply set up API's on your node server for accessi
 
 ## Prerequisites
 
-- [**Node.js**](https://nodejs.org/en/download/current/)
+- [**node.js**](https://nodejs.org/en/download/current/)
 
 ## Installation
 
-With node.js installed, simply run: `npm install roblox-js`. That's it!
+With node.js installed simply run: `npm install roblox-js`. That's it!
 
 ## Documentation
 
-You can find the roblox-js wiki with all API documentation [here](https://github.com/OnlyTwentyCharacters/roblox-js/wiki).
+You can find the roblox-js wiki with all API documentation [here](https://github.com/sentanos/roblox-js/wiki).
