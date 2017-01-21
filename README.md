@@ -1,9 +1,9 @@
-<div align="center">
-  <h1 align="center"> roblox-js </h1>
-    *A module allowing you to use ROBLOX web functions with JS!* <br/><br/>
-    [![js-semistandard-style](https://cdn.rawgit.com/flet/semistandard/master/badge.svg)](https://github.com/Flet/semistandard)
+<div>
+  <h1> roblox-js </h1>
+    [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
     <br/>
-    [![NPM](https://nodei.co/npm/roblox-js.png?compact=true)](https://nodei.co/npm/roblox-js/)
+    [![NPM](https://nodei.co/npm/roblox-js.png)](https://nodei.co/npm/roblox-js/)<br/>
+    *A module that allows you to use ROBLOX web functions with node.js.*
 </div><br/>
   
 ## About
@@ -26,4 +26,4 @@ With node.js installed, simply run: `npm install roblox-js`. That's it!
 
 ## Documentation
 
-You can find the roblox-js wiki with all the functions [here](https://github.com/OnlyTwentyCharacters/roblox-js/wiki)!
+You can find the roblox-js wiki with all API documentation [here](https://github.com/OnlyTwentyCharacters/roblox-js/wiki).
