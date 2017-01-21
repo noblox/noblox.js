@@ -1,11 +1,10 @@
-<div>
-  <h1> roblox-js </h1>
-    [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
-    <br/>
-    [![NPM](https://nodei.co/npm/roblox-js.png)](http://npmjs.com/package/roblox-js)<br/>
-    *Execute ROBLOX website actions in node.js*
-</div><br/>
-  
+# roblox-js
+
+[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
+[![NPM](https://nodei.co/npm/roblox-js.png)](http://npmjs.com/package/roblox-js)
+
+*Execute ROBLOX website actions in node.js*
+
 ## About
 
 Roblox-js is a node module that provides an interface for [ROBLOX](http://www.roblox.com) site actions, mostly for use with their HttpService feature.
