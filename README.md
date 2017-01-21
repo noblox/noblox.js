@@ -24,6 +24,10 @@ To use this with HttpService simply set up API's on your node server for accessi
 
 With node.js installed simply run: `npm install roblox-js`. That's it!
 
+## Example Server
+
+A usable express server utilizing this module is available [here](https://github.com/sentanos/roblox-js-server) and includes a detailed tutorial for setup on a free host as well as Lua scripts for sending requests to the server from in-game.
+
 ## Documentation
 
 You can find the roblox-js wiki with all API documentation [here](https://github.com/sentanos/roblox-js/wiki).
