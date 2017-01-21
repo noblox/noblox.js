@@ -1,6 +1,6 @@
 <div align="center">
   <h1 align="center"> roblox-js </h1>
-    **A module allowing you to use ROBLOX web functions with JS!** <br/>
+    *A module allowing you to use ROBLOX web functions with JS!* <br/><br/>
     [![js-semistandard-style](https://cdn.rawgit.com/flet/semistandard/master/badge.svg)](https://github.com/Flet/semistandard)
     <br/>
     [![NPM](https://nodei.co/npm/roblox-js.png?compact=true)](https://nodei.co/npm/roblox-js/)
