@@ -2,11 +2,31 @@
   "session_only": true,
   "session_only_desc": "Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well.",
 
-  "getPlayers": {
-    "interval": 1000,
-    "interval_desc": "Number of requests (pages) sent at once (a loop runs this number of times creating requests)",
-    "delay": 3000,
-    "delay_desc": "Time (in ms) to wait after each interval, otherwise ROBLOX may block your requests and too many requests will be made at once to be processed correctly."
+  "maxSockets": 100,
+  "maxSockets_desc": "Maximum number of web sockets that can be open at once. This is especially important for some of the functions that have to make hundreds to thousands of requests. Some systems may be able to handle a higher number of sockets. This should be as high as you can make it without errors. A number too high will lead to request timeouts but a number too low will take longer and take up more memory.",
+
+  "event": {
+    "maxRetries": 5,
+    "maxRetries_desc": "Maximum number of consecutive retries after an event times out or fails in some other way.",
+    "timeout": 3000,
+    "timeout_desc": "Maximum time (in milliseconds) a request can take. If your server has extremely high latency you may have to raise this.",
+    "event_desc": "Below is the poll time (in milliseconds) for each of the event functions. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite.",
+    "onForumReply": 3000,
+    "onForumPost": 3000,
+    "onWallPost": 3000,
+    "onJoinRequestHandle": 3000,
+    "onShout": 3000
+  },
+
+  "queue": {
+    "Message": {
+      "delay": 5000,
+      "desc": "Although messages do have a floodcheck, it is not instituted immediately so this is disabled by default. If you are sending a lot of messages a good delay is about 5 seconds (5000)"
+    },
+    "Forum": {
+      "delay": 15000,
+      "desc": "All forum posts have a mandatory 15 second delay, there is no reason for this to be disabled"
+    }
   },
 
   "cache": {
