@@ -14,11 +14,14 @@ rbx.login(username, password)
     var plrs = res.players;
     rbx.getGeneralToken()
     .then(function () {
-      console.log('Queueing exile requests');
-      for (var i = 0; i < plrs.length; i++) {
-        rbx.exile({group: group, target: plrs[i].id});
-      }
-      console.log('Exiling');
+      rbx.getRolesetInGroupWithJar()
+      .then(function (roleset) {
+        console.log('Queueing exile requests');
+        for (var i = 0; i < plrs.length; i++) {
+          rbx.exile({group: group, target: plrs[i].id, senderRolesetId: roleset});
+        }
+        console.log('Exiling');
+      });
     });
   });
 });
