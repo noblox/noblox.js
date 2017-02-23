@@ -12,9 +12,9 @@ Roblox-js is a node module that provides an interface for [ROBLOX](http://www.ro
 
 Most functions are related to group service but there are other general functions as well. The list of main functions is in the contents section, they all have detailed documentation.
 
-Many of the functions use simple caches in order to server requests faster. Cache time can be changed in settings.json. Cached items include XCSRF tokens and group roles: unless you change your group roles often the default cache settings should be fine. The cache works by saving request responses for a set amount of time (of course), but will refresh immediately if the item has expired. You may also set a time (or boolean) in which the item will serve an item based on the conditions above but silently refresh it if that has expired.
+To use this with HttpService simply set up API's on your node server for accessing the functions, you can use the example server outlined in the below example server section as a base. Note that this does not use the latest version of the module and it is recommended you learn how to use the library directly.
 
-To use this with HttpService simply set up API's on your node server for accessing the functions, you can use the example server outlined in the below example server section as a base. A usable express server utilizing this module is available [here](https://github.com/sentanos/roblox-js-server) and includes a detailed tutorial for setup on a free host as well as Lua scripts for sending requests to the server from in-game.
+There are also a few example scripts with version 3 support in the [examples](https://github.com/sentanos/roblox-js/tree/master/examples) folder.
 
 ## Prerequisites
 
@@ -24,10 +24,10 @@ To use this with HttpService simply set up API's on your node server for accessi
 
 With node.js installed simply run: `npm install roblox-js`. That's it!
 
-## Example Server
-
-A usable express server utilizing this module is available [here](https://github.com/sentanos/roblox-js-server) and includes a detailed tutorial for setup on a free host as well as Lua scripts for sending requests to the server from in-game.
-
 ## Documentation
 
 You can find the roblox-js wiki with all API documentation [here](https://github.com/sentanos/roblox-js/wiki).
+
+## Example Server
+
+A usable express server utilizing this module is available [here](https://github.com/sentanos/roblox-js-server) and includes a detailed tutorial for setup on a free host as well as Lua scripts for sending requests to the server from in-game.
