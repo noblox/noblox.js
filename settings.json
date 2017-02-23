@@ -20,8 +20,8 @@
 
   "queue": {
     "Message": {
-      "delay": 5000,
-      "desc": "Although messages do have a floodcheck, it is not instituted immediately so this is disabled by default. If you are sending a lot of messages a good delay is about 5 seconds (5000)"
+      "delay": 0,
+      "desc": "Although messages do have a floodcheck, it is not instituted immediately so this is disabled by default. If you are sending a lot of messages set a delay around 10-15 seconds (10000-15000)"
     },
     "Forum": {
       "delay": 15000,
