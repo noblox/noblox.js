@@ -3,7 +3,7 @@
 var rbx = require('roblox-js');
 var username = '';
 var password = '';
-var group = 147864;
+var group = 0;
 var rank = null;
 
 rbx.login(username, password)
