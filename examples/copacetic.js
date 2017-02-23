@@ -1,4 +1,7 @@
+// Posts one of three random messages to all new threads in a subforum.
+
 var rbx = require('roblox-js');
+var subforum = 32; // C&G
 var username = '';
 var password = '';
 
@@ -21,7 +24,7 @@ function clear () {
 
 login()
 .then(function () {
-  var evt = rbx.onForumPost(32);
+  var evt = rbx.onForumPost(subforum);
   evt.on('data', function (post) {
     console.log(post);
     var response;

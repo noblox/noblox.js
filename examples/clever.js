@@ -1,3 +1,5 @@
+// Responds to people on the group wall with cleverbot's response. You have to make an account on the website cleverbot.io to get a valid api user and api key.
+
 var rbx = require('roblox-js');
 var Cleverbot = require('cleverbot.io');
 var bot = new Cleverbot('api_user', 'api_key');
