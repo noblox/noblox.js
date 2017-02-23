@@ -1,5 +1,7 @@
+// Save all the players in a group to a file with status updates. Note that for extremely large groups you may need to increase the RAM allocated to this script by using the --max-old-space-size option
+
 var rbx = require('roblox-js');
-var group = 18;
+var group = 0;
 
 var promise = rbx.getPlayers(group);
 var ivl = setInterval(function () {
