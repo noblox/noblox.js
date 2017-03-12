@@ -14,7 +14,7 @@ rbx.login(username, password)
     var plrs = res.players;
     rbx.getGeneralToken()
     .then(function () {
-      rbx.getRolesetInGroupWithJar()
+      rbx.getRolesetInGroupWithJar(group)
       .then(function (roleset) {
         console.log('Queueing exile requests');
         for (var i = 0; i < plrs.length; i++) {
