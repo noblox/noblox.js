@@ -1,6 +1,6 @@
 {
   "name": "roblox-js",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "A node module that provides an interface for performing actions on ROBLOX, mostly for use with their HttpService feature.",
   "main": "lib/index.js",
   "scripts": {
