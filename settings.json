@@ -2,8 +2,9 @@
   "session_only": true,
   "session_only_desc": "Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well.",
 
-  "maxSockets": 50,
-  "maxSockets_desc": "Maximum number of web sockets that can be open at once. This is especially important for some of the functions that have to make hundreds to thousands of requests. Some systems may be able to handle a higher number of sockets. This should be as high as you can make it without errors. A number too high will lead to request timeouts but a number too low will take longer and take up more memory.",
+  "maxThreads": 50,
+  "maxThreads_desc": "This is usually used for functions that have to receive a lot of pages at once. Only this amount will be queued up as to preserve memory, make this as high as possible for fastest responses (although it will be somewhat limited by maxSockets).",
+
   "timeout": 10000,
   "timeout_desc": "Timeout for http requests. This is necessary for functions that make a very large number of requests, where it is possible some simply won't connect.",
 
