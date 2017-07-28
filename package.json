@@ -18,7 +18,7 @@
   "author": "Joshua Lanese <froastj@gmail.com>",
   "dependencies": {
     "bluebird": "^3.4.0",
-    "cheerio": "^1.0.0-rc.1",
+    "cheerio": "^1.0.0-rc.2",
     "entities": "^1.1.1",
     "request-promise": "^3.0.0",
     "signalr-client": "0.0.17"
