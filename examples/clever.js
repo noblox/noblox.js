@@ -15,7 +15,7 @@ login()
 .then(function () {
   rbx.getCurrentUser()
   .then(function (info) {
-    var id = info.UserId;
+    var id = info.UserID;
     bot.create(function (err, session) {
       if (err) {
         return console.error('Cleverbot error: ' + session);
