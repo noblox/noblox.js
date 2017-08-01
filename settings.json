@@ -75,6 +75,12 @@
       "desc": "Permanent cache for a user's ID based on their name. There is no reason this would ever change (changing names would re-match it and old names cannot be reused by other accounts). Only disable if you want this to match current names only."
      },
 
+     "SenderID": {
+       "expire": true,
+       "refresh": false,
+       "desc": "Permanent cache for the sender's user ID. This should literally never change."
+     },
+
     "Rank": {
       "expire": false,
       "refresh": false,
