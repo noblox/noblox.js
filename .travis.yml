@@ -7,3 +7,7 @@ before_install:
 
 script:
   - npm test
+
+branches:
+  except:
+    - mvn-repo
