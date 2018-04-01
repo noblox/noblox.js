@@ -1,46 +1,46 @@
 // Posts one of three random messages to all new threads in a subforum.
 
-var rbx = require('roblox-js');
-var subforum = 32; // C&G
-var username = '';
-var password = '';
+var rbx = require('roblox-js')
+var subforum = 32 // C&G
+var username = ''
+var password = ''
 
 function login () {
-  return rbx.login(username, password);
+  return rbx.login(username, password)
 }
 
 // Bypass duplicate post blocking
 function clear () {
-  var str = '';
+  var str = ''
   for (var i = 0; i < 20; i++) {
     if (Math.random() < 0.5) {
-      str += '\u200B';
+      str += '\u200B'
     } else {
-      str += ' ';
+      str += ' '
     }
   }
-  return str;
+  return str
 }
 
 login()
-.then(function () {
-  var evt = rbx.onForumPost(subforum);
-  evt.on('data', function (post) {
-    console.log(post);
-    var response;
-    var rand = Math.random();
-    if (rand < 0.3) {
-      response = 'Disagreed';
-    } else if (rand > 0.4 && rand < 0.45) {
-      response = 'The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues.';
-    } else {
-      response = 'Agreed';
-    }
-    rbx.forumPost({postId: post.id, body: response + clear()});
-  });
-  evt.on('error', function (err) {
-    console.error('Event error: ' + err.stack);
-  });
-});
+  .then(function () {
+    var evt = rbx.onForumPost(subforum)
+    evt.on('data', function (post) {
+      console.log(post)
+      var response
+      var rand = Math.random()
+      if (rand < 0.3) {
+        response = 'Disagreed'
+      } else if (rand > 0.4 && rand < 0.45) {
+        response = 'The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues.'
+      } else {
+        response = 'Agreed'
+      }
+      rbx.forumPost({postId: post.id, body: response + clear()})
+    })
+    evt.on('error', function (err) {
+      console.error('Event error: ' + err.stack)
+    })
+  })
 
-setInterval(login, 86400000);
+setInterval(login, 86400000)
