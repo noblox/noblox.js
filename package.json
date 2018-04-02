@@ -1,21 +1,20 @@
 {
-  "name": "roblox-js",
+  "name": "noblox.js",
   "version": "4.0.2",
-  "description": "A node module that provides an interface for performing actions on ROBLOX, mostly for use with their HttpService feature.",
+  "description": "A Node.js wrapper for ROBLOX. (original from sentanos)",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sentanos/roblox-js.git"
+    "url": "https://github.com/suufi/noblox.js.git"
   },
   "keywords": [
     "roblox",
     "bot",
     "clans"
   ],
-  "author": "Joshua Lanese <froastj@gmail.com>",
   "dependencies": {
     "bluebird": "^3.4.0",
     "cheerio": "^1.0.0-rc.2",
@@ -26,9 +25,13 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sentanos/roblox-js/issues"
+    "url": "https://github.com/suufi/noblox.js/issues"
   },
-  "homepage": "https://github.com/sentanos/roblox-js",
+  "author": "Suufi <me@suufi.me> (https://github.com/suufi)",
+  "contributors": [
+    "Joshua Lanese <froastj@gmail.com>"
+  ],
+  "homepage": "https://github.com/suufi/noblox.js",
   "devDependencies": {
     "JSONStream": "^1.3.1",
     "progress": "^2.0.0"

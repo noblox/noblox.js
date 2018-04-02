@@ -1,0 +1,3 @@
+[submodule "noblox.js.wiki"]
+	path = noblox.js.wiki
+	url = https://github.com/suufi/roblox-js.wiki.git
