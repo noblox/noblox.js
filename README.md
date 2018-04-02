@@ -16,8 +16,8 @@
   <a href="#about">About</a> •
   <a href="#prerequisites">Prerequisites</a> •
   <a href="#installation">Installation</a> •
-  <a href="#documenation">Docs</a> •
-  <a href="https://github.com/suufi/noblox.js/examples">Examples</a> •
+  <a href="#documentation">Docs</a> •
+  <a href="https://github.com/suufi/noblox.js/tree/master/examples">Examples</a> •
   <a href="#credits">Credits</a> •
   <a href="#license">License</a>
 </p>
