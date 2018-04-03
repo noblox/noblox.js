@@ -16,8 +16,8 @@
   <a href="#about">About</a> •
   <a href="#prerequisites">Prerequisites</a> •
   <a href="#installation">Installation</a> •
-  <a href="#documenation">Docs</a> •
-  <a href="https://github.com/suufi/noblox.js/examples">Examples</a> •
+  <a href="#documentation">Docs</a> •
+  <a href="https://github.com/suufi/noblox.js/tree/master/examples">Examples</a> •
   <a href="#credits">Credits</a> •
   <a href="#license">License</a>
 </p>
@@ -46,7 +46,7 @@ That's it!
 
 ## Documentation
 
-You can find the current noblox.js wiki with all API documentation [here](https://github.com/suufi/noblox.js/wiki).
+You can find the current noblox.js wiki with all API documentation [here](https://github.com/sentanos/roblox-js/wiki). A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0.
 
 ## Credits
 
