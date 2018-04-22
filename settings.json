@@ -18,7 +18,8 @@
     "onForumPost": 3000,
     "onWallPost": 3000,
     "onJoinRequestHandle": 3000,
-    "onShout": 3000
+    "onShout": 3000,
+    "onBlurbChange": 3000
   },
 
   "queue": {
