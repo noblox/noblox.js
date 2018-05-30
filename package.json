@@ -1,0 +1,34 @@
+{
+  "name": "noblox.js",
+  "version": "5.0.0",
+  "description": "A Node.js wrapper for ROBLOX. (original from sentanos)",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "standard",
+    "generate-docs": "jsdoc --configure jsdoc.json --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suufi/noblox.js.git"
+  },
+  "keywords": [
+    "roblox",
+    "bot",
+    "clans"
+  ],
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "collections": "^5.1.2",
+    "moment": "^2.22.1",
+    "superagent": "^3.8.3"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/suufi/noblox.js/issues"
+  },
+  "author": "Suufi <me@suufi.me> (https://github.com/suufi)",
+  "contributors": [
+    "Joshua Lanese <froastj@gmail.com>"
+  ],
+  "homepage": "https://github.com/suufi/noblox.js"
+}
