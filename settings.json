@@ -11,15 +11,15 @@
   "event": {
     "maxRetries": 5,
     "maxRetries_desc": "Maximum number of consecutive retries after an event times out or fails in some other way.",
-    "timeout": 3000,
+    "timeout": 10000,
     "timeout_desc": "Maximum time (in milliseconds) a request can take. If your server has extremely high latency you may have to raise this.",
     "event_desc": "Below is the poll time (in milliseconds) for each of the event functions. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite.",
-    "onForumReply": 3000,
-    "onForumPost": 3000,
-    "onWallPost": 3000,
-    "onJoinRequestHandle": 3000,
-    "onShout": 3000,
-    "onBlurbChange": 3000
+    "onForumReply": 10000,
+    "onForumPost": 10000,
+    "onWallPost": 10000,
+    "onJoinRequestHandle": 10000,
+    "onShout": 10000,
+    "onBlurbChange": 10000
   },
 
   "queue": {
