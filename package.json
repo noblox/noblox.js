@@ -4,7 +4,7 @@
   "description": "A Node.js wrapper for ROBLOX. (original from sentanos)",
   "main": "lib/index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard --fix"
   },
   "repository": {
     "type": "git",
