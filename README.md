@@ -48,6 +48,40 @@ That's it!
 
 You can find the current noblox.js wiki with all API documentation [here](https://github.com/sentanos/roblox-js/wiki). A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0.
 
+## Making use of new login workaround
+
+### Initial setup
+1. Remove any usages of `.login`.
+2. Run `cookieLogin` when your app starts. You only need to run it on app start. Supply it with a cookie, guide on obtaining that below.
+3. This cookie will be automatically refreshed. You never need to supply it again, but you can if want.
+    
+
+### Getting your cookie (Chrome):
+1. Open any Roblox page and login
+2. Press `Control + Shift + i` on your keyboard
+3. Click `Application`
+4. Find `.ROBLOSECURITY`. Copy it's contents, which will start with `_|WARNING:-DO`
+5. Put this full token, *including* the warning into cookieLogin: `rbx.cookieLogin( tokenHere )`
+    
+### Example
+This example makes use of the new async-await syntax
+```js
+    const rbx = require("noblox.js")
+    async function startApp () {
+        await rbx.cookieLogin("_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_F9F1EA531adk")
+        // Do everything else, calling functions and the like.
+        let currentUser = await rbx.getCurrentUser()
+    }
+```
+
+## Drawbacks
+- Only one application can be logged in at once. 
+- If the application is offline for like a week to a month you may need to get the cookie again
+- Your cookie is stored within a file in the lib
+- Roblox-js-server is **not** currently compatible. You will need to remove its login and replace it.
+
+
+
 ## Credits
 
 * [sentanos](https://github.com/sentanos) - We wouldn't exist without him. 😀
