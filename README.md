@@ -53,7 +53,7 @@ You can find the current noblox.js wiki with all API documentation [here](https:
 ### Initial setup
 1. Remove any usages of the `login` method.
 2. Run `cookieLogin` when your app starts. You only need to run it on app start. Supply it with a cookie, guide on obtaining that below.
-3. This cookie will be automatically refreshed. You never need to supply it again, but you can if want.
+3. This cookie will be automatically refreshed. You never need to supply it again, but supplying it is unlikely to cause problems
     
 ### Getting your cookie (Chrome):
 1. Open any Roblox page and login
