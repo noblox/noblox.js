@@ -29,7 +29,8 @@
   },
   "author": "Suufi <me@suufi.me> (https://github.com/suufi)",
   "contributors": [
-    "Joshua Lanese <froastj@gmail.com>"
+    "Joshua Lanese <froastj@gmail.com>",
+    "Colton Loewen <loewencjay@outlook.com>"
   ],
   "homepage": "https://github.com/suufi/noblox.js",
   "devDependencies": {

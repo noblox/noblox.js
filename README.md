@@ -76,10 +76,63 @@ async function startApp () {
 ## Drawbacks
 - Only one application can be logged in at once. 
 - If the application is offline for like a week to a month you may need to get the cookie again
-- Your cookie is stored within a file in the lib
+- Your cookie is stored within a file in the lib by default (see: Using a custom cookie loader)
 - Roblox-js-server is **not** currently compatible. Use [noblox.js-server](https://github.com/suufi/noblox.js-server) instead.
 - The application will **not** work on Heroku. This is because we store the cookie internally in a file, and files do not persist in Heroku.
 
+## Using a custom cookie loader
+The cookie can be stored using a cookie loader. A cookie loader is a set of functions passed to cookieLogin to load and save cookies. In this case, the initial cookie should be a paramater in the object argument.
+
+*cookieLoad* should return (if available) an object with the **cookie** string and optionally a **time** number (which represents the amount of time since the unix epoch; e.g. `Date.Now()`). *cookieSave* is given a cookie to save and should return once completed.
+Both *cookieLoad* and *cookieSave* may run asynchronously in which case they must return a Promise.
+```js
+const rbx = require("noblox.js")
+const { promisify } = require("util")
+const redis = require("redis").createClient()
+const redisGet = promisify(redis.get)
+const redisSet = promisify(redis.set)
+async function startApp () {
+    await rbx.cookieLogin({
+        cookie: "_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_F9F1EA531adk",
+        loadCookie: function () {
+            return redisGet('cookie')
+        },
+        saveCookie: function (cookie) {
+            await redisSet('cookie', {cookie: cookie, time: Date.now()})
+        }
+    })
+    // Do everything else, calling functions and the like.
+    let currentUser = await rbx.getCurrentUser()
+}
+```
+
+Additionally, sample loaders have been provided for MySql, PostgreSQL, and Microsoft SQL databases.
+
+1. A connection pool is created for the database,
+2. an `rbx_cookie` table is created (if it does not exist),
+3. and the loader functions are returned.
+```js
+const rbx = require("noblox.js")
+async function startApp () {
+    let loader = rbx.cookieLoaders('mysql', {
+        host: 'example.org',
+        user: 'bob',
+        password: 'secret',
+        connectionLimit: 20
+    })
+    await rbx.cookieLogin({
+        cookie: "_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_F9F1EA531adk",
+        loadCookie: loader.loadCookie,
+        saveCookie: loader.saveCookie 
+    })
+    // Do everything else, calling functions and the like.
+    let currentUser = await rbx.getCurrentUser()
+}
+```
+Each sample loader has it's own identifier and driver that needs to be installed:
+- `mysql` - Requires `mysql` (`npm install --save mysql`).
+- `postgres` - Requires `pg` (`npm install --save pg`).
+- `mssql` - Requires `mssql` (`npm install --save mssql`).
 
 ## Credits
 
