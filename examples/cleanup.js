@@ -14,7 +14,7 @@ rbx.login(username, password)
   for (var i = 0; i <= 100; i++) {
     pages.push(i);
   } */
-    var getPlayers = new ProgressBar('Getting players [:bar] :current/:total = :percent :etas remaining ', {total: 10000})
+    var getPlayers = new ProgressBar('Getting players [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
     var promise = rbx.getPlayers(group, rank, pages)
     promise.then(function (res) {
       var plrs = res.players
@@ -29,10 +29,10 @@ rbx.login(username, password)
         .then(function () {
           rbx.getRolesetInGroupWithJar(group)
             .then(function (roleset) {
-              var exile = new ProgressBar('Exiling [:bar] :current/:total = :percent :etas remaining ', {total: 10000})
+              var exile = new ProgressBar('Exiling [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
               console.time('Time: ')
               var thread = rbx.threaded(function (i) {
-                return rbx.exile({group: group, target: plrs[i].id, senderRolesetId: roleset})
+                return rbx.exile({ group: group, target: plrs[i].id, senderRolesetId: roleset })
               }, 0, plrs.length)
               var ivl = setInterval(function () {
                 exile.update(thread.getStatus() / 100)

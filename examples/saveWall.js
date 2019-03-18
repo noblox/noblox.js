@@ -15,7 +15,7 @@ rbx.login(username, password)
       group: group,
       stream: stream
     })
-    var bar = new ProgressBar('Retrieving [:bar] :current/:total = :percent :etas remaining ', {total: 10000})
+    var bar = new ProgressBar('Retrieving [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
     var ivl = setInterval(function () {
       bar.update(promise.getStatus() / 100)
     }, 1000)
