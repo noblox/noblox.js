@@ -46,7 +46,7 @@ That's it!
 
 ## Documentation
 
-You can find the current noblox.js wiki with all API documentation [here](https://github.com/sentanos/roblox-js/wiki). A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0.
+You can find the current noblox.js wiki with all API documentation [here](https://github.com/suufi/noblox.js/wiki). A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0.
 
 ## Making use of new login workaround
 
