@@ -12,7 +12,7 @@ rbx.login(username, password)
   for (var i = 0; i <= 100; i++) {
     pages.push(i);
   } */
-    var wall = new ProgressBar('Getting wall [:bar] :current/:total = :percent :etas remaining ', {total: 10000})
+    var wall = new ProgressBar('Getting wall [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
     var promise = rbx.getWall({
       group: group,
       // page: pages,
@@ -30,7 +30,7 @@ rbx.login(username, password)
         posts.splice(i, 1);
       }
     } */
-      var deletion = new ProgressBar('Deleting posts [:bar] :current/:total = :percent :etas remaining ', {total: 10000})
+      var deletion = new ProgressBar('Deleting posts [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
       console.time('Time: ')
       var thread = rbx.threaded(function (i) {
         var post = posts[i]

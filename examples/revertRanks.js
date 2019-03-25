@@ -17,7 +17,7 @@ rbx.login(username, password)
     for (var i = startPage; i <= endPage; i++) {
       pages.push(i)
     }
-    var audit = new ProgressBar('Getting audit log [:bar] :current/:total = :percent :etas remaining ', {total: 10000})
+    var audit = new ProgressBar('Getting audit log [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
     var promise = rbx.getAuditLog({
       group: group,
       action: actionTypeId,
@@ -43,7 +43,7 @@ rbx.login(username, password)
       // Cache the XCSRF token to prepare for a bunch of requests at once
       rbx.getGeneralToken()
         .then(function () {
-          var revert = new ProgressBar('Reverting user ranks [:bar] :current/:total = :percent :etas remaining ', {total: 10000})
+          var revert = new ProgressBar('Reverting user ranks [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
           console.time('Time: ')
           var thread = rbx.threaded(function (i) {
             return rbx.setRank({

@@ -30,7 +30,7 @@ login()
                   return console.error('Cleverbot error: ' + response)
                 }
                 console.log(response)
-                rbx.post({group: group, message: response})
+                rbx.post({ group: group, message: response })
               })
             }
           })

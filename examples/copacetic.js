@@ -36,7 +36,7 @@ login()
       } else {
         response = 'Agreed'
       }
-      rbx.forumPost({postId: post.id, body: response + clear()})
+      rbx.forumPost({ postId: post.id, body: response + clear() })
     })
     evt.on('error', function (err) {
       console.error('Event error: ' + err.stack)
