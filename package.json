@@ -3,6 +3,7 @@
   "version": "4.2.6",
   "description": "A Node.js wrapper for ROBLOX. (original from sentanos)",
   "main": "lib/index.js",
+  "types": "typings/index.d.ts",
   "scripts": {
     "test": "standard --fix"
   },
