@@ -227,6 +227,111 @@ declare module "noblox.js" {
 
     /// Chat
 
+    interface ChatSettings
+    {
+        /**
+         * Is chat enabled for the user.
+         */
+        chatEnabled: boolean;
+        /**
+         * Was the Last ChatMessage Sent within the last x days or the account was created in the last x days? Note: user is active by default unless he does not chat for more than x days after account creation
+         */
+        isActiveChatUser: boolean;
+    }
+
+    interface ChatMessage
+    {
+        id: string;
+        senderType: "User" | "System";
+        sent: string;
+        read: boolean;
+        messageType: "PlainText" | "Link" | "EventBased";
+        decorators: string[];
+        senderTargetId: number;
+        content: string;
+        link: ChatMessageLink;
+        eventBased: ChatMessageEventBased;
+    }
+
+    interface ChatMessageLink
+    {
+        type: "Game";
+        game: ChatMessageGameLink;
+    }
+
+    interface ChatMessageGameLink
+    {
+        universeId: number;
+    }
+
+    interface ChatMessageEventBased
+    {
+        type: "SetConversationUniverse";
+        setConversationUniverse: ChatMessageSetConversationUniverseEventBased;
+    }
+
+    interface ChatMessageSetConversationUniverseEventBased 
+    {
+        actorUserId: number;
+        universeId: number;
+    }
+
+    interface ChatConversation
+    {
+        id: number;
+        title: string;
+        initiator: ChatParticipant;
+        hasUnreadMessages: boolean;
+        participants: ChatParticipant[];
+        conversationType: "OneToOneConversation" | "MultiUserConversation" | "CloudEditConversation";
+        conversationTitle: ChatConversationTitle;
+        lastUpdated: string;
+        conversationUniverse: ChatConversationUniverse;
+    }
+
+    interface ChatParticipant
+    {
+        type: "User" | "System";
+        targetId: number;
+        name: string;
+    }
+
+    interface ChatConversationTitle
+    {
+        titleForViewer: string;
+        isDefaultTitle: boolean;
+    }
+
+    interface ChatConversationUniverse
+    {
+        universeId: number;
+        rootPlaceId: number;
+    }
+
+    type ChatFeatureNames = "LuaChat" | "ConversationUniverse" | "PlayTogether" | "Party" | "GameLink" | "OldPlayTogether";
+
+    interface GetRolloutSettingsResult
+    {
+        rolloutFeatures: ChatRolloutFeature[];
+    }
+
+    interface ChatRolloutFeature
+    {
+        featureName: ChatFeatureNames;
+        isRolloutEnabled: boolean;
+    }
+
+    interface GetUnreadConversationCountResult
+    {
+        count: number;
+    }
+
+    interface ChatConversationWithMessages
+    {
+        conversationId: number;
+        chatMessages: ChatMessage[];
+    }
+
     /// Game
 
     interface DeveloperProductAddResult
@@ -598,6 +703,42 @@ declare module "noblox.js" {
     function wearAssetId(assetId: number, jar?: CookieJar): Promise<void>;
 
     /// Chat
+
+    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<void>;
+
+    function chatSettings(jar?: CookieJar): Promise<ChatSettings>;
+
+    function getChatMessages(conversationId: number, pageSize?: number, exclusiveStartMessageId?: number, jar?: CookieJar): Promise<ChatMessage[]>;
+
+    function getConversations(conversationIds: number[], jar?: CookieJar): Promise<ChatConversation[]>;
+
+    function getRolloutSettings(featureNames?: ChatFeatureNames[], jar?: CookieJar): Promise<GetRolloutSettingsResult>;
+
+    function getUnreadConversationCount(jar?: CookieJar): Promise<GetUnreadConversationCountResult>;
+
+    function getUnreadMessages(conversationIds: number[], pageSize?: number, jar?: CookieJar): Promise<ChatConversationWithMessages[]>;
+
+    function getUserConversations(pageNumber?: number, pageSize?: number, jar?: CookieJar): Promise<ChatConversation[]>;
+
+    function markChatAsRead(conversationId: number, endMessageId: string): Promise<void>;
+
+    function markChatAsSeen(conversationIds: number[], jar?: CookieJar): Promise<void>;
+
+    function multiGetLatestMessages(conversationIds: number[], pageSize?: number, jar?: CookieJar): Promise<ChatConversationWithMessages[]>;
+
+    function removeFromGroupConversation(conversationId: number, userId: number, jar?: CookieJar): Promise<void>;
+
+    function renameGroupConversation(conversationId: number, title: string, jar?: CookieJar): Promise<void>;
+
+    function sendChatMessage(conversationId: number, message: string, jar?: CookieJar): Promise<void>;
+
+    function setChatUserTyping(conversationId: number, isTyping: boolean, jar?: CookieJar): Promise<void>;
+
+    function start121Conversation(userId: number, jar?: CookieJar): Promise<void>;
+
+    function startCloudEditConversation(placeId: number, jar?: CookieJar): Promise<void>;
+
+    function startGroupConversation(userIds: number[], title: string, jar?: CookieJar): Promise<void>;
 
     /// Game
 
