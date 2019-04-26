@@ -87,6 +87,144 @@ declare module "noblox.js" {
 
     /// Avatar
 
+    interface AssetTypeRulesModel
+    {
+        min: number;
+        max: number;
+        increment: number;
+    }
+
+    interface AvatarRulesScales
+    {
+        [scalename: string]: AssetTypeRulesModel;
+    }
+
+    interface WearableAssetType
+    {
+        maxNumber: number;
+        id: number;
+        name: string;
+    }
+
+    interface BodyColorModel
+    {
+        brickColorId: number;
+        hexColor: string;
+        name: string;
+    }
+
+    interface DefaultClothingAssetLists
+    {
+        defaultShirtAssetIds: number[];
+        defaultPantAssetIds: number[];
+    }
+
+    interface AvatarRules
+    {
+        playerAvatarTypes: string[];
+        scales: AvatarRulesScales;
+        wearableAssetTypes: WearableAssetType[];
+        bodyColorsPalette: BodyColorModel[];
+        basicBodyColorsPalette: BodyColorModel[];
+        minimumDeltaEBodyColorDifference: number;
+        proportionsAndBodyTypeEnabledForUser: boolean;
+        defaultClothingAssetLists: DefaultClothingAssetLists;
+        bundlesEnabledForUser: boolean;
+        emotesEnabledForUser: boolean;
+    }
+
+    interface AssetIdList
+    {
+        assetIds: number[];
+    }
+
+    interface AvatarScale
+    {
+        height: number;
+        width: number;
+        head: number;
+        depth: number;
+        proportion: number;
+        bodyType: number;
+    }
+
+    interface AvatarBodyColors
+    {
+        headColorId: number;
+        torsoColorId: number;
+        rightArmColorId: number;
+        leftArmColorId: number;
+        rightLegColorId: number;
+        leftLegColorId: number;
+    }
+
+    interface AvatarAssetType
+    {
+        id: number;
+        name: string;
+    }
+
+    interface AvatarAsset
+    {
+        id: number;
+        name: string;
+        assetType: AvatarAssetType;
+    }
+
+    type PlayerAvatarType = "R6" | "R15";
+
+    interface AvatarInfo
+    {
+        scales: AvatarScale;
+        playerAvatarType: PlayerAvatarType;
+        bodyColors: AvatarBodyColors;
+        assets: AvatarAsset[];
+        defaultShirtApplied: boolean;
+        defaultPantsApplied: boolean;
+    }
+
+    type RecentItemListType = "All" | "Clothing" | "BodyParts" | "AvatarAnimations" | "Accessories" | "Outfits" | "Gear";
+    type RecentItemType = "Asset" | "Outfit";
+
+    interface AssetRecentItem
+    {
+        id: number;
+        name: string;
+        type: RecentItemType;
+        assetType: AvatarAssetType;
+        isEditable?: boolean;
+    }
+
+    interface AssetRecentItemsResult
+    {
+        data: AssetRecentItem[];
+        total: number;
+    }
+
+    interface AvatarOutfitDetails
+    {
+        id: number;
+        name: string;
+        assets: AvatarAsset[];
+        bodyColors: AvatarBodyColors[];
+        scale: AvatarScale;
+        playerAvatarType: PlayerAvatarType;
+        isEditable: boolean;
+    }
+
+    interface AvatarOutfit
+    {
+        id: number;
+        name: string;
+        isEditable: boolean;
+    }
+
+    interface GetOutfitsResult
+    {
+        data: AvatarOutfit[];
+        total: number;
+    }
+
     /// Chat
 
     /// Game
@@ -378,6 +516,52 @@ declare module "noblox.js" {
     function getProductInfo(asset: number): Promise<ProductInfo>;
 
     /// Avatar
+
+    function avatarRules(option?: "playerAvatarTypes" | "scales" | "wearableAssetTypes" | "bodyColorsPalette" | "basicBodyColorsPalette" | "minimumDeltaEBodyColorDifference" | "proportionsAndBodyTypeEnabledForUser" | "defaultClothingAssetLists" | "bundlesEnabledForUser" | "emotesEnabledForUser" | undefined, jar?: CookieJar): Promise<AvatarRules>;
+    
+    function avatarRules(option: "playerAvatarTypes", jar?: CookieJar): Promise<string[]>;
+    function avatarRules(option: "scales", jar?: CookieJar): Promise<AvatarRulesScales>;
+    function avatarRules(option: "wearableAssetTypes", jar?: CookieJar): Promise<WearableAssetType[]>;
+    function avatarRules(option: "bodyColorsPalette", jar?: CookieJar): Promise<BodyColorModel[]>;
+    function avatarRules(option: "basicBodyColorsPalette", jar?: CookieJar): Promise<BodyColorModel[]>;
+    function avatarRules(option: "minimumDeltaEBodyColorDifference", jar?: CookieJar): Promise<number>;
+    function avatarRules(option: "proportionsAndBodyTypeEnabledForUser", jar?: CookieJar): Promise<boolean>;
+    function avatarRules(option: "defaultClothingAssetLists", jar?: CookieJar): Promise<DefaultClothingAssetLists>;
+    function avatarRules(option: "bundlesEnabledForUser", jar?: CookieJar): Promise<boolean>;
+    function avatarRules(option: "emotesEnabledForUser", jar?: CookieJar): Promise<boolean>;
+
+    function currentlyWearing(userId: number): Promise<AssetIdList>;
+
+    function getAvatar(userId: number): Promise<AvatarInfo>;
+
+    function getCurrentAvatar(option?: "scales" | "playerAvatarType" | "bodyColors" | "assets" | "defaultShirtApplied" | "defaultPantsApplied" | undefined, jar?: CookieJar): Promise<AvatarInfo>;
+    
+    function getCurrentAvatar(option: "scales", jar?: CookieJar): Promise<AvatarScale>;
+    function getCurrentAvatar(option: "playerAvatarType", jar?: CookieJar): Promise<PlayerAvatarType>;
+    function getCurrentAvatar(option: "bodyColors", jar?: CookieJar): Promise<AvatarBodyColors>;
+    function getCurrentAvatar(option: "assets", jar?: CookieJar): Promise<AvatarAsset[]>;
+    function getCurrentAvatar(option: "defaultShirtApplied", jar?: CookieJar): Promise<boolean>;
+    function getCurrentAvatar(option: "defaultPantsApplied", jar?: CookieJar): Promise<boolean>;
+
+    function getRecentItems(listType?: RecentItemListType, jar?: CookieJar): Promise<AssetRecentItemsResult>;
+
+    function outfitDetails(outfitId: number): Promise<AvatarOutfitDetails>;
+
+    function outfits(userId: number, page?: number, itemsPerPage?: number): Promise<GetOutfitsResult>;
+
+    function redrawAvatar(jar?: CookieJar): Promise<void>;
+
+    function removeAssetId(assetId: number, jar?: CookieJar): Promise<void>;
+
+    function setAvatarBodyColours(args: AvatarBodyColors & {jar?: CookieJar}): Promise<void>;
+
+    function setAvatarScales(args: AvatarScale & {jar?: CookieJar}): Promise<void>;
+
+    function setPlayerAvatarType(avatarType: PlayerAvatarType, jar?: CookieJar): Promise<void>;
+
+    function setWearingAssets(assetIds: number[], jar?: CookieJar): Promise<void>;
+
+    function wearAssetId(assetId: number, jar?: CookieJar): Promise<void>;
 
     /// Chat
 
