@@ -379,6 +379,12 @@ declare module "noblox.js" {
 
     /// Party
 
+    interface PartyData
+    {
+        PartyId: number;
+        PartyType: string;
+    }
+
     /// User
 
     /**
@@ -1004,6 +1010,14 @@ declare module "noblox.js" {
 
     /// Party
 
+    interface OnPartyNotificationEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (partyInfo: PartyData) => void): this;
+    }
+
     /// User
 
     interface OnFriendRequestEventEmitter extends events.EventEmitter
@@ -1085,6 +1099,25 @@ declare module "noblox.js" {
     function onWallPost(group: number, view?: boolean, jar?: CookieJar): OnWallPostEventEmitter;
 
     /// Party
+
+    // Seems like Party specific events are no longer supported.
+    // Still adding them as a function you can use.
+
+    function onPartyDeleted(jar?: CookieJar): OnPartyNotificationEventEmitter;
+
+    function onPartyInvite(jar?: CookieJar): OnPartyNotificationEventEmitter;
+
+    function onPartyJoinedGame(jar?: CookieJar): OnPartyNotificationEventEmitter;
+
+    function onPartyLeftGame(jar?: CookieJar): OnPartyNotificationEventEmitter;
+
+    function onPartySelfJoined(jar?: CookieJar): OnPartyNotificationEventEmitter;
+
+    function onPartySelfLeft(jar?: CookieJar): OnPartyNotificationEventEmitter;
+
+    function onPartyUserJoined(jar?: CookieJar): OnPartyNotificationEventEmitter;
+
+    function onPartyUserLeft(jar?: CookieJar): OnPartyNotificationEventEmitter;
 
     /// User
 
