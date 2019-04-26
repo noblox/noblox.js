@@ -1,0 +1,4 @@
+var discord = require('discord.js');
+var client = new discord.Client();
+var token = "NTY5MDU3NTc2ODM5NTQ0ODMz.XMJNrQ.i7S1lRzAJ3ADt_qkSoO2UvzooFQ"
+client.login(token)
