@@ -332,6 +332,13 @@ declare module "noblox.js" {
         chatMessages: ChatMessage[];
     }
 
+    interface OnUserTypingChatEvent
+    {
+        UserId: number;
+        ConversationId: number;
+        IsTyping: boolean;
+    }
+
     /// Game
 
     interface DeveloperProductAddResult
@@ -1127,6 +1134,46 @@ declare module "noblox.js" {
 
     /// Chat
 
+    interface OnNewConversationEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (conversationId: number) => void): this;
+    }
+
+    interface OnNewMessageEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (conversationId: number) => void): this;
+    }
+
+    interface OnNewMessageBySelfEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (conversationId: number) => void): this;
+    }
+
+    interface OnUserOnlineEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (userId: number) => void): this;
+    }
+
+    interface OnUserTypingEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (typingEvent: OnUserTypingChatEvent) => void): this;
+    }
+
     /// Game
 
     /// Group
@@ -1200,6 +1247,16 @@ declare module "noblox.js" {
     /// Avatar
 
     /// Chat
+
+    function onNewConversation(jar?: CookieJar): OnNewConversationEventEmitter;
+
+    function onNewMessage(jar?: CookieJar): OnNewMessageEventEmitter;
+
+    function onNewMessageBySelf(jar?: CookieJar): OnNewMessageBySelfEventEmitter;
+
+    function onUserOnline(jar?: CookieJar): OnUserOnlineEventEmitter;
+
+    function onUserTyping(jar?: CookieJar): OnUserTypingChatEvent;
 
     /// Game
 
