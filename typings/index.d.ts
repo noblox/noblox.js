@@ -229,6 +229,34 @@ declare module "noblox.js" {
 
     /// Game
 
+    interface DeveloperProductAddResult
+    {
+        universeId: number,
+        name: string,
+        priceInRobux: number,
+        description?: string,
+        productId: string
+    }
+
+    interface DeveloperProductUpdateResult
+    {
+        universeId: number,
+        name: string,
+        priceInRobux: number,
+        description?: string,
+        productId: number
+    }
+
+    interface CheckDeveloperProductNameResult
+    {
+        Success: boolean;
+        /**
+         * When success is true: "Name available"
+         * When success is false, you can get: "Product name already exists"
+         */
+        Message: string;
+    }
+
     /// Group
 
     interface Role
@@ -566,6 +594,20 @@ declare module "noblox.js" {
     /// Chat
 
     /// Game
+
+    // You can create a developer product, but the productId returned does not match the actual developer product id needed by the endpoints.
+    // It's strange, but the edit link on the product page has the id that Roblox wants so you can edit dev products.
+
+    function addDeveloperProduct(universeId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductAddResult>;
+
+    /**
+     * Checks to see if the provided `produceName` is able to be used on `productId`.
+     * 
+     * NOTE: You actually need a valid `productId` and `universeId` otherwise, the http request returns a `404 Not Found` response.
+     */
+    function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<CheckDeveloperProductNameResult>;
+
+    function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
 
     /// Group
 
