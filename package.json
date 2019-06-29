@@ -22,7 +22,7 @@
     "entities": "^1.1.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.4",
-    "signalr-client": "0.0.17"
+    "signalr-client": "0.0.19"
   },
   "license": "MIT",
   "bugs": {
