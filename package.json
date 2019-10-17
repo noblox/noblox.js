@@ -19,7 +19,7 @@
   "dependencies": {
     "bluebird": "^3.5.4",
     "cheerio": "^1.0.0-rc.3",
-    "entities": "^1.1.1",
+    "entities": "^2.0.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.4",
     "signalr-client": "0.0.19"
