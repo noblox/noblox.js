@@ -1,8 +1,9 @@
 {
   "name": "noblox.js",
-  "version": "4.2.4",
+  "version": "4.2.6",
   "description": "A Node.js wrapper for ROBLOX. (original from sentanos)",
   "main": "lib/index.js",
+  "types": "typings/index.d.ts",
   "scripts": {
     "test": "standard --fix"
   },
@@ -16,12 +17,12 @@
     "clans"
   ],
   "dependencies": {
-    "bluebird": "^3.4.0",
-    "cheerio": "^1.0.0-rc.2",
-    "entities": "^1.1.1",
+    "bluebird": "^3.5.4",
+    "cheerio": "^1.0.0-rc.3",
+    "entities": "^2.0.0",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1",
-    "signalr-client": "0.0.17"
+    "request-promise": "^4.2.4",
+    "signalr-client": "0.0.19"
   },
   "license": "MIT",
   "bugs": {
