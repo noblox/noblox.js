@@ -46,7 +46,7 @@ That's it!
 
 ## Documentation
 
-You can find the current noblox.js wiki with all API documentation [here](https://github.com/suufi/noblox.js/wiki). A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0.
+You can find the current noblox.js wiki with all API documentation [here](https://github.com/suufi/noblox.js/wiki). Keep in mind that all methods may not be documented. A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0. 
 
 ## Making use of new login workaround
 
@@ -77,7 +77,7 @@ async function startApp () {
 - Only one application can be logged in at once. 
 - If the application is offline for like a week to a month you may need to get the cookie again
 - Your cookie is stored within a file in the lib
-- Roblox-js-server is **not** currently compatible. Use [noblox.js-server](https://github.com/suufi/noblox.js-server) instead.
+- Roblox-js-server is **not** currently compatible. Use [noblox.js-server](https://github.com/Hamzah-z/noblox.js-server) instead.
 - The application will **not** work on Heroku. This is because we store the cookie internally in a file, and files do not persist in Heroku.
 
 
