@@ -6,7 +6,15 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>noblox.js API Reference</title>
-
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121100860-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-121100860-3');
+    </script>    
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -272,6 +280,9 @@
                     <a href="#get-player-info" class="toc-h2 toc-link" data-title="Get Player Info">Get Player Info</a>
                   </li>
                   <li>
+                    <a href="#get-presences" class="toc-h2 toc-link" data-title="Get Presences">Get Presences</a>
+                  </li>
+                  <li>
                     <a href="#get-status" class="toc-h2 toc-link" data-title="Get Status">Get Status</a>
                   </li>
                   <li>
@@ -280,7 +291,87 @@
                   <li>
                     <a href="#send-message" class="toc-h2 toc-link" data-title="Send Message">Send Message</a>
                   </li>
+                  <li>
+                    <a href="#send-friend-request" class="toc-h2 toc-link" data-title="Send Friend Request">Send Friend Request</a>
+                  </li>
+                  <li>
+                    <a href="#unblock-user" class="toc-h2 toc-link" data-title="Unblock User">Unblock User</a>
+                  </li>
               </ul>
+          </li>
+          <li>
+            <a href="#user-events" class="toc-h1 toc-link" data-title="User Events">User Events</a>
+          </li>
+          <li>
+            <a href="#group-functions" class="toc-h1 toc-link" data-title="Group Functions">Group Functions</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#change-rank" class="toc-h2 toc-link" data-title="Change Rank">Change Rank</a>
+                  </li>
+                  <li>
+                    <a href="#delete-wall-post" class="toc-h2 toc-link" data-title="Delete Wall Post">Delete Wall Post</a>
+                  </li>
+                  <li>
+                    <a href="#demote-user" class="toc-h2 toc-link" data-title="Demote User">Demote User</a>
+                  </li>
+                  <li>
+                    <a href="#exile-user" class="toc-h2 toc-link" data-title="Exile User">Exile User</a>
+                  </li>
+                  <li>
+                    <a href="#get-audit-log" class="toc-h2 toc-link" data-title="Get Audit Log">Get Audit Log</a>
+                  </li>
+                  <li>
+                    <a href="#get-join-requests" class="toc-h2 toc-link" data-title="Get Join Requests">Get Join Requests</a>
+                  </li>
+                  <li>
+                    <a href="#get-logo" class="toc-h2 toc-link" data-title="Get Logo">Get Logo</a>
+                  </li>
+                  <li>
+                    <a href="#get-players" class="toc-h2 toc-link" data-title="Get Players">Get Players</a>
+                  </li>
+                  <li>
+                    <a href="#get-player-39-s-rank" class="toc-h2 toc-link" data-title="Get Player's Rank">Get Player's Rank</a>
+                  </li>
+                  <li>
+                    <a href="#get-player-39-s-role-rank-name" class="toc-h2 toc-link" data-title="Get Player's Role (Rank Name)">Get Player's Role (Rank Name)</a>
+                  </li>
+                  <li>
+                    <a href="#get-role" class="toc-h2 toc-link" data-title="Get Role">Get Role</a>
+                  </li>
+                  <li>
+                    <a href="#get-role-permissions" class="toc-h2 toc-link" data-title="Get Role Permissions">Get Role Permissions</a>
+                  </li>
+                  <li>
+                    <a href="#get-role-2" class="toc-h2 toc-link" data-title="Get Role">Get Role</a>
+                  </li>
+                  <li>
+                    <a href="#get-shout" class="toc-h2 toc-link" data-title="Get Shout">Get Shout</a>
+                  </li>
+                  <li>
+                    <a href="#get-wall" class="toc-h2 toc-link" data-title="Get Wall">Get Wall</a>
+                  </li>
+                  <li>
+                    <a href="#group-payout" class="toc-h2 toc-link" data-title="Group Payout">Group Payout</a>
+                  </li>
+                  <li>
+                    <a href="#handle-join-request" class="toc-h2 toc-link" data-title="Handle Join Request">Handle Join Request</a>
+                  </li>
+                  <li>
+                    <a href="#post-to-wall" class="toc-h2 toc-link" data-title="Post To Wall">Post To Wall</a>
+                  </li>
+                  <li>
+                    <a href="#promote-user" class="toc-h2 toc-link" data-title="Promote User">Promote User</a>
+                  </li>
+                  <li>
+                    <a href="#set-rank" class="toc-h2 toc-link" data-title="Set Rank">Set Rank</a>
+                  </li>
+                  <li>
+                    <a href="#shout" class="toc-h2 toc-link" data-title="Shout">Shout</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#group-events" class="toc-h1 toc-link" data-title="Group Events">Group Events</a>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
@@ -729,7 +820,23 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves with an integer like so:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="mi">484140</span>
-</code></pre><h2 id='get-messages'>Get Messages</h2>
+</code></pre><h3 id='parameters-11'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>username</td>
+<td>none</td>
+<td>This is the username of the user whose ID is being fetched.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-messages'>Get Messages</h2>
 <p>This function returns an array containing the users followed by the target user.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
 
@@ -775,7 +882,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">totalPages</span><span class="p">:</span> <span class="mi">273</span><span class="p">,</span>
   <span class="nx">pageNumber</span><span class="p">:</span> <span class="mi">0</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-11'>Parameters</h3>
+</code></pre><h3 id='parameters-12'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -824,7 +931,49 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">joinDate</span><span class="p">:</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">26</span><span class="nx">T05</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span><span class="nx">Z</span><span class="p">,</span>
   <span class="nx">age</span><span class="p">:</span> <span class="mi">2413</span>
 <span class="p">}</span>
-</code></pre><h2 id='get-status'>Get Status</h2>
+</code></pre><h2 id='get-presences'>Get Presences</h2>
+<p>This function returns the presence statuses of the specified users.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getPresences</span><span class="p">([</span><span class="mi">43925717</span><span class="p">])</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves with an object like so:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">userPresences</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">userPresenceType</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="c1">// ['Offline', 'Online', 'InGame', 'Studio']</span>
+      <span class="na">lastLocation</span><span class="p">:</span> <span class="s2">"Minery"</span><span class="p">,</span>
+      <span class="na">placeId</span><span class="p">:</span> <span class="mi">2750779411</span><span class="p">,</span>
+      <span class="na">rootPlaceId</span><span class="p">:</span> <span class="mi">1827671349</span><span class="p">,</span>
+      <span class="na">gameId</span><span class="p">:</span> <span class="s2">"3080b3ed-b59a-1fbc-00f3-ff4c06b3bb72"</span><span class="p">,</span>
+      <span class="na">universeId</span><span class="p">:</span> <span class="mi">668388398</span><span class="p">,</span>
+      <span class="na">userId</span><span class="p">:</span> <span class="mi">43925717</span><span class="p">,</span>
+      <span class="na">lastOnline</span><span class="p">:</span> <span class="s2">"2020-03-28T23:38:03.4589635Z"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-13'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userIds</td>
+<td>none</td>
+<td>An array of user IDs whose presences will be fetched.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-status'>Get Status</h2>
 <p>This function returns the blurb of a user. The blurb is the equivalent of the user&#39;s description on Roblox, not their status message.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">noblox</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">);</span>
 
@@ -836,7 +985,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves with a string, in this case:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="s2">"If PMed about your limiteds' values and needing to verify you own the account, block them. They're trying to scam you."</span><span class="w">
-</span></code></pre><h3 id='parameters-12'>Parameters</h3>
+</span></code></pre><h3 id='parameters-14'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -864,7 +1013,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <pre class="highlight javascript"><code><span class="s2">"Froast"</span>
 </code></pre>
 <p>This method returns a user&#39;s username after being provided with a user ID. </p>
-<h3 id='parameters-13'>Parameters</h3>
+<h3 id='parameters-15'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -897,7 +1046,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">shortMessage</span><span class="p">:</span> <span class="s1">'Success'</span><span class="p">,</span>
   <span class="nx">message</span><span class="p">:</span> <span class="s1">'Successfully sent message.'</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-14'>Parameters</h3>
+</code></pre><h3 id='parameters-16'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -937,6 +1086,1064 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <td></td>
 </tr>
 </tbody></table>
+<h2 id='send-friend-request'>Send Friend Request</h2>
+<p>This function removes the target user as a friend from the logged in user.
+```javascript
+const nbx = require(&#39;noblox.js&#39;)</p>
+
+<p>...
+nbx.sendFriendRequest(44545891)
+...</p>
+<pre class="highlight plaintext"><code>&gt; The method above returns a Promise that resolves if the friend request has been delivered successfully.
+
+### Parameters
+
+Parameter | Default | Description | Required
+--------- | ------- | ----------- | --------
+userID    | none    | This is the user ID of the user that is being friended. | ✓
+
+## Remove Friend
+This function removes the target user as a friend from the logged in user.
+```javascript
+const nbx = require('noblox.js')
+
+...
+nbx.removeFriend(44545891)
+...
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves if the user has been removed successfully.</p>
+</blockquote>
+<h2 id='unblock-user'>Unblock User</h2>
+<p>This function removes the target user as a friend from the logged in user.
+```javascript
+const nbx = require(&#39;noblox.js&#39;)</p>
+
+<p>...
+nbx.unblock(44545891)
+...</p>
+<pre class="highlight plaintext"><code>&gt; The method above returns a Promise that resolves if the user has been unblocked successfully.
+
+
+### Parameters
+
+Parameter | Default | Description | Required
+--------- | ------- | ----------- | --------
+userID    | none    | This is the user ID of the user that is being unblocked. | ✓
+
+## Unfollow User
+This function removes the target user as a friend from the logged in user.
+```javascript
+const nbx = require('noblox.js')
+
+...
+nbx.unfollow(4397833)
+...
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves if the user has been unfollowed successfully.</p>
+</blockquote>
+<h3 id='parameters-17'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userID</td>
+<td>none</td>
+<td>This is the user ID of the user that is being unfollowed.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h1 id='user-events'>User Events</h1>
+<p>The following events are available:
+- onBlurbChange
+- onFriendRequest
+- onMessage
+- onNotification</p>
+<h1 id='group-functions'>Group Functions</h1><h2 id='change-rank'>Change Rank</h2>
+<p>This function changes a user&#39;s rank in a group by the defined incremenet.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">changeRank</span><span class="p">(</span><span class="mi">44545891</span><span class="p">,</span> <span class="mi">4397833</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// demotes the user by one rank</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves which resolves with the rank change:
+<code>javascript
+{
+  newRole: { name: &#39;Developers&#39;, rank: 100, memberCount: 0, ID: 30821144 },
+  oldRole: { name: &#39;Adminstrators&#39;, rank: 253, memberCount: 2, ID: 32867453 }
+}
+</code></p>
+</blockquote>
+<h3 id='parameters-18'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the rank change is taking place.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>target</td>
+<td>none</td>
+<td>This is the user whose rank is being changed.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>change</td>
+<td>none</td>
+<td>This is the <strong>increment</strong> by which the rank is being changed.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='delete-wall-post'>Delete Wall Post</h2>
+<p>This function deletes a post on the wall.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">deleteWallPost</span><span class="p">(</span><span class="mi">4591072</span><span class="p">,</span> <span class="mi">2015039882</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully if the post has been deleted.</p>
+</blockquote>
+<h3 id='parameters-19'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the rank change is taking place.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>target</td>
+<td>none</td>
+<td>This is the user whose rank is being changed.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>change</td>
+<td>none</td>
+<td>This is the <strong>increment</strong> by which the rank is being changed.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='demote-user'>Demote User</h2>
+<p>This function decrements a user&#39;s rank by one.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">demote</span><span class="p">(</span><span class="mi">5140263</span><span class="p">,</span> <span class="mi">55549140</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the rank change:
+<code>javascript
+{
+  newRole: { name: &#39;Sauce&#39;, rank: 253, memberCount: 4, ID: 34250619 },
+  oldRole: { name: &#39;homeslices&#39;, rank: 254, memberCount: 4, ID: 38052407 }
+}
+</code></p>
+<h3 id='parameters-20'>Parameters</h3></blockquote>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the rank change is taking place.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>target</td>
+<td>none</td>
+<td>This is the user whose rank is being changed.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='exile-user'>Exile User</h2>
+<p>This function exiles a user from a group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">exile</span><span class="p">(</span><span class="mi">5140263</span><span class="p">,</span> <span class="mi">55549140</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully if the user has been exiled.</p>
+</blockquote>
+<h3 id='parameters-21'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>none</td>
+<td>This is the group ID from where the target user is being exiled from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>target</td>
+<td>none</td>
+<td>This is the user being exiled.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-audit-log'>Get Audit Log</h2>
+<p>This function fetches audit logs from a group. The function allows you to filter which action types you would like to return, the following options are valid:</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getAuditLog</span><span class="p">(</span><span class="mi">4591072</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the fetched audit logs:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">previousPageCursor</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">nextPageCursor</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">data</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="p">{</span>
+      <span class="nl">actor</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nl">user</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nl">buildersClubMembershipType</span><span class="p">:</span> <span class="s1">'None'</span><span class="p">,</span>
+          <span class="nx">userId</span><span class="p">:</span> <span class="mi">55549140</span><span class="p">,</span>
+          <span class="nx">username</span><span class="p">:</span> <span class="s1">'Qxest'</span><span class="p">,</span>
+          <span class="nx">displayName</span><span class="p">:</span> <span class="s1">'Qxest+DN'</span>
+        <span class="p">},</span>
+        <span class="nx">role</span><span class="p">:</span> <span class="p">{</span> <span class="nl">id</span><span class="p">:</span> <span class="mi">30820744</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="s1">'Owner'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span> 
+      <span class="p">},</span>
+      <span class="nx">actionType</span><span class="p">:</span> <span class="s1">'Accept Join Request'</span><span class="p">,</span>
+      <span class="nx">description</span><span class="p">:</span> <span class="p">{</span> <span class="nl">TargetId</span><span class="p">:</span> <span class="mi">64679301</span><span class="p">,</span> <span class="nx">TargetName</span><span class="p">:</span> <span class="s1">'iEternaIFire'</span> <span class="p">},</span>
+      <span class="nx">created</span><span class="p">:</span> <span class="s1">'2020-02-12T04:17:35.18Z'</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+<p><img src="./images/audit-log-actions.png" width="25%"></p>
+<h3 id='parameters-22'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>none</td>
+<td>This is the group ID from where the audit logs are being fetched from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>actionType</td>
+<td>none</td>
+<td>This is the action type being filtered for. (Leave blank to fetch all)</td>
+<td></td>
+</tr>
+<tr>
+<td>userId</td>
+<td>none</td>
+<td>This is the user you want to find logs from. (Leave blank to fetch all)</td>
+<td></td>
+</tr>
+<tr>
+<td>sortOrder</td>
+<td>Asc</td>
+<td>Order in which to return results (<strong>Asc</strong> or <strong>Desc</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>100</td>
+<td>Max results to return (<strong>10</strong>, <strong>25</strong>, <strong>50</strong>, or <strong>100</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td>cursor</td>
+<td>none</td>
+<td>The paging cursor for the previous or next page.</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='get-join-requests'>Get Join Requests</h2>
+<p>This function fetches audit logs from a group. The function allows you to filter which action types you would like to return, the following options are valid:</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getJoinRequests</span><span class="p">(</span><span class="mi">4591072</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the currently pending join requests:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">previousPageCursor</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">nextPageCursor</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">data</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="p">{</span>
+      <span class="nl">requester</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nl">userId</span><span class="p">:</span> <span class="mi">1466036629</span><span class="p">,</span>
+        <span class="nx">username</span><span class="p">:</span> <span class="s1">'WhatImNotTrialMod'</span><span class="p">,</span>
+        <span class="nx">displayName</span><span class="p">:</span> <span class="s1">'WhatImNotTrialMod+DN'</span>
+      <span class="p">},</span>
+      <span class="nx">created</span><span class="p">:</span> <span class="s1">'2020-03-03T00:47:36.207Z'</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-23'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>none</td>
+<td>This is the group ID from where the join requests are being fetched from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>sortOrder</td>
+<td>Asc</td>
+<td>Order in which to return results (<strong>Asc</strong> or <strong>Desc</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>100</td>
+<td>Max results to return (<strong>10</strong>, <strong>25</strong>, <strong>50</strong>, or <strong>100</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td>cursor</td>
+<td>none</td>
+<td>The paging cursor for the previous or next page.</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='get-logo'>Get Logo</h2>
+<p>This function gets the logo of a group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getLogo</span><span class="p">(</span><span class="mi">4591072</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the asset ID referring to the group icon:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="s2">"http://www.roblox.com/asset/?id=3771239053"</span>
+</code></pre><h3 id='parameters-24'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the logo is being fetched from</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-players'>Get Players</h2>
+<p>This function gets players in a group or under a roleset ID.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getPlayers</span><span class="p">(</span><span class="mi">199219</span><span class="p">,</span> <span class="mi">19616206</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the players under the group (or under that roleset specified):</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">...</span>
+  <span class="p">{</span>
+    <span class="nl">buildersClubMembershipType</span><span class="p">:</span> <span class="s1">'None'</span><span class="p">,</span>
+    <span class="nx">userId</span><span class="p">:</span> <span class="mi">3056945</span><span class="p">,</span>
+    <span class="nx">username</span><span class="p">:</span> <span class="s1">'MARIOCRUSHER'</span><span class="p">,</span>
+    <span class="nx">displayName</span><span class="p">:</span> <span class="s1">'MARIOCRUSHER+DN'</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">buildersClubMembershipType</span><span class="p">:</span> <span class="s1">'None'</span><span class="p">,</span>
+    <span class="na">userId</span><span class="p">:</span> <span class="mi">6879953</span><span class="p">,</span>
+    <span class="na">username</span><span class="p">:</span> <span class="s1">'LilyScamander'</span><span class="p">,</span>
+    <span class="na">displayName</span><span class="p">:</span> <span class="s1">'LilyScamander+DN'</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="na">buildersClubMembershipType</span><span class="p">:</span> <span class="s1">'None'</span><span class="p">,</span>
+    <span class="na">userId</span><span class="p">:</span> <span class="mi">178716431</span><span class="p">,</span>
+    <span class="na">username</span><span class="p">:</span> <span class="s1">'supdabpeace'</span><span class="p">,</span>
+    <span class="na">displayName</span><span class="p">:</span> <span class="s1">'supdabpeace+DN'</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+<span class="p">]</span>
+</code></pre><h3 id='parameters-25'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the players are being fetched from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>roleset</td>
+<td>none</td>
+<td>This is the roleset ID to fetch people from.</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='get-player-39-s-rank'>Get Player&#39;s Rank</h2>
+<p>This function gets a player&#39;s rank (0-255) in a group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getRankInGroup</span><span class="p">(</span><span class="mi">199219</span><span class="p">,</span> <span class="mi">55549140</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the rank number of the player:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="mi">151</span>
+</code></pre><h3 id='parameters-26'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the player&#39;s rank is being fetched from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>userId</td>
+<td>none</td>
+<td>This is the player ID whose rank is being fetched.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-player-39-s-role-rank-name'>Get Player&#39;s Role (Rank Name)</h2>
+<p>This function gets a player&#39;s rank name in a group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getRankNameInGroup</span><span class="p">(</span><span class="mi">199219</span><span class="p">,</span> <span class="mi">55549140</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the role of the player:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="s2">"Veteran"</span>
+</code></pre><h3 id='parameters-27'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the player&#39;s role is being fetched from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>userId</td>
+<td>none</td>
+<td>This is the player ID whose roke is being fetched.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-role'>Get Role</h2>
+<p>This function gets a role in a group from either the role&#39;s rank, name, or roleset ID.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getRole</span><span class="p">({</span> <span class="na">group</span><span class="p">:</span> <span class="mi">199219</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">151</span> <span class="p">})</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the role:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Veteran'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">151</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">19616206</span> <span class="p">}</span>
+</code></pre><h3 id='parameters-28'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the role is being fetched from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>rank</td>
+<td>none</td>
+<td>This is the rank of the role wanting to be found. (0-255)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>name</td>
+<td>none</td>
+<td>This is the name of the role wanting to be found.</td>
+<td>-</td>
+</tr>
+<tr>
+<td>id</td>
+<td>none</td>
+<td>This is the roleset ID of the role wanting to be found.</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h2 id='get-role-permissions'>Get Role Permissions</h2>
+<p>This function gets the permissions of a role in a group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getRolePermissions</span><span class="p">(</span><span class="mi">4591072</span><span class="p">,</span> <span class="mi">32867453</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the permissions:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">groupId</span><span class="p">:</span> <span class="mi">4591072</span><span class="p">,</span>
+  <span class="nx">role</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">id</span><span class="p">:</span> <span class="mi">32867453</span><span class="p">,</span>
+    <span class="nx">name</span><span class="p">:</span> <span class="s1">'Adminstrators'</span><span class="p">,</span>
+    <span class="nx">description</span><span class="p">:</span> <span class="s1">'administrative team '</span><span class="p">,</span>
+    <span class="nx">rank</span><span class="p">:</span> <span class="mi">253</span><span class="p">,</span>
+    <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">},</span>
+  <span class="nx">permissions</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">groupPostsPermissions</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nl">viewWall</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">postToWall</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">deleteFromWall</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">viewStatus</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">postToStatus</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="nx">groupMembershipPermissions</span><span class="p">:</span> <span class="p">{</span> 
+      <span class="nl">changeRank</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> 
+      <span class="nx">inviteMembers</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> 
+      <span class="nx">removeMembers</span><span class="p">:</span> <span class="kc">true</span> 
+    <span class="p">},</span>
+    <span class="nx">groupManagementPermissions</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nl">manageRelationships</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">manageClan</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nx">viewAuditLogs</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="nx">groupEconomyPermissions</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nl">spendGroupFunds</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">advertiseGroup</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">createItems</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">manageItems</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">addGroupPlaces</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nx">manageGroupGames</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">viewGroupPayouts</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-29'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the permissions are being fetched from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>roleId</td>
+<td>none</td>
+<td>This is the roleset ID of the rank for which permissions should be found.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-role-2'>Get Role</h2>
+<p>This function gets all roles in a group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getRoles</span><span class="p">(</span><span class="mi">3073600</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the roles:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">[</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Guest'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113251</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Member'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">243</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113250</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Friend'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">249</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113266</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'sempi'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">33466226</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Moderator'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">251</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113263</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Alternative account'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">252</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113249</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'DurstAuric'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113248</span> <span class="p">}</span>
+<span class="p">]</span>
+</code></pre><h3 id='parameters-30'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the roles are being fetched from.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-shout'>Get Shout</h2>
+<p>This function fetches the current shout in a group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getShout</span><span class="p">(</span><span class="mi">3073600</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the shout:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">body</span><span class="p">:</span> <span class="s1">'Temporarily closed the group wall while I sort the mass-spam out.'</span><span class="p">,</span>
+  <span class="nx">poster</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">buildersClubMembershipType</span><span class="p">:</span> <span class="s1">'None'</span><span class="p">,</span>
+    <span class="nx">userId</span><span class="p">:</span> <span class="mi">3052771</span><span class="p">,</span>
+    <span class="nx">username</span><span class="p">:</span> <span class="s1">'DurstAuric'</span><span class="p">,</span>
+    <span class="nx">displayName</span><span class="p">:</span> <span class="s1">'DurstAuric+DN'</span>
+  <span class="p">},</span>
+  <span class="nx">created</span><span class="p">:</span> <span class="s1">'2017-01-20T11:44:00.673Z'</span><span class="p">,</span>
+  <span class="nx">updated</span><span class="p">:</span> <span class="s1">'2018-08-18T23:03:48.917Z'</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-31'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the shout is being fetched from.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-wall'>Get Wall</h2>
+<p>This function fetches posts from a group&#39;s groupwall.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getWall</span><span class="p">(</span><span class="mi">4591072</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the fetched wall posts:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">previousPageCursor</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">nextPageCursor</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">data</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="p">{</span>
+      <span class="nl">id</span><span class="p">:</span> <span class="mi">2002012064</span><span class="p">,</span>
+      <span class="nx">poster</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nl">buildersClubMembershipType</span><span class="p">:</span> <span class="s1">'None'</span><span class="p">,</span>
+        <span class="nx">userId</span><span class="p">:</span> <span class="mi">55549140</span><span class="p">,</span>
+        <span class="nx">username</span><span class="p">:</span> <span class="s1">'m0mmapoIar'</span><span class="p">,</span>
+        <span class="nx">displayName</span><span class="p">:</span> <span class="s1">'m0mmapoIar+DN'</span>
+      <span class="p">},</span>
+      <span class="nx">body</span><span class="p">:</span> <span class="s1">'HELLO!'</span><span class="p">,</span>
+      <span class="nx">created</span><span class="p">:</span> <span class="s1">'2019-12-19T18:42:02.777Z'</span><span class="p">,</span>
+      <span class="nx">updated</span><span class="p">:</span> <span class="s1">'2019-12-19T18:42:02.777Z'</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-32'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>groupId</td>
+<td>none</td>
+<td>This is the group ID from where the wall posts are being fetched from.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>sortOrder</td>
+<td>Asc</td>
+<td>Order in which to return results (<strong>Asc</strong> or <strong>Desc</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>100</td>
+<td>Max results to return (<strong>10</strong>, <strong>25</strong>, <strong>50</strong>, or <strong>100</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td>cursor</td>
+<td>none</td>
+<td>The paging cursor for the previous or next page.</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='group-payout'>Group Payout</h2>
+<p>This function pays out group funds to the specified users.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">groupPayout</span><span class="p">({</span> <span class="na">group</span><span class="p">:</span> <span class="mi">4591072</span><span class="p">,</span> <span class="na">member</span><span class="p">:</span> <span class="p">[</span><span class="mi">44545891</span><span class="p">,</span> <span class="mi">5116262</span><span class="p">],</span> <span class="na">amount</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="na">recurring</span><span class="p">:</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully if the payout went through.</p>
+</blockquote>
+<h3 id='parameters-33'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>member</td>
+<td>none</td>
+<td>Member(s) to pay out to, use array if multiple</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>none</td>
+<td>Amounts to pay out, use array if multiple, if usePercentage is enabled use a number between 1-100</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>recurring</td>
+<td>false</td>
+<td>Determines if this payout is recurring</td>
+<td></td>
+</tr>
+<tr>
+<td>usePercentage</td>
+<td>false</td>
+<td>Determines if using a percetage system or a fixed amount of Robux, defaults to true if recurring</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='handle-join-request'>Handle Join Request</h2>
+<p>This function accepts/declines a user&#39;s request to join the specified group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">handleJoinRequest</span><span class="p">(</span><span class="mi">4591072</span><span class="p">,</span> <span class="mi">857710783</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully if the request was declined/accepted successfully.</p>
+</blockquote>
+<h3 id='parameters-34'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>userId</td>
+<td>none</td>
+<td>User whose request is being declined/accepted</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>accept</td>
+<td>none</td>
+<td>Whether to accept or decline the user&#39;s join request (<strong>true</strong> or <strong>false</strong>)</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='post-to-wall'>Post To Wall</h2>
+<p>This function posts something to the group wall.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="mi">5140263</span><span class="p">,</span> <span class="s1">'ALL HAIL'</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully if the post was created successfully.</p>
+</blockquote>
+<h3 id='parameters-35'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>message</td>
+<td>none</td>
+<td>Message to post</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='promote-user'>Promote User</h2>
+<p>This function increments a user&#39;s rank by one.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">promote</span><span class="p">(</span><span class="mi">5140263</span><span class="p">,</span> <span class="mi">55549140</span><span class="p">)</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully with the rank change:
+<code>javascript
+{
+  newRole: { name: &#39;homeslices&#39;, rank: 254, memberCount: 4, ID: 38052407 },
+  oldRole: { name: &#39;Sauce&#39;, rank: 253, memberCount: 4, ID: 34250619 }
+}
+</code></p>
+<h3 id='parameters-36'>Parameters</h3></blockquote>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the rank change is taking place.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>target</td>
+<td>none</td>
+<td>This is the user whose rank is being changed.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='set-rank'>Set Rank</h2>
+<p>This function sets the rank of a user. You must provide either rank, roleset, or name.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">setRank</span><span class="p">({</span> <span class="na">group</span><span class="p">:</span> <span class="mi">5140263</span><span class="p">,</span> <span class="na">target</span><span class="p">:</span> <span class="mi">55549140</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">253</span> <span class="p">})</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully if the rank change went through.</p>
+</blockquote>
+<h3 id='parameters-37'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the rank change is taking place.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>target</td>
+<td>none</td>
+<td>This is the user whose rank is being changed.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>rank</td>
+<td>none</td>
+<td>This is the rank of the role you want to set the user&#39;s rank to. (1-254 value)</td>
+<td></td>
+</tr>
+<tr>
+<td>roleset</td>
+<td>none</td>
+<td>This is the ID of the role you want to set the user&#39;s rank to.</td>
+<td>or</td>
+</tr>
+<tr>
+<td>name</td>
+<td>none</td>
+<td>This is the name of the role you want to set the user&#39;s rank to.</td>
+<td>or</td>
+</tr>
+</tbody></table>
+<h2 id='shout'>Shout</h2>
+<p>This function shouts a message to the specified group.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">shout</span><span class="p">({</span> <span class="na">group</span><span class="p">:</span> <span class="mi">5140263</span><span class="p">,</span> <span class="na">message</span><span class="p">:</span> <span class="s1">'It\'s boogey time!'</span> <span class="p">})</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves successfully if the shout went through successfully.</p>
+</blockquote>
+<h3 id='parameters-38'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>group</td>
+<td>none</td>
+<td>This is the group ID in which the rank change is taking place.</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>message</td>
+<td>none</td>
+<td>This is the message to shout. If empty, it&#39;ll clear the shout.</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id='group-events'>Group Events</h1>
+<p>The following events are available:
+- onShout
+- onWallPost
+- onJoinRequestHandle</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
