@@ -1054,6 +1054,12 @@ declare module "noblox.js" {
      */
     function getMessages(pageNumber?: number, pageSize?: number, messageTab?: 'Archive' | 'Inbox' | 'Sent', jar?: CookieJar): Promise<PrivateMessagesPage>;
 
+
+    /**
+     * Returns whether a user owns an asset or not
+     */
+    function getOwnership(userId: number, assetId: number): Promise<boolean>;
+
     /**
      * Gets a brief overview of a user.
      */
