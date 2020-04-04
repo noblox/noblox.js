@@ -235,6 +235,9 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
+            <a href="#promises" class="toc-h1 toc-link" data-title="Promises">Promises</a>
+          </li>
+          <li>
             <a href="#user-functions" class="toc-h1 toc-link" data-title="User Functions">User Functions</a>
               <ul class="toc-list-h2">
                   <li>
@@ -277,6 +280,9 @@
                     <a href="#get-messages" class="toc-h2 toc-link" data-title="Get Messages">Get Messages</a>
                   </li>
                   <li>
+                    <a href="#get-ownership" class="toc-h2 toc-link" data-title="Get Ownership">Get Ownership</a>
+                  </li>
+                  <li>
                     <a href="#get-player-info" class="toc-h2 toc-link" data-title="Get Player Info">Get Player Info</a>
                   </li>
                   <li>
@@ -295,7 +301,13 @@
                     <a href="#send-friend-request" class="toc-h2 toc-link" data-title="Send Friend Request">Send Friend Request</a>
                   </li>
                   <li>
+                    <a href="#remove-friend" class="toc-h2 toc-link" data-title="Remove Friend">Remove Friend</a>
+                  </li>
+                  <li>
                     <a href="#unblock-user" class="toc-h2 toc-link" data-title="Unblock User">Unblock User</a>
+                  </li>
+                  <li>
+                    <a href="#unfollow-user" class="toc-h2 toc-link" data-title="Unfollow User">Unfollow User</a>
                   </li>
               </ul>
           </li>
@@ -408,6 +420,24 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 </blockquote>
 
 <p>Following Roblox&#39;s recent Funcaptcha update, users can no longer log into their accounts through noblox.js using the basic username/password combination. In order to get around this, noblox.js bypasses this and uses your <code>.ROBLOSECURITY</code> key to login. Your <code>.ROBLOSECURITY</code> key doesn&#39;t go anywhere apart from your local computer and to Roblox directly so you can trust the process.</p>
+<h1 id='promises'>Promises</h1>
+<blockquote>
+<p>Example</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">nbx</span><span class="p">.</span><span class="nx">getPlayerInfo</span><span class="p">(</span><span class="mi">44545891</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">playerInfo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"This user's status is "</span> <span class="o">+</span> <span class="nx">playerInfo</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>If you wish to take a shortcut, you may use async/await which allows you to do the following:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">async</span> <span class="kd">function</span> <span class="nx">exec</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">userId</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">nbx</span><span class="p">.</span><span class="nx">getIdFromUsername</span><span class="p">(</span><span class="s1">'Qxest'</span><span class="p">)</span> <span class="c1">// 55549140</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"This user's ID is "</span> <span class="o">+</span> <span class="nx">userId</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+<p>The biggest issue and the most frequently asked question is always along the lines of &quot;why isn&#39;t this working&quot; and the answer is because you&#39;re not using promises properly. Every noblox.js function returns a Promise. You can read more about Promises <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">here</a>. In a nutshell, when you use a noblox.js function you must treat it as a promise as shown in this example.</p>
 <h1 id='user-functions'>User Functions</h1><h2 id='accept-friend-request'>Accept Friend Request</h2>
 <p>This function accepts an existing friend request.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
@@ -910,7 +940,18 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <td></td>
 </tr>
 </tbody></table>
-<h2 id='get-player-info'>Get Player Info</h2>
+<h2 id='get-ownership'>Get Ownership</h2>
+<p>This functions returns if a player owns the asset specified.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getOwnership</span><span class="p">(</span><span class="mi">55549140</span><span class="p">,</span> <span class="mi">4856432498</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves with a boolean like so:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>true
+</code></pre><h2 id='get-player-info'>Get Player Info</h2>
 <p>This function returns the ID of a user based on the username provided.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
 
@@ -931,7 +972,23 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">joinDate</span><span class="p">:</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">26</span><span class="nx">T05</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span><span class="nx">Z</span><span class="p">,</span>
   <span class="nx">age</span><span class="p">:</span> <span class="mi">2413</span>
 <span class="p">}</span>
-</code></pre><h2 id='get-presences'>Get Presences</h2>
+</code></pre><h3 id='parameters-13'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId</td>
+<td>none</td>
+<td>The ID of the user whose information is being fetched.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='get-presences'>Get Presences</h2>
 <p>This function returns the presence statuses of the specified users.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
 
@@ -957,7 +1014,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
     <span class="p">}</span>
   <span class="p">]</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-13'>Parameters</h3>
+</code></pre><h3 id='parameters-14'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -985,7 +1042,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves with a string, in this case:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="s2">"If PMed about your limiteds' values and needing to verify you own the account, block them. They're trying to scam you."</span><span class="w">
-</span></code></pre><h3 id='parameters-14'>Parameters</h3>
+</span></code></pre><h3 id='parameters-15'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1013,7 +1070,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <pre class="highlight javascript"><code><span class="s2">"Froast"</span>
 </code></pre>
 <p>This method returns a user&#39;s username after being provided with a user ID. </p>
-<h3 id='parameters-15'>Parameters</h3>
+<h3 id='parameters-16'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1046,7 +1103,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">shortMessage</span><span class="p">:</span> <span class="s1">'Success'</span><span class="p">,</span>
   <span class="nx">message</span><span class="p">:</span> <span class="s1">'Successfully sent message.'</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-16'>Parameters</h3>
+</code></pre><h3 id='parameters-17'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1087,65 +1144,86 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 </tr>
 </tbody></table>
 <h2 id='send-friend-request'>Send Friend Request</h2>
-<p>This function removes the target user as a friend from the logged in user.
-```javascript
-const nbx = require(&#39;noblox.js&#39;)</p>
+<p>This function removes the target user as a friend from the logged in user.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
 
-<p>...
-nbx.sendFriendRequest(44545891)
-...</p>
-<pre class="highlight plaintext"><code>&gt; The method above returns a Promise that resolves if the friend request has been delivered successfully.
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">sendFriendRequest</span><span class="p">(</span><span class="mi">44545891</span><span class="p">)</span>
+<span class="p">...</span>
 
-### Parameters
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves if the friend request has been delivered successfully.</p>
+</blockquote>
+<h3 id='parameters-18'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userID</td>
+<td>none</td>
+<td>This is the user ID of the user that is being friended.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='remove-friend'>Remove Friend</h2>
+<p>This function removes the target user as a friend from the logged in user.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
 
-Parameter | Default | Description | Required
---------- | ------- | ----------- | --------
-userID    | none    | This is the user ID of the user that is being friended. | ✓
-
-## Remove Friend
-This function removes the target user as a friend from the logged in user.
-```javascript
-const nbx = require('noblox.js')
-
-...
-nbx.removeFriend(44545891)
-...
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">removeFriend</span><span class="p">(</span><span class="mi">44545891</span><span class="p">)</span>
+<span class="p">...</span>
 
 </code></pre>
 <blockquote>
 <p>The method above returns a Promise that resolves if the user has been removed successfully.</p>
 </blockquote>
 <h2 id='unblock-user'>Unblock User</h2>
-<p>This function removes the target user as a friend from the logged in user.
-```javascript
-const nbx = require(&#39;noblox.js&#39;)</p>
+<p>This function removes the target user as a friend from the logged in user.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
 
-<p>...
-nbx.unblock(44545891)
-...</p>
-<pre class="highlight plaintext"><code>&gt; The method above returns a Promise that resolves if the user has been unblocked successfully.
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">unblock</span><span class="p">(</span><span class="mi">44545891</span><span class="p">)</span>
+<span class="p">...</span>
 
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves if the user has been unblocked successfully.</p>
+</blockquote>
+<h3 id='parameters-19'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userID</td>
+<td>none</td>
+<td>This is the user ID of the user that is being unblocked.</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id='unfollow-user'>Unfollow User</h2>
+<p>This function removes the target user as a friend from the logged in user.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
 
-### Parameters
-
-Parameter | Default | Description | Required
---------- | ------- | ----------- | --------
-userID    | none    | This is the user ID of the user that is being unblocked. | ✓
-
-## Unfollow User
-This function removes the target user as a friend from the logged in user.
-```javascript
-const nbx = require('noblox.js')
-
-...
-nbx.unfollow(4397833)
-...
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">unfollow</span><span class="p">(</span><span class="mi">4397833</span><span class="p">)</span>
+<span class="p">...</span>
 
 </code></pre>
 <blockquote>
 <p>The method above returns a Promise that resolves if the user has been unfollowed successfully.</p>
 </blockquote>
-<h3 id='parameters-17'>Parameters</h3>
+<h3 id='parameters-20'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1177,15 +1255,13 @@ nbx.unfollow(4397833)
 
 </code></pre>
 <blockquote>
-<p>The method above returns a Promise that resolves which resolves with the rank change:
-<code>javascript
-{
-  newRole: { name: &#39;Developers&#39;, rank: 100, memberCount: 0, ID: 30821144 },
-  oldRole: { name: &#39;Adminstrators&#39;, rank: 253, memberCount: 2, ID: 32867453 }
-}
-</code></p>
+<p>The method above returns a Promise that resolves which resolves with the rank change:</p>
 </blockquote>
-<h3 id='parameters-18'>Parameters</h3>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">newRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Developers'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">30821144</span> <span class="p">},</span>
+  <span class="nx">oldRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Adminstrators'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">253</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">32867453</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-21'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1225,7 +1301,7 @@ nbx.unfollow(4397833)
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the post has been deleted.</p>
 </blockquote>
-<h3 id='parameters-19'>Parameters</h3>
+<h3 id='parameters-22'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1263,15 +1339,13 @@ nbx.unfollow(4397833)
 
 </code></pre>
 <blockquote>
-<p>The method above returns a Promise that resolves successfully with the rank change:
-<code>javascript
-{
-  newRole: { name: &#39;Sauce&#39;, rank: 253, memberCount: 4, ID: 34250619 },
-  oldRole: { name: &#39;homeslices&#39;, rank: 254, memberCount: 4, ID: 38052407 }
-}
-</code></p>
-<h3 id='parameters-20'>Parameters</h3></blockquote>
-
+<p>The method above returns a Promise that resolves successfully with the rank change:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">newRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Sauce'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">253</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">34250619</span> <span class="p">},</span>
+  <span class="nx">oldRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'homeslices'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">38052407</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-23'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1305,7 +1379,7 @@ nbx.unfollow(4397833)
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the user has been exiled.</p>
 </blockquote>
-<h3 id='parameters-21'>Parameters</h3>
+<h3 id='parameters-24'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1363,7 +1437,7 @@ nbx.unfollow(4397833)
 <span class="p">}</span>
 </code></pre>
 <p><img src="./images/audit-log-actions.png" width="25%"></p>
-<h3 id='parameters-22'>Parameters</h3>
+<h3 id='parameters-25'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1437,7 +1511,7 @@ nbx.unfollow(4397833)
     <span class="p">...</span>
   <span class="p">]</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-23'>Parameters</h3>
+</code></pre><h3 id='parameters-26'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1484,7 +1558,7 @@ nbx.unfollow(4397833)
 <p>The method above returns a Promise that resolves successfully with the asset ID referring to the group icon:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="s2">"http://www.roblox.com/asset/?id=3771239053"</span>
-</code></pre><h3 id='parameters-24'>Parameters</h3>
+</code></pre><h3 id='parameters-27'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1534,7 +1608,7 @@ nbx.unfollow(4397833)
   <span class="p">}</span>
   <span class="p">...</span>
 <span class="p">]</span>
-</code></pre><h3 id='parameters-25'>Parameters</h3>
+</code></pre><h3 id='parameters-28'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1569,7 +1643,7 @@ nbx.unfollow(4397833)
 <p>The method above returns a Promise that resolves successfully with the rank number of the player:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="mi">151</span>
-</code></pre><h3 id='parameters-26'>Parameters</h3>
+</code></pre><h3 id='parameters-29'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1604,7 +1678,7 @@ nbx.unfollow(4397833)
 <p>The method above returns a Promise that resolves successfully with the role of the player:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="s2">"Veteran"</span>
-</code></pre><h3 id='parameters-27'>Parameters</h3>
+</code></pre><h3 id='parameters-30'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1639,7 +1713,7 @@ nbx.unfollow(4397833)
 <p>The method above returns a Promise that resolves successfully with the role:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Veteran'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">151</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">19616206</span> <span class="p">}</span>
-</code></pre><h3 id='parameters-28'>Parameters</h3>
+</code></pre><h3 id='parameters-31'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1723,7 +1797,7 @@ nbx.unfollow(4397833)
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-29'>Parameters</h3>
+</code></pre><h3 id='parameters-32'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1766,7 +1840,7 @@ nbx.unfollow(4397833)
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Alternative account'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">252</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113249</span> <span class="p">},</span>
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'DurstAuric'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113248</span> <span class="p">}</span>
 <span class="p">]</span>
-</code></pre><h3 id='parameters-30'>Parameters</h3>
+</code></pre><h3 id='parameters-33'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1805,7 +1879,7 @@ nbx.unfollow(4397833)
   <span class="nx">created</span><span class="p">:</span> <span class="s1">'2017-01-20T11:44:00.673Z'</span><span class="p">,</span>
   <span class="nx">updated</span><span class="p">:</span> <span class="s1">'2018-08-18T23:03:48.917Z'</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-31'>Parameters</h3>
+</code></pre><h3 id='parameters-34'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1853,7 +1927,7 @@ nbx.unfollow(4397833)
     <span class="p">...</span>
   <span class="p">]</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-32'>Parameters</h3>
+</code></pre><h3 id='parameters-35'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1899,7 +1973,7 @@ nbx.unfollow(4397833)
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the payout went through.</p>
 </blockquote>
-<h3 id='parameters-33'>Parameters</h3>
+<h3 id='parameters-36'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1951,7 +2025,7 @@ nbx.unfollow(4397833)
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the request was declined/accepted successfully.</p>
 </blockquote>
-<h3 id='parameters-34'>Parameters</h3>
+<h3 id='parameters-37'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1991,7 +2065,7 @@ nbx.unfollow(4397833)
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the post was created successfully.</p>
 </blockquote>
-<h3 id='parameters-35'>Parameters</h3>
+<h3 id='parameters-38'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2023,15 +2097,13 @@ nbx.unfollow(4397833)
 
 </code></pre>
 <blockquote>
-<p>The method above returns a Promise that resolves successfully with the rank change:
-<code>javascript
-{
-  newRole: { name: &#39;homeslices&#39;, rank: 254, memberCount: 4, ID: 38052407 },
-  oldRole: { name: &#39;Sauce&#39;, rank: 253, memberCount: 4, ID: 34250619 }
-}
-</code></p>
-<h3 id='parameters-36'>Parameters</h3></blockquote>
-
+<p>The method above returns a Promise that resolves successfully with the rank change:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">newRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'homeslices'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">38052407</span> <span class="p">},</span>
+  <span class="nx">oldRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Sauce'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">253</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">34250619</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-39'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2065,7 +2137,7 @@ nbx.unfollow(4397833)
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the rank change went through.</p>
 </blockquote>
-<h3 id='parameters-37'>Parameters</h3>
+<h3 id='parameters-40'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2117,7 +2189,7 @@ nbx.unfollow(4397833)
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the shout went through successfully.</p>
 </blockquote>
-<h3 id='parameters-38'>Parameters</h3>
+<h3 id='parameters-41'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2145,10 +2217,6 @@ nbx.unfollow(4397833)
 - onWallPost
 - onJoinRequestHandle</p>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
 <p>The Roblox API uses the following error codes:</p>
 
 <table><thead>
@@ -2163,35 +2231,27 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
+<td>Unauthorized -- You are not allowed to do this.</td>
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The requested content is not available to you. (Likely not logged in,  lack group permissions, bad token)</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified content could not be found.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Method Not Allowed -- You tried to access an endpoint with an invalid method.</td>
 </tr>
 <tr>
 <td>406</td>
 <td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests -- You&#39;re sending too many requests! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
