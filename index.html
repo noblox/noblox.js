@@ -268,6 +268,9 @@
                     <a href="#get-followings" class="toc-h2 toc-link" data-title="Get Followings">Get Followings</a>
                   </li>
                   <li>
+                    <a href="#get-friend-requests" class="toc-h2 toc-link" data-title="Get Friend Requests">Get Friend Requests</a>
+                  </li>
+                  <li>
                     <a href="#get-friends" class="toc-h2 toc-link" data-title="Get Friends">Get Friends</a>
                   </li>
                   <li>
@@ -749,6 +752,62 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <td></td>
 </tr>
 </tbody></table>
+<h2 id='get-friend-requests'>Get Friend Requests</h2>
+<p>This function gets the pending friend requests of the logged in user.</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
+
+<span class="p">...</span>
+<span class="nx">nbx</span><span class="p">.</span><span class="nx">getFriendRequests</span><span class="p">()</span>
+<span class="p">...</span>
+
+</code></pre>
+<blockquote>
+<p>The method above returns a Promise that resolves with an object formatted as follows:</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="nl">previousPageCursor</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">nextPageCursor</span><span class="p">:</span>  <span class="s2">"637204086857870000-23748379088_1_ae7884277f8174e9ad9ac7ca968fa933"</span><span class="p">,</span>
+  <span class="nx">data</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="p">{</span>
+      <span class="nl">isBanned</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nx">id</span><span class="p">:</span> <span class="mi">79081218</span><span class="p">,</span>
+      <span class="nx">name</span><span class="p">:</span> <span class="s1">'HippocriticaI'</span><span class="p">,</span>
+      <span class="nx">displayName</span><span class="p">:</span> <span class="s1">'HippocriticaI+DN'</span><span class="p">,</span>
+      <span class="nx">description</span><span class="p">:</span> <span class="s1">'I like Murder Mystery 2. I play it a little too much.\n\n\nalso trade me ur clown guns thanks'</span><span class="p">,</span>
+      <span class="nx">created</span><span class="p">:</span> <span class="s1">'2015-02-21T15:33:39.243Z'</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre><h3 id='parameters-9'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sortOrder</td>
+<td>Asc</td>
+<td>How friend requests should be sorted. (<strong>Asc</strong> or <strong>Desc</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>10</td>
+<td>How many friend requests should be returned in a single fetch. (<strong>10</strong>, <strong>25</strong>, <strong>50</strong>, or <strong>100</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td>cursor</td>
+<td>none</td>
+<td>The paging cursor for the previous or next page.</td>
+<td></td>
+</tr>
+</tbody></table>
 <h2 id='get-friends'>Get Friends</h2>
 <p>This function returns an array containing the users friends with the target user.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
@@ -779,7 +838,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
     <span class="p">...</span>
   <span class="p">]</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-9'>Parameters</h3>
+</code></pre><h3 id='parameters-10'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -821,7 +880,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="p">}</span>
   <span class="p">...</span>
 <span class="p">]</span>
-</code></pre><h3 id='parameters-10'>Parameters</h3>
+</code></pre><h3 id='parameters-11'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -850,7 +909,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves with an integer like so:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="mi">484140</span>
-</code></pre><h3 id='parameters-11'>Parameters</h3>
+</code></pre><h3 id='parameters-12'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -912,7 +971,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">totalPages</span><span class="p">:</span> <span class="mi">273</span><span class="p">,</span>
   <span class="nx">pageNumber</span><span class="p">:</span> <span class="mi">0</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-12'>Parameters</h3>
+</code></pre><h3 id='parameters-13'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -972,7 +1031,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">joinDate</span><span class="p">:</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">26</span><span class="nx">T05</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mf">00.000</span><span class="nx">Z</span><span class="p">,</span>
   <span class="nx">age</span><span class="p">:</span> <span class="mi">2413</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-13'>Parameters</h3>
+</code></pre><h3 id='parameters-14'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1014,7 +1073,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
     <span class="p">}</span>
   <span class="p">]</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-14'>Parameters</h3>
+</code></pre><h3 id='parameters-15'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1042,7 +1101,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves with a string, in this case:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="s2">"If PMed about your limiteds' values and needing to verify you own the account, block them. They're trying to scam you."</span><span class="w">
-</span></code></pre><h3 id='parameters-15'>Parameters</h3>
+</span></code></pre><h3 id='parameters-16'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1070,7 +1129,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <pre class="highlight javascript"><code><span class="s2">"Froast"</span>
 </code></pre>
 <p>This method returns a user&#39;s username after being provided with a user ID. </p>
-<h3 id='parameters-16'>Parameters</h3>
+<h3 id='parameters-17'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1103,7 +1162,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">shortMessage</span><span class="p">:</span> <span class="s1">'Success'</span><span class="p">,</span>
   <span class="nx">message</span><span class="p">:</span> <span class="s1">'Successfully sent message.'</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-17'>Parameters</h3>
+</code></pre><h3 id='parameters-18'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1155,7 +1214,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves if the friend request has been delivered successfully.</p>
 </blockquote>
-<h3 id='parameters-18'>Parameters</h3>
+<h3 id='parameters-19'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1195,7 +1254,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves if the user has been unblocked successfully.</p>
 </blockquote>
-<h3 id='parameters-19'>Parameters</h3>
+<h3 id='parameters-20'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1223,7 +1282,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves if the user has been unfollowed successfully.</p>
 </blockquote>
-<h3 id='parameters-20'>Parameters</h3>
+<h3 id='parameters-21'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1241,10 +1300,10 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 </tbody></table>
 <h1 id='user-events'>User Events</h1>
 <p>The following events are available:
-- onBlurbChange
-- onFriendRequest
-- onMessage
-- onNotification</p>
+* onBlurbChange
+* onFriendRequest
+* onMessage
+* onNotification</p>
 <h1 id='group-functions'>Group Functions</h1><h2 id='change-rank'>Change Rank</h2>
 <p>This function changes a user&#39;s rank in a group by the defined incremenet.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
@@ -1261,7 +1320,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nl">newRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Developers'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">30821144</span> <span class="p">},</span>
   <span class="nx">oldRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Adminstrators'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">253</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">32867453</span> <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-21'>Parameters</h3>
+</code></pre><h3 id='parameters-22'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1301,7 +1360,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the post has been deleted.</p>
 </blockquote>
-<h3 id='parameters-22'>Parameters</h3>
+<h3 id='parameters-23'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1345,7 +1404,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nl">newRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Sauce'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">253</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">34250619</span> <span class="p">},</span>
   <span class="nx">oldRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'homeslices'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">38052407</span> <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-23'>Parameters</h3>
+</code></pre><h3 id='parameters-24'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1379,7 +1438,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the user has been exiled.</p>
 </blockquote>
-<h3 id='parameters-24'>Parameters</h3>
+<h3 id='parameters-25'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1437,7 +1496,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <span class="p">}</span>
 </code></pre>
 <p><img src="./images/audit-log-actions.png" width="25%"></p>
-<h3 id='parameters-25'>Parameters</h3>
+<h3 id='parameters-26'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1511,7 +1570,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
     <span class="p">...</span>
   <span class="p">]</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-26'>Parameters</h3>
+</code></pre><h3 id='parameters-27'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1558,7 +1617,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves successfully with the asset ID referring to the group icon:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="s2">"http://www.roblox.com/asset/?id=3771239053"</span>
-</code></pre><h3 id='parameters-27'>Parameters</h3>
+</code></pre><h3 id='parameters-28'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1608,7 +1667,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="p">}</span>
   <span class="p">...</span>
 <span class="p">]</span>
-</code></pre><h3 id='parameters-28'>Parameters</h3>
+</code></pre><h3 id='parameters-29'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1643,7 +1702,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves successfully with the rank number of the player:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="mi">151</span>
-</code></pre><h3 id='parameters-29'>Parameters</h3>
+</code></pre><h3 id='parameters-30'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1678,7 +1737,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves successfully with the role of the player:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="s2">"Veteran"</span>
-</code></pre><h3 id='parameters-30'>Parameters</h3>
+</code></pre><h3 id='parameters-31'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1713,7 +1772,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <p>The method above returns a Promise that resolves successfully with the role:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Veteran'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">151</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">19616206</span> <span class="p">}</span>
-</code></pre><h3 id='parameters-31'>Parameters</h3>
+</code></pre><h3 id='parameters-32'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1797,7 +1856,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-32'>Parameters</h3>
+</code></pre><h3 id='parameters-33'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1840,7 +1899,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'Alternative account'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">252</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113249</span> <span class="p">},</span>
   <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'DurstAuric'</span><span class="p">,</span> <span class="na">rank</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span> <span class="na">memberCount</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">ID</span><span class="p">:</span> <span class="mi">21113248</span> <span class="p">}</span>
 <span class="p">]</span>
-</code></pre><h3 id='parameters-33'>Parameters</h3>
+</code></pre><h3 id='parameters-34'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1879,7 +1938,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nx">created</span><span class="p">:</span> <span class="s1">'2017-01-20T11:44:00.673Z'</span><span class="p">,</span>
   <span class="nx">updated</span><span class="p">:</span> <span class="s1">'2018-08-18T23:03:48.917Z'</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-34'>Parameters</h3>
+</code></pre><h3 id='parameters-35'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1927,7 +1986,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
     <span class="p">...</span>
   <span class="p">]</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-35'>Parameters</h3>
+</code></pre><h3 id='parameters-36'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1973,7 +2032,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the payout went through.</p>
 </blockquote>
-<h3 id='parameters-36'>Parameters</h3>
+<h3 id='parameters-37'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2025,7 +2084,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the request was declined/accepted successfully.</p>
 </blockquote>
-<h3 id='parameters-37'>Parameters</h3>
+<h3 id='parameters-38'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2065,7 +2124,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the post was created successfully.</p>
 </blockquote>
-<h3 id='parameters-38'>Parameters</h3>
+<h3 id='parameters-39'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2103,7 +2162,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
   <span class="nl">newRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'homeslices'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">254</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">38052407</span> <span class="p">},</span>
   <span class="nx">oldRole</span><span class="p">:</span> <span class="p">{</span> <span class="nl">name</span><span class="p">:</span> <span class="s1">'Sauce'</span><span class="p">,</span> <span class="nx">rank</span><span class="p">:</span> <span class="mi">253</span><span class="p">,</span> <span class="nx">memberCount</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">ID</span><span class="p">:</span> <span class="mi">34250619</span> <span class="p">}</span>
 <span class="p">}</span>
-</code></pre><h3 id='parameters-39'>Parameters</h3>
+</code></pre><h3 id='parameters-40'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2137,7 +2196,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the rank change went through.</p>
 </blockquote>
-<h3 id='parameters-40'>Parameters</h3>
+<h3 id='parameters-41'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2189,7 +2248,7 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 <blockquote>
 <p>The method above returns a Promise that resolves successfully if the shout went through successfully.</p>
 </blockquote>
-<h3 id='parameters-41'>Parameters</h3>
+<h3 id='parameters-42'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2213,9 +2272,9 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 </tbody></table>
 <h1 id='group-events'>Group Events</h1>
 <p>The following events are available:
-- onShout
-- onWallPost
-- onJoinRequestHandle</p>
+* onShout
+* onWallPost
+* onJoinRequestHandle</p>
 <h1 id='errors'>Errors</h1>
 <p>The Roblox API uses the following error codes:</p>
 
