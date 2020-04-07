@@ -573,6 +573,21 @@ declare module "noblox.js" {
         lastSeen: Date;
     }
 
+    interface FriendRequestEntry {
+        description: string;
+        created: string;
+        isBanned: boolean;
+        id: number;
+        name: string;
+        displayName: string;
+    }
+
+    interface FriendRequestsPage {
+        previousPageCursor?: string;
+        nextPageCursor?: string;
+        data: FriendRequestEntry[];
+    }
+
     interface FriendEntry {
         isOnline?: boolean;
         isDeleted: boolean;
@@ -910,12 +925,12 @@ declare module "noblox.js" {
     /**
      * Gets the audit logs of the specified group.
      */
-    function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: 'Asc' | 'Desc', limit?: 10 | 25 | 50 | 100, cursor?: string, jar?: CookieJar ): Promise<AuditPage>;
+    function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar ): Promise<AuditPage>;
 
     /**
      * Gets the first page of join requests from `group`.
      */
-    function getJoinRequests(group: number, sortOrder?: 'Asc' | 'Desc', limit?: 10 | 25 | 50 | 100, cursor?: string, jar?: CookieJar): Promise<GroupJoinRequestsPage>;
+    function getJoinRequests(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupJoinRequestsPage>;
 
     /**
      * Gets all players in `group` with the array `roleset`
@@ -959,7 +974,7 @@ declare module "noblox.js" {
      * If `view` is true the viewstates of each page will be returned in the `views` object, with each page having its viewstates at the corresponding page number. For example page 5 of the wall will have its view stored in `wall.views[5]`.
      * The `getStatus` function is returned as a property of the promise and returns the percent completion of the operation.
      */
-    function getWall(group: number, sortOrder?: 'Asc' | 'Desc', limit?: 10 | 25 | 50 | 100, cursor?: string, jar?: CookieJar): Promise<WallPostPage>;
+    function getWall(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<WallPostPage>;
 
     /// Party
 
@@ -1026,6 +1041,11 @@ declare module "noblox.js" {
      * Gets the `blurb` of the user with the ID `userId`.
      */
     function getBlurb(userId: number): Promise<string>;
+
+    /**
+     * Gets the pending friend requests of the logged in user.
+     */
+    function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestPage>;
 
     /**
      * Gets the friends list of the specified user.
