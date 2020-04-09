@@ -1,5 +1,5 @@
-// Type definitions for noblox.js@4.2.6
-// Authored by Gamenew09
+// Type definitions for noblox.js@4.5.2
+// Authored by Gamenew09 w/ changes by suufi
 
 declare module "noblox.js" {
     // Interfaces/Types
@@ -376,7 +376,65 @@ declare module "noblox.js" {
         name: string;
         memberCount?: number;
         rank: number;
-        ID: number;
+        id: number;
+    }
+
+    interface RoleWithDescription
+    {
+        name: string;
+        memberCount?: number;
+        rank: number;
+        id: number;
+        description: string;    
+    }
+    
+    interface GroupPostsPermissions
+    {
+        viewWall: boolean;
+        postToWall: boolean;
+        deleteFromWall: boolean;
+        viewStatus: boolean;
+        postToStatus: boolean;
+    }
+
+    interface GroupMembershipPermissions
+    {
+        changeRank: boolean;
+        inviteMembers: boolean;
+        removeMembers: boolean;
+    }
+
+    interface GroupManagementPermissions
+    {
+        manageRelationships: boolean;
+        manageClan: boolean;
+        viewAuditLogs: boolean;
+    }
+
+    interface GroupEconomyPermissions
+    {
+        spendGroupFunds: boolean;
+        advertiseGroup: boolean;
+        createItems: boolean;
+        manageItems: boolean;
+        addGroupPlaces: boolean;
+        manageGroupGames: boolean;
+        viewGroupPayouts: boolean;
+    }
+
+    interface RolePermissionsBody
+    {
+        groupPostsPermissions: GroupPostsPermissions;
+        groupMembershipPermissions: GroupMembershipPermissions;
+        groupManagementPermissions: GroupManagementPermissions;
+        groupEconomyPermissions: GroupEconomyPermissions;
+    }
+
+    interface RolePermissions
+    {
+        groupId: number;
+        role: RoleWithDescription;
+        permissions: RolePermissionsBody
     }
 
     interface ChangeRankResult
@@ -397,6 +455,7 @@ declare module "noblox.js" {
     {
         userId: number; 
         username: string;
+        displayName: string;
         buildersClubMembershipType: "None" | "BC" | "TBC" | "OBC" | "RobloxPremium";
     }
 
@@ -408,85 +467,61 @@ declare module "noblox.js" {
         updated: string;
     }
 
-    interface AuditItemUser
+    interface AuditItemActor
     {
-        name: string;
-        id: number;
-        role: string;
-    }
-
-    interface AuditItemAction
-    {
-        target: number;
-        params: Array<any>;
-    }
-
-    interface AuditItemParent
-    {
-        page: number;
-        index: number;
+        user: GroupUser;
+        role: Role;
     }
 
     interface AuditItem
     {
-        user: AuditItemUser;
-        text: string;
-        action: AuditItemAction;
-        date: Date;
-        parent: AuditItemParent;
+        actor: AuditItemActor;
+        actionType: string;
+        description: object;
+        created: string;
     }
 
     interface AuditPage
     {
-        logs: AuditItem[];
-        totalPages: number;
-        total: number;
+        data: AuditItem[];
+        nextPageCursor?: string;
+        previousPageCursor?: string;
+    }
+
+    interface GroupJoinRequester 
+    {
+        userId: number;
+        username: string;
+        displayName: string;
     }
 
     interface GroupJoinRequest
     {
-        username: string;
-        date: Date;
-        requestId: number;
+        requester: GroupJoinRequester;
+        created: Date;
     }
 
-    interface GroupHandleJoinRequest
+    interface GroupJoinRequestsPage
     {
-        name: string;
-        date: Date;
-        requestId: number;
-    }
-
-    interface WallPostAuthor
-    {
-        id: number;
-        name: number;
-    }
-
-    interface WallPostParent
-    {
-        page: number;
-        index: number;
+        previousPageCursor?: string;
+        nextPageCursor?: string;
+        data: GroupJoinRequest[];
     }
 
     interface WallPost
     {
-        content: string;
-        author: WallPostAuthor;
-        date: Date;
-        parent: WallPostParent;
         id: number;
-        view?: GroupView;
+        poster: GroupUser;
+        body: string;
+        created: string;
+        updated: string;
     }
 
     interface WallPostPage
     {
-        posts: WallPost[];
-        totalPages: number;
-        views?: {
-            page: number;
-            view: GroupView;   
-        }[];
+        previousPageCursor?: string;
+        nextPageCursor?: string;
+        data: WallPost[];
     }
 
     /// Party
@@ -505,6 +540,14 @@ declare module "noblox.js" {
      * 3 = Archived Messages
      */
     type PrivateMessageTab = 0 | 1 | 3;
+
+    /**
+     * 0 = Offline
+     * 1 = Online
+     * 2 = InGame
+     * 3 = Studio
+     */
+    type UserPresenceType = 0 | 1 | 2 | 3
 
     interface LoggedInUserData {
         UserID: number,
@@ -530,35 +573,61 @@ declare module "noblox.js" {
         lastSeen: Date;
     }
 
-    interface FriendParent {
-        page: number;
-        index: number;
-        fullIndex: number;
+    interface FriendRequestEntry {
+        description: string;
+        created: string;
+        isBanned: boolean;
+        id: number;
+        name: string;
+        displayName: string;
+    }
+
+    interface FriendRequestsPage {
+        previousPageCursor?: string;
+        nextPageCursor?: string;
+        data: FriendRequestEntry[];
     }
 
     interface FriendEntry {
-        user: UserEntry;
-        avatar: AvatarEntry;
-        status: UserStatus;
-        parent: FriendParent;
-        inGame: boolean;
-        inStudio: boolean;
-        following: boolean;
-        deleted: boolean;
+        isOnline?: boolean;
+        isDeleted: boolean;
+        id: number;
+        name: string;
+        description: string;
+        created: string;
     }
 
-    interface FriendsPage {
+    interface Friends {
         friends: FriendEntry[];
-        totalPages: number;
-        total: number;
+    }
+
+    interface FollowEntry {
+        isDeleted: false;
+        id: number;
+        name: string;
+        description: string;
+        created: string;
+    }
+
+    interface FollowingsPage {
+        previousPageCursor?: string;
+        nextPageCursor?: string;
+        data: FollowEntry[];
+    }
+
+    interface FollowersPage {
+        previousPageCursor?: string;
+        nextPageCursor?: string;
+        data: FollowEntry[];
     }
 
     //
 
     interface PrivateMessagesPage {
-        messages: PrivateMessage[];
+        collection: PrivateMessage[];
         totalPages: number;
-        total: number;
+        totalCollectionSize: number;
+        pageNumber: number;
     }
 
     //
@@ -573,14 +642,17 @@ declare module "noblox.js" {
     }
 
     interface PrivateMessage {
+        id: number;
         sender: UserEntry;
+        recipient: UserEntry;
         subject: string;
         body: string;
         created: Date;
         updated: Date;
-        read: boolean;
+        isRead: boolean;
+        isSystemMessage: boolean;
+        isReportAbuseDisplayed: boolean;
         parent: PrivateMessageParent;
-        id: number;
     }
 
     interface NotificationMessage {
@@ -593,9 +665,33 @@ declare module "noblox.js" {
         userId: number;
     }
 
+    interface UserPresence {
+        userPresenceType?: UserPresenceType;
+        lastLocation?: string;
+        placeId?: number;
+        rootPlaceId?: number;
+        gameId?: string;
+        universeId?: number;
+        userId?: number;
+        lastOnline?: string;
+    }
+
+    interface PlayerInfo {
+        username: string;
+        status: string;
+        blurb: string;
+        joinDate: Date;
+        age: number;
+    }
+    interface Presences {
+        userPresences: UserPresence[]
+    }
+
     /// Utility
 
     type SelectorFunction = (selector: string) => {val(): any};
+    type SortOrder = 'Asc' | 'Desc';
+    type Limit = 10 | 25 | 50 | 100;
 
     interface Inputs
     {
@@ -631,6 +727,7 @@ declare module "noblox.js" {
         data: object;
         repeat?: boolean;
     }
+
 
     // Functions
 
@@ -793,12 +890,7 @@ declare module "noblox.js" {
     /**
      * `Accept`s user with `username` into `group`. Note that `username` is case-sensitive.
      */
-    function handleJoinRequest(group: number, username: string, accept: boolean, jar?: CookieJar): Promise<void>;
-
-    /**
-     * Raw utility for handling join requests based on their unique `requestId`. If `accept` is true the user is accepted into `group`, otherwise they are denied.
-     */
-    function handleJoinRequestId(group: number, requestId: number, accept: boolean, jar?: CookieJar): Promise<void>;
+    function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
 
     /**
      * Joins the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
@@ -831,24 +923,14 @@ declare module "noblox.js" {
     function shout(group: number, message: string, jar?: CookieJar): Promise<GroupShout>;
 
     /**
-     * Gets audit log entries in `group` for the specified `action` or `username` where `action` is the actionTypeId. To find the actionTypeId for the action you want, go to the audit log and check the URL when you select a specific action. If `username` selected only entries from that user are searched for. To specify what page(s) to retrieve use `page`, which is a number or array of numbers. Negative numbers are allowed and instruct the function to return the trailing pages of the log.
-     * Each row has an `action` object which contains the ID of the target and any parameters it gets. Currently this will be populated with change rank, shout, and delete post logs. The `target` is the ID of the user or game the action was targeted to. Sometimes there is no target and this will equal the user ID of the user who did the action. Params are in the order that they appear on the log.
-     * For example, if you have a log with text: `Froast changed user ROBLOX's rank from [L1] Initiate to [L2] Novice.` then
-     * ```javascript
-     * log.action.params[0] == '[L1] Initiate'
-     * log.action.params[1] == '[L2] Novice'
-     * log.action.target == 1 // (ROBLOX's user ID)
-     * ```
-     * Not all log types are supported, if the log you want isn't added you will have to get the parameters yourself by using the full `text` of the log.
-     * The `stream` argument can be a writable stream in order to handle logs without taking up a ton of RAM. Each log is individually written to the stream. The `audit` object will still be fulfilled with the promise at the end but the `logs` array will be empty.
-     * Logs are sorted from most newest to oldest.
+     * Gets the audit logs of the specified group.
      */
-    function getAuditLog(group: number, page?: number | number[], action?: number, username?: string, stream?: stream.Stream, jar?: CookieJar): Promise<AuditPage>;
+    function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar ): Promise<AuditPage>;
 
     /**
      * Gets the first page of join requests from `group`.
      */
-    function getJoinRequests(group: number, jar?: CookieJar): Promise<GroupJoinRequest[]>;
+    function getJoinRequests(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupJoinRequestsPage>;
 
     /**
      * Gets all players in `group` with the array `roleset`
@@ -871,14 +953,14 @@ declare module "noblox.js" {
     function getRole(group: number | Role[], rank: number | number[] | string | string[]): Promise<Role>;
 
     /**
+     * Returns the permissions a role has been assigned.
+     */
+    function getRolePermissions(group: number, roleId: number, jar?: CookieJar): Promise<RolePermissions>;
+
+    /**
      * Returns role information of a group with groupId `group` in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`.
      */
     function getRoles(group: number): Promise<Role[]>;
-
-    /**
-     * Gets the `roleset` of the logged in user in `group`.
-     */
-    function getRolesetInGroupWithJar(group: number, jar?: CookieJar): Promise<number>;
 
     /**
      * Gets the current shout in `group`. If there is no shout the promise is fulfilled but nothing is returned.
@@ -891,14 +973,8 @@ declare module "noblox.js" {
      * The `page` the post was found on and its `index` on that page are both in the `parent` object.
      * If `view` is true the viewstates of each page will be returned in the `views` object, with each page having its viewstates at the corresponding page number. For example page 5 of the wall will have its view stored in `wall.views[5]`.
      * The `getStatus` function is returned as a property of the promise and returns the percent completion of the operation.
-     * If `stream` is specified `post` objects will be written to the stream and will _not_ be added to the wall object. The stream can process posts as they are retrieved but for the most part should be written to a file for post processing. This should be used for extremely large walls, as when javascript arrays reach a certain point it slows down considerably and will begin running into a lot of errors. Note that if `stream` is specified the entries will _not_ be returned in order because there is no chance for the script to sort them. Page numbers and indexes, however, are always returned with the post, allowing the data to be sorted later. The `wall` object will still be fulfilled with the promise at the end but the `posts` array will be empty.
      */
-    function getWall(group: number, page?: number, stream?: stream.Stream, view?: boolean, jar?: CookieJar): Promise<WallPostPage>;
-
-    /**
-     * Gets the post with `id`. If `view` is true `view` information will be returned, which can be used to do actions on the post. If `page` is known it can be given to speed up the request, otherwise it will be found automatically using a binary search.
-     */
-    function getWallPost(group: number, id: number, page?: number, view?: boolean, jar?: CookieJar): Promise<WallPost>;
+    function getWall(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<WallPostPage>;
 
     /// Party
 
@@ -939,7 +1015,7 @@ declare module "noblox.js" {
     /**
      * Sends a message with `body` and `subject` to the user with id `recipient`.
      */
-    function message(recipient: number, subject: string, body: string, jar?: CookieJar): Promise<void>;
+    function message(recipient: number, subject: string, body: string, replyMessageId?: number, includePreviousMessage?: boolean, jar?: CookieJar): Promise<void>;
 
     /**
      * Removes friendship with `userId`.
@@ -967,13 +1043,25 @@ declare module "noblox.js" {
     function getBlurb(userId: number): Promise<string>;
 
     /**
-     * Gets the friend list of `userId` where type is `AllFriends`, `Following`, `Followers`, or `FriendRequests`. The `page` parameter can be a number or array of numbers specifying what pages to get. *Note that pages are in groups of 200 friends.* If you need to be more precise use limit. As usual `page` can be negative to specify trailing pages. If `limit` is specified a maximum of that many friends are retrieved.
-     * You do not have to be logged in to get friends however if you want to get friend requests you have to and if you want to see what games your friends are in you may have to be logged in as the permission is often limited to friends.
-     * Friends are returned in the order they appear on the normal list.
-     * 
-     * NOTE from TypeScript type author: It seems only `AllFriends` works, everything else seems to error.
+     * Gets the pending friend requests of the logged in user.
      */
-    function getFriends(userId: number, type: 'AllFriends' | 'Following' | 'Followers' | 'FriendRequests', page?: number | number[], limit?: number, jar?: CookieJar): Promise<FriendsPage>;
+    function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestPage>;
+
+    /**
+     * Gets the friends list of the specified user.
+     */
+    function getFriends(userId: number, jar?: CookieJar): Promise<Friends>;
+
+    /**
+     * Get the followings of a user (users who have been followed by the specified person)
+     */
+    function getFollowings(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowingsPage>;
+
+    /**
+     * Get the followers of a user (users who follow the specified person)
+     */
+    function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
+
 
     /**
      * Gets the `id` of user with `username` and caches according to settings.
@@ -982,12 +1070,25 @@ declare module "noblox.js" {
     function getIdFromUsername(username: string): Promise<number>;
 
     /**
-     * Gets messages in the inbox of player with `jar`. If `page` does not exist the entire inbox will be indexed, otherwise it will only do the specific page or a specific number of pages in an array. Similar to getForumPost, negative numbers can be used to get pages of the inbox starting from the end. Note that even though ROBLOX internally begins pages at 0, if you pass a page into this function it will automatically be adjusted. So the first page of the inbox is page 1 and not page 0.
-     * If `limit` is defined that is the maximum number of messages that will be returned. Regardless of how many pages are specified, the function will automatically cut down request sizes to meet it. For example, if you do not specify a page number but enter in a limit of 30, the function will only get the first page and half of the second page (each page has 20 messages).
-     * The `tab` option specifies which part of messages to index where 0 is the inbox, 1 is sent messages, and 3 is archived messages.
-     * An object is returned with the thread's posts in the posts array, they are in order from newest to oldest.
+     * Gets the messages of the logged in user or of the user specified by the jar. Returns by newest to oldest messages.
      */
-    function getMessages(page?: number, limit?: number, tab?: PrivateMessageTab, jar?: CookieJar): Promise<PrivateMessagesPage>;
+    function getMessages(pageNumber?: number, pageSize?: number, messageTab?: 'Archive' | 'Inbox' | 'Sent', jar?: CookieJar): Promise<PrivateMessagesPage>;
+
+
+    /**
+     * Returns whether a user owns an asset or not
+     */
+    function getOwnership(userId: number, assetId: number): Promise<boolean>;
+
+    /**
+     * Gets a brief overview of a user.
+     */
+    function getPlayerInfo(userId: number): Promise<PlayerInfo>;
+
+    /**
+     * Gets the presence statuses of the specified users
+     */
+    function getPresences(userIds: number[]): Promise<Presences>;
 
     /**
      * Gets the `status` message of the user with the ID `userId`.
@@ -1060,12 +1161,6 @@ declare module "noblox.js" {
      * Gets the date for `time` which originates from a two-letter `timezone`. This is used to get the time for that timezone despite daylight savings. For example if you did `getDate(time, 'CT')` it would return the time in CST if daylight savings is inactive or CDT if it is active.
      */
     function getDate(time: string, timezone: string): Date;
-
-    /**
-     * Processes some forum-related 302 error and returns a corresponding message. The argument `append` is optional and describes the calling function.
-     * @deprecated The Roblox Forums no longer exist.
-     */
-    function getForumError(location: string, append?: string): Error;
 
     /**
      * Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This uses the https://api.roblox.com/sign-out/v1 API to get tokens.
