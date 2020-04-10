@@ -443,6 +443,28 @@ declare module "noblox.js" {
         oldRole: Role;
     }
 
+    interface GroupOwner
+    {
+        Name: string;
+        Id: string;
+    }
+
+    interface GroupRole
+    {
+        Name: string;
+        Rank: number;
+    }
+
+    interface Group
+    {
+        Name: string;
+        Id: number;
+        Owner: GroupOwner;
+        EmblemUrl: string;
+        Description: string;
+        Roles: GroupRole[]
+    }
+
     interface GroupView
     {
         __VIEWSTATE: string;
@@ -926,6 +948,11 @@ declare module "noblox.js" {
      * Gets the audit logs of the specified group.
      */
     function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar ): Promise<AuditPage>;
+
+    /**
+     * Gets a brief overview of the specified group.
+     */
+    function getGroup(groupId: number): Promise<Group>;
 
     /**
      * Gets the first page of join requests from `group`.
