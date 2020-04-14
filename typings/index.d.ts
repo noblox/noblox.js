@@ -341,6 +341,42 @@ declare module "noblox.js" {
 
     /// Game
 
+    interface GameInstancePlayerThumbnail {
+        AssetId: number;
+        AssetTypeId: number;
+        Url: string;
+        IsFinal: boolean;
+    }
+
+    interface GameInstancePlayer {
+        Id: number;
+        Username: string;
+        Thumbnail: GameInstancePlayerThumbnail;
+    }
+
+    interface GameInstance {
+        Capacity: number;
+        Ping: number;
+        Fps: number;
+        ShowSlowGameMessage: boolean;
+        Guid: string;
+        PlaceId: number;
+        CurrentPlayers: GameInstancePlayer[];
+        UserCanJoin: boolean;
+        ShowShutdownButton: boolean;
+        JoinScript: string;
+        FriendsDescription: string;
+        FriendsMouseover: string;
+        PlayersCapacity: string;
+    }
+
+    interface GameInstances {
+        PlaceId: number;
+        ShowShutdownAllButton: boolean;
+        Collection: GameInstance[];
+        TotalCollectionSize: number;
+    }
+
     interface DeveloperProductAddResult
     {
         universeId: number,
@@ -867,6 +903,13 @@ declare module "noblox.js" {
     function startGroupConversation(userIds: number[], title: string, jar?: CookieJar): Promise<void>;
 
     /// Game
+
+    /**
+     * Returns data about the existing game instances (servers) of the specified place. You must have permission to view the game's server list to use this. (Must be logged in)
+     * @param placeId The place whose game instances are being fetched.
+     * @param startIndex The index to start from in regards to server list. 
+     */
+    function getGameInstances(placeId: number, startIndex: number): Promise<GameInstances>;
 
     // You can create a developer product, but the productId returned does not match the actual developer product id needed by the endpoints.
     // It's strange, but the edit link on the product page has the id that Roblox wants so you can edit dev products.
