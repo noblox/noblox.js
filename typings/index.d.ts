@@ -479,26 +479,17 @@ declare module "noblox.js" {
         oldRole: Role;
     }
 
-    interface GroupOwner
-    {
-        Name: string;
-        Id: string;
-    }
-
-    interface GroupRole
-    {
-        Name: string;
-        Rank: number;
-    }
-
     interface Group
     {
-        Name: string;
-        Id: number;
-        Owner: GroupOwner;
-        EmblemUrl: string;
-        Description: string;
-        Roles: GroupRole[]
+        id: number;
+        name: string;
+        description: string;
+        owner: GroupUser;
+        shout: GroupShout;
+        memberCount: number;
+        isBuildersClubOnly: boolean;
+        publicEntryAllowed: boolean;
+        isLocked: boolean;
     }
 
     interface GroupView
