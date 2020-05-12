@@ -1106,7 +1106,7 @@ declare module "noblox.js" {
     /**
      * Gets the pending friend requests of the logged in user.
      */
-    function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestPage>;
+    function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestsPage>; // fixed a typo
 
     /**
      * Gets the friends list of the specified user.
@@ -1176,7 +1176,7 @@ declare module "noblox.js" {
     /**
      * Gets the action row for audit log text. Current supported types are: change rank, delete post, and change group status (shouts).
      */
-    function getAction(row: string): AuditItemAction;
+    function getAction(row: string): AuditItem;
 
     /**
      * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
@@ -1339,9 +1339,9 @@ declare module "noblox.js" {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'data', listener: (joinRequest: GroupHandleJoinRequest) => void): this;
+        on(event: 'data', listener: (joinRequest: GroupJoinRequest) => void): this;
 
-        emit(event: 'handle', joinRequest: GroupHandleJoinRequest, accept: boolean, callback?: () => void): boolean;
+        emit(event: 'handle', joinRequest: GroupJoinRequest, accept: boolean, callback?: () => void): boolean;
     }
 
     interface OnShoutEventEmitter extends events.EventEmitter
