@@ -1106,7 +1106,7 @@ declare module "noblox.js" {
     /**
      * Gets the pending friend requests of the logged in user.
      */
-    function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestsPage>; // fixed a typo
+    function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestsPage>;
 
     /**
      * Gets the friends list of the specified user.
