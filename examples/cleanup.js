@@ -1,13 +1,12 @@
 // Exile specific members in a group, including by rank and by name. Useful for cleaning up bots.
-var rbx = require('roblox-js')
+var rbx = require('noblox-js')
 var ProgressBar = require('progress')
-var username = ''
-var password = ''
+var cookie = ''
 var group = 0
 var rank = null // Make this the rank number if you want to use rank.
 var pages = null
 
-rbx.login(username, password)
+rbx.setCookie(cookie)
   .then(function () {
   // This allows you to retrieve only a specific set of pages.
   /* pages = [];

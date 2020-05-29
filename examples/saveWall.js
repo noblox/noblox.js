@@ -1,12 +1,11 @@
-var rbx = require('roblox-js')
+var rbx = require('noblox-js')
 var ProgressBar = require('progress')
 var js = require('JSONStream')
 var fs = require('fs')
 var group = 0
-var username = ''
-var password = ''
+var cookie = ''
 
-rbx.login(username, password)
+rbx.setCookie(cookie)
   .then(function () {
     console.time('Time: ')
     var stream = js.stringify('[\n', ',\n', '\n]\n')
