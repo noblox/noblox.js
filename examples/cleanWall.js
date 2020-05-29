@@ -1,5 +1,5 @@
 // Delete posts from a group wall, including by post content and by author name.
-var rbx = require('noblox-js')
+var rbx = require('noblox.js')
 var ProgressBar = require('progress')
 var cookie = ''
 var group = 0
