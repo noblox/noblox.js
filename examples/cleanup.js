@@ -1,5 +1,5 @@
 // Exile specific members in a group, including by rank and by name. Useful for cleaning up bots.
-var rbx = require('noblox-js')
+var rbx = require('noblox.js')
 var ProgressBar = require('progress')
 var cookie = ''
 var group = 0
