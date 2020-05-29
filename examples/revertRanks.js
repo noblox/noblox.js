@@ -1,8 +1,7 @@
 // Revert player ranks to their original rank in a certain range.
-var rbx = require('roblox-js')
+var rbx = require('noblox.js')
 var ProgressBar = require('progress')
-var username = ''
-var password = ''
+var cookie = ''
 var group = 0
 
 var actionTypeId = 6
@@ -11,7 +10,7 @@ var startPage = 1
 var endPage = 10
 var afterDate = new Date('2000-01-01 00:00 CDT')
 
-rbx.login(username, password)
+rbx.setCookie(cookie)
   .then(function () {
     var pages = []
     for (var i = startPage; i <= endPage; i++) {

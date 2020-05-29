@@ -1,5 +1,5 @@
 // Save all the players in a group to a file with status updates.
-var rbx = require('roblox-js')
+var rbx = require('noblox.js')
 var ProgressBar = require('progress')
 var js = require('JSONStream')
 var fs = require('fs')

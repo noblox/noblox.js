@@ -49,36 +49,41 @@ That's it!
 You can find the current noblox.js wiki with all API documentation [here](https://github.com/suufi/noblox.js/wiki). Keep in mind that all methods may not be documented. A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0. 
 
 ## Making use of new login workaround
-
+> Note, as of v4.6.0 The way you login to Noblox has changed significantly.
+> The library is no longer responsible for refreshing your cookies
+>
+> This is because of many reasons including that creating a file caused many security & usability issues and made the library incompatible with some hosts.
 ### Initial setup
-1. Remove any usages of the `login` method.
-2. Run `cookieLogin` when your app starts. You only need to run it on app start. Supply it with a cookie, guide on obtaining that below.
-3. This cookie will be automatically refreshed. You never need to supply it again, but supplying it is unlikely to cause problems
+1. Remove any usages of the `login` or `cookieLogin` methods.
+2. Run `setCookie` with your cookie. This will store your cookie internally and validate it, but will perform **no** cookie refresh automatically
+3. While this works, Roblox `.ROBLOSECURITY` cookies expire after an unknown length of time. For applications which run continuously, **you must** use the function `refreshCookie` to prevent this. This will refresh either the cookie you pass or the internally stored cookie and return the new one.
+4. You need to store this new cookie somewhere - whether it be in a database or a JSON file file.
+
+> Note: By default, setCookie will validate the cookie you provide by making a HTTP request.
+> To Disable this behaviour, pass `false` as the second parameter (validate)
     
 ### Getting your cookie (Chrome):
 1. Open any Roblox page and login
 2. Press `Control + Shift + i` on your keyboard
 3. Click `Application`
 4. Find `.ROBLOSECURITY`. Copy it's contents, which will start with `_|WARNING:-DO`
-5. Put this full token, *including* the warning into cookieLogin: `rbx.cookieLogin( tokenHere )`
+5. Put this full token, *including* the warning into cookieLogin: `rbx.setCookie( tokenHere )`
     
 ### Example
 This example makes use of the new async-await syntax.
 ```js
 const rbx = require("noblox.js")
 async function startApp () {
-    await rbx.cookieLogin("_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_F9F1EA531adk")
+    await rbx.setCookie("_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_F9F1EA531adk")
     // Do everything else, calling functions and the like.
     let currentUser = await rbx.getCurrentUser()
 }
 ```
 
 ## Drawbacks
-- Only one application can be logged in at once. 
+- You need to set up something to store and refresh cookies yourself 
 - If the application is offline for like a week to a month you may need to get the cookie again
-- Your cookie is stored within a file in the lib
 - Roblox-js-server is **not** currently compatible. Use [noblox.js-server](https://github.com/Hamzah-z/noblox.js-server) instead.
-- The application will **not** work on Heroku. This is because we store the cookie internally in a file, and files do not persist in Heroku.
 
 
 ## Credits

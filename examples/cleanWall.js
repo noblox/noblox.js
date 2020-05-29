@@ -1,11 +1,10 @@
 // Delete posts from a group wall, including by post content and by author name.
-var rbx = require('roblox-js')
+var rbx = require('noblox.js')
 var ProgressBar = require('progress')
-var username = ''
-var password = ''
+var cookie = ''
 var group = 0
 
-rbx.login(username, password)
+rbx.setCookie(cookie)
   .then(function () {
   // This allows you to retrieve only a specific set of pages.
   /* pages = [];
