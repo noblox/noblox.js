@@ -1,5 +1,5 @@
 // Revert player ranks to their original rank in a certain range.
-var rbx = require('noblox-js')
+var rbx = require('noblox.js')
 var ProgressBar = require('progress')
 var cookie = ''
 var group = 0
