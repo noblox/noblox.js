@@ -5,8 +5,7 @@
   "main": "lib/index.js",
   "types": "typings/index.d.ts",
   "scripts": {
-    "test": "eslint lib/",
-    "postinstall": "node postinstall.js"
+    "test": "eslint lib/"
   },
   "repository": {
     "type": "git",
