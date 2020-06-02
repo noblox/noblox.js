@@ -409,13 +409,17 @@
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">noblox</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">);</span>
 
 <span class="nx">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">await</span> <span class="nx">noblox</span><span class="p">.</span><span class="nx">cookieLogin</span><span class="p">(</span><span class="s1">'_ROBLOSECURITYKEYFORCOOLBOY57'</span><span class="p">);</span>
+  <span class="nx">await</span> <span class="nx">noblox</span><span class="p">.</span><span class="nx">setCookie</span><span class="p">(</span><span class="s1">'_ROBLOSECURITYKEYFORCOOLBOY57'</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="nx">run</span><span class="p">();</span>
 </code></pre>
-<aside class="notice">
+<aside class="success">
 The following code utilizes the async/await feature in ES8. Be sure you're running the latest node version and latest version of noblox.js.
+</aside>
+
+<aside class="notice">
+Note: By default, setCookie will validate the cookie you provide by making a HTTP request. To Disable this behaviour, pass false as the second parameter (validate)
 </aside>
 
 <blockquote>
@@ -2113,6 +2117,10 @@ The following code utilizes the async/await feature in ES8. Be sure you're runni
 </tr>
 </tbody></table>
 <h2 id='post-to-wall'>Post To Wall</h2>
+<aside class="warning">
+This function has been removed due to Roblox captchas.
+</aside>
+
 <p>This function posts something to the group wall.</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">nbx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">)</span>
 
