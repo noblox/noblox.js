@@ -1035,7 +1035,7 @@ declare module "noblox.js" {
     function getJoinRequests(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupJoinRequestsPage>;
 
     /**
-     * Gets all (or up to limit) players in `group` with the number/array of `roleset`.
+     * Gets all (or up to limit when provided and greater than 0) players in `group` with the number/array of `roleset`.
      */
     function getPlayers(group: number, roleset: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
