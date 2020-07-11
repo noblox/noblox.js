@@ -1352,6 +1352,14 @@ declare module "noblox.js" {
         on(event: 'data', listener: (shout: GroupShout) => void): this;
     }
 
+    interface OnAuditLogEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (auditLog: audit) => void): this;
+    }
+
     /// Party
 
     interface OnPartyNotificationEventEmitter extends events.EventEmitter
@@ -1446,6 +1454,8 @@ declare module "noblox.js" {
      * Fires when there is a shout in the group with groupId `group`. If the shout was cleared the shout body will be blank.
      */
     function onShout(group: number, jar?: CookieJar): OnShoutEventEmitter;
+
+    function onAuditLog(group: number, jar?: CookieJar): OnAuditLogEventEmitter;
 
     /**
      * Fires when there is a new wall post in the group with groupId `group`. If `view` is enabled the wall posts viewstate will be returned in `view`, otherwise it will not be present.
