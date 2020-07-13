@@ -1147,6 +1147,11 @@ declare module "noblox.js" {
     function getPlayerInfo(userId: number): Promise<PlayerInfo>;
 
     /**
+     * Gets the thumbnail of a user.
+     */
+    function getPlayerThumbnail(userId: number): Promise<string>;
+
+    /**
      * Gets the presence statuses of the specified users
      */
     function getPresences(userIds: number[]): Promise<Presences>;
