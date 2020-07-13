@@ -537,6 +537,42 @@ declare module "noblox.js" {
         previousPageCursor?: string;
     }
 
+    interface TransactionAgent
+    {
+        id: number;
+        type: string;
+        name: string;
+    }
+
+    interface TransactionDetails
+    {
+        id: number;
+        name: string;
+        type: string;
+    }
+
+    interface TransactionCurrency
+    {
+        amount: number;
+        type: string;
+    }
+
+    interface TransactionItem
+    {
+        created: Date;
+        isPending: boolean;
+        agent: TransactionAgent;
+        details?: TransactionDetails;
+        currency: TransactionCurrency;
+    }
+
+    interface TransactionPage
+    {
+        data: TransactionItem[];
+        nextPageCursor?: string;
+        previousPageCursor?: string;
+    }
+
     interface GroupJoinRequester 
     {
         userId: number;
@@ -984,6 +1020,11 @@ declare module "noblox.js" {
     function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar ): Promise<AuditPage>;
 
     /**
+     * Gets the transaction history of the specified group.
+     */
+    function getGroupTransactions(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<TransactionPage>;
+
+    /**
      * Gets a brief overview of the specified group.
      */
     function getGroup(groupId: number): Promise<Group>;
@@ -994,9 +1035,9 @@ declare module "noblox.js" {
     function getJoinRequests(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupJoinRequestsPage>;
 
     /**
-     * Gets all players in `group` with the array `roleset`
+     * Gets all (or up to limit when provided and greater than 0) players in `group` with the number/array of `roleset`.
      */
-    function getPlayers(group: number, roleset: number[], jar?: CookieJar): Promise<GroupUser[]>;
+    function getPlayers(group: number, roleset: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
     /**
      * Gets `rank` of user with `userId` in `group` and caches according to settings.
@@ -1122,6 +1163,12 @@ declare module "noblox.js" {
      * Get the followers of a user (users who follow the specified person)
      */
     function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
+
+    
+    /**
+     * Gets the transaction history of the logged in user or of the user specified by the jar.
+     */
+    function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<TransactionPage>;
 
 
     /**
