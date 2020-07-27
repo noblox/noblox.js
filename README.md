@@ -9,7 +9,7 @@
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-blue.svg?style=flat-square" alt="JavaScript Style Guide"/></a>
     <a href="https://discord.gg/EDXNdAT"><img src="https://img.shields.io/badge/discord-roblox%20api%20chat-blue.svg?style=flat-square" alt="Roblox API Discord"/></a>
     <a href="https://npmjs.org/noblox.js"><img src="https://img.shields.io/npm/v/noblox.js.svg?style=flat-square" alt="NPM package"/>
-    <a href="https://travis-ci.org/suufi/noblox.js"><img src="https://img.shields.io/travis/suufi/noblox.js/master.svg?style=flat-square" alt="Travis Build Status"/></a>
+    <a href="https://travis-ci.org/suufi/noblox.js"><img src="https://img.shields.io/travis/suufi/noblox.js/master.svg?style=flat-square" alt="Travis Build Status"/></a></a>
 </p>
 
 <p align="center">
@@ -49,16 +49,17 @@ That's it!
 You can find the current noblox.js wiki with all API documentation [here](https://noblox.js.org/). Keep in mind that all methods may not be documented. A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0. 
 
 ## Making use of new login workaround
-> Note, as of v4.6.0 The way you login to Noblox has changed significantly.
+> Note, as of v4.6.0 The way you log in to Noblox has changed significantly.
 > The library is no longer responsible for refreshing your cookies
 >
-> This is because of many reasons including that creating a file caused many security & usability issues and made the library incompatible with some hosts.
+> This is because of many reasons including that creating a file caused several security/usability issues and made the library incompatible with some hosts.
 ### Initial setup
 1. Remove any usages of the `login` or `cookieLogin` methods.
 2. Run `setCookie` with your cookie. This will store your cookie internally and validate it, but will perform **no** cookie refresh automatically
-3. While this works, Roblox `.ROBLOSECURITY` cookies expire after an unknown length of time. For applications which run continuously, **you must** use the function `refreshCookie` to prevent this. This will refresh either the cookie you pass or the internally stored cookie and return the new one.
-4. You need to store this new cookie somewhere - whether it be in a database or a JSON file file.
+3. While this works, Roblox `.ROBLOSECURITY` cookies expire after an unknown length of time. For applications which run continuously, **you must** use the function `refreshCookie` to prevent this. This will refresh either the cookie you pass or the internally stored cookie and return the new one.*
+4. You need to store this new cookie somewhere - whether it be in a database, or a JSON file.
 
+\* See [Cookie expiration](#Cookie expiration) for an in depth discussion of cookie expiration.
 > Note: By default, setCookie will validate the cookie you provide by making a HTTP request.
 > To Disable this behaviour, pass `false` as the second parameter (validate)
     
@@ -66,7 +67,7 @@ You can find the current noblox.js wiki with all API documentation [here](https:
 1. Open any Roblox page and login
 2. Press `Control + Shift + i` on your keyboard
 3. Click `Application`
-4. Find `.ROBLOSECURITY`. Copy it's contents, which will start with `_|WARNING:-DO`
+4. Find `.ROBLOSECURITY`. Copy its contents, which will start with: `_|WARNING:-DO`
 5. Put this full token, *including* the warning into cookieLogin: `rbx.setCookie( tokenHere )`
     
 ### Example
@@ -82,8 +83,20 @@ async function startApp () {
 
 ## Drawbacks
 - You need to set up something to store and refresh cookies yourself 
-- If the application is offline for like a week to a month you may need to get the cookie again
 - Roblox-js-server is **not** currently compatible. Use [noblox.js-server](https://github.com/Hamzah-z/noblox.js-server) instead.
+
+## Common issues
+### CSRF 
+In July 2020 Roblox updated the endpoint we used to get CSRF tokens (`auth.roblox.com/v1/logout`) and essentially disabled it.
+They didn't warn anyone of this change so as of v4.6.3 we've updated to a new endpoint that works.
+To make use of the new fix, run `npm install noblox.js@4.6.3`. Alternatively, use `latest` to get the latest version.
+
+
+### Cookie expiration
+We do not know for a fact whether Roblox cookies expire. Roblox has not enlightened us on this fact, so we're pretty much in the dark.
+
+We advise that you refresh your cookies in a production environment **no more often than** once every 24 hours.
+However, several users have noted lately that they've had cookies last for several months - meaning you could choose not to refresh your cookie.
 
 
 ## Credits
