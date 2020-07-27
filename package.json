@@ -1,6 +1,6 @@
 {
   "name": "noblox.js",
-  "version": "4.6.3",
+  "version": "4.6.4",
   "description": "A Node.js wrapper for ROBLOX. (original from sentanos)",
   "main": "lib/index.js",
   "types": "typings/index.d.ts",
@@ -33,7 +33,8 @@
   },
   "author": "Suufi <me@suufi.me> (https://github.com/suufi)",
   "contributors": [
-    "Joshua Lanese <froastj@gmail.com>"
+    "Joshua Lanese <froastj@gmail.com>",
+    "Neztore <hi@nezto.re>"
   ],
   "homepage": "https://github.com/suufi/noblox.js",
   "devDependencies": {
