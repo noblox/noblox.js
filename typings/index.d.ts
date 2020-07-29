@@ -1,4 +1,4 @@
-// Type definitions for noblox.js@4.5.2
+// Type definitions for noblox.js@4.6.0
 // Authored by Gamenew09 w/ changes by suufi
 
 declare module "noblox.js" {
@@ -1093,7 +1093,15 @@ declare module "noblox.js" {
     function block(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Allows user to login with a cookie.json, bypassing the username/password captcha issues.
+     * Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
+     * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
+     */
+     function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
+
+    /**
+     * Allows the user to login with a cookie.json file, bypassing the username/password captcha issues.
+     *
+     * NOTE: Usage of this function is deprecated as of v4.6.0.
      */
     function cookieLogin(cookie: string): Promise<LoggedInUserData>;
 
@@ -1108,9 +1116,9 @@ declare module "noblox.js" {
     function follow(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Logs into `username` with `password` and stores their cookie in `jar`.
+     * Logs into the user account with a provided `username` and `password`. On success -, stores the account cookie in `jar`.
      * 
-     * NOTE: Calling login requires passing the robot test.
+     * NOTE: Usage of this function is deprecated as of v4.6.0 and calling requires passing the robot test.
      */
     function login(username: string, password: string, jar?: CookieJar): Promise<UserLoginApiData>;
 
@@ -1314,6 +1322,11 @@ declare module "noblox.js" {
      * Creates a jar file based on `sessionOnly`. Normally you will not need this argument as the function will use the default from settings.json. If for some other reason you need a jar file you can collect it this way, but without changing the settings it will not work.
      */
     function jar(sessionOnly?: boolean): CookieJar;
+
+    /**
+     * Refreshes the internally stored cookie, or the cookie provided, stores the new cookie and returns it.
+     */
+    function refreshCookie(cookie?: string): Promise<string>;
 
     /**
      * This is the base for events that do not rely on true streams. The `getLatest` function receives some value that represents the latest version of something (eg. a date or unique ID) and determines if there is new information, every time it is fired it waits `delay` ms before being fired again. Every time it must return an object with the field `latest`, representing the latest value (which will not change if new information was not received), and an array `data` which has the new values (if there are multiple they each have their own index, if there is only one then it is by itself in the array). If `latest` is equal to -2, the returned data will be processed even if it is the initial run (which usually only establishes the latest value). If the return object has a true `repeat` value, the function latest will be run again immediately after. If `delay` is a string it will take the number from that string key in the `event` object of the settings.json file.
