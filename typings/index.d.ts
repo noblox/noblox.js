@@ -1096,7 +1096,7 @@ declare module "noblox.js" {
      * Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */
-     function setCookie<B extends boolean = false>(cookie: string, shouldValidate?: B): B extends true ? boolean : Promise<LoggedInUserData>
+     function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
 
     /**
      * Allows the user to login with a cookie.json file, bypassing the username/password captcha issues.
