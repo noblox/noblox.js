@@ -1,19 +1,19 @@
 // Save all the players in a group to a file with status updates.
-var rbx = require('noblox.js')
-var ProgressBar = require('progress')
-var js = require('JSONStream')
-var fs = require('fs')
-var group = 0
+const rbx = require('noblox.js')
+const ProgressBar = require('progress')
+const js = require('JSONStream')
+const fs = require('fs')
+const group = 0
 
 console.time('Time: ')
-var stream = js.stringify('[\n', ',\n', '\n]\n')
+const stream = js.stringify('[\n', ',\n', '\n]\n')
 stream.pipe(fs.createWriteStream('./players.json'))
-var promise = rbx.getPlayers({
+const promise = rbx.getPlayers({
   group: group,
   stream: stream
 })
-var bar = new ProgressBar('Retrieving [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
-var ivl = setInterval(function () {
+const bar = new ProgressBar('Retrieving [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
+const ivl = setInterval(function () {
   bar.update(promise.getStatus() / 100)
 }, 1000)
 promise.then(function (plrs) {
