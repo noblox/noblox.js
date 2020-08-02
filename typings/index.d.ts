@@ -1417,7 +1417,7 @@ declare module "noblox.js" {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'data', listener: (auditLog: audit) => void): this;
+        on(event: 'data', listener: (auditLog: AuditItem) => void): this;
     }
 
     /// Party
