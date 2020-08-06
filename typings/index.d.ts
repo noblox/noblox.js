@@ -1154,7 +1154,7 @@ declare module "noblox.js" {
     /**
      * Gets the thumbnail of an array of users.
      */
-    function getPlayersThumbnail(userIds: array, size: number, format?: string, isCircular?: boolean): Promise<Array>;
+    function getPlayersThumbnail(userIds: Array, size: number, format?: string, isCircular?: boolean): Promise<playerThumbnailData[]>;
 
     /**
      * Gets the presence statuses of the specified users
