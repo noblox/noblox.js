@@ -772,6 +772,11 @@ declare module "noblox.js" {
         userPresences: UserPresence[]
     }
 
+	interface playerThumbnailData{
+		targetId: number;
+		state: string;
+		imageUrl: string;
+	}
     /// Utility
 
     type SelectorFunction = (selector: string) => {val(): any};
@@ -1200,6 +1205,11 @@ declare module "noblox.js" {
      * Gets a brief overview of a user.
      */
     function getPlayerInfo(userId: number): Promise<PlayerInfo>;
+
+    /**
+     * Gets the thumbnail of an array of users.
+     */
+    function getPlayerThumbnail(userIds: number | number[], size: number, format?: string, isCircular?: boolean): Promise<playerThumbnailData[]>;
 
     /**
      * Gets the presence statuses of the specified users
