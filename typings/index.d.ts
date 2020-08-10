@@ -7,7 +7,7 @@ declare module "noblox.js" {
     import * as stream from "stream";
 
     /**
-     * request 
+     * request
      */
     interface CookieJar
     {
@@ -270,7 +270,7 @@ declare module "noblox.js" {
         setConversationUniverse: ChatMessageSetConversationUniverseEventBased;
     }
 
-    interface ChatMessageSetConversationUniverseEventBased 
+    interface ChatMessageSetConversationUniverseEventBased
     {
         actorUserId: number;
         universeId: number;
@@ -377,6 +377,40 @@ declare module "noblox.js" {
         TotalCollectionSize: number;
     }
 
+    interface PlaceInformation {
+        AssetId: number;
+        Name: string;
+        Description: string;
+        Created: Date;
+        Updated: Date;
+        FavoritedCount: number;
+        Url: string;
+        ReportAbuseAbsoluteUrl: string;
+        IsFavoritedByUser: boolean;
+        IsFavoritesUnavailable: boolean;
+        UserCanManagePlace: boolean;
+        VisitedCount: number,
+        MaxPlayers: number,
+        Builder: string,
+        BuilderId: number,
+        BuilderAbsoluteUrl: string
+        IsPlayable: boolean,
+        ReasonProhibited: string,
+        ReasonProhibitedMessage: string,
+        IsCopyingAllowed: boolean,
+        PlayButtonType: string,
+        AssetGenre: string,
+        AssetGenreViewModel: { DisplayName: string, Id: number },
+        OnlineCount: number,
+        UniverseId: number,
+        UniverseRootPlaceId: number,
+        TotalUpVotes: number,
+        TotalDownVotes: number,
+        OverridesDefaultAvatar: boolean,
+        UsePortraitMode: boolean,
+        Price: number
+    }
+
     interface DeveloperProductAddResult
     {
         universeId: number,
@@ -421,9 +455,9 @@ declare module "noblox.js" {
         memberCount?: number;
         rank: number;
         id: number;
-        description: string;    
+        description: string;
     }
-    
+
     interface GroupPostsPermissions
     {
         viewWall: boolean;
@@ -502,7 +536,7 @@ declare module "noblox.js" {
 
     interface GroupUser
     {
-        userId: number; 
+        userId: number;
         username: string;
         displayName: string;
         buildersClubMembershipType: "None" | "BC" | "TBC" | "OBC" | "RobloxPremium";
@@ -573,7 +607,7 @@ declare module "noblox.js" {
         previousPageCursor?: string;
     }
 
-    interface GroupJoinRequester 
+    interface GroupJoinRequester
     {
         userId: number;
         username: string;
@@ -808,7 +842,7 @@ declare module "noblox.js" {
 
     interface GetLatestResponse
     {
-        latest: number; 
+        latest: number;
         data: object;
         repeat?: boolean;
     }
@@ -846,7 +880,7 @@ declare module "noblox.js" {
     /// Avatar
 
     function avatarRules(option?: "playerAvatarTypes" | "scales" | "wearableAssetTypes" | "bodyColorsPalette" | "basicBodyColorsPalette" | "minimumDeltaEBodyColorDifference" | "proportionsAndBodyTypeEnabledForUser" | "defaultClothingAssetLists" | "bundlesEnabledForUser" | "emotesEnabledForUser" | undefined, jar?: CookieJar): Promise<AvatarRules>;
-    
+
     function avatarRules(option: "playerAvatarTypes", jar?: CookieJar): Promise<string[]>;
     function avatarRules(option: "scales", jar?: CookieJar): Promise<AvatarRulesScales>;
     function avatarRules(option: "wearableAssetTypes", jar?: CookieJar): Promise<WearableAssetType[]>;
@@ -863,7 +897,7 @@ declare module "noblox.js" {
     function getAvatar(userId: number): Promise<AvatarInfo>;
 
     function getCurrentAvatar(option?: "scales" | "playerAvatarType" | "bodyColors" | "assets" | "defaultShirtApplied" | "defaultPantsApplied" | undefined, jar?: CookieJar): Promise<AvatarInfo>;
-    
+
     function getCurrentAvatar(option: "scales", jar?: CookieJar): Promise<AvatarScale>;
     function getCurrentAvatar(option: "playerAvatarType", jar?: CookieJar): Promise<PlayerAvatarType>;
     function getCurrentAvatar(option: "bodyColors", jar?: CookieJar): Promise<AvatarBodyColors>;
@@ -934,9 +968,15 @@ declare module "noblox.js" {
     /**
      * Returns data about the existing game instances (servers) of the specified place. You must have permission to view the game's server list to use this. (Must be logged in)
      * @param placeId The place whose game instances are being fetched.
-     * @param startIndex The index to start from in regards to server list. 
+     * @param startIndex The index to start from in regards to server list.
      */
     function getGameInstances(placeId: number, startIndex: number): Promise<GameInstances>;
+
+    /**
+     * Returns information about the place in question, such as Description, name etc. Varies based on whether or not you're logged in.
+     * @param placeId The place whose information is being fetched.
+     */
+    function getPlaceInfo(placeId: number): Promise<PlaceInformation>;
 
     // You can create a developer product, but the productId returned does not match the actual developer product id needed by the endpoints.
     // It's strange, but the edit link on the product page has the id that Roblox wants so you can edit dev products.
@@ -945,7 +985,7 @@ declare module "noblox.js" {
 
     /**
      * Checks to see if the provided `produceName` is able to be used on `productId`.
-     * 
+     *
      * NOTE: You actually need a valid `productId` and `universeId` otherwise, the http request returns a `404 Not Found` response.
      */
     function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<CheckDeveloperProductNameResult>;
@@ -1117,7 +1157,7 @@ declare module "noblox.js" {
 
     /**
      * Logs into the user account with a provided `username` and `password`. On success -, stores the account cookie in `jar`.
-     * 
+     *
      * NOTE: Usage of this function is deprecated as of v4.6.0 and calling requires passing the robot test.
      */
     function login(username: string, password: string, jar?: CookieJar): Promise<UserLoginApiData>;
@@ -1172,7 +1212,7 @@ declare module "noblox.js" {
      */
     function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
 
-    
+
     /**
      * Gets the transaction history of the logged in user or of the user specified by the jar.
      */
@@ -1488,7 +1528,7 @@ declare module "noblox.js" {
 
     /**
      * This function emits all join requests and waits until all of them have been resolved by firing the `handle` event with the request and either true or false. You can also pass a third argument `callback` to handle to execute once the join request has been handled. Once all requests on a page have been resolved, the next page is collected. Make sure that all join requests are handled in some way. Because this function has to wait for input, it does handle timeouts but does them within the function as opposed to within shortPoll.
-     * 
+     *
      * To accept all new users that aren't on a blacklist and send them a message, for example:
      * ```javascript
      * const blacklist = [1, 261]
