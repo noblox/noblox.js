@@ -13,7 +13,7 @@ const afterDate = new Date('2000-01-01 00:00 CDT')
 rbx.setCookie(cookie)
   .then(function () {
     const pages = []
-    for (const i = startPage; i <= endPage; i++) {
+    for (let i = startPage; i <= endPage; i++) {
       pages.push(i)
     }
     const audit = new ProgressBar('Getting audit log [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
@@ -26,7 +26,7 @@ rbx.setCookie(cookie)
     promise.then(function (audit) {
       const logs = audit.logs
       const original = {}
-      for (const i = 0; i < logs.length; i++) {
+      for (let i = 0; i < logs.length; i++) {
         const log = logs[i]
         if (log.date > afterDate) {
           original[log.action.target] = log.action.params[0]
