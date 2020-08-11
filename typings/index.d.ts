@@ -811,6 +811,58 @@ declare module "noblox.js" {
 		state: string;
 		imageUrl: string;
 	}
+
+    /// Badges
+
+    interface BadgeAwarder {
+        id: number;
+        type: string;
+    }
+
+    interface BadgeStatistics {
+        pastDayAwardedCount: number;
+        awardedCount: number;
+        winRatePercentage: number;
+    }
+
+    interface BadgeUniverse {
+        id: number;
+        name: string;
+        rootPlaceId: number;
+    }
+
+    //
+    interface PlayerBadges {
+        id: number;
+        name: string;
+        description: string|null;
+        displayName: string;
+        displayDescription: string|null;
+        enabled: boolean;
+        iconImageId: number;
+        displayIconImageId: number;
+        awarder: BadgeAwarder;
+        statistics: BadgeStatistics;
+        created: Date;
+        updated: Date;
+    }
+    //
+
+    interface BadgeInfo {
+        id: number;
+        name: string;
+        description: string|null;
+        displayName: string;
+        displayDescription: string|null;
+        enabled: boolean;
+        iconImageId: number;
+        displayIconImageId: number;
+        created: Date;
+        updated: Date;
+        statistics: BadgeStatistics
+        awardingUniverse: BadgeUniverse
+    }
+
     /// Utility
 
     type SelectorFunction = (selector: string) => {val(): any};
@@ -976,6 +1028,8 @@ declare module "noblox.js" {
      * @param startIndex The index to start from in regards to server list.
      */
     function getGameInstances(placeId: number, startIndex: number): Promise<GameInstances>;
+
+    function getGameBadges(universeId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<BadgeInfo>
 
     /**
      * Returns information about the place in question, such as Description, name etc. Varies based on whether or not you're logged in.
@@ -1240,6 +1294,11 @@ declare module "noblox.js" {
      * Returns whether a user owns an asset or not
      */
     function getOwnership(userId: number, assetId: number): Promise<boolean>;
+
+    /**
+     * Gets the badges of a user.
+    */
+    function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<PlayerBadges>
 
     /**
      * Gets a brief overview of a user.
@@ -1609,4 +1668,17 @@ declare module "noblox.js" {
      * This is one of the only true streams, using web sockets to connect to ROBLOX's notification system. The logged in user must have relevant notifications enabled in their settings in order to receive notifications through this (of course). All notifications haven't been mapped out but what is known is that they all have a `name` and `message` (separate arguments to the `data` event), where `message` is an object that includes a field `type`.
      */
     function onNotification(jar?: CookieJar): OnNotificationEventEmitter;
+
+
+    /// Badges
+
+    /**
+     * Gets information about a badge.
+     */
+    function getBadgeInfo(badgeId: number): Promise<BadgeInfo>
+
+    /**
+     * Updates badge information.
+     */
+    function updateBadgeInfo(badgeId: number, name?: string, description?: string, enabled?: boolean, jar?: CookieJar): Promise<void>
 }
