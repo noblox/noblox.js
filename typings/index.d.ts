@@ -831,13 +831,13 @@ declare module "noblox.js" {
         rootPlaceId: number;
     }
 
-    // 
+    //
     interface PlayerBadges {
         id: number;
         name: string;
-        description: string;
+        description: string|null;
         displayName: string;
-        displayDescription: string;
+        displayDescription: string|null;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -846,14 +846,14 @@ declare module "noblox.js" {
         created: Date;
         updated: Date;
     }
-    // 
+    //
 
     interface BadgeInfo {
         id: number;
         name: string;
-        description: string;
+        description: string|null;
         displayName: string;
-        displayDescription: string;
+        displayDescription: string|null;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -1295,7 +1295,7 @@ declare module "noblox.js" {
      */
     function getOwnership(userId: number, assetId: number): Promise<boolean>;
 
-    /** 
+    /**
      * Gets the badges of a user.
     */
     function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<PlayerBadges>
