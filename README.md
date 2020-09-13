@@ -59,7 +59,7 @@ You can find the current noblox.js wiki with all API documentation [here](https:
 3. While this works, Roblox `.ROBLOSECURITY` cookies expire after an unknown length of time. For applications which run continuously, **you must** use the function `refreshCookie` to prevent this. This will refresh either the cookie you pass or the internally stored cookie and return the new one.*
 4. You need to store this new cookie somewhere - whether it be in a database, or a JSON file.
 
-\* See [Cookie expiration](https://github.com/suufi/noblox.js#cookie-expiration) for an in depth discussion of cookie expiration.
+\* See [Cookie expiration](#cookie-expiration) for an in depth discussion of cookie expiration.
 > Note: By default, setCookie will validate the cookie you provide by making a HTTP request.
 > To Disable this behaviour, pass `false` as the second parameter (validate)
     
