@@ -801,7 +801,7 @@ declare module "noblox.js" {
         blurb: string;
         joinDate: Date;
         age: number;
-        pastnames: string;
+        oldNames: string[];
     }
     interface Presences {
         userPresences: UserPresence[]
