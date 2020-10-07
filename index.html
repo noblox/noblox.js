@@ -439,6 +439,8 @@
 <p>To log into a Roblox account, use this code:</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">noblox</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">);</span>
+<p>To refresh a cookie, use this code:</p>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">noblox</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">);</span>
 
 <span class="nx">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">await</span> <span class="nx">noblox</span><span class="p">.</span><span class="nx">setCookie</span><span class="p">(</span><span class="s1">'_ROBLOSECURITYKEYFORCOOLBOY57'</span><span class="p">);</span>
@@ -459,6 +461,7 @@ Note: By default, setCookie will validate the cookie you provide by making a HTT
 </blockquote>
 
 <p>Following Roblox&#39;s recent Funcaptcha update, users can no longer log into their accounts through noblox.js using the basic username/password combination. In order to get around this, noblox.js bypasses this and uses your <code>.ROBLOSECURITY</code> key to login. Your <code>.ROBLOSECURITY</code> key doesn&#39;t go anywhere apart from your local computer and to Roblox directly so you can trust the process.</p>
+<p>Cookies to log into your account may expire. It is recommended that you do not refresh your cookies more than once every 24 hours, however many users are reporting that these cookies have lasted for several months without refreshing.</p>
 <h1 id='promises'>Promises</h1>
 <blockquote>
 <p>Example</p>
