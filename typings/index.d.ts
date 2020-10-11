@@ -441,6 +441,9 @@ declare module "noblox.js" {
 
     /// Group
 
+    type GroupIconSize = "150x150" | "420x420"
+    type GroupIconFormat = "Png"
+
     interface Role
     {
         name: string;
@@ -1168,6 +1171,11 @@ declare module "noblox.js" {
      * Gets a brief overview of the specified group.
      */
     function getGroup(groupId: number): Promise<Group>;
+
+    /**
+     * Gets the logo of the specified group.
+     */
+    function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
 
     /**
      * Gets the first page of join requests from `group`.
