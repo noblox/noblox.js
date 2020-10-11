@@ -864,6 +864,46 @@ declare module "noblox.js" {
         awardingUniverse: BadgeUniverse
     }
 
+    //Inventory
+
+    interface AssetOwner
+    {
+        userId: number;
+        username: string;
+        buildersClubMembershipType: number;
+    }
+    
+    interface CollectibleEntry {
+        userAssetId: number;
+        serialNumber?: number;
+        assetId: number;
+        name: string;
+        recentAveragePrice: string;
+        originalPrice?: number;
+        assetStock?: number;
+        buildersClubMembershipType: number;
+    }
+
+    interface Collectibles {
+        collectibles: CollectibleEntry[];
+    }
+    //
+
+    interface InventoryEntry {
+        assetId: number;
+        name: string;
+        assetType: string;
+        created: string;
+        updated?: string;
+        assetName?: string;
+        userAssetId?: number;
+        owner?: AssetOwner;
+    }
+
+    interface Inventory {
+        items: InventoryEntry[];
+    }
+
     /// Utility
 
     type SelectorFunction = (selector: string) => {val(): any};
@@ -1325,6 +1365,23 @@ declare module "noblox.js" {
      * Gets `username` of user with `id` and caches according to settings.
      */
     function getUsernameFromId(id: number): Promise<string>;
+
+
+    /**
+     * Get the collectibles of a user.
+     */
+    function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number): Promise<Collectibles>;
+
+    /**
+     * Get the inventory of a user.
+     */
+    function getInventory(userId: number, assetTypes: Array<string>, sortOrder?: SortOrder, limit?: number): Promise<Inventory>;
+
+    /**
+     * Get the inventory of a user.
+     */
+    function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number): Promise<Inventory>;
+
 
     /// Utility
 
