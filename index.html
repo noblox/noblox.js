@@ -238,6 +238,7 @@
             <a href="#promises" class="toc-h1 toc-link" data-title="Promises">Promises</a>
           </li>
           <li>
+            
             <a href="#user-functions" class="toc-h1 toc-link" data-title="User Functions">User Functions</a>
               <ul class="toc-list-h2">
                   <li>
@@ -314,9 +315,25 @@
                   </li>
               </ul>
           </li>
+        
           <li>
             <a href="#user-events" class="toc-h1 toc-link" data-title="User Events">User Events</a>
+              <ul class="toc-list-h2">
+                 <li>
+                   <a href="#on-blurb-change" class="toc-h2 toc-link" data-title="On Blurb Change">On Blurb Change</a>
+                 </li>
+                <li>
+                   <a href="#on-friend-request" class="toc-h2 toc-link" data-title="On Friend Request">On Friend Request</a>
+                 </li>
+                 <li>
+                   <a href="#on-message" class="toc-h2 toc-link" data-title="On Message">On Message</a>
+                 </li>
+                <li>
+                   <a href="#on-notification" class="toc-h2 toc-link" data-title="On Notification">On Notification</a>
+                </li>
+            </ul>
           </li>
+        
           <li>
             <a href="#group-functions" class="toc-h1 toc-link" data-title="Group Functions">Group Functions</a>
               <ul class="toc-list-h2">
@@ -385,8 +402,23 @@
                   </li>
               </ul>
           </li>
+        
           <li>
             <a href="#group-events" class="toc-h1 toc-link" data-title="Group Events">Group Events</a>
+              <ul class="toc-list-h2">
+                 <li>
+                   <a href="#on-shout" class="toc-h2 toc-link" data-title="On Shout">On Shout</a>
+                 </li>
+                <li>
+                   <a href="#on-wall-post" class="toc-h2 toc-link" data-title="On Wall Post">On Wall Post</a>
+                 </li>
+                <li>
+                   <a href="#on-join-request" class="toc-h2 toc-link" data-title="On Join Request">On Join Request</a>
+                 </li>
+                <li>
+                   <a href="#on-audit-log" class="toc-h2 toc-link" data-title="On Audit Log Update">On Aduit Log Update</a>
+                 </li>
+            </ul>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
@@ -406,6 +438,8 @@
 <blockquote>
 <p>To log into a Roblox account, use this code:</p>
 </blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">noblox</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">);</span>
+<p>To refresh a cookie, use this code:</p>
 <pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">noblox</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'noblox.js'</span><span class="p">);</span>
 
 <span class="nx">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
@@ -427,6 +461,7 @@ Note: By default, setCookie will validate the cookie you provide by making a HTT
 </blockquote>
 
 <p>Following Roblox&#39;s recent Funcaptcha update, users can no longer log into their accounts through noblox.js using the basic username/password combination. In order to get around this, noblox.js bypasses this and uses your <code>.ROBLOSECURITY</code> key to login. Your <code>.ROBLOSECURITY</code> key doesn&#39;t go anywhere apart from your local computer and to Roblox directly so you can trust the process.</p>
+<p>Cookies to log into your account may expire. It is recommended that you do not refresh your cookies more than once every 24 hours, however many users are reporting that these cookies have lasted for several months without refreshing.</p>
 <h1 id='promises'>Promises</h1>
 <blockquote>
 <p>Example</p>
