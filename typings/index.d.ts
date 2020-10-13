@@ -881,7 +881,7 @@ declare module "noblox.js" {
         serialNumber?: number;
         assetId: number;
         name: string;
-        recentAveragePrice: string;
+        recentAveragePrice: number;
         originalPrice?: number;
         assetStock?: number;
         buildersClubMembershipType: number;
@@ -896,8 +896,8 @@ declare module "noblox.js" {
         assetId: number;
         name: string;
         assetType: string;
-        created: string;
-        updated?: string;
+        created: Date;
+        updated?: Date;
         assetName?: string;
         userAssetId?: number;
         owner?: AssetOwner;
@@ -1378,17 +1378,17 @@ declare module "noblox.js" {
     /**
      * Get the collectibles of a user.
      */
-    function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number): Promise<Collectibles>;
+    function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Collectibles>;
 
     /**
      * Get the inventory of a user.
      */
-    function getInventory(userId: number, assetTypes: Array<string>, sortOrder?: SortOrder, limit?: number): Promise<Inventory>;
+    function getInventory(userId: number, assetTypes: Array<string>, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Inventory>;
 
     /**
-     * Get the inventory of a user.
+     * Get the inventory of a user by the assetTypeId.
      */
-    function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number): Promise<Inventory>;
+    function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Inventory>;
 
 
     /// Utility
