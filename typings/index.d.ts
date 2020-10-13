@@ -821,7 +821,7 @@ declare module "noblox.js" {
     }
 
     interface UserBadgeStats {
-        id: number;
+        badgeId: number;
         awardedDate: Date;
     }
 
