@@ -441,6 +441,9 @@ declare module "noblox.js" {
 
     /// Group
 
+    type GroupIconSize = "150x150" | "420x420"
+    type GroupIconFormat = "Png"
+
     interface Role
     {
         name: string;
@@ -864,6 +867,46 @@ declare module "noblox.js" {
         awardingUniverse: BadgeUniverse
     }
 
+    //Inventory
+
+    interface AssetOwner
+    {
+        userId: number;
+        username: string;
+        buildersClubMembershipType: number;
+    }
+    
+    interface CollectibleEntry {
+        userAssetId: number;
+        serialNumber?: number;
+        assetId: number;
+        name: string;
+        recentAveragePrice: number;
+        originalPrice?: number;
+        assetStock?: number;
+        buildersClubMembershipType: number;
+    }
+
+    interface Collectibles {
+        collectibles: CollectibleEntry[];
+    }
+    //
+
+    interface InventoryEntry {
+        assetId: number;
+        name: string;
+        assetType: string;
+        created: Date;
+        updated?: Date;
+        assetName?: string;
+        userAssetId?: number;
+        owner?: AssetOwner;
+    }
+
+    interface Inventory {
+        items: InventoryEntry[];
+    }
+
     /// Utility
 
     type SelectorFunction = (selector: string) => {val(): any};
@@ -1130,6 +1173,11 @@ declare module "noblox.js" {
     function getGroup(groupId: number): Promise<Group>;
 
     /**
+     * Gets the logo of the specified group.
+     */
+    function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
+
+    /**
      * Gets the first page of join requests from `group`.
      */
     function getJoinRequests(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupJoinRequestsPage>;
@@ -1325,6 +1373,23 @@ declare module "noblox.js" {
      * Gets `username` of user with `id` and caches according to settings.
      */
     function getUsernameFromId(id: number): Promise<string>;
+
+
+    /**
+     * Get the collectibles of a user.
+     */
+    function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Collectibles>;
+
+    /**
+     * Get the inventory of a user.
+     */
+    function getInventory(userId: number, assetTypes: Array<string>, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Inventory>;
+
+    /**
+     * Get the inventory of a user by the assetTypeId.
+     */
+    function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Inventory>;
+
 
     /// Utility
 
