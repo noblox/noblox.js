@@ -820,6 +820,11 @@ declare module "noblox.js" {
         type: string;
     }
 
+    interface UserBadgeStats {
+        id: number;
+        awardedDate: Date;
+    }
+
     interface BadgeStatistics {
         pastDayAwardedCount: number;
         awardedCount: number;
@@ -1677,6 +1682,11 @@ declare module "noblox.js" {
      * Gets information about a badge.
      */
     function getBadgeInfo(badgeId: number): Promise<BadgeInfo>
+
+    /**
+     * Gets user award date for a badge.
+     */
+    function getUserBadgeTimestamp(userId: number, badgeId: number[]): Promise<UserBadgeStats>
 
     /**
      * Updates badge information.
