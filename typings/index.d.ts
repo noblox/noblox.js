@@ -1686,7 +1686,7 @@ declare module "noblox.js" {
     /**
      * Gets user award date for a badge.
      */
-    function getUserBadgeTimestamp(userId: number, badgeId: number[]): Promise<UserBadgeStats>
+    function getAwardedTimestamps(userId: number, badgeId: number[]): Promise<UserBadgeStats>
 
     /**
      * Updates badge information.
