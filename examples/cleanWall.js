@@ -42,6 +42,7 @@ const posts = {
 }
 
 async function getWallPage (getWallOptions, cursor) {
+  getWallOptions.limit = 100
   getWallOptions.cursor = cursor || ''
 
   const wallPage = await rbx.getWall(getWallOptions)
