@@ -1,60 +1,109 @@
-// Delete posts from a group wall, including by post content and by author name.
+/**
+ * About:
+ * Deletes group wall posts with optional filtering.
+ *
+ * NOTE: By default, this will delete all wall posts. Change the body of shouldDelete to alter this behaviour.
+ */
+
+// Settings
+const cookie = process.env.COOKIE || '' // Roblox account .ROBLOSECURITY cookie
+const options = {
+  group: 0, // Group ID
+  sortOrder: 'Asc' // Sort order: "Asc" or "Desc"
+}
+
+function shouldDelete (wallPost) {
+  /*
+  if (wallPost.poster === null) {
+    return true // Deleted posts from deleted users
+  } else if (wallPost.poster.username === "Bob") {
+    return true // Delete posts from Bob
+  } else if (wallPost.body.toLowerCase().includes("noob")) {
+    return true // Delete post containing "noob", case insensitive
+  }
+
+  return false
+  */
+
+  return true // Delete all posts
+}
+
+// Dependencies
 const rbx = require('noblox.js')
-const ProgressBar = require('progress')
-const cookie = ''
-const group = 0
+const logUpdate = require('log-update')
+
+// Main
+let scanning = true
+const posts = {
+  scanned: 0,
+  filtered: 0,
+  deleted: 0,
+  failed: 0
+}
+
+async function getWallPage (getWallOptions, cursor) {
+  getWallOptions.cursor = cursor || ''
+
+  const wallPage = await rbx.getWall(getWallOptions)
+
+  return wallPage
+}
+
+function filterWallPosts (wallPosts) {
+  const filteredPostIDs = []
+
+  for (const wallPost of wallPosts) {
+    if (shouldDelete(wallPost)) {
+      posts.filtered++
+      filteredPostIDs.push(wallPost.id)
+    }
+  }
+
+  return filteredPostIDs
+}
+
+function deleteWallPosts (wallPostIDs) {
+  wallPostIDs.forEach((wallPostID) => {
+    const deleteWallPostOptions = {
+      group: options.group,
+      id: wallPostID
+    }
+
+    rbx.deleteWallPost(deleteWallPostOptions)
+      .then(() => {
+        posts.deleted++
+      })
+      .catch((e) => {
+        posts.failed++
+      })
+  })
+}
 
 rbx.setCookie(cookie)
-  .then(function () {
-  // This allows you to retrieve only a specific set of pages.
-  /* pages = [];
-  for (const i = 0; i <= 100; i++) {
-    pages.push(i);
-  } */
-    const wall = new ProgressBar('Getting wall [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
-    const promise = rbx.getWall({
-      group: group,
-      // page: pages,
-      view: true
-    })
-    promise.then(function (wall) {
-      const posts = wall.posts
-      // Remember these are reversed, it starts off with all the posts on the wall and you are REMOVING the ones you DON'T want to delete from the array
-      /* for (const i = posts.length - 1; i >= 0; i--) {
-      const post = posts[i];
-      if (post.author.name !== 'Bob') { // Delete all posts by Bob
-        posts.splice(i, 1);
+  .then(async () => {
+    console.time('Time taken')
+
+    const logUpdater = setInterval(() => {
+      logUpdate(`Scanned: ${posts.scanned}\nFiltered: ${posts.filtered}\nDeleted: ${posts.deleted}\nFailed: ${posts.failed}`)
+
+      if (!scanning && posts.deleted + posts.failed === posts.filtered) {
+        clearInterval(logUpdater)
+
+        console.timeEnd('Time taken')
       }
-      if (!post.content.includes('Bob')) { // Delete all posts that contain "Bob"
-        posts.splice(i, 1);
-      }
-    } */
-      const deletion = new ProgressBar('Deleting posts [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
-      console.time('Time: ')
-      const thread = rbx.threaded(function (i) {
-        const post = posts[i]
-        return rbx.deleteWallPost({
-          group: group,
-          post: {
-            parent: {
-              index: post.parent.index
-            },
-            view: wall.views[post.parent.page]
-          }
-        })
-      }, 0, posts.length)
-      const ivl = setInterval(function () {
-        deletion.update(thread.getStatus() / 100)
-      }, 1000)
-      thread.then(function () {
-        clearInterval(ivl)
-        console.timeEnd('Time: ')
-      })
-    })
-    const ivl = setInterval(function () {
-      wall.update(promise.getStatus() / 100)
-    }, 1000)
-    promise.then(function () {
-      clearInterval(ivl)
-    })
+    }, 100)
+
+    let wallPage = await getWallPage(options)
+    posts.scanned += wallPage.data.length
+
+    deleteWallPosts(filterWallPosts(wallPage.data))
+
+    while (wallPage.nextPageCursor !== null) {
+      wallPage = await getWallPage(options, wallPage.nextPageCursor)
+      posts.scanned += wallPage.data.length
+
+      deleteWallPosts(filterWallPosts(wallPage.data))
+    }
+
+    scanning = false
   })
