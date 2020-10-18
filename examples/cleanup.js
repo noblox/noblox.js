@@ -1,52 +1,129 @@
-// Exile specific members in a group, including by rank and by name. Useful for cleaning up bots.
+/**
+ * About:
+ * Exiles group members with optional filtering.
+ *
+ * NOTE: By default, this will exile all players in the rolesets provided. Change the body of shouldExile to alter this behaviour.
+ */
+
+// Settings
+const cookie = process.env.COOKIE || '' // Roblox account .ROBLOSECURITY cookie
+const options = {
+  group: 0, // Group ID
+  roleset: [1, 2, 3], // Array of roleset IDs - NOTE: This is not the same as role number
+  limit: -1, // Search limit - NOTE: When <= 0 there is no limit
+  exileLimit: -1, // Exile limit - NOTE: When <= 0 there is no limit
+  sortOrder: 'Asc' // Sort order: "Asc" or "Desc"
+}
+
+function shouldExile (player) {
+  /*
+  if (player.username === "Bob") {
+    return true // Exile Bob
+  } else if (player.username.toLowerCase().includes("bot")) {
+    return true // Exile users with username containing "bot"
+  } else if (player.userId > 1000000000) {
+    return true // Exile users with userId over 1 billion
+  }
+
+  return false
+  */
+
+  return true // Exile all players found
+}
+
+// Dependencies
 const rbx = require('noblox.js')
-const ProgressBar = require('progress')
-const cookie = ''
-const group = 0
-const rank = null // Make this the rank number if you want to use rank.
-const pages = null
+const logUpdate = require('log-update')
+
+const players = {
+  passed: 0,
+  exiled: 0,
+  failed: 0
+}
 
 rbx.setCookie(cookie)
-  .then(function () {
-  // This allows you to retrieve only a specific set of pages.
-  /* pages = [];
-  for (const i = 0; i <= 100; i++) {
-    pages.push(i);
-  } */
-    const getPlayers = new ProgressBar('Getting players [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
-    const promise = rbx.getPlayers(group, rank, pages)
-    promise.then(function (res) {
-      const plrs = res.players
-      // This allows you to select only players that have a specific string in their name.
-      /* for (const i = plrs.length - 1; i >= 0; i--) {
-      const plr = plrs[i];
-      if (!plr.name.includes('Bot')) {
-        plrs.splice(i, 1);
+  .then(async () => {
+    console.time('Time taken')
+
+    const getRolesOptions = {
+      group: options.group
+    }
+
+    const groupRoles = await rbx.getRoles(getRolesOptions)
+    const targetRoles = []
+
+    for (const role of groupRoles) {
+      if (options.roleset.includes(role.ID)) {
+        targetRoles.push(role)
       }
-    } */
-      rbx.getGeneralToken()
-        .then(function () {
-          rbx.getRolesetInGroupWithJar(group)
-            .then(function (roleset) {
-              const exile = new ProgressBar('Exiling [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
-              console.time('Time: ')
-              const thread = rbx.threaded(function (i) {
-                return rbx.exile({ group: group, target: plrs[i].id, senderRolesetId: roleset })
-              }, 0, plrs.length)
-              const ivl = setInterval(function () {
-                exile.update(thread.getStatus() / 100)
-              }, 1000)
-              thread.then(function () {
-                clearInterval(ivl)
-                console.timeEnd('Time: ')
-              })
-            })
-        })
+
+      if (targetRoles.length === options.roleset.length) {
+        break
+      }
+    }
+
+    if (targetRoles.length === 0) {
+      console.error('No roles matching the roleset IDs were found.')
+
+      return
+    }
+
+    options.roleset = targetRoles.map((role) => {
+      return role.ID
     })
-    const ivl = setInterval(function () {
-      getPlayers.update(promise.getStatus() / 100)
-    }, 1000)
-    promise.then(function () {
-      clearInterval(ivl)
+
+    let totalPlayers = 0
+
+    for (const role of targetRoles) {
+      totalPlayers += role.memberCount
+    }
+
+    if (options.limit > 0) {
+      totalPlayers = Math.min(options.limit, totalPlayers)
+    }
+
+    if (totalPlayers >= 10000) {
+      console.log(`Fetching ${totalPlayers} players, this will take a while...`)
+    } else if (totalPlayers >= 2000) {
+      console.log(`Fetching ${totalPlayers} players, this may take a while...`)
+    } else {
+      console.log(`Fetching ${totalPlayers} players...`)
+    }
+
+    const getPlayersOptions = {
+      group: options.group,
+      limit: 100,
+      sortOrder: options.sortOrder
+    }
+
+    const groupPlayers = await rbx.getPlayers(getPlayersOptions)
+
+    const logUpdater = setInterval(() => {
+      logUpdate(`Got ${groupPlayers.length} players, exiling...\nPassed: ${players.passed}\nExiled: ${players.exiled}\nFailed: ${players.failed}`)
+
+      if (players.passed + players.exiled + players.failed === groupPlayers.length) {
+        clearInterval(logUpdater)
+
+        console.timeEnd('Time taken')
+      }
+    }, 100)
+
+    groupPlayers.forEach((player) => {
+      if (shouldExile(player)) {
+        const exileOptions = {
+          group: options.group,
+          target: player.userId
+        }
+
+        rbx.exile(exileOptions)
+          .then(() => {
+            players.exiled++
+          })
+          .catch(() => {
+            players.failed++
+          })
+      } else {
+        players.passed++
+      }
     })
   })
