@@ -1,69 +1,100 @@
-// Revert player ranks to their original rank in a certain range.
-const rbx = require('noblox.js')
-const ProgressBar = require('progress')
-const cookie = ''
-const group = 0
+/**
+ * About:
+ * Reverts all rank change actions of a group after a specified date, with the option to filter by user.
+ */
 
-const actionTypeId = 6
-const targetUser = ''
-const startPage = 1
-const endPage = 10
-const afterDate = new Date('2000-01-01 00:00 CDT')
+// Settings
+const cookie = process.env.COOKIE || '' // Roblox account .ROBLOSECURITY cookie
+const options = {
+  group: 0, // Group ID
+  userId: -1, // Revert rank changes made by this specified user - NOTE: When <= 0 any rank changes will be reverted
+  afterDate: new Date('2021-01-01 00:00 CDT') // Date after which any rank changes will be reverted
+}
+
+// Dependencies
+const rbx = require('noblox.js')
+const logUpdate = require('log-update')
+
+// Main
+let scanning = true
+const logItems = {
+  scanned: 0,
+  filtered: 0,
+  reverted: 0,
+  failed: 0
+}
+
+async function getAuditLogPage (getAuditLogOptions, cursor) {
+  getAuditLogOptions.cursor = cursor || ''
+
+  const auditLogPage = await rbx.getAuditLog(getAuditLogOptions)
+
+  return auditLogPage
+}
+
+function filterAuditLogItems (auditLogItems) {
+  const filteredAuditLogItems = []
+
+  for (const auditLogItem of auditLogItems) {
+    if (Date.parse(auditLogItem.created) > options.afterDate) {
+      logItems.filtered++
+      filteredAuditLogItems.push(auditLogItem.description)
+    }
+  }
+
+  return filteredAuditLogItems
+}
+
+async function revertAuditLogItems (auditLogItems) {
+  for (const auditLogItem of auditLogItems) {
+    const setRankOptions = {
+      group: options.group,
+      target: auditLogItem.TargetId,
+      roleset: auditLogItem.OldRoleSetId
+    }
+
+    await rbx.setRank(setRankOptions)
+      .then(() => {
+        logItems.reverted++
+      })
+      .catch((e) => {
+        logItems.failed++
+      })
+  }
+}
 
 rbx.setCookie(cookie)
-  .then(function () {
-    const pages = []
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i)
+  .then(async () => {
+    console.time('Time taken')
+
+    const logUpdater = setInterval(() => {
+      logUpdate(`Scanned: ${logItems.scanned}\nFiltered: ${logItems.filtered}\nReverted: ${logItems.reverted}\nFailed: ${logItems.failed}`)
+
+      if (!scanning && logItems.reverted + logItems.failed === logItems.filtered) {
+        clearInterval(logUpdater)
+
+        console.timeEnd('Time taken')
+      }
+    }, 100)
+
+    const getAuditLogOptions = {
+      group: options.group,
+      actionType: 'changeRank',
+      userId: options.userId > 0 ? options.userId : null,
+      limit: 100
     }
-    const audit = new ProgressBar('Getting audit log [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
-    const promise = rbx.getAuditLog({
-      group: group,
-      action: actionTypeId,
-      username: targetUser,
-      page: pages
-    })
-    promise.then(function (audit) {
-      const logs = audit.logs
-      const original = {}
-      for (let i = 0; i < logs.length; i++) {
-        const log = logs[i]
-        if (log.date > afterDate) {
-          original[log.action.target] = log.action.params[0]
-        }
-      }
-      const reset = []
-      for (const target in original) {
-        reset.push({
-          target: target,
-          role: original[target]
-        })
-      }
-      // Cache the XCSRF token to prepare for a bunch of requests at once
-      rbx.getGeneralToken()
-        .then(function () {
-          const revert = new ProgressBar('Reverting user ranks [:bar] :current/:total = :percent :etas remaining ', { total: 10000 })
-          console.time('Time: ')
-          const thread = rbx.threaded(function (i) {
-            return rbx.setRank({
-              group: group,
-              target: reset[i].target,
-              name: reset[i].role
-            })
-          }, 0, reset.length)
-          const ivl = setInterval(function () {
-            revert.update(thread.getStatus() / 100)
-          }, 1000)
-          thread.then(function () {
-            clearInterval(ivl)
-            console.timeEnd('Time: ')
-          })
-        })
-    })
-    const ivl = setInterval(function () {
-      audit.update(promise.getStatus() / 100)
-    }, 1000)
-    promise.then(function () {
-      clearInterval(ivl)
-    })
+
+    let auditLogPage = await getAuditLogPage(getAuditLogOptions)
+    logItems.scanned += auditLogPage.data.length
+
+    await revertAuditLogItems(filterAuditLogItems(auditLogPage.data))
+
+    while (auditLogPage.nextPageCursor !== null && Date.parse(auditLogPage.data[auditLogPage.data.length - 1].created) > options.afterDate) {
+      auditLogPage = await getAuditLogPage(getAuditLogOptions, auditLogPage.nextPageCursor)
+      logItems.scanned += auditLogPage.data.length
+
+      await revertAuditLogItems(filterAuditLogItems(auditLogPage.data))
+    }
+
+    scanning = false
   })

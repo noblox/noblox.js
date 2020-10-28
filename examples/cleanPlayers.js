@@ -1,46 +1,45 @@
 /**
  * About:
- * Saves group players to a JSON file with optional filtering.
+ * Exiles group members with optional filtering.
  *
- * NOTE: By default, this will save all players found. Change the body of shouldSave to alter this behaviour.
+ * NOTE: By default, this will exile all players in the rolesets provided. Change the body of shouldExile to alter this behaviour.
  */
 
 // Settings
 const cookie = process.env.COOKIE || '' // Roblox account .ROBLOSECURITY cookie
-const outputFile = 'players.json' // Output file name
 const options = {
   group: 0, // Group ID
-  all: true, // Get all members of group - NOTE: Overrides roleset option
   roleset: [1, 2, 3], // Array of roleset IDs - NOTE: This is not the same as role number
-  limit: -1, // Save limit - NOTE: When <= 0 there is no limit
+  limit: -1, // Search limit - NOTE: When <= 0 there is no limit
+  exileLimit: -1, // Exile limit - NOTE: When <= 0 there is no limit
   sortOrder: 'Asc' // Sort order: "Asc" or "Desc"
 }
 
-function shouldSave (player) {
+function shouldExile (player) {
   /*
   if (player.username === "Bob") {
-    return true // Save Bob
+    return true // Exile Bob
   } else if (player.username.toLowerCase().includes("bot")) {
-    return true // Save users with username containing "bot"
+    return true // Exile users with username containing "bot"
   } else if (player.userId > 1000000000) {
-    return true // Save users with userId over 1 billion
+    return true // Exile users with userId over 1 billion
   }
 
   return false
   */
 
-  return true // Save all players found
+  return true // Exile all players found
 }
 
 // Dependencies
 const rbx = require('noblox.js')
-const js = require('JSONStream')
-const fs = require('fs')
+const logUpdate = require('log-update')
 
-// Main
-const stream = js.stringify('[\n  ', ',\n  ', '\n]\n')
-const output = fs.createWriteStream(`./${outputFile}`)
-stream.pipe(output)
+const players = {
+  passed: 0,
+  exiled: 0,
+  failed: 0
+}
 
 rbx.setCookie(cookie)
   .then(async () => {
@@ -51,19 +50,15 @@ rbx.setCookie(cookie)
     }
 
     const groupRoles = await rbx.getRoles(getRolesOptions)
-    let targetRoles = []
+    const targetRoles = []
 
-    if (options.all) {
-      targetRoles = groupRoles
-    } else {
-      for (const role of groupRoles) {
-        if (options.roleset.includes(role.ID)) {
-          targetRoles.push(role)
-        }
+    for (const role of groupRoles) {
+      if (options.roleset.includes(role.ID)) {
+        targetRoles.push(role)
+      }
 
-        if (targetRoles.length === options.roleset.length) {
-          break
-        }
+      if (targetRoles.length === options.roleset.length) {
+        break
       }
     }
 
@@ -103,16 +98,32 @@ rbx.setCookie(cookie)
 
     const groupPlayers = await rbx.getPlayers(getPlayersOptions)
 
-    console.log(`Writing ${totalPlayers} players to file...`)
+    const logUpdater = setInterval(() => {
+      logUpdate(`Got ${groupPlayers.length} players, exiling...\nPassed: ${players.passed}\nExiled: ${players.exiled}\nFailed: ${players.failed}`)
 
-    for (const player of groupPlayers) {
-      if (shouldSave(player)) {
-        stream.write(player)
+      if (players.passed + players.exiled + players.failed === groupPlayers.length) {
+        clearInterval(logUpdater)
+
+        console.timeEnd('Time taken')
       }
-    }
+    }, 100)
 
-    stream.end()
+    groupPlayers.forEach((player) => {
+      if (shouldExile(player)) {
+        const exileOptions = {
+          group: options.group,
+          target: player.userId
+        }
 
-    console.log(`Done, check ${outputFile} file.`)
-    console.timeEnd('Time taken')
+        rbx.exile(exileOptions)
+          .then(() => {
+            players.exiled++
+          })
+          .catch(() => {
+            players.failed++
+          })
+      } else {
+        players.passed++
+      }
+    })
   })
