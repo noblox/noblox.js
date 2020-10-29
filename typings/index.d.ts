@@ -1086,10 +1086,7 @@ declare module "noblox.js" {
      */
     function getPlaceInfo(placeId: number): Promise<PlaceInformation>;
 
-    // You can create a developer product, but the productId returned does not match the actual developer product id needed by the endpoints.
-    // It's strange, but the edit link on the product page has the id that Roblox wants so you can edit dev products.
-
-    function addDeveloperProduct(universeId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductAddResult>;
+    function addDeveloperProduct(universeId: number, name: string, priceInRobux: number, description?: string, iconImageAssetId?: number, jar?: CookieJar): Promise<DeveloperProductAddResult>;
 
     /**
      * Checks to see if the provided `produceName` is able to be used on `productId`.
@@ -1098,7 +1095,7 @@ declare module "noblox.js" {
      */
     function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<CheckDeveloperProductNameResult>;
 
-    function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
+    function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, iconImageAssetId?: number, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
 
     /// Group
 
