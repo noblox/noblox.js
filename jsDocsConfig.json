@@ -9,11 +9,11 @@
     
     "opts" : {
         "encoding": "utf8",
-        "destination": "./jsdocs/build",
-        "readme": "./jsdocs/readme.md",
+        "destination": "./docs/build",
+        "readme": "./docs/readme.md",
         "recurse": true,
         "verbose": true,
-        "tutorials": "./jsdocs/tutorials",
+        "tutorials": "./docs/tutorials",
         "template": "better-docs"
     },
 
