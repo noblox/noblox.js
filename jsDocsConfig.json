@@ -1,0 +1,44 @@
+{
+    "recurseDepth": 2,
+    "docs": "./jsdocs/tutorials",
+    
+    "source": {
+        "include": ["./typings", "./lib"], 
+        "includePattern": "\\.(jsx|js|ts|tsx)$"
+    },
+    
+    "opts" : {
+        "encoding": "utf8",
+        "destination": "./jsdocs",
+        "readme": "./jsdocs/readme.md",
+        "recurse": true,
+        "verbose": true,
+        "tutorials": "./jsdocs/tutorials",
+        "template": "better-docs"
+    },
+
+    "plugins": [
+        "node_modules/better-docs/component",
+        "node_modules/better-docs/category",
+        "node_modules/better-docs/typescript",
+        "plugins/markdown"
+    ],
+
+    "tags": {
+        "allowUnknownTags": ["optional", "category"]
+    },
+
+    "templates": {
+        "better-docs": {
+              "name": "noblox.js",
+              "navigation": [
+                  {
+                      "label": "GitHub",
+                      "href": "https://github.com/suufi/noblox.js"
+                  }
+              ]
+        },
+
+        "search": true
+    }
+}

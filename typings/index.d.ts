@@ -1264,6 +1264,11 @@ declare module "noblox.js" {
     function declineFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
+     * Declines all friend requests.
+     */
+    function declineAllFriendRequest(jar?: CookieJar): Promise<void>;
+
+    /**
      * Follows the user with `userId`.
      */
     function follow(userId: number, jar?: CookieJar): Promise<void>;
@@ -1325,6 +1330,10 @@ declare module "noblox.js" {
      */
     function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
 
+    /**
+     * Get the groups a user is in.
+     */
+    function getGroups(userId: number): Promise<Group[]>;
 
     /**
      * Gets the transaction history of the logged in user or of the user specified by the jar.
@@ -1472,6 +1481,11 @@ declare module "noblox.js" {
      * Returns verification inputs on the page with the names in `find` - or all inputs if not provided. Typically used for ROBLOX requests working with ASP.NET.
      */
     function getInputs(html: string, find?: Array<any>): Inputs;
+
+    /**
+     * Returns the results from indexing the requested pages.
+     */
+    function getPageResults(url: string, query: string, sortOrder?: string): Array;
 
     /**
      * Gets the user ID of the current logged in user and caches it permanently. This is needed for some functions.
