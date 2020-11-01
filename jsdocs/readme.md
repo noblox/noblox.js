@@ -106,8 +106,8 @@ However, several users have noted lately that they've had cookies last for sever
 ## Credits
 
 * [sentanos](https://github.com/sentanos) - We wouldn't exist without him. 😀
+* [Neztore](https://github.com/Neztore) - Library maintenance and review 
 * [popeeyy](https://github.com/efewqefwfd) - Creation of the documentation.
-* [Neztore](https://github.com/Neztore) - Helping with the creation & reviewing of the documentation.
 * [edward](https://github.com/edwrddd) - Helping with the creation of the documentation.
 
 <a name="license"></a>

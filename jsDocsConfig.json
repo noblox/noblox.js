@@ -9,7 +9,7 @@
     
     "opts" : {
         "encoding": "utf8",
-        "destination": "./jsdocs",
+        "destination": "./jsdocs/build",
         "readme": "./jsdocs/readme.md",
         "recurse": true,
         "verbose": true,
@@ -30,15 +30,27 @@
 
     "templates": {
         "better-docs": {
-              "name": "noblox.js",
-              "navigation": [
-                  {
-                      "label": "GitHub",
-                      "href": "https://github.com/suufi/noblox.js"
-                  }
-              ]
+            "logo": "./noblox-js-small.png",
+            "title": "Noblox.js: Roblox API Wrapper",
+            "hideGenerator": true,
+            "navLinks": [
+                {
+                    "label": "Github",
+                    "href": "https://github.com/suufi/noblox.js"
+                },
+                {
+                    "label": "Roblox API Server",
+                    "href": "https://discord.gg/EDXNdAT"
+                }
+            ]
         },
-
-        "search": true
+        "search": true,
+        "default": {
+            "staticFiles": {
+                "include": [
+                    "./img/noblox-js-small.png"
+                ]
+            }
+        }
     }
 }
