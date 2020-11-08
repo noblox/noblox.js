@@ -1355,6 +1355,12 @@ declare module "noblox.js" {
     function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<PlayerBadges>
 
     /**
+     * Gets aa users groups
+     */
+    function getGroups(userId: number): Promise<Group[]>;
+
+
+    /**
      * Gets a brief overview of a user.
      */
     function getPlayerInfo(userId: number): Promise<PlayerInfo>;
