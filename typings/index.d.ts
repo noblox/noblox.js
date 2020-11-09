@@ -1021,7 +1021,7 @@ declare module "noblox.js" {
 
     function removeAssetId(assetId: number, jar?: CookieJar): Promise<void>;
 
-    function setAvatarBodyColours(args: AvatarBodyColors & {jar?: CookieJar}): Promise<void>;
+    function setAvatarBodyColors(args: AvatarBodyColors & {jar?: CookieJar}): Promise<void>;
 
     function setAvatarScales(args: AvatarScale & {jar?: CookieJar}): Promise<void>;
 
