@@ -3,11 +3,11 @@ node_js:
   - "11"
 
 before_install:
-  - npm install -g standard
+  - yarn install
 
 script:
-  - npm test
+  - yarn test
 
 branches:
   except:
-    - mvn-repo
+    - jest-tests
