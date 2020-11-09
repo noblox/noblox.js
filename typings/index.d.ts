@@ -969,6 +969,11 @@ declare module "noblox.js" {
     function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<void>;
 
     /**
+     * Deletes an item from the logged in user's inventory
+     */
+    function deleteFromInventory(assetId: number, jar?: CookieJar): Promise<void>;
+
+    /**
      * Uploads an image stored in `file` as an `assetType` with `name`. If `groupId` is specified it will be uploaded to that group. This is for uploading shirts, pants, or decals which have the assetTypes `11`, `12`, and `13`, respectively. Returns the asset `id` of the new item.
      */
     function uploadItem(name: string, assetType: UploadItemAssetType, file: string | stream.Stream, groupId?: number, jar?: CookieJar): Promise<UploadItemResponse>;
