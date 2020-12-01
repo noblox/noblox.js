@@ -559,10 +559,10 @@ eslint-config-standard-jsx@10.0.0:
   resolved "https://registry.yarnpkg.com/eslint-config-standard-jsx/-/eslint-config-standard-jsx-10.0.0.tgz#dc24992661325a2e480e2c3091d669f19034e18d"
   integrity sha512-hLeA2f5e06W1xyr/93/QJulN/rLbUVUmqTlexv9PRKHFwEC9ffJcH2LvJhMoEqYQBEYafedgGZXH2W8NUpt5lA==
 
-eslint-config-standard@16.0.1, eslint-config-standard@^16.0.1:
-  version "16.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-16.0.1.tgz#9a385eea27f96b7918cb53f07e01e9d10cc56401"
-  integrity sha512-WBBiQQZdaPyL+4sPkGWhWrHCDtvJoU195B9j8yXE9uFQnX34gMXI5CeBRm95gx3PMEZPM5OpwET10hH4F4SxCA==
+eslint-config-standard@16.0.2, eslint-config-standard@^16.0.1:
+  version "16.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-16.0.2.tgz#71e91727ac7a203782d0a5ca4d1c462d14e234f6"
+  integrity sha512-fx3f1rJDsl9bY7qzyX8SAtP8GBSk6MfXFaTfaGgk12aAYW4gJSyRm7dM790L6cbXv63fvjY4XeSzXnb4WM+SKw==
 
 eslint-import-resolver-node@^0.3.4:
   version "0.3.4"
@@ -714,10 +714,10 @@ eslint@^7.12.1:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
-eslint@~7.12.1:
-  version "7.12.1"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.12.1.tgz#bd9a81fa67a6cfd51656cdb88812ce49ccec5801"
-  integrity sha512-HlMTEdr/LicJfN08LB3nM1rRYliDXOmfoO4vj39xN6BLpFzF00hbwBoqHk8UcJ2M/3nlARZWy/mslvGEuZFvsg==
+eslint@~7.13.0:
+  version "7.13.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.13.0.tgz#7f180126c0dcdef327bfb54b211d7802decc08da"
+  integrity sha512-uCORMuOO8tUzJmsdRtrvcGq5qposf7Rw0LwkTJkoDbOycVQtQjmnhZSuLQnozLE4TmAzlMVV45eCHmQ1OpDKUQ==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     "@eslint/eslintrc" "^0.2.1"
@@ -1800,7 +1800,7 @@ sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
-standard-engine@^14.0.0:
+standard-engine@^14.0.1:
   version "14.0.1"
   resolved "https://registry.yarnpkg.com/standard-engine/-/standard-engine-14.0.1.tgz#fe568e138c3d9768fc59ff81001f7049908a8156"
   integrity sha512-7FEzDwmHDOGva7r9ifOzD3BGdTbA7ujJ50afLVdW/tK14zQEptJjbFuUfn50irqdHDcTbNh0DTIoMPynMCXb0Q==
@@ -1811,18 +1811,18 @@ standard-engine@^14.0.0:
     xdg-basedir "^4.0.0"
 
 standard@^16.0.0:
-  version "16.0.1"
-  resolved "https://registry.yarnpkg.com/standard/-/standard-16.0.1.tgz#20f47627e604906c60b2b50573bcf7285f6550aa"
-  integrity sha512-KiFEp96mkugCgW0mCrN9lAhlRdnmAiwNIU7mrUnYSL8QnzNGd1/bUtjRIfUtpwtFmFKrlYZDYa/ipX8Wy+03SA==
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/standard/-/standard-16.0.3.tgz#a854c0dd2dea6b9f0b8d20c65260210bd0cee619"
+  integrity sha512-70F7NH0hSkNXosXRltjSv6KpTAOkUkSfyu3ynyM5dtRUiLtR+yX9EGZ7RKwuGUqCJiX/cnkceVM6HTZ4JpaqDg==
   dependencies:
-    eslint "~7.12.1"
-    eslint-config-standard "16.0.1"
+    eslint "~7.13.0"
+    eslint-config-standard "16.0.2"
     eslint-config-standard-jsx "10.0.0"
     eslint-plugin-import "~2.22.1"
     eslint-plugin-node "~11.1.0"
     eslint-plugin-promise "~4.2.1"
     eslint-plugin-react "~7.21.5"
-    standard-engine "^14.0.0"
+    standard-engine "^14.0.1"
 
 stealthy-require@^1.1.1:
   version "1.1.1"
