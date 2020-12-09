@@ -292,6 +292,36 @@ type GetOutfitsResult = {
 /**
  * @typedef
 */
+type RejectedParticipant = {
+    rejectedReason: string;
+    type: string;
+    targetId: number;
+    name: string;
+    displayName: string;
+}
+
+/**
+ * @typedef
+*/
+type ConversationAddResponse = {
+    conversationId: Number;
+    rejectedParticipants: RejectedParticipant[];
+    resultType: string;
+    statusMessage: string;
+}
+
+/**
+ * @typedef
+*/
+type ConversationRemoveResponse = {
+    conversationId: Number;
+    resultType: string;
+    statusMessage: string;
+}
+
+/**
+ * @typedef
+*/
 type ChatSettings = {
     /**
      * Is chat enabled for the user.

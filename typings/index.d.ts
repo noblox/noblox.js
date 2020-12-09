@@ -227,6 +227,30 @@ declare module "noblox.js" {
 
     /// Chat
 
+    interface RejectedParticipant
+    {
+        rejectedReason: string;
+        type: string;
+        targetId: number;
+        name: string;
+        displayName: string;
+    }
+
+    interface ConversationAddResponse
+    {
+        conversationId: Number;
+        rejectedParticipants: RejectedParticipant[];
+        resultType: string;
+        statusMessage: string;
+    }
+
+    interface ConversationRemoveResponse
+    {
+        conversationId: Number;
+        resultType: string;
+        statusMessage: string;
+    }
+
     interface ChatSettings
     {
         /**
@@ -969,6 +993,11 @@ declare module "noblox.js" {
     function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<void>;
 
     /**
+     * Deletes an item from the logged in user's inventory
+     */
+    function deleteFromInventory(assetId: number, jar?: CookieJar): Promise<void>;
+
+    /**
      * Uploads an image stored in `file` as an `assetType` with `name`. If `groupId` is specified it will be uploaded to that group. This is for uploading shirts, pants, or decals which have the assetTypes `11`, `12`, and `13`, respectively. Returns the asset `id` of the new item.
      */
     function uploadItem(name: string, assetType: UploadItemAssetType, file: string | stream.Stream, groupId?: number, jar?: CookieJar): Promise<UploadItemResponse>;
@@ -1033,7 +1062,7 @@ declare module "noblox.js" {
 
     /// Chat
 
-    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<void>;
+    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<ConversationRemoveResponse>;
 
     function chatSettings(jar?: CookieJar): Promise<ChatSettings>;
 
