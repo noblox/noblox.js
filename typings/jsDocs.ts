@@ -322,6 +322,46 @@ type ConversationRemoveResponse = {
 /**
  * @typedef
 */
+type ConversationRenameResponse = {
+    conversationTitle: string;
+    resultType: string;
+    title: ChatConversationTitle;
+    statusMessage: string;
+}
+
+/**
+ * @typedef
+*/
+type SendChatResponse = {
+    content: string;
+    filteredForRecievers: boolean;
+    messageId: string;
+    sent: string;
+    messageType: string;
+    resultType: string;
+    statusMessage: string;
+}
+
+/**
+ * @typedef
+*/
+type UpdateTypingResponse = {
+    statusMessage: string;
+}
+
+/**
+ * @typedef
+*/
+type StartGroupConversationResponse = {
+    conversation: ChatConversation;
+    rejectedParticipants: RejectedParticipant[];
+    resultType: string;
+    statusMessage: string;
+}
+
+/**
+ * @typedef
+*/
 type ChatSettings = {
     /**
      * Is chat enabled for the user.

@@ -251,6 +251,38 @@ declare module "noblox.js" {
         statusMessage: string;
     }
 
+    interface ConversationRenameResponse
+    {
+        conversationTitle: string;
+        resultType: string;
+        title: ChatConversationTitle;
+        statusMessage: string;
+    }
+
+    interface SendChatResponse
+    {
+        content: string;
+        filteredForRecievers: boolean;
+        messageId: string;
+        sent: string;
+        messageType: string;
+        resultType: string;
+        statusMessage: string;
+    }
+
+    interface UpdateTypingResponse
+    {
+        statusMessage: string;
+    }
+
+    interface StartGroupConversationResponse
+    {
+        conversation: ChatConversation;
+        rejectedParticipants: RejectedParticipant[];
+        resultType: string;
+        statusMessage: string;
+    }
+
     interface ChatSettings
     {
         /**
@@ -1062,7 +1094,7 @@ declare module "noblox.js" {
 
     /// Chat
 
-    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<ConversationRemoveResponse>;
+    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<ConversationAddResponse>;
 
     function chatSettings(jar?: CookieJar): Promise<ChatSettings>;
 
@@ -1084,19 +1116,19 @@ declare module "noblox.js" {
 
     function multiGetLatestMessages(conversationIds: number[], pageSize?: number, jar?: CookieJar): Promise<ChatConversationWithMessages[]>;
 
-    function removeFromGroupConversation(conversationId: number, userId: number, jar?: CookieJar): Promise<void>;
+    function removeFromGroupConversation(conversationId: number, userId: number, jar?: CookieJar): Promise<ConversationRemoveResponse>;
 
-    function renameGroupConversation(conversationId: number, title: string, jar?: CookieJar): Promise<void>;
+    function renameGroupConversation(conversationId: number, title: string, jar?: CookieJar): Promise<ConversationRenameResponse>;
 
-    function sendChatMessage(conversationId: number, message: string, jar?: CookieJar): Promise<void>;
+    function sendChatMessage(conversationId: number, message: string, jar?: CookieJar): Promise<SendChatResponse>;
 
-    function setChatUserTyping(conversationId: number, isTyping: boolean, jar?: CookieJar): Promise<void>;
+    function setChatUserTyping(conversationId: number, isTyping: boolean, jar?: CookieJar): Promise<UpdateTypingResponse>;
 
     function start121Conversation(userId: number, jar?: CookieJar): Promise<void>;
 
     function startCloudEditConversation(placeId: number, jar?: CookieJar): Promise<void>;
 
-    function startGroupConversation(userIds: number[], title: string, jar?: CookieJar): Promise<void>;
+    function startGroupConversation(userIds: number[], title: string, jar?: CookieJar): Promise<StartGroupConversationResponse>;
 
     /// Game
 
