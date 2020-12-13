@@ -804,6 +804,9 @@ declare module "noblox.js" {
         blurb: string;
         joinDate: Date;
         age: number;
+        friendCount: number;
+        followerCount: number;
+        followingCount: number;
         oldNames: string[];
     }
     interface Presences {
