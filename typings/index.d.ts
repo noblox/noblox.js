@@ -28,6 +28,17 @@ declare module "noblox.js" {
         Name: string;
     }
 
+    interface IGroupPartial {
+        Name: string,
+        Id: number,
+        EmblemUrl: string,
+        EmblemId: number,
+        Rank: number,
+        Role: string,
+        IsPrimary: boolean,
+        IsInClan: boolean
+    }
+
     interface ProductInfo {
         AssetId: number;
         ProductId: number;
@@ -1184,6 +1195,11 @@ declare module "noblox.js" {
      * Gets a brief overview of the specified group.
      */
     function getGroup(groupId: number): Promise<Group>;
+
+    /**
+     * Gets the groups a player is in.
+     */
+    function getGroups(userId: number): Promise<IGroupPartial[]>
 
     /**
      * Gets the logo of the specified group.
