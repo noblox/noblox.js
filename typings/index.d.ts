@@ -1193,6 +1193,9 @@ declare module "noblox.js" {
      */
     function getGroup(groupId: number): Promise<Group>;
 
+    /**
+     * Gets the groups a player is in.
+     */
     function getGroups(userId: number): Promise<IGroupPartial[]>
 
     /**
