@@ -1112,7 +1112,7 @@ declare module "noblox.js" {
 
     function chatSettings(jar?: CookieJar): Promise<ChatSettings>;
 
-    function getChatMessages(conversationId: number, pageSize?: number, exclusiveStartMessageId?: number, jar?: CookieJar): Promise<ChatMessage[]>;
+    function getChatMessages(conversationId: number, pageSize?: number, exclusiveStartMessageId?: string, jar?: CookieJar): Promise<ChatMessage[]>;
 
     function getConversations(conversationIds: number[], jar?: CookieJar): Promise<ChatConversation[]>;
 
@@ -1200,10 +1200,10 @@ declare module "noblox.js" {
     /**
      * Performs a payout in group with the groupId `group`. If `recurring` is true this will configure the recurring options for the group's payout replacing all old values, otherwise a one-time-payout is made. To clear the recurring payouts, pass in empty arrays to both member and amount. Argument `member` can either be a single userId or an array of userIds. If it is a single value `amount` must be as well, otherwise `amount` has to be a parallel array of equal length. If `usePercentage` is true `amount` percentage of the total group funds is paid to the members, otherwise it pays `amount` ROBUX. Note that recurring payouts are always percentages, and when `recurring` is true `usePercentage` is ignored.
      */
-    function groupPayout(group: number, members: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
+    function groupPayout(group: number, member: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
 
     /**
-     * `Accept`s user with `username` into `group`. Note that `username` is case-sensitive.
+     * `Accepts user with `username` into `group`. Note that `username` is case-sensitive.
      */
     function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
 
@@ -1270,7 +1270,7 @@ declare module "noblox.js" {
     /**
      * Gets all (or up to limit when provided and greater than 0) players in `group` with the number/array of `roleset`.
      */
-    function getPlayers(group: number, roleset: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
+    function getPlayers(group: number, rolesetId: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
     /**
      * Gets `rank` of user with `userId` in `group` and caches according to settings.
@@ -1290,7 +1290,7 @@ declare module "noblox.js" {
     /**
      * Returns the permissions a role has been assigned.
      */
-    function getRolePermissions(group: number, roleId: number, jar?: CookieJar): Promise<RolePermissions>;
+    function getRolePermissions(group: number, rolesetId: number, jar?: CookieJar): Promise<RolePermissions>;
 
     /**
      * Returns role information of a group with groupId `group` in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`.
@@ -1451,7 +1451,7 @@ declare module "noblox.js" {
     /**
      * Gets the thumbnail of an array of users.
      */
-    function getPlayerThumbnail(userIds: number | number[], size: number, format?: string, isCircular?: boolean): Promise<playerThumbnailData[]>;
+    function getPlayerThumbnail(userIds: number | number[], size: 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720, format?: string, isCircular?: boolean): Promise<playerThumbnailData[]>;
 
     /**
      * Gets the presence statuses of the specified users

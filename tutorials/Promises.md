@@ -43,9 +43,9 @@ noblox.getIdFromUsername("popeeyy").then(function(userId) {
 
 ### Additional Info:
 
-When you use an **async** function, a Promise is returned, not a function. They should be treated as if they are Promises when returning values by using await or .then with proper error handling as well. If you
+When you use an **async** function, a Promise is returned, not a function. They should be treated as if they are Promises when returning values by using await or .then with proper error handling as well.
 
-There are a couple different way to create a Promise. The first way is to create an **async function**, as explained above. The other way is to use **new Promise(function)**, with the function having 2 parameters. The 2 parameters are resolve and reject respectively, which will resolve the Promise or throw an error.
+There are different ways to create a Promise, but we'll discuss two of the easiest ways. The first way is to create an **async function**, as explained above. The other way is to use **new Promise(function)**, with the function having 2 parameters. The 2 parameters are resolve and reject respectively, which will resolve the Promise or throw an error.
 
 You should always read the docs, isn't that what you're here for? There are plenty of examples showing when you use Promises and what values are returned by the function. Promises are your friend in this library and many others, so take the time to learn them first and practice using them. If you have any questions, you can always ask the community in the [Roblox API Discord](https://discord.gg/EDXNdAT) via our designated channel "nodejs_nobloxjs".
 

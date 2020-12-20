@@ -56,9 +56,7 @@ jspm_packages/
 .yarn-integrity
 
 # Docs
-jsdocs/*
-!jsdocs/tutorials
-!jsdocs/readme.md
+docs/*
 
 # dotenv environment variables file
 .env
@@ -67,5 +65,3 @@ jsdocs/*
 
 .idea/
 
-.github
-docs/build/

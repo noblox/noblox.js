@@ -19,7 +19,6 @@
     "clans"
   ],
   "dependencies": {
-    "better-docs": "^2.3.2",
     "bluebird": "^3.5.4",
     "chalk": "^4.0.0",
     "cheerio": "^1.0.0-rc.3",

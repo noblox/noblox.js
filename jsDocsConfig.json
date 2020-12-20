@@ -1,6 +1,5 @@
 {
     "recurseDepth": 2,
-    "docs": "./jsdocs/tutorials",
     
     "source": {
         "include": ["./typings", "./lib"], 
@@ -9,11 +8,11 @@
     
     "opts" : {
         "encoding": "utf8",
-        "destination": "./docs/build",
-        "readme": "./docs/readme.md",
+        "destination": "./docs/",
+        "readme": "./readme.md",
         "recurse": true,
         "verbose": true,
-        "tutorials": "./docs/tutorials",
+        "tutorials": "./tutorials",
         "template": "better-docs"
     },
 
@@ -31,18 +30,19 @@
     "templates": {
         "better-docs": {
             "logo": "./noblox-js-small.png",
-            "title": "Noblox.js: Roblox API Wrapper",
+            "title": "noblox.js",
             "hideGenerator": true,
             "navLinks": [
                 {
-                    "label": "Github",
+                    "label": "GitHub",
                     "href": "https://github.com/suufi/noblox.js"
                 },
                 {
                     "label": "Roblox API Server",
                     "href": "https://discord.gg/EDXNdAT"
                 }
-            ]
+            ],
+            "trackingCode": "<!-- Global site tag (gtag.js) - Google Analytics -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-121100860-3\"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'UA-121100860-3');\n</script>\n"
         },
         "search": true,
         "default": {

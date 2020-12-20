@@ -740,6 +740,20 @@ type Group = {
 
 /**
  * @typedef
+ */
+type IGroupPartial = {
+    Name: string;
+    Id: number;
+    EmblemUrl: string;
+    EmblemId: number;
+    Rank: number;
+    Role: string;
+    IsPrimary: boolean;
+    IsInClan: boolean;
+}
+
+/**
+ * @typedef
 */
 type GroupView = {
     __VIEWSTATE: string;
