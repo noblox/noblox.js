@@ -39,6 +39,9 @@ With node.js installed simply run:
 # Run this to install noblox.js locally to your repository. 
 $ npm install noblox.js --save
 
+# if you're using yarn:
+$ yarn add noblox.js
+
 # Run this instead to install noblox.js globally so you can use it anywhere.
 $ npm install noblox.js -g
 ```
@@ -46,7 +49,7 @@ That's it!
 
 ## Documentation
 
-You can find the current noblox.js wiki with all API documentation [here](https://noblox.js.org/). Keep in mind that all methods may not be documented. A majority of the new features that can be found in noblox.js are not in roblox-js. There will be new documentation coming in with v5.0.0. 
+You can find the current noblox.js wiki with all API documentation [here](https://noblox.js.org/). Keep in mind that all methods may not be documented.  
 
 ## Making use of new login workaround
 > Note, as of v4.6.0 The way you log in to Noblox has changed significantly.
@@ -102,6 +105,9 @@ However, several users have noted lately that they've had cookies last for sever
 ## Credits
 
 * [sentanos](https://github.com/sentanos) - We wouldn't exist without him. 😀
+* [Neztore](https://github.com/Neztore) - Library maintenance and review 
+* [popeeyy](https://github.com/efewqefwfd) - Creation of the documentation.
+* [edward](https://github.com/edwrddd) - Helping with the creation of the documentation.
 
 ## License
 

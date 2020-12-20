@@ -238,6 +238,62 @@ declare module "noblox.js" {
 
     /// Chat
 
+    interface RejectedParticipant
+    {
+        rejectedReason: string;
+        type: string;
+        targetId: number;
+        name: string;
+        displayName: string;
+    }
+
+    interface ConversationAddResponse
+    {
+        conversationId: Number;
+        rejectedParticipants: RejectedParticipant[];
+        resultType: string;
+        statusMessage: string;
+    }
+
+    interface ConversationRemoveResponse
+    {
+        conversationId: Number;
+        resultType: string;
+        statusMessage: string;
+    }
+
+    interface ConversationRenameResponse
+    {
+        conversationTitle: string;
+        resultType: string;
+        title: ChatConversationTitle;
+        statusMessage: string;
+    }
+
+    interface SendChatResponse
+    {
+        content: string;
+        filteredForRecievers: boolean;
+        messageId: string;
+        sent: string;
+        messageType: string;
+        resultType: string;
+        statusMessage: string;
+    }
+
+    interface UpdateTypingResponse
+    {
+        statusMessage: string;
+    }
+
+    interface StartGroupConversationResponse
+    {
+        conversation: ChatConversation;
+        rejectedParticipants: RejectedParticipant[];
+        resultType: string;
+        statusMessage: string;
+    }
+
     interface ChatSettings
     {
         /**
@@ -1052,11 +1108,11 @@ declare module "noblox.js" {
 
     /// Chat
 
-    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<void>;
+    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<ConversationAddResponse>;
 
     function chatSettings(jar?: CookieJar): Promise<ChatSettings>;
 
-    function getChatMessages(conversationId: number, pageSize?: number, exclusiveStartMessageId?: number, jar?: CookieJar): Promise<ChatMessage[]>;
+    function getChatMessages(conversationId: number, pageSize?: number, exclusiveStartMessageId?: string, jar?: CookieJar): Promise<ChatMessage[]>;
 
     function getConversations(conversationIds: number[], jar?: CookieJar): Promise<ChatConversation[]>;
 
@@ -1074,19 +1130,19 @@ declare module "noblox.js" {
 
     function multiGetLatestMessages(conversationIds: number[], pageSize?: number, jar?: CookieJar): Promise<ChatConversationWithMessages[]>;
 
-    function removeFromGroupConversation(conversationId: number, userId: number, jar?: CookieJar): Promise<void>;
+    function removeFromGroupConversation(conversationId: number, userId: number, jar?: CookieJar): Promise<ConversationRemoveResponse>;
 
-    function renameGroupConversation(conversationId: number, title: string, jar?: CookieJar): Promise<void>;
+    function renameGroupConversation(conversationId: number, title: string, jar?: CookieJar): Promise<ConversationRenameResponse>;
 
-    function sendChatMessage(conversationId: number, message: string, jar?: CookieJar): Promise<void>;
+    function sendChatMessage(conversationId: number, message: string, jar?: CookieJar): Promise<SendChatResponse>;
 
-    function setChatUserTyping(conversationId: number, isTyping: boolean, jar?: CookieJar): Promise<void>;
+    function setChatUserTyping(conversationId: number, isTyping: boolean, jar?: CookieJar): Promise<UpdateTypingResponse>;
 
     function start121Conversation(userId: number, jar?: CookieJar): Promise<void>;
 
     function startCloudEditConversation(placeId: number, jar?: CookieJar): Promise<void>;
 
-    function startGroupConversation(userIds: number[], title: string, jar?: CookieJar): Promise<void>;
+    function startGroupConversation(userIds: number[], title: string, jar?: CookieJar): Promise<StartGroupConversationResponse>;
 
     /// Game
 
@@ -1144,10 +1200,10 @@ declare module "noblox.js" {
     /**
      * Performs a payout in group with the groupId `group`. If `recurring` is true this will configure the recurring options for the group's payout replacing all old values, otherwise a one-time-payout is made. To clear the recurring payouts, pass in empty arrays to both member and amount. Argument `member` can either be a single userId or an array of userIds. If it is a single value `amount` must be as well, otherwise `amount` has to be a parallel array of equal length. If `usePercentage` is true `amount` percentage of the total group funds is paid to the members, otherwise it pays `amount` ROBUX. Note that recurring payouts are always percentages, and when `recurring` is true `usePercentage` is ignored.
      */
-    function groupPayout(group: number, members: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
+    function groupPayout(group: number, member: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
 
     /**
-     * `Accept`s user with `username` into `group`. Note that `username` is case-sensitive.
+     * `Accepts user with `username` into `group`. Note that `username` is case-sensitive.
      */
     function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
 
@@ -1214,7 +1270,7 @@ declare module "noblox.js" {
     /**
      * Gets all (or up to limit when provided and greater than 0) players in `group` with the number/array of `roleset`.
      */
-    function getPlayers(group: number, roleset: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
+    function getPlayers(group: number, rolesetId: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
     /**
      * Gets `rank` of user with `userId` in `group` and caches according to settings.
@@ -1234,7 +1290,7 @@ declare module "noblox.js" {
     /**
      * Returns the permissions a role has been assigned.
      */
-    function getRolePermissions(group: number, roleId: number, jar?: CookieJar): Promise<RolePermissions>;
+    function getRolePermissions(group: number, rolesetId: number, jar?: CookieJar): Promise<RolePermissions>;
 
     /**
      * Returns role information of a group with groupId `group` in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`.
@@ -1286,6 +1342,11 @@ declare module "noblox.js" {
      * Declines friend requests from `userId`.
      */
     function declineFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * Declines all friend requests.
+     */
+    function declineAllFriendRequest(jar?: CookieJar): Promise<void>;
 
     /**
      * Follows the user with `userId`.
@@ -1349,6 +1410,10 @@ declare module "noblox.js" {
      */
     function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
 
+    /**
+     * Get the groups a user is in.
+     */
+    function getGroups(userId: number): Promise<Group[]>;
 
     /**
      * Gets the transaction history of the logged in user or of the user specified by the jar.
@@ -1386,7 +1451,7 @@ declare module "noblox.js" {
     /**
      * Gets the thumbnail of an array of users.
      */
-    function getPlayerThumbnail(userIds: number | number[], size: number, format?: string, isCircular?: boolean): Promise<playerThumbnailData[]>;
+    function getPlayerThumbnail(userIds: number | number[], size: 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720, format?: string, isCircular?: boolean): Promise<playerThumbnailData[]>;
 
     /**
      * Gets the presence statuses of the specified users
@@ -1496,6 +1561,11 @@ declare module "noblox.js" {
      * Returns verification inputs on the page with the names in `find` - or all inputs if not provided. Typically used for ROBLOX requests working with ASP.NET.
      */
     function getInputs(html: string, find?: Array<any>): Inputs;
+
+    /**
+     * Returns the results from indexing the requested pages.
+     */
+    function getPageResults(url: string, query: string, sortOrder?: string): Array;
 
     /**
      * Gets the user ID of the current logged in user and caches it permanently. This is needed for some functions.

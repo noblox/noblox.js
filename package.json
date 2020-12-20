@@ -6,7 +6,8 @@
   "types": "typings/index.d.ts",
   "scripts": {
     "test": "eslint lib/",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js",
+    "docs": "jsdoc -c jsDocsConfig.json -r -t ./node_modules/better-docs"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^5.0.0",
     "progress": "^2.0.0",
-    "standard": "^16.0.0"
+    "standard": "^16.0.0",
+    "jsdoc": "^3.6.6",
+    "better-docs": "^2.3.2"
   }
 }

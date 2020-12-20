@@ -1,0 +1,56 @@
+{
+    "recurseDepth": 2,
+    
+    "source": {
+        "include": ["./typings", "./lib"], 
+        "includePattern": "\\.(jsx|js|ts|tsx)$"
+    },
+    
+    "opts" : {
+        "encoding": "utf8",
+        "destination": "./docs/",
+        "readme": "./readme.md",
+        "recurse": true,
+        "verbose": true,
+        "tutorials": "./tutorials",
+        "template": "better-docs"
+    },
+
+    "plugins": [
+        "node_modules/better-docs/component",
+        "node_modules/better-docs/category",
+        "node_modules/better-docs/typescript",
+        "plugins/markdown"
+    ],
+
+    "tags": {
+        "allowUnknownTags": ["optional", "category"]
+    },
+
+    "templates": {
+        "better-docs": {
+            "logo": "./noblox-js-small.png",
+            "title": "noblox.js",
+            "hideGenerator": true,
+            "navLinks": [
+                {
+                    "label": "GitHub",
+                    "href": "https://github.com/suufi/noblox.js"
+                },
+                {
+                    "label": "Roblox API Server",
+                    "href": "https://discord.gg/EDXNdAT"
+                }
+            ],
+            "trackingCode": "<!-- Global site tag (gtag.js) - Google Analytics -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-121100860-3\"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'UA-121100860-3');\n</script>\n"
+        },
+        "search": true,
+        "default": {
+            "staticFiles": {
+                "include": [
+                    "./img/noblox-js-small.png"
+                ]
+            }
+        }
+    }
+}

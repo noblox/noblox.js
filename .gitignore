@@ -55,9 +55,13 @@ jspm_packages/
 # Yarn Integrity file
 .yarn-integrity
 
+# Docs
+docs/*
+
 # dotenv environment variables file
 .env
 
 \.vscode/
 
 .idea/
+
