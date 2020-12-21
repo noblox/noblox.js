@@ -20,7 +20,7 @@ jobs:
       - name: Install yarn
         run: npm install -g yarn
 
-      - name: Build
+      - name: Build docs
         run: |
           yarn install
           yarn docs
