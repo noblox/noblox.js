@@ -1233,11 +1233,6 @@ declare module "noblox.js" {
     function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
 
     /**
-     * Joins the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
-     */
-    function joinGroup(group: number, useCache?: boolean, jar?: CookieJar): Promise<void>;
-
-    /**
      * Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
      */
     function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
@@ -1355,13 +1350,6 @@ declare module "noblox.js" {
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */
     function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
-
-    /**
-     * Allows the user to login with a cookie.json file, bypassing the username/password captcha issues.
-     *
-     * NOTE: Usage of this function is deprecated as of v4.6.0.
-     */
-    function cookieLogin(cookie: string): Promise<LoggedInUserData>;
 
     /**
      * Declines friend requests from `userId`.
