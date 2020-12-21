@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121100860-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121100860-3');
+</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>noblox.js Promises</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+             
+                <a class="image" href="index.html">
+                    <img src="./noblox-js-small.png" alt="logo">
+                </a>
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                            <a class="dropdown-item" href="tutorial-Authentication.html">
+                                Authentication
+                            </a>
+                        
+                            <a class="dropdown-item" href="tutorial-Event Emitters.html">
+                                Event Emitters
+                            </a>
+                        
+                            <a class="dropdown-item" href="tutorial-Promises.html">
+                                Promises
+                            </a>
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/suufi/noblox.js"
+                        >
+                            GitHub
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://discord.gg/EDXNdAT"
+                        >
+                            Roblox API Server
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar tutorials"
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Authentication.html">Authentication</a></li><li><a href="tutorial-Event Emitters.html">Event Emitters</a></li><li><a href="tutorial-Promises.html">Promises</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Tutorial</p>
+                    <h1>Promises</h1>
+                </header>
+                <section>
+
+<article>
+    <h3>What are Promises?</h3>
+<p>Promises allow you to easily make your code asynchronous. They will allow your code to yield/stop and wait for a function to return a value. If a value is unknown, they will allow us to wait for the value to become known or for an error to be thrown. For example, if we want to get a user's rank, we want to wait for Roblox to reply with their rank before continuing the execution of our code.</p>
+<h3>How do you use Promises?</h3>
+<p>You can use promises in 2 different ways. The first one is using <strong>await/async</strong>, in which you can set a variable to the result of the Promise, but <strong>only</strong> in an <strong>async</strong> function. This is done using await before calling the function, which will return a Promise.</p>
+<p>Another way you can use promises is by using <strong>.then</strong>(function). The function wrapped in .then() will execute when the Promise resolves, and the variables will be passed through the function.</p>
+<p>However, sometimes Promises throw errors. You will need to handle any errors from promises or else you will get an <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#Promise_rejection_events">Unhandled Promise Rejection Error.</a></strong> These errors are fatal and should always be handled accordingly. To do this, you can use <strong>.catch</strong>, which will allow you to handle the error correctly. When using <strong>async/await</strong>, you can use .catch by attaching it after the function is called. With <strong>.then()</strong>, you can attach it after <strong>.then</strong>. Both cases are shown in the examples below.</p>
+<h3>Examples:</h3>
+<h4>async/await</h4>
+<pre class="prettyprint source"><code>const noblox = require(&quot;noblox.js&quot;);
+
+//await can only be used in async functions!
+async function DemoteUser (groupId, username) { 
+  //await will yield the code until a value is returned.
+  const userId = await noblox.getIdFromUsername(username).catch(function(error) {
+    console.log(&quot;There was an error getting the id!&quot;, error)  
+  }); //Handle the rejection accordingly.
+	
+  if (!userId) return console.log(&quot;No id was returned.&quot;);
+  noblox.demote(groupId, userId); //Use the value returned to demote the user.
+}
+
+DemoteUser(1, &quot;popeeyy&quot;);
+</code></pre>
+<h4>.then(function)</h4>
+<pre class="prettyprint source"><code>const noblox = require(&quot;noblox.js&quot;);
+
+//When the promise is resolved, the function runs with the provided variable.
+noblox.getIdFromUsername(&quot;popeeyy&quot;).then(function(userId) {
+  noblox.demote(1, userId)
+}).catch(function(error) { //Handle the rejection accordingly.
+  console.log(&quot;There was an error getting the id!&quot;, error)
+})
+</code></pre>
+<h3>Additional Info:</h3>
+<p>When you use an <strong>async</strong> function, a Promise is returned, not a function. They should be treated as if they are Promises when returning values by using await or .then with proper error handling as well.</p>
+<p>There are different ways to create a Promise, but we'll discuss two of the easiest ways. The first way is to create an <strong>async function</strong>, as explained above. The other way is to use <strong>new Promise(function)</strong>, with the function having 2 parameters. The 2 parameters are resolve and reject respectively, which will resolve the Promise or throw an error.</p>
+<p>You should always read the docs, isn't that what you're here for? There are plenty of examples showing when you use Promises and what values are returned by the function. Promises are your friend in this library and many others, so take the time to learn them first and practice using them. If you have any questions, you can always ask the community in the <a href="https://discord.gg/EDXNdAT">Roblox API Discord</a> via our designated channel &quot;nodejs_nobloxjs&quot;.</p>
+<h3>Example:</h3>
+<pre class="prettyprint source"><code>const isCool = false;
+
+function amICool() {
+  //Create a new Promise
+  return new Promise(function(resolve, reject) {
+    if (isCool) {
+      //Resolve that isCool is true.
+      resolve(true)
+    } else {
+      //Reject the Promise because only cool people can call this.
+      reject(&quot;You aren't cool, don't call this function!&quot;)
+    }
+  })
+}
+
+amICool().then(function(cool) {
+  console.log(&quot;Am I cool?&quot;, cool)
+}).catch(function(err) {
+  console.log(&quot;There was an error while checking if I'm cool&quot;, err)
+})
+</code></pre>
+<h3>Resources:</h3>
+<p>If you are still having trouble with Promises or want to learn more, here are a few helpful resources:</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise"><strong>MDN</strong></a>
+<br />
+<a href="https://www.digitalocean.com/community/tutorials/javascript-promises-for-dummies"><strong>DigitalOcean</strong></a>
+<br />
+<a href="https://javascript.info/promise-basics"><strong>JavaScript.info</strong></a></p>
+</article>
+
+</section>
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

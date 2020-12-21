@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121100860-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121100860-3');
+</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>noblox.js Event Emitters</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+             
+                <a class="image" href="index.html">
+                    <img src="./noblox-js-small.png" alt="logo">
+                </a>
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                            <a class="dropdown-item" href="tutorial-Authentication.html">
+                                Authentication
+                            </a>
+                        
+                            <a class="dropdown-item" href="tutorial-Event Emitters.html">
+                                Event Emitters
+                            </a>
+                        
+                            <a class="dropdown-item" href="tutorial-Promises.html">
+                                Promises
+                            </a>
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/suufi/noblox.js"
+                        >
+                            GitHub
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://discord.gg/EDXNdAT"
+                        >
+                            Roblox API Server
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar tutorials"
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Authentication.html">Authentication</a></li><li><a href="tutorial-Event Emitters.html">Event Emitters</a></li><li><a href="tutorial-Promises.html">Promises</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Tutorial</p>
+                    <h1>Event Emitters</h1>
+                </header>
+                <section>
+
+<article>
+    <h3>What is an EventEmitter?</h3>
+<p>An Event Emitter is a way in JavaScript to recieve data in real time until the emitter is closed. It's an easy way to handle events that occur in your application and execute functions. In noblox, they are used for handling events such as when someone shouts or Roblox notifications.</p>
+<h3>How can I use an EventEmitter?</h3>
+<p>You can use an EventEmitter created by noblox by calling a function that returns an EventEmitter, and calling <strong>.on(event, callback)</strong>. 3 events used by noblox are &quot;data&quot;, &quot;connect&quot;, and &quot;close&quot;. Data is when noblox detects a change on Roblox and informs you of the change, which it will provide as a parameter in the callback function. Connect is when noblox connects to Roblox successfully and starts the emitter. Finally, close is when noblox disconnects from Roblox and stops the emitter.</p>
+<h3>Example:</h3>
+<pre class="prettyprint source"><code>const noblox = require(&quot;noblox.js&quot;);
+const Emitter = noblox.onShout(1);
+
+Emitter.on(&quot;connect&quot;, function() {
+    console.log(&quot;noblox is listening for a shout change!&quot;);
+})
+
+Emitter.on(&quot;data&quot;, function(newStatus) {
+    console.log(&quot;The group status has been updated! New status:&quot;, newStatus);
+})
+
+Emitter.on(&quot;close&quot;, function() {
+    console.log(&quot;noblox has closed the emitter!&quot;);
+})
+</code></pre>
+<h3>Resources:</h3>
+<p><a href="https://www.digitalocean.com/community/tutorials/using-event-emitters-in-node-js"><strong>DigitalOcean</strong></a></p>
+</article>
+
+</section>
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

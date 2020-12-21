@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121100860-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121100860-3');
+</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>noblox.js Authentication</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+             
+                <a class="image" href="index.html">
+                    <img src="./noblox-js-small.png" alt="logo">
+                </a>
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                            <a class="dropdown-item" href="tutorial-Authentication.html">
+                                Authentication
+                            </a>
+                        
+                            <a class="dropdown-item" href="tutorial-Event Emitters.html">
+                                Event Emitters
+                            </a>
+                        
+                            <a class="dropdown-item" href="tutorial-Promises.html">
+                                Promises
+                            </a>
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/suufi/noblox.js"
+                        >
+                            GitHub
+                        </a>
+                    
+                        <a
+                            class="link user-link "
+                            href="https://discord.gg/EDXNdAT"
+                        >
+                            Roblox API Server
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar tutorials"
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <div class="category"><h3>Tutorials</h3><ul><li><a href="tutorial-Authentication.html">Authentication</a></li><li><a href="tutorial-Event Emitters.html">Event Emitters</a></li><li><a href="tutorial-Promises.html">Promises</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Tutorial</p>
+                    <h1>Authentication</h1>
+                </header>
+                <section>
+
+<article>
+    <h3>What is Authentication on Roblox?</h3>
+<p>Authentication is pretty simple, it's how Roblox knows who you are and what account you're using. To identify your account, Roblox uses <a href="https://medium.com/@sherryhsu/session-vs-token-based-authentication-11a6c5ac45e4"><strong>authentication sessions</strong></a> which are stored on their servers and linked to your account. Your authentication session will expire when you log out of an account or press sign out of all other sessions. You can keep your session active by obtaining your cookie in an incognito window using the instructions below and closing the window when you're done, rather than signing out manually. Since Roblox uses FunCaptcha and have no official bot system, developers are forced to use these sessions, which are stored in <a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer"><strong>cookies.</strong></a> This will allow Roblox to easily identify your bot's account and execute actions on it's behalf.</p>
+<h3>What's a cookie?</h3>
+<p>A cookie (not the ones you eat) is a small quantity of data containing data sent by a website. Cookies are stored by the user's web browser while browsing. Cookies are standard practice across the web and as such, a large part of Roblox's security are based around cookies. Sharing is not caring. Never share your cookie.</p>
+<h3>How do I obtain my cookie?</h3>
+<p>There are many different ways to obtain your cookie depending on your browser. First of all, open an <a href="https://support.google.com/chrome/answer/95464?co=GENIE.Platform%3DDesktop&amp;hl=en">Incognito window</a> on your browser and sign into your bot account.</p>
+<h4><strong>Chrome</strong></h4>
+<pre><code>1. Click the arrow icon on the right-hand side of the toolbar. 
+2. Go to More Tools. 
+3. Click the Developer Tools button. 
+4. Click the Application tab and Cookies button on the menu to the left. 
+5. Click the dropdown until you find www.roblox.com. 
+6. Your cookie is the value assigned to the key named .ROBLOSECURITY. Copy it.
+</code></pre>
+<h4><strong>Firefox</strong></h4>
+<pre><code>1. Click the hamburger icon on the right-hand side of the toolbar. 
+2. Go to Web Developer. 
+3. Click Storage Inspector and the Cookies button on the menu to the left. 
+4. Click the dropdown until you find www.roblox.com. 
+5. Your cookie is the value assigned to the key named .ROBLOSECURITY. Copy it.
+</code></pre>
+<h4><strong>Safari</strong></h4>
+<pre><code>1. Go to Preferences, Advanced and select Show Develop menu in menu bar. 
+2. Click the Develop tab. 
+3. Click Show Web Inspector. 
+4. Click the Storage tab and then click Cookies. 
+5. Click the dropdown until you find www.roblox.com. 
+6. Your cookie is the value assigned to the key named .ROBLOSECURITY. Copy it.
+</code></pre>
+<h4><strong>Edge</strong></h4>
+<pre><code>1. Click the elipsis (...) on the right-hand side of the toolbar. 
+2. Go to More tools. 
+3. Click the Developer Tools button. 
+4. Click the More Tools button (icon next to Console). 
+5. Click Storage. 
+6. Click the dropdown until you find www.roblox.com. 
+7. Your cookie is the value assigned to the key named .ROBLOSECURITY. Copy it.
+</code></pre>
+<h3>How do I use my cookie?</h3>
+<p>Once you have obtained and copied your cookie, close the incognito window without signing out. To use your cookie with noblox, you will have to use the <strong>setCookie method</strong>. This will use your cookie in all requests sent to Roblox to perform actions on your bot's behalf. You should store your cookie somewhere secure, such as a <a href="https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786"><strong>.env file</strong></a>.</p>
+<h3>Example:</h3>
+<pre class="prettyprint source"><code>const noblox = require(&quot;noblox.js&quot;);
+
+noblox.setCookie(process.env.COOKIE).then(function() { //Use COOKIE from our .env file.
+    console.log(&quot;Logged in!&quot;)
+}).catch(function(err) {
+    console.log(&quot;Unable to log in!&quot;, err)
+})
+</code></pre>
+</article>
+
+</section>
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js Home</title>
+  <title>noblox.js lib/chat/getRolloutSettings.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -130,135 +132,54 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>lib/chat/getRolloutSettings.js</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1 align="center">
-    <img src="https://raw.githubusercontent.com/suufi/noblox.js/master/img/noblox-js.png" alt="noblox.js" width="250"/>
-    <br>
-</h1>
-<h4 align="center">A Node.js wrapper for interacting with the Roblox API. Forked from <a href="https://github.com/sentanos/roblox-js">roblox-js</a>.</h4>
-<p align="center">
-    <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-blue.svg?style=flat-square" alt="JavaScript Style Guide"/></a>
-    <a href="https://discord.gg/EDXNdAT"><img src="https://img.shields.io/badge/discord-roblox%20api%20chat-blue.svg?style=flat-square" alt="Roblox API Discord"/></a>
-    <a href="https://npmjs.org/noblox.js"><img src="https://img.shields.io/npm/v/noblox.js.svg?style=flat-square" alt="NPM package"/>
-    <a href="https://travis-ci.org/suufi/noblox.js"><img src="https://img.shields.io/travis/suufi/noblox.js/master.svg?style=flat-square" alt="Travis Build Status"/></a></a>
-</p>
-<p align="center">
-  <a href="#about">About</a> •
-  <a href="#prerequisites">Prerequisites</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#documentation">Docs</a> •
-  <a href="https://github.com/suufi/noblox.js/tree/master/examples">Examples</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#license">License</a>
-</p>
-<h2>About</h2>
-<p>Noblox.js is a node module that was forked from <a href="https://github.com/sentanos/roblox-js">sentanos's roblox-js module</a>. This project was created because the roblox-js repository was no longer maintained by sentanos.</p>
-<p>Noblox.js allows you to do things you would normally do on the <a href="https://www.roblox.com">Roblox</a> website through a Node.js interface. You can use noblox.js along with Roblox's <a href="http://wiki.roblox.com/index.php?title=API:Class/HttpService">HttpService feature</a> to create scripts that interact with the website. If you're looking for more information on how to create something like this, check out <a href="https://github.com/sentanos/roblox-js-server">this</a> repository by sentanos. Keep in mind that this does not use the latest version of this module and it is <strong>highly</strong> encouraged that you learn to use the library directly.</p>
-<h2>Prerequisites</h2>
-<ul>
-<li><a href="https://nodejs.org/en/download/current/"><strong>node.js</strong></a></li>
-</ul>
-<h2>Installation</h2>
-<p>With node.js installed simply run:</p>
-<pre class="prettyprint source lang-bash"><code># Run this to install noblox.js locally to your repository. 
-$ npm install noblox.js --save
+        <article>
+            <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 
-# if you're using yarn:
-$ yarn add noblox.js
+exports.optional = ['featureNames', 'jar']
 
-# Run this instead to install noblox.js globally so you can use it anywhere.
-$ npm install noblox.js -g
-</code></pre>
-<p>That's it!</p>
-<h2>Documentation</h2>
-<p>You can find the current noblox.js wiki with all API documentation <a href="https://noblox.js.org/">here</a>. Keep in mind that all methods may not be documented.</p>
-<h2>Making use of new login workaround</h2>
-<blockquote>
-<p>Note, as of v4.6.0 The way you log in to Noblox has changed significantly.
-The library is no longer responsible for refreshing your cookies</p>
-<p>This is because of many reasons including that creating a file caused several security/usability issues and made the library incompatible with some hosts.</p>
-</blockquote>
-<h3>Initial setup</h3>
-<ol>
-<li>Remove any usages of the <code>login</code> or <code>cookieLogin</code> methods.</li>
-<li>Run <code>setCookie</code> with your cookie. This will store your cookie internally and validate it, but will perform <strong>no</strong> cookie refresh automatically</li>
-<li>While this works, Roblox <code>.ROBLOSECURITY</code> cookies expire after an unknown length of time. For applications which run continuously, <strong>you must</strong> use the function <code>refreshCookie</code> to prevent this. This will refresh either the cookie you pass or the internally stored cookie and return the new one.*</li>
-<li>You need to store this new cookie somewhere - whether it be in a database, or a JSON file.</li>
-</ol>
-<p>* See <a href="#cookie-expiration">Cookie expiration</a> for an in depth discussion of cookie expiration.</p>
-<blockquote>
-<p>Note: By default, setCookie will validate the cookie you provide by making a HTTP request.
-To Disable this behaviour, pass <code>false</code> as the second parameter (validate)</p>
-</blockquote>
-<h3>Getting your cookie (Chrome):</h3>
-<ol>
-<li>Open any Roblox page and login</li>
-<li>Press <code>Control + Shift + i</code> on your keyboard</li>
-<li>Click <code>Application</code></li>
-<li>Find <code>.ROBLOSECURITY</code>. Copy its contents, which will start with: <code>_|WARNING:-DO</code></li>
-<li>Put this full token, <em>including</em> the warning into cookieLogin: <code>rbx.setCookie( tokenHere )</code></li>
-</ol>
-<h3>Example</h3>
-<p>This example makes use of the new async-await syntax.</p>
-<pre class="prettyprint source lang-js"><code>const rbx = require(&quot;noblox.js&quot;)
-async function startApp () {
-    await rbx.setCookie(&quot;_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_F9F1EA531adk&quot;)
-    // Do everything else, calling functions and the like.
-    let currentUser = await rbx.getCurrentUser()
+// Docs
+/**
+ * Get the rollout settings.
+ * @category Chat
+ * @alias getRolloutSettings
+ * @param {Array=} featureNames - The names of the features rollingout.
+ * @returns {Promise&lt;GetRolloutSettingsResult>}
+ * @example const noblox = require("noblox.js")
+ * // Login using your cookie
+ * const settings = await noblox.getRolloutSettings(['LuaChat', 'Party'])
+**/
+
+exports.func = (args) => {
+  const jar = args.jar
+  const featureNames = typeof (args.featureNames) === 'object' ? args.featureNames : []
+
+  return http({
+    url: '//chat.roblox.com/v2/get-rollout-settings?featureNames=' + featureNames.join('&amp;featureNames='),
+    options: {
+      method: 'GET',
+      jar: jar,
+      resolveWithFullResponse: true
+    }
+  }).then((res) => {
+    if (res.statusCode !== 200) {
+      throw new Error('You are not logged in')
+    } else {
+      return JSON.parse(res.body)
+    }
+  })
 }
 </code></pre>
-<h2>Drawbacks</h2>
-<ul>
-<li>You need to set up something to store and refresh cookies yourself</li>
-<li>Roblox-js-server is <strong>not</strong> currently compatible. Use <a href="https://github.com/Hamzah-z/noblox.js-server">noblox.js-server</a> instead.</li>
-</ul>
-<h2>Common issues</h2>
-<h3>CSRF</h3>
-<p>In July 2020 Roblox updated the endpoint we used to get CSRF tokens (<code>auth.roblox.com/v1/logout</code>) and essentially disabled it.
-They didn't warn anyone of this change so as of v4.6.3 we've updated to a new endpoint that works.
-To make use of the new fix, run <code>npm install noblox.js@4.6.3</code>. Alternatively, use <code>latest</code> to get the latest version.</p>
-<h3>Cookie expiration</h3>
-<p>We do not know for a fact whether Roblox cookies expire. Roblox has not enlightened us on this fact, so we're pretty much in the dark.</p>
-<p>We advise that you refresh your cookies in a production environment <strong>no more often than</strong> once every 24 hours.
-However, several users have noted lately that they've had cookies last for several months - meaning you could choose not to refresh your cookie.</p>
-<h2>Credits</h2>
-<ul>
-<li><a href="https://github.com/sentanos">sentanos</a> - We wouldn't exist without him. 😀</li>
-<li><a href="https://github.com/Neztore">Neztore</a> - Library maintenance and review</li>
-<li><a href="https://github.com/efewqefwfd">popeeyy</a> - Creation of the documentation.</li>
-<li><a href="https://github.com/edwrddd">edward</a> - Helping with the creation of the documentation.</li>
-</ul>
-<h2>License</h2>
-<p>MIT</p></article>
+        </article>
     </section>
-
-
 
 
 
