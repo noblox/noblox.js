@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/user/getInventory.js</title>
+  <title>noblox.js lib/game/getDeveloperProducts.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/user/getInventory.js</h1>
+                    <h1>lib/game/getDeveloperProducts.js</h1>
                 </header>
                 
 
@@ -143,35 +143,52 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
-const getPageResults = require('../util/getPageResults.js').func
+const http = require('../util/http.js').func
 
 // Args
-exports.required = ['userId', 'assetTypes']
-exports.optional = ['sortOrder', 'limit', 'jar']
+exports.required = ['placeId']
+exports.optional = ['page', 'jar']
 
 // Docs
 /**
- * Get a user's inventory.
- * @category User
- * @alias getInventory
- * @param {number} userId - The id of user whose inventory is being returned.
- * @param {array} assetTypes - The types of assets being retrieved.
- * @param {SortOrder=} [sortOrder=Asc] - The order that the data will be returned in (Asc or Desc)
- * @param {Limit=} [limit=10] - The number of assets returned in each request (10, 25, 50, or 100)
- * @returns {Promise&lt;Inventory>}
- * @example const noblox = require("noblox.js")
- * let inventory = await noblox.getInventory({userId: 123456, assetTypes: ["Shirt"], sortOrder: "Asc", limit: 100})
-**/
+ * Returns the existing developer products in a specified game.
+ * @param {number} placeId - The ID of the place whose developer products you want to retrieve
+ * @param {number} [page=1] - Which page of developer products to return (pageSize is 50)
+ * @returns {Promise&lt;DeveloperProductsResult>}
+ */
+
+function getDeveloperProducts (jar, placeId, page) {
+  return new Promise((resolve, reject) => {
+    const httpOpt = {
+      url: `//api.roblox.com/developerproducts/list?placeid=${placeId}&amp;page=${page}`,
+      options: {
+        method: 'GET',
+        jar: jar,
+        resolveWithFullResponse: true
+      }
+    }
+    return http(httpOpt)
+      .then(function (res) {
+        if (res.statusCode === 200) {
+          resolve(JSON.parse(res.body))
+        } else {
+          const body = res.body || {}
+          if (body.errors &amp;&amp; body.errors.length > 0) {
+            const errors = body.errors.map((e) => {
+              return e.message
+            })
+            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
+          } else {
+            reject(new Error(`${res.statusCode} An error has occurred ${res.body ? res.body : ''}`))
+          }
+        }
+      })
+  })
+}
 
 // Define
 exports.func = function (args) {
-  return getPageResults({
-    jar: args.jar,
-    url: `//inventory.roblox.com/v2/users/${args.userId}/inventory`,
-    query: { assetTypes: args.assetTypes.join(',') },
-    sortOrder: args.sortOrder,
-    limit: args.limit
-  })
+  return getDeveloperProducts(args.jar, args.placeId, args.page || 1)
 }
 </code></pre>
         </article>
