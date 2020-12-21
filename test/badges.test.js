@@ -2,7 +2,6 @@ const { getAwardedTimestamps, getBadgeInfo, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
-    console.log(process.env)
     setCookie(process.env.COOKIE).then(() => {
       resolve()
     })
