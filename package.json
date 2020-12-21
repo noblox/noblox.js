@@ -5,9 +5,10 @@
   "main": "lib/index.js",
   "types": "typings/index.d.ts",
   "scripts": {
-    "test": "eslint lib/",
-    "postinstall": "node postinstall.js",
-    "docs": "jsdoc -c jsDocsConfig.json -r -t ./node_modules/better-docs"
+    "docs": "jsdoc -c jsDocsConfig.json -r -t ./node_modules/better-docs",
+    "lint": "eslint lib/",
+    "test": "jest",
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",
@@ -40,15 +41,33 @@
   "homepage": "https://github.com/suufi/noblox.js",
   "devDependencies": {
     "JSONStream": "^1.3.1",
+    "better-docs": "^2.3.2",
+    "dotenv": "^8.2.0",
     "eslint": "^7.12.1",
     "eslint-config-standard": "^16.0.1",
     "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^5.0.0",
-    "progress": "^2.0.0",
-    "standard": "^16.0.0",
+    "jest": "^26.6.3",
     "jsdoc": "^3.6.6",
-    "better-docs": "^2.3.2"
+    "progress": "^2.0.0",
+    "standard": "^16.0.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "dotenv/config"
+    ],
+    "coveragePathIgnorePatterns": [
+      "lib/party",
+      "lib/util",
+      "lib/internal",
+      "lib/cache",
+      "node_modules",
+      "lib/index.js",
+      "lib/options.js",
+      "lib/*/on*.js"
+    ]
   }
 }

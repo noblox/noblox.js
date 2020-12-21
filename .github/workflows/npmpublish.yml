@@ -5,26 +5,51 @@ on:
     types: [created]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up node
+        uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npm test
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint lib/
+        run: yarn lint
+
+      - name: Test methods
+        run: COOKIE=$COOKIE; COOKIE_2=$COOKIE_2; yarn test
+        env:
+          COOKIE: ${{secrets.COOKIE}}
+          COOKIE_2: ${{secrets.COOKIE_2}}
 
   publish-npm:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up node
+        uses: actions/setup-node@v1
         with:
           node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Publish to npm
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
