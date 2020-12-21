@@ -1,4 +1,4 @@
-// Type definitions for noblox.js@4.6.0
+// Type definitions for noblox.js@4.8.0-0
 // Authored by Gamenew09 w/ changes by suufi
 
 declare module "noblox.js" {
@@ -898,11 +898,11 @@ declare module "noblox.js" {
         userPresences: UserPresence[]
     }
 
-	interface playerThumbnailData{
-		targetId: number;
-		state: string;
-		imageUrl: string;
-	}
+    interface PlayerThumbnailData {
+        targetId: number;
+        state: string;
+        imageUrl: string;
+    }
 
     /// Badges
 
@@ -968,7 +968,7 @@ declare module "noblox.js" {
         username: string;
         buildersClubMembershipType: number;
     }
-    
+
     interface CollectibleEntry {
         userAssetId: number;
         serialNumber?: number;
@@ -1354,7 +1354,7 @@ declare module "noblox.js" {
      * Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */
-     function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
+    function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
 
     /**
      * Allows the user to login with a cookie.json file, bypassing the username/password captcha issues.
@@ -1465,7 +1465,7 @@ declare module "noblox.js" {
 
     /**
      * Gets the badges of a user.
-    */
+     */
     function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<PlayerBadges>
 
     /**
@@ -1476,7 +1476,7 @@ declare module "noblox.js" {
     /**
      * Gets the thumbnail of an array of users.
      */
-    function getPlayerThumbnail(userIds: number | number[], size: 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720, format?: string, isCircular?: boolean): Promise<playerThumbnailData[]>;
+    function getPlayerThumbnail(userIds: number | number[], size: 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720, format?: string, isCircular?: boolean): Promise<PlayerThumbnailData[]>;
 
     /**
      * Gets the presence statuses of the specified users
