@@ -12,17 +12,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build
-        uses: andstor/jsdoc-action@v1.2.0
+      - name: Set up node and install yarn
+        uses: actions/setup-node@v1
         with:
-          source_dir: ./
-          output_dir: ./docs
-          config_file: jsDocsConfig.json
-          template: better-docs
-          front_page: README.md
+          node-version: 12
+        run: npm install -g yarn
+
+      - name: Build
+        run: |
+          yarn install
+          yarn docs
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./docs
+          cname: noblox.js.org

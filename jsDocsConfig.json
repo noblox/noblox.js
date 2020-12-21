@@ -9,7 +9,7 @@
     "opts" : {
         "encoding": "utf8",
         "destination": "./docs/",
-        "readme": "./readme.md",
+        "readme": "./README.md",
         "recurse": true,
         "verbose": true,
         "tutorials": "./tutorials",
