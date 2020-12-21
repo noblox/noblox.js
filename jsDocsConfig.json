@@ -17,7 +17,6 @@
     },
 
     "plugins": [
-        "node_modules/better-docs/component",
         "node_modules/better-docs/category",
         "node_modules/better-docs/typescript",
         "plugins/markdown"
