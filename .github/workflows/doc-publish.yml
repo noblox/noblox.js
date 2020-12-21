@@ -12,10 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up node and install yarn
+      - name: Set up node
         uses: actions/setup-node@v1
         with:
           node-version: 12
+
+      - name: Install yarn
         run: npm install -g yarn
 
       - name: Build
