@@ -73,7 +73,7 @@ describe('Chat Methods', () => {
   })
 
   it('removeFromGroupConversation() removes a user from a given conversation', () => {
-    return removeFromGroupConversation(newConversationId, [66592931])
+    return removeFromGroupConversation(newConversationId, 66592931)
   })
 
   it('renameGroupConversation() renames a group conversation', () => {
