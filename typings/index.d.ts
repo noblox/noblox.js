@@ -478,6 +478,24 @@ declare module "noblox.js" {
         Price: number
     }
 
+    interface DeveloperProduct {
+        ProductId: number,
+        DeveloperProductId: number,
+        Name: string,
+        Description: string,
+        IconImageAssetId: number,
+        displayName: string,
+        displayDescription: string,
+        displayIcon: number,
+        PriceInRobux: number
+    }
+
+    interface DeveloperProductsResult {
+        DeveloperProducts: DeveloperProduct[],
+        FinalPage: boolean,
+        PageSize: number
+    }
+
     interface DeveloperProductAddResult
     {
         universeId: number,
@@ -1172,6 +1190,13 @@ declare module "noblox.js" {
      * NOTE: You actually need a valid `productId` and `universeId` otherwise, the http request returns a `404 Not Found` response.
      */
     function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<CheckDeveloperProductNameResult>;
+
+    /**
+     * Returns the existing developer products in a specified game.
+     * @param placeId The place whose developer products are being fetched.
+     * @param page Which page of developer products to return (pageSize is 50)
+     */
+    function getDeveloperProducts(placeId: number, page: number, jar?: CookieJar): Promise<DeveloperProductsResult>;
 
     function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
 

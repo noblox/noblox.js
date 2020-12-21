@@ -593,6 +593,30 @@ type PlaceInformation = {
 
 /**
  * @typedef
+ */
+type DeveloperProduct = {
+    ProductId: number,
+    DeveloperProductId: number,
+    Name: string,
+    Description: string,
+    IconImageAssetId: number,
+    displayName: string,
+    displayDescription: string,
+    displayIcon: number,
+    PriceInRobux: number
+}
+
+/**
+ * @typedef
+ */
+type DeveloperProductsResult = {
+    DeveloperProducts: DeveloperProduct[],
+    FinalPage: boolean,
+    PageSize: number
+}
+
+/**
+ * @typedef
 */
 type DeveloperProductAddResult = {
     universeId: number,
