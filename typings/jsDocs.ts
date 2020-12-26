@@ -1319,7 +1319,7 @@ type TradeAsset = {
     id: number,
     user: TradeUser,
     created: Date,
-    expiration: Date,
+    expiration?: Date,
     isActive: boolean,
     status: string
 }
@@ -1363,7 +1363,7 @@ type TradeInfo = {
     id: number,
     user: TradeUser,
     created: Date,
-    expiration: Date,
+    expiration?: Date,
     isActive: boolean,
     status: string
 }

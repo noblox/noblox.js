@@ -1022,7 +1022,7 @@ declare module "noblox.js" {
         id: number,
         user: TradeUser,
         created: Date,
-        expiration: Date,
+        expiration?: Date,
         isActive: boolean,
         status: string
     }
@@ -1054,7 +1054,7 @@ declare module "noblox.js" {
         id: number,
         user: TradeUser,
         created: Date,
-        expiration: Date,
+        expiration?: Date,
         isActive: boolean,
         status: string
     }
