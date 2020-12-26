@@ -1012,8 +1012,7 @@ declare module "noblox.js" {
         status: string
     }
 
-    interface TradeUser
-    {
+    interface TradeUser {
         userId: number;
         username: string;
         displayName: string;
@@ -1552,7 +1551,7 @@ declare module "noblox.js" {
     function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Collectibles>;
 
     /**
-     * Get the UAIDs for assets a user owns.
+     * Get the UserAssetIDs for assets a user owns.
      */
     function getUAIDs(userId: number, assetIds: number[], exclusionList?: number[], jar?: CookieJar): Promise<UAIDResponse>;
 
