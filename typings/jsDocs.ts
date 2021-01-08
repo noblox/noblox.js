@@ -1145,6 +1145,7 @@ type PlayerInfo = {
     followerCount: number;
     followingCount: number;
     oldNames: string[];
+    isBanned: boolean;
 }
 type Presences = {
     userPresences: UserPresence[]

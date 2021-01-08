@@ -893,6 +893,7 @@ declare module "noblox.js" {
         followerCount: number;
         followingCount: number;
         oldNames: string[];
+        isBanned: boolean;
     }
     interface Presences {
         userPresences: UserPresence[]
