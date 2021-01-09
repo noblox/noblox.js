@@ -449,7 +449,7 @@ declare module "noblox.js" {
         gamePassId: number,
         name?: string,
         description?: string,
-        price?: number | null,
+        price?: number,
         isForSale?: boolean,
         iconChanged?: boolean
     }

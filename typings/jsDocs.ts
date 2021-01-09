@@ -556,6 +556,18 @@ type GameInstances = {
 
 /**
  * @typedef
+ */
+type GamePassResponse = {
+    gamePassId: number,
+    name?: string,
+    description?: string,
+    price?: number,
+    isForSale?: boolean,
+    iconChanged?: boolean
+}
+
+/**
+ * @typedef
 */
 type PlaceInformation = {
     AssetId: number;
