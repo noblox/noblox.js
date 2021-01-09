@@ -1297,6 +1297,97 @@ type Inventory = {
     items: InventoryEntry[];
 }
 
+///Trading
+
+/**
+ * @typedef
+*/
+type UAIDResponse = {
+    uaids: number[],
+    failedIds: number[]
+}
+
+/**
+ * @typedef
+*/
+type CanTradeResponse = {
+    canTrade: boolean,
+    status: string
+}
+
+/**
+ * @typedef
+*/
+type TradeUser
+{
+    userId: number;
+    username: string;
+    displayName: string;
+}
+
+/**
+ * @typedef
+*/
+type TradeAsset = {
+    id: number,
+    user: TradeUser,
+    created: Date,
+    expiration?: Date,
+    isActive: boolean,
+    status: string
+}
+
+/**
+ * @typedef
+*/
+type DetailedTradeAsset = {
+    id: number,
+    serialNumber: number,
+    assetId: number,
+    name: string,
+    recentAveragePrice: number,
+    originalPrice: number,
+    assetStock: number,
+    membershipType: string
+}
+
+/**
+ * @typedef
+*/
+type DetailedTradeOffer = {
+    user: TradeUser,
+    userAssets: DetailedTradeAsset[],
+    robux: number
+}
+
+/**
+ * @typedef
+*/
+type TradeOffer = {
+    userAssetIds: number[],
+    robux: number
+}
+
+/**
+ * @typedef
+*/
+type TradeInfo = {
+    offers: DetailedTradeOffer[],
+    id: number,
+    user: TradeUser,
+    created: Date,
+    expiration?: Date,
+    isActive: boolean,
+    status: string
+}
+
+/**
+ * @typedef
+*/
+type SendTradeResponse = {
+    id: number
+}
+
 /// Utility
 
 /**

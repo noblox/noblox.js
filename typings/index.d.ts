@@ -1011,6 +1011,69 @@ declare module "noblox.js" {
         items: InventoryEntry[];
     }
 
+    ///Trading
+
+    interface UAIDResponse {
+        uaids: number[],
+        failedIds: number[]
+    }
+
+    interface CanTradeResponse {
+        canTrade: boolean,
+        status: string
+    }
+
+    interface TradeUser {
+        userId: number;
+        username: string;
+        displayName: string;
+    }
+
+    interface TradeAsset {
+        id: number,
+        user: TradeUser,
+        created: Date,
+        expiration?: Date,
+        isActive: boolean,
+        status: string
+    }
+
+    interface DetailedTradeAsset {
+        id: number,
+        serialNumber: number,
+        assetId: number,
+        name: string,
+        recentAveragePrice: number,
+        originalPrice: number,
+        assetStock: number,
+        membershipType: string
+    }
+
+    interface DetailedTradeOffer {
+        user: TradeUser,
+        userAssets: DetailedTradeAsset[],
+        robux: number
+    }
+
+    interface TradeOffer {
+        userAssetIds: number[],
+        robux: number
+    }
+
+    interface TradeInfo {
+        offers: DetailedTradeOffer[],
+        id: number,
+        user: TradeUser,
+        created: Date,
+        expiration?: Date,
+        isActive: boolean,
+        status: string
+    }
+
+    interface SendTradeResponse {
+        id: number
+    }
+
     /// Utility
 
     type SelectorFunction = (selector: string) => {val(): any};
@@ -1510,6 +1573,11 @@ declare module "noblox.js" {
     function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Collectibles>;
 
     /**
+     * Get the UserAssetIDs for assets a user owns.
+     */
+    function getUAIDs(userId: number, assetIds: number[], exclusionList?: number[], jar?: CookieJar): Promise<UAIDResponse>;
+
+    /**
      * Get the inventory of a user.
      */
     function getInventory(userId: number, assetTypes: Array<string>, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Inventory>;
@@ -1518,6 +1586,43 @@ declare module "noblox.js" {
      * Get the inventory of a user by the assetTypeId.
      */
     function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Inventory>;
+
+    ///Trades
+
+    /**
+     * Check if the current user can trade with another user.
+     */
+    function canTradeWith(userId: number, jar?: CookieJar): Promise<CanTradeResponse>;
+
+    /**
+     * Decline an active trade.
+     */
+    function declineTrade(tradeId: number, jar?: CookieJar): Promise<void>;
+    
+    /**
+     * Accept an active trade.
+     */
+    function acceptTrade(tradeId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * Get detailed info about a trade.
+     */
+    function getTradeInfo(tradeId: number, jar?: CookieJar): Promise<TradeInfo>;
+
+    /**
+     * Get all trades under a category.
+     */
+    function getTrades(tradeStatusType: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<TradeAsset[]>;
+
+    /**
+     * Send a trade to a user.
+     */
+    function sendTrade(targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
+
+    /**
+     * Counter an active incoming trade..
+     */
+    function counterTrade(tradeId: number, targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
 
 
     /// Utility
