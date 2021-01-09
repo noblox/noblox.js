@@ -144,8 +144,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
-const rbxDate = require('../util/getDate.js').func
-const parser = require('cheerio')
+const getPageResults = require('../util/getPageResults.js').func
 
 // Args
 exports.required = ['userId']
@@ -162,47 +161,82 @@ exports.required = ['userId']
 **/
 
 // Define
-exports.func = function (args) {
-  return http({
-    url: '//www.roblox.com/users/' + args.userId + '/profile',
-    options: {
-      resolveWithFullResponse: true,
-      followRedirect: false
-    }
-  })
-    .then(function (res) {
-      if (res.statusCode === 200) {
-        const body = parser.load(res.body)
+function getPlayerInfo (userId) {
+  return new Promise((resolve, reject) => {
+    const requests = [
+      constructRequest(`//users.roblox.com/v1/users/${userId}`),
+      constructRequest(`//users.roblox.com/v1/users/${userId}/status`),
+      constructRequest(`//friends.roblox.com/v1/users/${userId}/friends/count`),
+      constructRequest(`//friends.roblox.com/v1/users/${userId}/followings/count`),
+      constructRequest(`//friends.roblox.com/v1/users/${userId}/followers/count`),
+      getPageResults({ url: `//users.roblox.com/v1/users/${userId}/username-history`, query: {}, limit: 1000 })
+    ]
 
-        const blurb = body('.profile-about-content-text').text()
-        const status = body('div[data-statustext]').attr('data-statustext')
-        const username = body('.header-title h2').text()
-        const pastnames = body('.tooltip-pastnames').attr('title')
-        const friendcount = body('div[data-statustext]').attr('data-friendscount')
-        const followercount = body('div[data-statustext]').attr('data-followerscount')
-        const followingcount = body('div[data-statustext]').attr('data-followingscount')
-        let joinDate = body('.profile-stats-container .text-lead').eq(0).text()
+    Promise.allSettled(requests).then((promiseResponses) => {
+      const responses = promiseResponses.map(response => response.value)
+      const usersResponse = responses[0]
+      const userBody = usersResponse ? usersResponse.body : {}
+      const failedResponse = promiseResponses.find(presponse => presponse.status === 'rejected') || responses.find(response => !response || (!(response instanceof Array) &amp;&amp; (response.statusCode !== 200 || !response.body)))
 
-        joinDate = rbxDate({ time: joinDate, timezone: 'CT' })
+      if (userBody.isBanned) {
+        const joinDate = new Date(userBody.created)
+        const blurb = userBody.description
+        const isBanned = userBody.isBanned
+        const username = userBody.name
+
+        resolve({
+          username: username,
+          joinDate: joinDate,
+          blurb: blurb,
+          isBanned: isBanned
+        })
+      } else if (failedResponse) {
+        reject(new Error('User does not exist.'))
+      } else {
+        const responseBodies = responses.map(res => res.body)
+        const status = responseBodies[1].status
+        const oldNames = responses[5].map(nameObject => nameObject.name) || []
+        const friendCount = responseBodies[2].count
+        const followerCount = responseBodies[4].count
+        const followingCount = responseBodies[3].count
+        const joinDate = new Date(userBody.created)
+        const blurb = userBody.description
+        const isBanned = userBody.isBanned
+        const username = userBody.name
 
         const currentTime = new Date()
-        const playerAge = Math.round(Math.abs((joinDate.getTime() - currentTime.getTime()) / (24 * 60 * 60 * 1000)))
+        const age = Math.round(Math.abs((joinDate.getTime() - currentTime.getTime()) / (24 * 60 * 60 * 1000)))
 
-        return {
-          username: username,
-          status: status,
-          blurb: blurb,
-          joinDate: joinDate,
-          age: playerAge,
-          friendCount: parseInt(friendcount, 10),
-          followerCount: parseInt(followercount, 10),
-          followingCount: parseInt(followingcount, 10),
-          oldNames: pastnames ? pastnames.split(', ') : []
-        }
-      } else {
-        throw new Error('User does not exist')
+        resolve({
+          username,
+          status,
+          blurb,
+          joinDate,
+          age,
+          friendCount,
+          followerCount,
+          followingCount,
+          oldNames,
+          isBanned
+        })
       }
     })
+  })
+}
+
+function constructRequest (url) {
+  return http({
+    url: url,
+    options: {
+      resolveWithFullResponse: true,
+      followRedirect: false,
+      json: true
+    }
+  })
+}
+
+exports.func = (args) => {
+  return getPlayerInfo(args.userId)
 }
 </code></pre>
         </article>

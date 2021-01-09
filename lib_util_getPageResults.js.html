@@ -184,23 +184,26 @@ function getPageResults (jar, url, query, sortOrder, limit, pageCursor, results)
       }
     }
     return http(httpOpt).then((res) => {
-      const body = res.body
+      let body = res.body
+      if (typeof (body) === 'string') body = JSON.parse(body.trim())
+
+      const data = body.data
 
       if (body.errors &amp;&amp; body.errors.length > 0) {
         const errors = body.errors.map((e) => {
           return e.message
         })
 
-        throw new Error(`${res.statusCode} ${errors.join(', ')}`)
+        return reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
       }
 
-      results = results ? results.concat(body.data) : body.data
+      results = results ? results.concat(data) : data
 
       if (results.length > limit) {
         results = results.slice(0, limit)
       }
 
-      if (results.length >= limit || body.data.length === 0 || !body.nextPageCursor) {
+      if (results.length >= limit || data.length === 0 || !body.nextPageCursor) {
         return resolve(results)
       }
 
@@ -211,6 +214,8 @@ function getPageResults (jar, url, query, sortOrder, limit, pageCursor, results)
 
 function parseDates (results) {
   return new Promise((resolve, reject) => {
+    if (!results) return resolve([])
+
     resolve(results.map(result => {
       if (result.created) result.created = new Date(result.created)
       if (result.updated) result.updated = new Date(result.updated)
