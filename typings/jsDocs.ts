@@ -1137,14 +1137,14 @@ type UserPresence = {
 */
 type PlayerInfo = {
     username: string;
-    status: string;
+    status?: string;
     blurb: string;
     joinDate: Date;
-    age: number;
-    friendCount: number;
-    followerCount: number;
-    followingCount: number;
-    oldNames: string[];
+    age?: number;
+    friendCount?: number;
+    followerCount?: number;
+    followingCount?: number;
+    oldNames?: string[];
     isBanned: boolean;
 }
 type Presences = {
