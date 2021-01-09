@@ -444,6 +444,16 @@ declare module "noblox.js" {
         TotalCollectionSize: number;
     }
 
+    interface GamePassResponse
+    {
+        gamePassId: number,
+        name?: string,
+        description?: string,
+        price?: number,
+        isForSale?: boolean,
+        iconChanged?: boolean
+    }
+
     interface PlaceInformation {
         AssetId: number;
         Name: string;
@@ -1054,6 +1064,8 @@ declare module "noblox.js" {
 
     /**
      * Configures an item (shirt, pants, decal, etc.) with the id `id` to have `name` and `description`. If `enableComments` is true comments will be allowed and if `sellForRobux` is set it will be put on sale for that amount of robux.
+     *
+     * NOTE: Use `configureGamePass()` for Game Passes.
      */
     function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<void>;
 
@@ -1200,6 +1212,15 @@ declare module "noblox.js" {
     function getDeveloperProducts(placeId: number, page: number, jar?: CookieJar): Promise<DeveloperProductsResult>;
 
     function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
+
+    /**
+     * Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the gamepass off-sale.
+     * Returns a `GamePassResponse` with the changed attributes.
+     * 
+     * NOTE: Updating `name` will affect `description`: you must repeat `description` with each `name` update, or `description` will be cleared.
+     */
+    
+    function configureGamePass(gamePassId: number, name: string, description?: string, price?: number | boolean, icon?: string | stream.Stream, jar?: CookieJar): Promise<GamePassResponse>;
 
     /// Group
 

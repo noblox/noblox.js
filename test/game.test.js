@@ -1,4 +1,4 @@
-const { addDeveloperProduct, checkDeveloperProductName, getDeveloperProducts, getGameBadges, getGameInstances, getPlaceInfo, updateDeveloperProduct, setCookie } = require('../lib')
+const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getPlaceInfo, updateDeveloperProduct, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -30,6 +30,20 @@ describe('Game Methods', () => {
       return expect(res).toMatchObject({
         Success: expect.any(Boolean),
         Message: expect.any(String)
+      })
+    })
+  })
+
+  it('configureGamePass() should configure a game pass', () => {
+    const randomString = Date.now().toString().substr(-2)
+    return configureGamePass(13925030, `name${randomString}`, `random description`, parseInt(randomString)).then((res) => {
+      return expect(res).toMatchObject({
+        gamePassId: 13925030,
+        name: `name${randomString}`,
+        description: `random description`,
+        price: parseInt(randomString),
+        isForSale: true,
+        iconChanged: false
       })
     })
   })
