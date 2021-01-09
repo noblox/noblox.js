@@ -25,11 +25,11 @@ jobs:
       - name: Lint lib/
         run: yarn lint
 
-      - name: Test methods
-        run: COOKIE=$COOKIE; COOKIE_2=$COOKIE_2; yarn test
-        env:
-          COOKIE: ${{secrets.COOKIE}}
-          COOKIE_2: ${{secrets.COOKIE_2}}
+#      - name: Test methods
+#        run: COOKIE=$COOKIE; COOKIE_2=$COOKIE_2; yarn test
+#        env:
+#          COOKIE: ${{secrets.COOKIE}}
+#          COOKIE_2: ${{secrets.COOKIE_2}}
 
   publish-npm:
     needs: test
