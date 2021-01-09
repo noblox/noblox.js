@@ -283,7 +283,11 @@ describe('User Methods', () => {
         blurb: expect.any(String),
         joinDate: expect.any(Date),
         age: expect.any(Number),
-        oldNames: expect.any(Array)
+        friendCount: expect.any(Number),
+        followerCount: expect.any(Number),
+        followingCount: expect.any(Number),
+        oldNames: expect.any(Array),
+        isBanned: expect.any(Boolean)
       })
     })
   })
