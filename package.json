@@ -4,6 +4,9 @@
   "description": "A Node.js wrapper for ROBLOX. (original from sentanos)",
   "main": "lib/index.js",
   "types": "typings/index.d.ts",
+  "engines" : {
+    "node" : ">=12.9"
+  },
   "scripts": {
     "docs": "jsdoc -c jsDocsConfig.json -r -t ./node_modules/better-docs",
     "lint": "eslint lib/",
