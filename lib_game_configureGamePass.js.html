@@ -170,15 +170,14 @@ exports.optional = ['description', 'price', 'icon', 'jar']
 // Define
 function configureGamePass (gamePassId, name, description, price, icon, jar, token) {
   return new Promise((resolve, reject) => {
-    const file = icon
-      ? {
-        value: icon,
-        options: {
-          filename: 'icon.png',
-          contentType: 'image/png'
-        }
+    const file = icon &amp;&amp; {
+      value: icon,
+      options: {
+        filename: 'icon.png',
+        contentType: 'image/png'
       }
-      : undefined
+    }
+
     const httpOpt = {
       url: '//www.roblox.com/game-pass/update',
       options: {
