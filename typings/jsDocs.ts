@@ -1318,8 +1318,7 @@ type CanTradeResponse = {
 /**
  * @typedef
 */
-type TradeUser
-{
+type TradeUser = {
     userId: number;
     username: string;
     displayName: string;

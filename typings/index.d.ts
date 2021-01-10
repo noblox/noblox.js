@@ -1333,9 +1333,9 @@ declare module "noblox.js" {
     function promote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
 
     /**
-     * Promotes player with userId `target` in group with groupId `group` to rank `rank`, roleset `roleset`, or name `name`. One is required but not all, use `roleset` to speed up requests and `name` if there are ambiguous ranks (same rank number). If a rank or name was passed the corresponding role will be returned.
+     * Changes the rank of the player with the `target` userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
      */
-    function setRank(group: number, target: number, rank: number | string, jar?: CookieJar): Promise<Role>;
+    function setRank(group: number, target: number, rank: number | string | Role, jar?: CookieJar): Promise<Role>;
 
     /**
      * Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
@@ -1390,7 +1390,7 @@ declare module "noblox.js" {
     /**
      * Returns role information of rank `rank`, which can be a single rank or an array of ranks. The `roles` object can be passed in directly from the `getRoles` function or the `group` id can be given to retrieve it automatically. If an array of ranks is inputted a parallel array of roles is returned. Alternatively, the name `name` of the role can be searched for, this should be used if there are "ambiguous roles" that have the same rank. If ambiguous roles cannot be resolved an error will be thrown. The actual roleset `id` may be used as well.
      */
-    function getRole(group: number | Role[], rank: number | number[] | string | string[]): Promise<Role>;
+    function getRole(group: number | Role[], roleQuery: number | string): Promise<Role>;
 
     /**
      * Returns the permissions a role has been assigned.
