@@ -6757,6 +6757,8 @@ const badges = await noblox.getAwardedTimestamps(1, [1, 2, 3])</code></pre>
     
 
     
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>Obsolete function, will be deleted in future version. Use getPlayerInfo instead.</li></ul></dd>
+    
 
     
 
@@ -6775,7 +6777,7 @@ const badges = await noblox.getAwardedTimestamps(1, [1, 2, 3])</code></pre>
         <p class="tag-source">
             <a href="lib_user_getBlurb.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_getBlurb.js.html">lib/user/getBlurb.js</a>, <a href="lib_user_getBlurb.js.html#line20">line 20</a>
+                <a href="lib_user_getBlurb.js.html">lib/user/getBlurb.js</a>, <a href="lib_user_getBlurb.js.html#line21">line 21</a>
             </span>
         </p>
     
@@ -15897,7 +15899,7 @@ const recentlyWorn = await noblox.getRecentItems("All")</code></pre>
         
         <span class="code-name">
             
-                getRole<span class="signature">(group, rank)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#Role">Role</a>>}</span>
+                getRole<span class="signature">(group, roleQuery)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#Role">Role</a>>}</span>
             
         </span>
     </h4>
@@ -15963,7 +15965,7 @@ const recentlyWorn = await noblox.getRecentItems("All")</code></pre>
 
   
 
-  <td class="description last"><p>| roles - The id of the group or an array of roles.</p></td>
+  <td class="description last"><p>The ID of the group or an array of roles to query.</p></td>
 </tr>
 
 
@@ -15972,7 +15974,7 @@ const recentlyWorn = await noblox.getRecentItems("All")</code></pre>
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>rank</code></td>
+      <td class="name"><code>roleQuery</code></td>
   
 
   <td class="type">
@@ -15991,7 +15993,7 @@ const recentlyWorn = await noblox.getRecentItems("All")</code></pre>
 
   
 
-  <td class="description last"><p>| name | id - The rank, the name of the role, or roleset ID.</p></td>
+  <td class="description last"><p>The rank of a role, the name of the role, or roleset ID.</p></td>
 </tr>
 
 
@@ -16039,7 +16041,7 @@ const recentlyWorn = await noblox.getRecentItems("All")</code></pre>
         <p class="tag-source">
             <a href="lib_group_getRole.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_group_getRole.js.html">lib/group/getRole.js</a>, <a href="lib_group_getRole.js.html#line24">line 24</a>
+                <a href="lib_group_getRole.js.html">lib/group/getRole.js</a>, <a href="lib_group_getRole.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -17339,6 +17341,8 @@ const groupShout = await noblox.getShout(1)</code></pre>
     
 
     
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>Obsolete function, will be deleted in future version. Use getPlayerInfo instead.</li></ul></dd>
+    
 
     
 
@@ -17357,7 +17361,7 @@ const groupShout = await noblox.getShout(1)</code></pre>
         <p class="tag-source">
             <a href="lib_user_getStatus.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_getStatus.js.html">lib/user/getStatus.js</a>, <a href="lib_user_getStatus.js.html#line19">line 19</a>
+                <a href="lib_user_getStatus.js.html">lib/user/getStatus.js</a>, <a href="lib_user_getStatus.js.html#line20">line 20</a>
             </span>
         </p>
     
@@ -17410,7 +17414,7 @@ const groupShout = await noblox.getShout(1)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
-let status = awaut noblox.getStatus({userId: 123456})</code></pre>
+let status = await noblox.getStatus({userId: 123456})</code></pre>
     
 
 
@@ -28723,6 +28727,9 @@ noblox.setPlayerAvatarType("R6")</code></pre>
 |
 
 <span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="global.html#Role">Role</a></span>
 
 
   
@@ -28732,7 +28739,7 @@ noblox.setPlayerAvatarType("R6")</code></pre>
 
   
 
-  <td class="description last"><p>| roleset | name - The rankId, roleset ID, or name of the role.</p></td>
+  <td class="description last"><p>The rank, roleset ID, name of the role, or the actual Role itself.</p></td>
 </tr>
 
 

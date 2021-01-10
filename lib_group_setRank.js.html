@@ -148,7 +148,7 @@ const getGeneralToken = require('../util/getGeneralToken.js').func
 const getRole = require('./getRole.js').func
 
 // Args
-exports.required = ['group', 'target', ['rank', 'roleset', 'name']]
+exports.required = ['group', 'target', 'rank']
 exports.optional = ['jar']
 
 // Docs
@@ -158,7 +158,7 @@ exports.optional = ['jar']
  * @alias setRank
  * @param {number} group - The id of the group.
  * @param {number} target - The id of the user whose rank is being changed.
- * @param {number | string} rank | roleset | name - The rankId, roleset ID, or name of the role.
+ * @param {number | string | Role} rank - The rank, roleset ID, name of the role, or the actual Role itself.
  * @returns {Promise&lt;Role>}
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
@@ -209,30 +209,16 @@ function runWithToken (args) {
 }
 
 exports.func = function (args) {
-  if (!args.roleset) {
-    const rank = args.rank
-    const opt = {
-      group: args.group
-    }
-    if (!rank) {
-      opt.name = args.name
-    } else {
-      if (typeof rank !== 'number') {
-        throw new Error('setRank: Rank number must be a number')
-      }
-      opt.rank = rank
-    }
-    return getRole(opt)
-      .then(function (role) {
-        if (!role) {
-          throw new Error('Role does not exist')
-        }
-        args.role = role
-        return runWithToken(args)
-      })
-  } else {
-    args.role = { ID: args.roleset }
+  if (typeof args.rank === 'object') { // assumes they gave Role
+    args.role = args.rank
     return runWithToken(args)
+  } else if (typeof args.rank === 'number' || typeof args.rank === 'string') {
+    return getRole({ group: args.group, roleQuery: args.rank }).then((role) => {
+      args.role = role
+      return runWithToken(args)
+    })
+  } else {
+    throw new Error('Please provide either a Role, rank, or role name to change the user\'s rank to')
   }
 }
 </code></pre>

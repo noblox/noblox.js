@@ -150,61 +150,62 @@ const Promise = require('bluebird')
 const getRoles = require('./getRoles.js').func
 
 // Args
-exports.required = [['group', 'roles'], ['rank', 'name', 'id']]
+exports.required = ['group', 'roleQuery']
+exports.optional = []
 
 // Docs
 /**
  * Get a role in a group.
  * @category Group
  * @alias getRole
- * @param {number | Array} group | roles - The id of the group or an array of roles.
- * @param {number | String} rank | name | id - The rank, the name of the role, or roleset ID.
+ * @param {number | Array} group - The ID of the group or an array of roles to query.
+ * @param {number | String} roleQuery - The rank of a role, the name of the role, or roleset ID.
  * @returns {Promise&lt;Role>}
  * @example const noblox = require("noblox.js")
  * const customerRole = await noblox.getRole(1, "Customer")
 **/
 
 // Define
-function getRole (args) {
-  const roles = args.roles
-  const rank = args.rank
-  const name = args.name
-  const id = args.id
-  const search = rank || name || id
-  const found = {}
-  const result = []
-  const isObject = search instanceof Object
-  for (let i = 0; i &lt; roles.length; i++) {
-    const role = roles[i]
-    let find
-    if (rank) {
-      find = role.rank
-    } else if (name) {
-      find = entities.decodeHTML(role.name)
-    } else if (id) {
-      find = role.ID
+function getRole (roles, roleQuery) {
+  return new Promise((resolve, reject) => {
+    const result = []
+
+    for (let i = 0; i &lt; roles.length; i++) {
+      const role = roles[i]
+      let find
+      if (typeof roleQuery === 'number' &amp;&amp; roleQuery &lt;= 255) {
+        find = role.rank
+      } else if (typeof roleQuery === 'string') {
+        find = entities.decodeHTML(role.name)
+      } else if (typeof roleQuery === 'number' || roleQuery > 255) {
+        find = role.ID
+      }
+
+      if (roleQuery === find) {
+        result.push(role)
+      }
     }
-    if (found[find]) {
-      throw new Error('There are two or more roles with the rank ' + rank + '. You must specify the role name.')
+
+    if (result.length === 1) {
+      resolve(result[0])
+    } else if (result.length > 1) {
+      reject(new Error(`There are two or more roles with the rank ${roleQuery}. You must specify the role name.`))
+    } else {
+      reject(new Error('Role not found with provided query.'))
     }
-    const index = isObject ? search.indexOf(find) : 0
-    if (isObject ? index > -1 : search === find) {
-      found[find] = true
-      result[index] = role
-    }
-  }
-  return isObject ? result : (result[0] || false)
+  })
 }
 
 exports.func = function (args) {
-  if (args.roles) {
-    return Promise.resolve(getRole(args))
+  if (typeof args.group === 'number') {
+    return getRoles({ group: args.group }).then(function (roles) {
+      return getRole(roles, args.roleQuery)
+    })
+  } else if (typeof args.group === 'object') {
+    return getRole(args.group, args.roleQuery)
   } else {
-    return getRoles({ group: args.group })
-      .then(function (roles) {
-        args.roles = roles
-        return getRole(args)
-      })
+    console.log(args)
+    throw new Error('Please provide a valid group or an array of roles to query.')
   }
 }
 </code></pre>
