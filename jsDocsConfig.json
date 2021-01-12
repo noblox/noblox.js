@@ -37,8 +37,8 @@
                     "href": "https://github.com/suufi/noblox.js"
                 },
                 {
-                    "label": "Roblox API Server",
-                    "href": "https://discord.gg/EDXNdAT"
+                    "label": "noblox.js Discord",
+                    "href": "https://discord.gg/R5GVSyTVGv"
                 }
             ],
             "trackingCode": "<!-- Global site tag (gtag.js) - Google Analytics -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=UA-121100860-3\"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'UA-121100860-3');\n</script>\n"
