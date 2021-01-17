@@ -250,8 +250,26 @@ describe('User Methods', () => {
     })
   })
 
-  it('getOwnership() returns if a player owns the specified asset', () => {
+  it('getOwnership() [ASSET] returns if a player owns the specified asset', () => {
     return getOwnership(55549140, 1900419889).then((res) => {
+      return expect(res).toBe(true)
+    })
+  })
+
+  it('getOwnership() [GAMEPASS] returns if a player owns the specified game pass', () => {
+    return getOwnership(55549140, 1537467, 'GamePass').then((res) => {
+      return expect(res).toBe(true)
+    })
+  })
+
+  it('getOwnership() [BADGE] returns if a player owns the specified badge', () => {
+    return getOwnership(55549140, 176332932, 'Badge').then((res) => {
+      return expect(res).toBe(true)
+    })
+  })
+
+  it('getOwnership() [BUNDLE] returns if a player owns the specified bundle', () => {
+    return getOwnership(55549140, 79, 'Bundle').then((res) => {
       return expect(res).toBe(true)
     })
   })

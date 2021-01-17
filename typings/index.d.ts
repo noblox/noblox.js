@@ -1277,7 +1277,7 @@ declare module "noblox.js" {
     function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
 
     /**
-     * Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the gamepass off-sale.
+     * Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the game pass off-sale.
      * Returns a `GamePassResponse` with the changed attributes.
      * 
      * NOTE: Updating `name` will affect `description`: you must repeat `description` with each `name` update, or `description` will be cleared.
@@ -1528,13 +1528,12 @@ declare module "noblox.js" {
     /**
      * Gets the messages of the logged in user or of the user specified by the jar. Returns by newest to oldest messages.
      */
-    function getMessages(pageNumber?: number, pageSize?: number, messageTab?: 'Archive' | 'Inbox' | 'Sent', jar?: CookieJar): Promise<PrivateMessagesPage>;
-
+    function getMessages(pageNumber?: number, pageSize?: number, messageTab?: "Archive" | "Inbox" | "Sent", jar?: CookieJar): Promise<PrivateMessagesPage>;
 
     /**
      * Returns whether a user owns an asset or not
      */
-    function getOwnership(userId: number, assetId: number): Promise<boolean>;
+    function getOwnership(userId: number, itemTargetId: number, itemType?: "Asset" | "GamePass" | "Badge" | "Bundle"): Promise<boolean>;
 
     /**
      * Gets the badges of a user.
