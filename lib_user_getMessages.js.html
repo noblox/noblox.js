@@ -157,7 +157,7 @@ exports.optional = ['pageNumber', 'pageSize', 'messageTab', 'jar']
  * @alias getMessages
  * @param {number=} [pageNumber=0] - The number of the current page.
  * @param {number=} [pageSize=25] - The size of the current page.
- * @param {('Inbox' | 'Sent' | 'Archive')=} [messageTab='Inbox'] - The tab of the messages being fetched (Inbox, Sent, Archive)
+ * @param {("Inbox" | "Sent" | "Archive")=} [messageTab=Inbox] - The tab of the messages being fetched (Inbox, Sent, Archive)
  * @returns {Promise&lt;PrivateMessagesPage>}
  * @example const noblox = require("noblox.js")
  * // Login using your cookie

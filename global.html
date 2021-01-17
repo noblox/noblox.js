@@ -12905,13 +12905,13 @@ const requests = await noblox.getJoinRequests(1, "Asc")</code></pre>
   <td class="type">
   
       
-<span class="param-type">'Inbox'</span>
+<span class="param-type">"Inbox"</span>
 |
 
-<span class="param-type">'Sent'</span>
+<span class="param-type">"Sent"</span>
 |
 
-<span class="param-type">'Archive'</span>
+<span class="param-type">"Archive"</span>
 
 
   
@@ -12932,7 +12932,7 @@ const requests = await noblox.getJoinRequests(1, "Asc")</code></pre>
   
       <td class="default">
       
-          'Inbox'
+          Inbox
       
       </td>
   
@@ -13054,7 +13054,7 @@ let messages = await noblox.getMessages(1, 10, "Inbox"))</code></pre>
         
         <span class="code-name">
             
-                getOwnership<span class="signature">(userId, assetId)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span>
+                getOwnership<span class="signature">(userId, itemTargetId, itemType<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span>
             
         </span>
     </h4>
@@ -13088,7 +13088,11 @@ let messages = await noblox.getMessages(1, 10, "Inbox"))</code></pre>
             <th>Type</th>
 
             
+            <th>Attributes</th>
+            
 
+            
+            <th>Default</th>
             
 
             <th class="last">Description</th>
@@ -13114,7 +13118,19 @@ let messages = await noblox.getMessages(1, 10, "Inbox"))</code></pre>
   </td>
 
   
+      <td class="attributes">
+      
 
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
   
 
   <td class="description last"><p>The id of the user whose ownership is being checked.</p></td>
@@ -13126,7 +13142,7 @@ let messages = await noblox.getMessages(1, 10, "Inbox"))</code></pre>
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>assetId</code></td>
+      <td class="name"><code>itemTargetId</code></td>
   
 
   <td class="type">
@@ -13139,10 +13155,72 @@ let messages = await noblox.getMessages(1, 10, "Inbox"))</code></pre>
   </td>
 
   
+      <td class="attributes">
+      
 
+      
+
+      
+      </td>
   
 
-  <td class="description last"><p>The id of the asset.</p></td>
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last"><p>The id of the item.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>itemType</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">"Asset"</span>
+|
+
+<span class="param-type">"GamePass"</span>
+|
+
+<span class="param-type">"Badge"</span>
+|
+
+<span class="param-type">"Bundle"</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          Asset
+      
+      </td>
+  
+
+  <td class="description last"><p>The type of item in question (Asset, GamePass, Badge, Bundle)</p></td>
 </tr>
 
 
@@ -13190,7 +13268,7 @@ let messages = await noblox.getMessages(1, 10, "Inbox"))</code></pre>
         <p class="tag-source">
             <a href="lib_user_getOwnership.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_getOwnership.js.html">lib/user/getOwnership.js</a>, <a href="lib_user_getOwnership.js.html#line21">line 21</a>
+                <a href="lib_user_getOwnership.js.html">lib/user/getOwnership.js</a>, <a href="lib_user_getOwnership.js.html#line22">line 22</a>
             </span>
         </p>
     
@@ -13243,7 +13321,7 @@ let messages = await noblox.getMessages(1, 10, "Inbox"))</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
-let ownership = await noblox.getOwnership(123456, 234567)</code></pre>
+let ownership = await noblox.getOwnership(123456, 234567, "GamePass")</code></pre>
     
 
 
