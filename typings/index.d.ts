@@ -1250,10 +1250,10 @@ declare module "noblox.js" {
     function getGameBadges(universeId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<BadgeInfo>
 
     /**
-     * Returns information about the place in question, such as Description, name etc. Varies based on whether or not you're logged in.
+     * Returns information about the place in question, such as description, name etc; varies based on whether or not you're logged in.
      * @param placeId The place whose information is being fetched.
      */
-    function getPlaceInfo(placeId: number): Promise<PlaceInformation>;
+    function getPlaceInfo(placeId: number, jar?: CookieJar): Promise<PlaceInformation>;
 
     // You can create a developer product, but the productId returned does not match the actual developer product id needed by the endpoints.
     // It's strange, but the edit link on the product page has the id that Roblox wants so you can edit dev products.
