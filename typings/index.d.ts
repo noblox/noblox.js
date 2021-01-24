@@ -1704,7 +1704,7 @@ declare module "noblox.js" {
     /**
      * Returns the results from indexing the requested pages.
      */
-    function getPageResults(url: string, query: string, sortOrder?: string): Array;
+    function getPageResults(url: string, query: string, sortOrder?: string): Array<any>;
 
     /**
      * Gets the user ID of the current logged in user and caches it permanently. This is needed for some functions.
