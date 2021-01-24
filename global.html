@@ -14857,7 +14857,7 @@ const players = await noblox.getPlayers(1, 1117747196)</code></pre>
   
       <td class="default">
       
-          Png
+          png
       
       </td>
   
@@ -15004,7 +15004,7 @@ const players = await noblox.getPlayers(1, 1117747196)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
-let thumbnails = await noblox.getPlayerThumbnail({userIds: [123456, 234567, 345678], size: 30, format: "jpeg", isCircular: false})</code></pre>
+let thumbnails = await noblox.getPlayerThumbnail([123456, 234567, 345678], 30, "jpeg", false)</code></pre>
     
 
 
@@ -48503,7 +48503,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>EmblemId</code></td>
+        <td class="name"><code>MemberCount</code></td>
     
 
     <td class="type">
@@ -48572,13 +48572,13 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>IsPrimary</code></td>
+        <td class="name"><code>RoleId</code></td>
     
 
     <td class="type">
     
         
-<span class="param-type">boolean</span>
+<span class="param-type">number</span>
 
 
     
@@ -48595,7 +48595,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>IsInClan</code></td>
+        <td class="name"><code>IsPrimary</code></td>
     
 
     <td class="type">

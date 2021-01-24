@@ -147,7 +147,7 @@ const http = require('../util/http.js').func
 
 // Args
 exports.required = ['userId']
-exports.optional = ['jar']
+exports.optional = []
 
 // Docs
 /**
@@ -161,36 +161,71 @@ exports.optional = ['jar']
 **/
 
 // Define
-function getGroups (jar, userId) {
+function getGroups (userId) {
   return new Promise((resolve, reject) => {
-    const httpOpt = {
-      url: `//api.roblox.com/users/${userId}/groups`,
-      options: {
-        method: 'GET',
-        jar: jar,
-        resolveWithFullResponse: true
-      }
-    }
-    return http(httpOpt)
-      .then(function (res) {
-        if (res.statusCode === 200) {
-          resolve(JSON.parse(res.body))
-        } else {
-          const body = JSON.parse(res.body) || {}
-          if (body.errors &amp;&amp; body.errors.length > 0) {
-            const errors = body.errors.map((e) => {
-              return e.message
-            })
-            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-          }
+    const requests = [
+      constructRequest(`//groups.roblox.com/v2/users/${userId}/groups/roles`),
+      constructRequest(`//groups.roblox.com/v1/users/${userId}/groups/primary/role`)
+    ]
+
+    const result = []
+
+    Promise.allSettled(requests).then(async (promiseResponses) => {
+      let responses = promiseResponses.map(response => response.value)
+      const failedResponse = (responses[0].statusCode !== 200 || !responses[0].body) // we only check the first request because the second one errors if a primary is not set
+
+      if (failedResponse) {
+        const body = responses[0].body || {}
+        if (body.errors &amp;&amp; body.errors.length > 0) {
+          const errors = body.errors.map((e) => {
+            return e.message
+          })
+          reject(new Error(`${responses[0].statusCode} ${errors.join(', ')}`))
         }
-      })
+        reject(new Error('The provided user ID is not valid.'))
+      }
+
+      responses = responses.map(r => r.body)
+
+      const groupRoleData = responses[0].data
+      if (groupRoleData) {
+        const primaryGroupId = responses[1].group &amp;&amp; responses[1].group.id
+
+        const groupThumbails = await constructRequest(`https://thumbnails.roblox.com/v1/groups/icons?groupIds=${groupRoleData.map(data => data.group.id).join(',')}&amp;size=150x150&amp;format=Png&amp;isCircular=false`)
+
+        groupRoleData.forEach(data => {
+          const insertion = {
+            Id: data.group.id,
+            Name: data.group.name,
+            MemberCount: data.group.memberCount,
+            IsPrimary: data.group.id === primaryGroupId,
+            Rank: data.role.rank,
+            Role: data.role.name,
+            RoleId: data.role.id,
+            EmblemUrl: groupThumbails.body.data.find(thumbnail => thumbnail.targetId === data.group.id).imageUrl
+          }
+          result.push(insertion)
+        })
+      }
+
+      resolve(result)
+    })
   })
 }
 
-exports.func = function (args, senderUserId) {
-  const jar = args.jar
-  return getGroups(jar, args.userId)
+function constructRequest (url) {
+  return http({
+    url: url,
+    options: {
+      resolveWithFullResponse: true,
+      followRedirect: false,
+      json: true
+    }
+  })
+}
+
+exports.func = function (args) {
+  return getGroups(args.userId)
 }
 </code></pre>
         </article>
