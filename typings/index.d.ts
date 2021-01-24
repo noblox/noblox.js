@@ -32,11 +32,11 @@ declare module "noblox.js" {
         Name: string,
         Id: number,
         EmblemUrl: string,
-        EmblemId: number,
+        MemberCount: number,
         Rank: number,
         Role: string,
+        RoleId: number,
         IsPrimary: boolean,
-        IsInClan: boolean
     }
 
     interface ProductInfo {
