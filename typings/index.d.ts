@@ -990,10 +990,6 @@ declare module "noblox.js" {
         assetStock?: number;
         buildersClubMembershipType: number;
     }
-
-    interface Collectibles {
-        collectibles: CollectibleEntry[];
-    }
     //
 
     interface InventoryEntry {
@@ -1569,7 +1565,7 @@ declare module "noblox.js" {
     /**
      * Get the collectibles of a user.
      */
-    function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Collectibles>;
+    function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<CollectibleEntry[]>;
 
     /**
      * Get the UserAssetIDs for assets a user owns.
