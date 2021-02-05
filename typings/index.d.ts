@@ -1003,10 +1003,6 @@ declare module "noblox.js" {
         owner?: AssetOwner;
     }
 
-    interface Inventory {
-        items: InventoryEntry[];
-    }
-
     ///Trading
 
     interface UAIDResponse {
@@ -1575,12 +1571,12 @@ declare module "noblox.js" {
     /**
      * Get the inventory of a user.
      */
-    function getInventory(userId: number, assetTypes: Array<string>, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Inventory>;
+    function getInventory(userId: number, assetTypes: Array<string>, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<InventoryEntry[]>;
 
     /**
      * Get the inventory of a user by the assetTypeId.
      */
-    function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<Inventory>;
+    function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<InventoryEntry[]>;
 
     ///Trades
 
