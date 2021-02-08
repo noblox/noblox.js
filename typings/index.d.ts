@@ -1370,6 +1370,11 @@ declare module "noblox.js" {
     function getPlayers(group: number, rolesetId: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
     /**
+     * Gets whether or not a user has premium.
+     */
+    function getPremium(userId: number, jar?: CookieJar): Promise<boolean>;
+
+    /**
      * Gets `rank` of user with `userId` in `group` and caches according to settings.
      */
     function getRankInGroup(group: number, userId: number): Promise<number>;
