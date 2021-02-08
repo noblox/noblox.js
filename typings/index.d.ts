@@ -1315,11 +1315,6 @@ declare module "noblox.js" {
     function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Posts message `message` on the group wall with groupId `group`.
-     */
-    function post(group: number, message: string, jar?: CookieJar): Promise<void>;
-
-    /**
      * Alias of `changeRank(group, target, 1)`.
      */
     function promote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
