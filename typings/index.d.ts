@@ -1535,7 +1535,7 @@ declare module "noblox.js" {
     /**
      * Gets the thumbnail of an array of users.
      */
-    function getPlayerThumbnail(userIds: number | number[], size: 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720, format?: string, isCircular?: boolean): Promise<PlayerThumbnailData[]>;
+    function getPlayerThumbnail(userIds: number | number[], size: 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720, format?: "png" | "jpeg", isCircular?: boolean, isHeadshot?: boolean): Promise<PlayerThumbnailData[]>;
 
     /**
      * Gets the presence statuses of the specified users
