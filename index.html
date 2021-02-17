@@ -207,11 +207,8 @@ The library is no longer responsible for refreshing your cookies</p>
 <h3>Initial setup</h3>
 <ol>
 <li>Remove any usages of the <code>login</code> or <code>cookieLogin</code> methods.</li>
-<li>Run <code>setCookie</code> with your cookie. This will store your cookie internally and validate it, but will perform <strong>no</strong> cookie refresh automatically</li>
-<li>While this works, Roblox <code>.ROBLOSECURITY</code> cookies expire after an unknown length of time. For applications which run continuously, <strong>you must</strong> use the function <code>refreshCookie</code> to prevent this. This will refresh either the cookie you pass or the internally stored cookie and return the new one.*</li>
-<li>You need to store this new cookie somewhere - whether it be in a database, or a JSON file.</li>
+<li>Run <code>setCookie</code> with your cookie. This will store your cookie internally and validate it</li>
 </ol>
-<p>* See <a href="#cookie-expiration">Cookie expiration</a> for an in depth discussion of cookie expiration.</p>
 <blockquote>
 <p>Note: By default, setCookie will validate the cookie you provide by making a HTTP request.
 To Disable this behaviour, pass <code>false</code> as the second parameter (validate)</p>
@@ -222,7 +219,7 @@ To Disable this behaviour, pass <code>false</code> as the second parameter (vali
 <li>Press <code>Control + Shift + i</code> on your keyboard</li>
 <li>Click <code>Application</code></li>
 <li>Find <code>.ROBLOSECURITY</code>. Copy its contents, which will start with: <code>_|WARNING:-DO</code></li>
-<li>Put this full token, <em>including</em> the warning into cookieLogin: <code>rbx.setCookie( tokenHere )</code></li>
+<li>Put this full token, <em>including</em> the warning into setCookie: <code>rbx.setCookie( tokenHere )</code></li>
 </ol>
 <h3>Example</h3>
 <p>This example makes use of the new async-await syntax.</p>
