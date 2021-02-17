@@ -58,11 +58,9 @@ You can find the current noblox.js wiki with all API documentation [here](https:
 > This is because of many reasons including that creating a file caused several security/usability issues and made the library incompatible with some hosts.
 ### Initial setup
 1. Remove any usages of the `login` or `cookieLogin` methods.
-2. Run `setCookie` with your cookie. This will store your cookie internally and validate it, but will perform **no** cookie refresh automatically
-3. While this works, Roblox `.ROBLOSECURITY` cookies expire after an unknown length of time. For applications which run continuously, **you must** use the function `refreshCookie` to prevent this. This will refresh either the cookie you pass or the internally stored cookie and return the new one.*
-4. You need to store this new cookie somewhere - whether it be in a database, or a JSON file.
+2. Run `setCookie` with your cookie. This will store your cookie internally and validate it
 
-\* See [Cookie expiration](#cookie-expiration) for an in depth discussion of cookie expiration.
+
 > Note: By default, setCookie will validate the cookie you provide by making a HTTP request.
 > To Disable this behaviour, pass `false` as the second parameter (validate)
     
@@ -71,7 +69,7 @@ You can find the current noblox.js wiki with all API documentation [here](https:
 2. Press `Control + Shift + i` on your keyboard
 3. Click `Application`
 4. Find `.ROBLOSECURITY`. Copy its contents, which will start with: `_|WARNING:-DO`
-5. Put this full token, *including* the warning into cookieLogin: `rbx.setCookie( tokenHere )`
+5. Put this full token, *including* the warning into setCookie: `rbx.setCookie( tokenHere )`
     
 ### Example
 This example makes use of the new async-await syntax.
