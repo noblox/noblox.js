@@ -185,6 +185,21 @@ noblox.setCookie(process.env.COOKIE).then(function() { //Use COOKIE from our .en
     console.log(&quot;Unable to log in!&quot;, err)
 })
 </code></pre>
+<h3>⚠️ Usage warning</h3>
+<p>An authentication error which is often seen is <code>Cannot get CSRF: You are not logged in.</code>.
+This is an error caused by trying to use an authenticated method, while not having set a cookie.
+This is usually for one of two reasons:</p>
+<h4>Reason 1: Not used method</h4>
+<p>You haven't set the cookie. This should be pretty self-explanatory, and can also appear as &quot;Authorization has been denied for this request&quot;.
+To solve this case, use the <a href="./global.html#setCookie">setCookie</a> method.</p>
+<h4>Reason 2: Promises</h4>
+<p>More often than not, this error is caused by misuse of promises.
+The setCookie method, like most of our methods, returns a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>.</p>
+<p>Ensure you use either <code>async await</code> or the <code>.then</code> and <code>.catch</code> methods. If using Async await, you must put any
+authenticated code either WITHIN the same async function, or in another function which is called after your setCookie
+completes. The cookie will <strong>not</strong> be set until setCookie is complete.</p>
+<p>If using <code>then</code> and <code>catch</code>, likewise it should be within the <code>then</code> block or a function called by it.</p>
+<p>You can read more about Promises <a href="./tutorial-Promises.html">here</a>.</p>
 </article>
 
 </section>
