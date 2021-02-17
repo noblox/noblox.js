@@ -85,7 +85,6 @@ async function startApp () {
 ```
 
 ## Drawbacks
-- You need to set up something to store and refresh cookies yourself 
 - Roblox-js-server is **not** currently compatible. Use [noblox.js-server](https://github.com/Hamzah-z/noblox.js-server) instead.
 
 ## Common issues
@@ -96,11 +95,10 @@ To make use of the new fix, run `npm install noblox.js@4.6.3`. Alternatively, us
 
 
 ### Cookie expiration
-We do not know for a fact whether Roblox cookies expire. Roblox has not enlightened us on this fact, so we're pretty much in the dark.
+We previously advised users to refresh cookies. This is no longer the case.
+Your Roblox authentication cookies will not expire as long as you do not log into the account, or use the log out or "Sign out all sessions" buttons.
 
-We advise that you refresh your cookies in a production environment **no more often than** once every 24 hours.
-However, several users have noted lately that they've had cookies last for several months - meaning you could choose not to refresh your cookie.
-
+For this reason, we advise you use a bot account.
 
 ## Credits
 

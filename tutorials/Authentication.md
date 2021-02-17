@@ -49,3 +49,25 @@ noblox.setCookie(process.env.COOKIE).then(function() { //Use COOKIE from our .en
     console.log("Unable to log in!", err)
 })
 ```
+
+### ⚠️ Usage warning
+
+An authentication error which is often seen is `Cannot get CSRF: You are not logged in.`.
+This is an error caused by trying to use an authenticated method, while not having set a cookie.
+This is usually for one of two reasons:
+#### Reason 1: Not used method
+You haven't set the cookie. This should be pretty self-explanatory, and can also appear as "Authorization has been denied for this request".
+To solve this case, use the [setCookie](./global.html#setCookie) method.
+
+
+#### Reason 2: Promises
+More often than not, this error is caused by misuse of promises.
+The setCookie method, like most of our methods, returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+
+Ensure you use either `async await` or the `.then` and `.catch` methods. If using Async await, you must put any
+authenticated code either WITHIN the same async function, or in another function which is called after your setCookie 
+completes. The cookie will **not** be set until setCookie is complete.
+
+If using `then` and `catch`, likewise it should be within the `then` block or a function called by it.
+
+You can read more about Promises [here](./tutorial-Promises.html).
