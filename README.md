@@ -18,6 +18,7 @@
   <a href="#installation">Installation</a> •
   <a href="#documentation">Docs</a> •
   <a href="https://github.com/suufi/noblox.js/tree/master/examples">Examples</a> •
+  <a href="https://www.youtube.com/playlist?list=PLEW4K4VqMUb_VMA3Yp9LI4gReRyVWGTnU">YouTube Series</a> •
   <a href="#credits">Credits</a> •
   <a href="#license">License</a>
 </p>
