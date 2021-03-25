@@ -1538,7 +1538,7 @@ declare module "noblox.js" {
     function getPlayerInfo(userId: number): Promise<PlayerInfo>;
 
     /**
-     * Gets the thumbnail or headshot of an array of users.
+     * Gets the thumbnail of an array of users.
      */
     function getPlayerThumbnail(userIds: number | number[], size: BodySizes | BustSizes | ThumbnailSizes, format?: "png" | "jpeg", isCircular?: boolean, cropType?: "body" | "bust" | "headshot"): Promise<PlayerThumbnailData[]>;
 
