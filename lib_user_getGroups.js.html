@@ -189,7 +189,7 @@ function getGroups (userId) {
 
       const groupRoleData = responses[0].data
       if (groupRoleData) {
-        const primaryGroupId = responses[1].group &amp;&amp; responses[1].group.id
+        const primaryGroupId = responses[1] &amp;&amp; responses[1].group &amp;&amp; responses[1].group.id
 
         const groupThumbails = await constructRequest(`https://thumbnails.roblox.com/v1/groups/icons?groupIds=${groupRoleData.map(data => data.group.id).join(',')}&amp;size=150x150&amp;format=Png&amp;isCircular=false`)
 
