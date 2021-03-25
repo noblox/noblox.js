@@ -766,6 +766,11 @@ declare module "noblox.js" {
      */
     type UserPresenceType = 0 | 1 | 2 | 3
 
+    // https://noblox.js.org/thumbnailSizes.png | Archived: https://i.imgur.com/UwiKqjs.png
+    type BodySizes = 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720 | "30x30" | "48x48" | "60x60" | "75x75" | "100x100" | "110x110" | "140x140" | "150x150" | "150x200" | "180x180" | "250x250" | "352x352" | "420x420" | "720x720"
+    type BustSizes = 50 | 60 | 75 | "50x50" | "60x60" | "75x75"
+    type HeadshotSizes = 48 | 50 | 60 | 75 | 100 | 110 | 150 | 180 | 352 | 420 | 720 | "48x48" | "50x50" | "60x60" | "75x75" | "100x100" | "110x110" | "150x150" | "180x180" | "352x352" | "420x420" | "720x720";
+
     interface LoggedInUserData {
         UserID: number,
         UserName: string,
@@ -911,8 +916,8 @@ declare module "noblox.js" {
 
     interface PlayerThumbnailData {
         targetId: number;
-        state: string;
-        imageUrl: string;
+        state: "Completed" | "Pending" | "Blocked";
+        imageUrl: string | null;
     }
 
     /// Badges
@@ -943,9 +948,9 @@ declare module "noblox.js" {
     interface PlayerBadges {
         id: number;
         name: string;
-        description: string|null;
+        description: string | null;
         displayName: string;
-        displayDescription: string|null;
+        displayDescription: string | null;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -959,9 +964,9 @@ declare module "noblox.js" {
     interface BadgeInfo {
         id: number;
         name: string;
-        description: string|null;
+        description: string | null;
         displayName: string;
-        displayDescription: string|null;
+        displayDescription: string | null;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -1535,7 +1540,7 @@ declare module "noblox.js" {
     /**
      * Gets the thumbnail or headshot of an array of users.
      */
-    function getPlayerThumbnail(userIds: number | number[], size: 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720, format?: "png" | "jpeg", isCircular?: boolean, isHeadshot?: boolean): Promise<PlayerThumbnailData[]>;
+    function getPlayerThumbnail(userIds: number | number[], size: BodySizes | BustSizes | ThumbnailSizes, format?: "png" | "jpeg", isCircular?: boolean, cropType?: "body" | "bust" | "headshot"): Promise<PlayerThumbnailData[]>;
 
     /**
      * Gets the presence statuses of the specified users
