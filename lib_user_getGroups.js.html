@@ -166,11 +166,14 @@ function getGroups (userId) {
     const requests = [
       constructRequest(`//groups.roblox.com/v2/users/${userId}/groups/roles`),
       constructRequest(`//groups.roblox.com/v1/users/${userId}/groups/primary/role`)
-    ]
+    ].map(promise => promise.then(
+      val => ({ status: 'fulfilled', value: val }),
+      rej => ({ status: 'rejected', reason: rej })
+    ))
 
     const result = []
 
-    Promise.allSettled(requests).then(async (promiseResponses) => {
+    Promise.all(requests).then(async (promiseResponses) => {
       let responses = promiseResponses.map(response => response.value)
       const failedResponse = (responses[0].statusCode !== 200 || !responses[0].body) // we only check the first request because the second one errors if a primary is not set
 
