@@ -691,6 +691,8 @@ declare module "noblox.js" {
 
     interface TransactionItem
     {
+        id: number;
+        transactionType: string;
         created: Date;
         isPending: boolean;
         agent: TransactionAgent;
