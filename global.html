@@ -19140,7 +19140,7 @@ let username = await noblox.getUsernameFromId(123456)</code></pre>
         
         <span class="code-name">
             
-                getUserTransactions<span class="signature">(userId, transactionType<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>, cursor<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#TransactionPage">TransactionPage</a>>}</span>
+                getUserTransactions<span class="signature">(transactionType<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>, cursor<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#TransactionPage">TransactionPage</a>>}</span>
             
         </span>
     </h4>
@@ -19186,43 +19186,6 @@ let username = await noblox.getUsernameFromId(123456)</code></pre>
         </thead>
 
         <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>userId</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">number</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>The id of the user.</p></td>
-</tr>
-
-
         
 
             
@@ -19311,12 +19274,12 @@ let username = await noblox.getUsernameFromId(123456)</code></pre>
   
       <td class="default">
       
-          10
+          100
       
       </td>
   
 
-  <td class="description last"><p>The number of transactions being fetched each request.</p></td>
+  <td class="description last"><p>The number of transactions being fetched each request. | [10, 25, 50, 100]</p></td>
 </tr>
 
 
@@ -19403,7 +19366,7 @@ let username = await noblox.getUsernameFromId(123456)</code></pre>
         <p class="tag-source">
             <a href="lib_user_getUserTransactions.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_getUserTransactions.js.html">lib/user/getUserTransactions.js</a>, <a href="lib_user_getUserTransactions.js.html#line21">line 21</a>
+                <a href="lib_user_getUserTransactions.js.html">lib/user/getUserTransactions.js</a>, <a href="lib_user_getUserTransactions.js.html#line20">line 20</a>
             </span>
         </p>
     
@@ -19456,7 +19419,7 @@ let username = await noblox.getUsernameFromId(123456)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
-let transactions = await noblox.getUserTransactions(123456, "Sale", 10)</code></pre>
+let transactions = await noblox.getUserTransactions("Sale", 10)</code></pre>
     
 
 
