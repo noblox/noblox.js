@@ -150,23 +150,6 @@ const { thumbnail: settings } = require('../../settings.json')
 exports.required = ['userIds']
 exports.optional = ['size', 'format', 'isCircular', 'cropType', 'retryCount']
 
-// Docs
-/**
- * Get a user's thumbnail.
- * @category User
- * @alias getPlayerThumbnail
- * @param {number | array} userIds - The id or an array ids of thumbnails to be retrieved; 100
- * @param {number | string=} [size=720x720] - The size of the image to be returned (https://noblox.js.org/thumbnailSizes.png); defaults highest resolution
- * @param {'png' | 'jpeg'=} [format=png] - The file format of the returned thumbnails
- * @param {boolean=} [isCircular=false] - Return the circular version of the thumbnails
- * @param {'Body' | 'Bust' | 'Headshot'=} [cropType=Body] - The style of thumbnail that will be returned
- * @returns {Promise&lt;playerThumbnailData[]>}
- * @example const noblox = require("noblox.js")
- * let thumbnail_default = await noblox.getPlayerThumbnail(2416399685)
- * let thumbnail_circHeadshot = await noblox.getPlayerThumbnail(2416399685, 420, "png", true, "Headshot")
- * let thumbnails_body = await noblox.getPlayerThumbnail([2416399685, 234567, 345678], "150x200", "jpeg", false, "Body")
-**/
-
 // Variables
 const eligibleSizes = {
   body: {
@@ -182,6 +165,23 @@ const eligibleSizes = {
     endpoint: 'avatar-headshot'
   }
 }
+
+// Docs
+/**
+ * Get a user's thumbnail.
+ * @category User
+ * @alias getPlayerThumbnail
+ * @param {number | array} userIds - The id or an array ids of thumbnails to be retrieved; 100
+ * @param {number | string=} [size=720x720] - The [size of the image to be returned]{@link https://noblox.js.org/thumbnailSizes.png}; defaults highest resolution
+ * @param {'png' | 'jpeg'=} [format=png] - The file format of the returned thumbnails
+ * @param {boolean=} [isCircular=false] - Return the circular version of the thumbnails
+ * @param {'Body' | 'Bust' | 'Headshot'=} [cropType=Body] - The style of thumbnail that will be returned
+ * @returns {Promise&lt;playerThumbnailData[]>}
+ * @example const noblox = require("noblox.js")
+ * let thumbnail_default = await noblox.getPlayerThumbnail(2416399685)
+ * let thumbnail_circHeadshot = await noblox.getPlayerThumbnail(2416399685, 420, "png", true, "Headshot")
+ * let thumbnails_body = await noblox.getPlayerThumbnail([2416399685, 234567, 345678], "150x200", "jpeg", false, "Body")
+**/
 
 // Define
 function getPlayerThumbnail (userIds, size, format = 'png', isCircular = false, cropType = 'body', retryCount = settings.maxRetries) {
