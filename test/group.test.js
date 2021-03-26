@@ -1,4 +1,4 @@
-const { changeRank, getAuditLog, getGroup, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
+const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -102,6 +102,12 @@ describe('Group Methods', () => {
         memberCount: expect.any(Number),
         publicEntryAllowed: expect.any(Boolean)
       })
+    })
+  })
+
+  it('getGroupFunds() returns amount of robux in group funds', () => {
+    return getGroupFunds(9997719).then((res) => {
+      return expect(res).toEqual(expect.any(Number))
     })
   })
 
