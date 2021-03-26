@@ -47,7 +47,7 @@
         "default": {
             "staticFiles": {
                 "include": [
-                    "./img/noblox-js-small.png"
+                    "./img"
                 ]
             }
         }
