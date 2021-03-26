@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/avatar/currentlyWearing.js</title>
+  <title>noblox.js lib/group/getGroupFunds.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/avatar/currentlyWearing.js</h1>
+                    <h1>lib/group/getGroupFunds.js</h1>
                 </header>
                 
 
@@ -142,37 +142,48 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('../util/http.js').func
 
-exports.required = ['userId']
+// Args
+exports.required = ['group']
+exports.optional = ['jar']
 
 // Docs
 /**
- * Get the assets a user is wearing.
- * @category Avatar
- * @alias currentlyWearing
- * @param {number} userId - The user's userId.
- * @returns {Promise&lt;AssetIdList>}
+ * Gets the amount of robux in a group.
+ * @category Group
+ * @alias getGroupFunds
+ * @param {number} group - The id of the group
+ * @returns {Promise&lt;number>}
  * @example const noblox = require("noblox.js")
- * const wearingAssets = await noblox.currentlyWearing(1)
+ * // Login using your cookie (optional if group funds are public)
+ * let robux = await noblox.getGroupFunds(9997719)
 **/
 
-exports.func = (args) => {
-  const userId = args.userId
-
+// Define
+function getGroupFunds (group, jar) {
   return http({
-    url: '//avatar.roblox.com/v1/users/' + userId + '/currently-wearing',
+    url: `//economy.roblox.com/v1/groups/${group}/currency`,
     options: {
-      method: 'GET',
+      jar: jar,
       resolveWithFullResponse: true
     }
-  }).then((res) => {
-    if (res.statusCode === 200) {
-      return JSON.parse(res.body)
-    } else {
-      throw new Error('User does not exist')
-    }
   })
+    .then(({ statusCode, body }) => {
+      const { robux, errors } = JSON.parse(body)
+      if (statusCode === 200) {
+        return robux
+      } else if (statusCode === 400 || statusCode === 403) {
+        throw new Error(`${errors[0].message} | groupId: ${group}`)
+      } else {
+        throw new Error(`An unknown error occurred with getGroupFunds() | [${statusCode}] groupId: ${group}`)
+      }
+    })
+}
+
+exports.func = function ({ group, jar }) {
+  return getGroupFunds(group, jar)
 }
 </code></pre>
         </article>
