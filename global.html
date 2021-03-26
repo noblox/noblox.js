@@ -207,6 +207,96 @@
     
 
     
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id="getPlayerThumbnail">
+    <a class="href-link" href="#getPlayerThumbnail">#</a>
+    
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        getPlayerThumbnail
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Get a user's thumbnail.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="lib_user_getPlayerThumbnail.js.html" class="button">View Source</a>
+            <span>
+                <a href="lib_user_getPlayerThumbnail.js.html">lib/user/getPlayerThumbnail.js</a>, <a href="lib_user_getPlayerThumbnail.js.html#line27">line 27</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const noblox = require("noblox.js")
+let thumbnail_default = await noblox.getPlayerThumbnail(2416399685)
+let thumbnail_circHeadshot = await noblox.getPlayerThumbnail(2416399685, 420, "png", true, "Headshot")
+let thumbnails_body = await noblox.getPlayerThumbnail([2416399685, 234567, 345678], "150x200", "jpeg", false, "Body")</code></pre>
+    
+
+
+</div>
+            
+            </div>
+        </div>
+    
 
     
         <div class='vertical-section'>
@@ -14832,359 +14922,6 @@ let information = await noblox.getPlayerInfo({userId: 123456})</code></pre>
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 const players = await noblox.getPlayers(1, 1117747196)</code></pre>
-    
-
-
-</div>
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="getPlayerThumbnail">
-        <a class="href-link" href="#getPlayerThumbnail">#</a>
-        
-        <span class="code-name">
-            
-                getPlayerThumbnail<span class="signature">(userIds, size, format<span class="signature-attributes">opt</span>, isCircular<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="global.html#playerThumbnailData">playerThumbnailData</a>>>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Get a user's thumbnail.</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-            <th>Attributes</th>
-            
-
-            
-            <th>Default</th>
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>userIds</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">number</span>
-|
-
-<span class="param-type">array</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>The id or id of the user whose thumbnail is being fetched. (For multiple ids, put them in an array)</p></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>size</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">30</span>
-|
-
-<span class="param-type">48</span>
-|
-
-<span class="param-type">60</span>
-|
-
-<span class="param-type">75</span>
-|
-
-<span class="param-type">100</span>
-|
-
-<span class="param-type">110</span>
-|
-
-<span class="param-type">140</span>
-|
-
-<span class="param-type">150</span>
-|
-
-<span class="param-type">180</span>
-|
-
-<span class="param-type">250</span>
-|
-
-<span class="param-type">352</span>
-|
-
-<span class="param-type">420</span>
-|
-
-<span class="param-type">720</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>The size of the image that will be returned.</p></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>format</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-          png
-      
-      </td>
-  
-
-  <td class="description last"><p>The format that the image will be returned in.</p></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>isCircular</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">boolean</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-          false
-      
-      </td>
-  
-
-  <td class="description last"><p>Will return a circular image if true.</p></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="lib_user_getPlayerThumbnail.js.html" class="button">View Source</a>
-            <span>
-                <a href="lib_user_getPlayerThumbnail.js.html">lib/user/getPlayerThumbnail.js</a>, <a href="lib_user_getPlayerThumbnail.js.html#line23">line 23</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<span class="param-type">Promise.&lt;Array.&lt;<a href="global.html#playerThumbnailData">playerThumbnailData</a>>></span>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        <pre class="prettyprint"><code>const noblox = require("noblox.js")
-let thumbnails = await noblox.getPlayerThumbnail([123456, 234567, 345678], 30, "jpeg", false)</code></pre>
     
 
 
