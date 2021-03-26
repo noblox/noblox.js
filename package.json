@@ -1,6 +1,6 @@
 {
   "name": "noblox.js",
-  "version": "4.8.4",
+  "version": "4.8.5",
   "description": "A Node.js wrapper for ROBLOX. (original from sentanos)",
   "main": "lib/index.js",
   "types": "typings/index.d.ts",
