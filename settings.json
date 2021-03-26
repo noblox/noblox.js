@@ -22,6 +22,18 @@
     "onBlurbChange": 10000
   },
 
+  "thumbnail": {
+    "maxRetries": 2,
+    "maxRetries_desc": "Maximum number of retries to retrieve a pending thumbnail, rare, but occurs with uncached users (Roblox's cache)",
+    "retryDelay": 500,
+    "retryDelay_desc": "The time to wait between consecutive retries of retrieving pending thumbnails",
+    "failedUrl": {
+      "pending": "",
+      "blocked": ""
+    },
+    "failedUrl_desc": "The image URL to provide when an asset thumbnail is still pending or has been moderated by Roblox; defaults to Roblox moderation icon via noblox.js's GitHub repo at https://noblox.js.org/moderatedThumbnails/moderatedThumbnail_{size}.png"
+  },
+
   "queue": {
     "Message": {
       "delay": 0,
