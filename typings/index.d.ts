@@ -1307,6 +1307,11 @@ declare module "noblox.js" {
     function groupPayout(group: number, member: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
 
     /**
+     * Gets the amount of robux in a group.
+     */
+    function getGroupFunds(group: number): Promise<number>;
+
+    /**
      * `Accepts user with `username` into `group`. Note that `username` is case-sensitive.
      */
     function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
@@ -1580,7 +1585,7 @@ declare module "noblox.js" {
      */
     function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<InventoryEntry[]>;
 
-    ///Trades
+    /// Trades
 
     /**
      * Check if the current user can trade with another user.
