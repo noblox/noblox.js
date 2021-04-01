@@ -53,7 +53,7 @@ rbx.setCookie(cookie)
     const targetRoles = []
 
     for (const role of groupRoles) {
-      if (options.roleset.includes(role.ID)) {
+      if (options.roleset.includes(role.id)) {
         targetRoles.push(role)
       }
 
@@ -69,7 +69,7 @@ rbx.setCookie(cookie)
     }
 
     options.roleset = targetRoles.map((role) => {
-      return role.ID
+      return role.id
     })
 
     let totalPlayers = 0
