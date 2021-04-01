@@ -185,7 +185,6 @@ function getRoles (group) {
           for (let i = 0; i &lt; roles.length; i++) {
             const role = roles[i]
             role.ID = role.id
-            delete role.id
           }
           resolve(roles)
         }
