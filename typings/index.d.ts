@@ -39,6 +39,23 @@ declare module "noblox.js" {
         IsPrimary: boolean,
     }
 
+    interface GroupGameInfo {
+        id: number;
+        name: string;
+        description: string | null;
+        creator: {id: number; type: string;};
+        rootPlace: {id: number; type: string;};
+        created: Date;
+        updated: Date;
+        placeVisits: number;
+    }
+
+    interface GroupGames {
+        previousPageCursor: string | null;
+        nextPageCursor: string | null;
+        data: GroupGameInfo[];
+    }
+
     interface ProductInfo {
         AssetId: number;
         ProductId: number;
@@ -691,6 +708,8 @@ declare module "noblox.js" {
 
     interface TransactionItem
     {
+        id: number;
+        transactionType: string;
         created: Date;
         isPending: boolean;
         agent: TransactionAgent;
@@ -765,6 +784,11 @@ declare module "noblox.js" {
      * 3 = Studio
      */
     type UserPresenceType = 0 | 1 | 2 | 3
+
+    // https://noblox.js.org/thumbnailSizes.png | Archived: https://i.imgur.com/UwiKqjs.png
+    type BodySizes = 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720 | "30x30" | "48x48" | "60x60" | "75x75" | "100x100" | "110x110" | "140x140" | "150x150" | "150x200" | "180x180" | "250x250" | "352x352" | "420x420" | "720x720"
+    type BustSizes = 50 | 60 | 75 | "50x50" | "60x60" | "75x75"
+    type HeadshotSizes = 48 | 50 | 60 | 75 | 100 | 110 | 150 | 180 | 352 | 420 | 720 | "48x48" | "50x50" | "60x60" | "75x75" | "100x100" | "110x110" | "150x150" | "180x180" | "352x352" | "420x420" | "720x720";
 
     interface LoggedInUserData {
         UserID: number,
@@ -911,8 +935,8 @@ declare module "noblox.js" {
 
     interface PlayerThumbnailData {
         targetId: number;
-        state: string;
-        imageUrl: string;
+        state: "Completed" | "Pending" | "Blocked";
+        imageUrl: string | null;
     }
 
     /// Badges
@@ -943,9 +967,9 @@ declare module "noblox.js" {
     interface PlayerBadges {
         id: number;
         name: string;
-        description: string|null;
+        description: string | null;
         displayName: string;
-        displayDescription: string|null;
+        displayDescription: string | null;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -959,9 +983,9 @@ declare module "noblox.js" {
     interface BadgeInfo {
         id: number;
         name: string;
-        description: string|null;
+        description: string | null;
         displayName: string;
-        displayDescription: string|null;
+        displayDescription: string | null;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -1305,6 +1329,11 @@ declare module "noblox.js" {
     function groupPayout(group: number, member: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
 
     /**
+     * Gets the amount of robux in a group.
+     */
+    function getGroupFunds(group: number): Promise<number>;
+
+    /**
      * `Accepts user with `username` into `group`. Note that `username` is case-sensitive.
      */
     function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
@@ -1313,11 +1342,6 @@ declare module "noblox.js" {
      * Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
      */
     function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * Posts message `message` on the group wall with groupId `group`.
-     */
-    function post(group: number, message: string, jar?: CookieJar): Promise<void>;
 
     /**
      * Alias of `changeRank(group, target, 1)`.
@@ -1348,6 +1372,11 @@ declare module "noblox.js" {
      * Gets a brief overview of the specified group.
      */
     function getGroup(groupId: number): Promise<Group>;
+
+    /**
+     * Gets a list of games from the specified group.
+     */
+    function getGroupGames(groupId: number, acccessFilter: "All" | "Public" | "Private", sortOrder: "Asc" | "Desc", limit: Limit, cursor: string): Promise<GroupGames>;
 
     /**
      * Gets the groups a player is in.
@@ -1545,7 +1574,7 @@ declare module "noblox.js" {
     /**
      * Gets the thumbnail of an array of users.
      */
-    function getPlayerThumbnail(userIds: number | number[], size: 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720, format?: string, isCircular?: boolean): Promise<PlayerThumbnailData[]>;
+    function getPlayerThumbnail(userIds: number | number[], size: BodySizes | BustSizes | ThumbnailSizes, format?: "png" | "jpeg", isCircular?: boolean, cropType?: "body" | "bust" | "headshot"): Promise<PlayerThumbnailData[]>;
 
     /**
      * Gets the presence statuses of the specified users
@@ -1583,7 +1612,7 @@ declare module "noblox.js" {
      */
     function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<InventoryEntry[]>;
 
-    ///Trades
+    /// Trades
 
     /**
      * Check if the current user can trade with another user.

@@ -777,6 +777,29 @@ type Group = {
 /**
  * @typedef
  */
+type GroupGameInfo = {
+    id: number;
+    name: string;
+    description: string | null;
+    creator: {id: number; type: string;};
+    rootPlace: {id: number; type: string;};
+    created: Date;
+    updated: Date;
+    placeVisits: number;
+}
+
+/**
+ * @typedef
+ */
+type GroupGames = {
+    previousPageCursor: string | null;
+    nextPageCursor: string | null;
+    data: GroupGameInfo[];
+}
+
+/**
+ * @typedef
+ */
 type IGroupPartial = {
     Name: string;
     Id: number;
