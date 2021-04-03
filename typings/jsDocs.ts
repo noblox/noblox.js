@@ -791,15 +791,6 @@ type GroupGameInfo = {
 /**
  * @typedef
  */
-type GroupGames = {
-    previousPageCursor: string | null;
-    nextPageCursor: string | null;
-    data: GroupGameInfo[];
-}
-
-/**
- * @typedef
- */
 type IGroupPartial = {
     Name: string;
     Id: number;

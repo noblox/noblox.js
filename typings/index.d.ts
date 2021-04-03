@@ -50,12 +50,6 @@ declare module "noblox.js" {
         placeVisits: number;
     }
 
-    interface GroupGames {
-        previousPageCursor: string | null;
-        nextPageCursor: string | null;
-        data: GroupGameInfo[];
-    }
-
     interface ProductInfo {
         AssetId: number;
         ProductId: number;
@@ -1376,7 +1370,7 @@ declare module "noblox.js" {
     /**
      * Gets a list of games from the specified group.
      */
-    function getGroupGames(groupId: number, acccessFilter: "All" | "Public" | "Private", sortOrder: "Asc" | "Desc", limit: Limit, cursor: string): Promise<GroupGames>;
+    function getGroupGames(groupId: number, acccessFilter: "All" | "Public" | "Private", sortOrder: "Asc" | "Desc", limit: Limit, cursor: string): Promise<GroupGameInfo[]>;
 
     /**
      * Gets the groups a player is in.
