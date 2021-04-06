@@ -1365,6 +1365,11 @@ declare module "noblox.js" {
      * Gets the logo of the specified group.
      */
     function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
+    
+    /**
+     * Gets a specific group join request, if it exists.
+     */
+     function getJoinRequest(group: number, userId: number, jar?: CookieJar): Promise<GroupJoinRequest>;
 
     /**
      * Gets the first page of join requests from `group`.
