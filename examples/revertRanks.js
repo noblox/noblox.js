@@ -50,7 +50,7 @@ async function revertAuditLogItems (auditLogItems) {
     const setRankOptions = {
       group: options.group,
       target: auditLogItem.TargetId,
-      roleset: auditLogItem.OldRoleSetId
+      rank: auditLogItem.OldRoleSetId
     }
 
     await rbx.setRank(setRankOptions)
