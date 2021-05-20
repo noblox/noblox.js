@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="https://raw.githubusercontent.com/suufi/noblox.js/master/img/noblox-js.png" alt="noblox.js" width="400"/>
+    <img src="https://raw.githubusercontent.com/noblox/noblox.js/master/img/noblox-js.png" alt="noblox.js" width="400"/>
     <br>
 </h1>
 
@@ -9,7 +9,7 @@
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-blue.svg?style=flat-square" alt="JavaScript Style Guide"/></a>
     <a href="https://discord.gg/R5GVSyTVGv"><img src="https://img.shields.io/badge/discord-noblox.js-blue.svg?style=flat-square" alt="noblox.js Discord"/></a>
     <a href="https://npmjs.org/noblox.js"><img src="https://img.shields.io/npm/v/noblox.js.svg?style=flat-square" alt="NPM package"/>
-    <a href="https://travis-ci.org/suufi/noblox.js"><img src="https://img.shields.io/travis/suufi/noblox.js/master.svg?style=flat-square" alt="Travis Build Status"/></a></a>
+    <a href="https://travis-ci.org/noblox/noblox.js"><img src="https://img.shields.io/travis/noblox/noblox.js/master.svg?style=flat-square" alt="Travis Build Status"/></a></a>
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
   <a href="#prerequisites">Prerequisites</a> •
   <a href="#installation">Installation</a> •
   <a href="#documentation">Docs</a> •
-  <a href="https://github.com/suufi/noblox.js/tree/master/examples">Examples</a> •
+  <a href="https://github.com/noblox/noblox.js/tree/master/examples">Examples</a> •
   <a href="https://www.youtube.com/playlist?list=PLEW4K4VqMUb_VMA3Yp9LI4gReRyVWGTnU">YouTube Series</a> •
   <a href="#credits">Credits</a> •
   <a href="#license">License</a>

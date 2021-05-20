@@ -11,7 +11,7 @@ console.log(`
 ${chalk.underline('Thank you for installing noblox.js.')}
 
 ${chalk.bold('Documentation:')} https://noblox.js.org/ 
-${chalk.bold('GitHub:')} https://github.com/suufi/noblox.js
+${chalk.bold('GitHub:')} https://github.com/noblox/noblox.js
 ${chalk.bold('Support:')} https://discord.gg/R5GVSyTVGv
 
 ${chalk.bold.blue('noblox.js is maintained with the help of its users but sometimes Roblox silently updates its API endpoints breaking noblox.js out of the blue.')}
