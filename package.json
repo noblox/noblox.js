@@ -41,7 +41,7 @@
   "homepage": "https://github.com/noblox/noblox.js",
   "devDependencies": {
     "better-docs": "^2.3.2",
-    "dotenv": "^9.0.0",
+    "dotenv": "^10.0.0",
     "eslint": "^7.27.0",
     "eslint-config-standard": "^16.0.1",
     "eslint-plugin-import": "^2.23.3",
