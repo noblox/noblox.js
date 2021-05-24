@@ -1914,9 +1914,9 @@ declare module "noblox.js" {
      * To accept all new users that aren't on a blacklist and send them a message, for example:
      * ```javascript
      * const blacklist = [1, 261]
-     * const evt = rbx.onJoinRequestHandle(18)
+     * const evt = noblox.onJoinRequestHandle(18)
      * evt.on('data', function (request) {
-     *   rbx.getIdFromUsername(request.username).then(function (id) {
+     *   noblox.getIdFromUsername(request.username).then(function (id) {
      *     for (const i = 0; i < blacklist.length; i++) {
      *       if (blacklist[i] === id) {
      *         evt.emit('handle', request, false);
@@ -1924,7 +1924,7 @@ declare module "noblox.js" {
      *       }
      *     }
      *     evt.emit('handle', request, true, function () {
-     *       rbx.message(id, 'Welcome', 'Welcome to my group');
+     *       noblox.message(id, 'Welcome', 'Welcome to my group');
      *     });
      *   });
      * });

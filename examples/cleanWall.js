@@ -29,7 +29,7 @@ function shouldDelete (wallPost) {
 }
 
 // Dependencies
-const rbx = require('noblox.js')
+const noblox = require('noblox.js')
 const logUpdate = require('log-update')
 
 // Main
@@ -45,7 +45,7 @@ async function getWallPage (getWallOptions, cursor) {
   getWallOptions.limit = 100
   getWallOptions.cursor = cursor || ''
 
-  const wallPage = await rbx.getWall(getWallOptions)
+  const wallPage = await noblox.getWall(getWallOptions)
 
   return wallPage
 }
@@ -70,7 +70,7 @@ function deleteWallPosts (wallPostIDs) {
       id: wallPostID
     }
 
-    rbx.deleteWallPost(deleteWallPostOptions)
+    noblox.deleteWallPost(deleteWallPostOptions)
       .then(() => {
         posts.deleted++
       })
@@ -80,7 +80,7 @@ function deleteWallPosts (wallPostIDs) {
   })
 }
 
-rbx.setCookie(cookie)
+noblox.setCookie(cookie)
   .then(async () => {
     console.time('Time taken')
 

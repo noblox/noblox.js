@@ -12,7 +12,7 @@ const options = {
 }
 
 // Dependencies
-const rbx = require('noblox.js')
+const noblox = require('noblox.js')
 const logUpdate = require('log-update')
 
 // Main
@@ -27,7 +27,7 @@ const logItems = {
 async function getAuditLogPage (getAuditLogOptions, cursor) {
   getAuditLogOptions.cursor = cursor || ''
 
-  const auditLogPage = await rbx.getAuditLog(getAuditLogOptions)
+  const auditLogPage = await noblox.getAuditLog(getAuditLogOptions)
 
   return auditLogPage
 }
@@ -53,7 +53,7 @@ async function revertAuditLogItems (auditLogItems) {
       rank: auditLogItem.OldRoleSetId
     }
 
-    await rbx.setRank(setRankOptions)
+    await noblox.setRank(setRankOptions)
       .then(() => {
         logItems.reverted++
       })
@@ -63,7 +63,7 @@ async function revertAuditLogItems (auditLogItems) {
   }
 }
 
-rbx.setCookie(cookie)
+noblox.setCookie(cookie)
   .then(async () => {
     console.time('Time taken')
 
