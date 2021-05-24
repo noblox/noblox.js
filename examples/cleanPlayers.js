@@ -50,31 +50,31 @@ rbx.setCookie(cookie)
     }
 
     const groupRoles = await rbx.getRoles(getRolesOptions)
-    const targetRoles = []
+    const userIdRoles = []
 
     for (const role of groupRoles) {
       if (options.roleset.includes(role.id)) {
-        targetRoles.push(role)
+        userIdRoles.push(role)
       }
 
-      if (targetRoles.length === options.roleset.length) {
+      if (userIdRoles.length === options.roleset.length) {
         break
       }
     }
 
-    if (targetRoles.length === 0) {
+    if (userIdRoles.length === 0) {
       console.error('No roles matching the roleset IDs were found.')
 
       return
     }
 
-    options.roleset = targetRoles.map((role) => {
+    options.roleset = userIdRoles.map((role) => {
       return role.id
     })
 
     let totalPlayers = 0
 
-    for (const role of targetRoles) {
+    for (const role of userIdRoles) {
       totalPlayers += role.memberCount
     }
 
@@ -112,7 +112,7 @@ rbx.setCookie(cookie)
       if (shouldExile(player)) {
         const exileOptions = {
           group: options.group,
-          target: player.userId
+          userId: player.userId
         }
 
         rbx.exile(exileOptions)

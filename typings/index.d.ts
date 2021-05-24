@@ -1287,9 +1287,9 @@ declare module "noblox.js" {
     /// Group
 
     /**
-     * Moves the user with userId `target` up or down the list of ranks in `group` by `change`. For example `changeRank(group, target, 1)` would promote the user 1 rank and `changeRank(group, target, -1)` would demote them down 1. Note that this simply follows the list, ignoring ambiguous ranks. The full `newRole` as well as the user's original `oldRole` is returned.
+     * Moves the user with the given userId up or down the list of ranks in `group` by `change`. For example `changeRank(group, userId, 1)` would promote the user 1 rank and `changeRank(group, userId, -1)` would demote them down 1. Note that this simply follows the list, ignoring ambiguous ranks. The full `newRole` as well as the user's original `oldRole` is returned.
      */
-    function changeRank(group: number, target: number, change: number, jar?: CookieJar): Promise<ChangeRankResult>;
+    function changeRank(group: number, userId: number, change: number, jar?: CookieJar): Promise<ChangeRankResult>;
 
     /**
      * Deletes the wall post with `id` in `group`. If `page` is known it can be inserted to speed up finding the post, otherwise it will search for the post. Alternatively `post` can be passed in, which only has to contain `view` and `parent.index` to work properly. Using `post` will be much faster because it will not have to search for the post first.
@@ -1297,14 +1297,14 @@ declare module "noblox.js" {
     function deleteWallPost(group: number, post: number | WallPost, page?: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Alias of `changeRank(group, target, -1)`.
+     * Alias of `changeRank(group, userId, -1)`.
      */
-    function demote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
+    function demote(group: number, userId: number, jar?: CookieJar): Promise<ChangeRankResult>;
 
     /**
-     * Exiles user with `userId` target from `group`.
+     * Exiles user with the given userId from the given group.
      */
-    function exile(group: number, target: number, jar?: CookieJar): Promise<void>;
+    function exile(group: number, userId: number, jar?: CookieJar): Promise<void>;
 
     /**
      * Performs a payout in group with the groupId `group`. If `recurring` is true this will configure the recurring options for the group's payout replacing all old values, otherwise a one-time-payout is made. To clear the recurring payouts, pass in empty arrays to both member and amount. Argument `member` can either be a single userId or an array of userIds. If it is a single value `amount` must be as well, otherwise `amount` has to be a parallel array of equal length. If `usePercentage` is true `amount` percentage of the total group funds is paid to the members, otherwise it pays `amount` ROBUX. Note that recurring payouts are always percentages, and when `recurring` is true `usePercentage` is ignored.
@@ -1327,14 +1327,14 @@ declare module "noblox.js" {
     function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Alias of `changeRank(group, target, 1)`.
+     * Alias of `changeRank(group, userId, 1)`.
      */
-    function promote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
+    function promote(group: number, userId: number, jar?: CookieJar): Promise<ChangeRankResult>;
 
     /**
-     * Changes the rank of the player with the `target` userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
+     * Changes the rank of the player with the given userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
      */
-    function setRank(group: number, target: number, rank: number | string | Role, jar?: CookieJar): Promise<Role>;
+    function setRank(group: number, userId: number, rank: number | string | Role, jar?: CookieJar): Promise<Role>;
 
     /**
      * Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
