@@ -3,7 +3,7 @@
     <br>
 </h1>
 
-<h4 align="center">A Node.js wrapper for interacting with the Roblox API. Forked from <a href="https://github.com/sentanos/roblox-js">roblox-js</a>.</h4>
+<h4 align="center">A Node.js wrapper for interacting with the Roblox API; forked from <a href="https://github.com/sentanos/roblox-js">roblox-js</a>.</h4>
 
 <p align="center">
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-blue.svg?style=flat-square" alt="JavaScript Style Guide"/></a>
@@ -28,11 +28,11 @@
 
 ## About
 
-`noblox.js` is an open-source Roblox API wrapper written in JavaScript as a fork from sentanos's <a href="https://github.com/sentanos/roblox-js"> roblox-js module</a>, with TypeScript compatibility.
+`noblox.js` is an open-source Roblox API wrapper written in JavaScript (with TypeScript compatibility) as a fork from sentanos's <a href="https://github.com/sentanos/roblox-js"> roblox-js module</a>.
 
-This NPM package enables you to do operations on the [Roblox](https://www.roblox.com) website through a programmer friendly NodeJS interface. Many individuals leverage `noblox.js` along side Roblox's [HTTPService](http://wiki.roblox.com/index.php?title=API:Class/HttpService) to create in-game scripts that interact with the website, i.e. promote users, shout events, and so on. 
+This NPM package enables operations froms the [Roblox website](https://www.roblox.com) to be executed via NodeJS; many individuals leverage `noblox.js` along side [Roblox's HTTPService](http://wiki.roblox.com/index.php?title=API:Class/HttpService) to create in-game scripts that interact with the website, i.e. promote users, shout events, and so on, or to create Discord utiltiies to manage their community.
 
-If you're looking for more information on how to create something like this, check out [our sister library, `noblox.js-server`](https://github.com/noblox/noblox.js-server) or [our YouTube series](https://www.youtube.com/playlist?list=PLEW4K4VqMUb_VMA3Yp9LI4gReRyVWGTnU). Keep in mind that this may not always use the latest module, so it is **highly** encouraged that you learn to use the `noblox.js` library directly.
+If you are looking for more information on how to create something like this, check out [our sister library, `noblox.js-server`](https://github.com/noblox/noblox.js-server) or [our YouTube series](https://www.youtube.com/playlist?list=PLEW4K4VqMUb_VMA3Yp9LI4gReRyVWGTnU). Keep in mind that these resources may not always be up to date, so it is **highly** encouraged that you learn to use the `noblox.js` library directly.
 
 ---
 
@@ -49,7 +49,7 @@ With node.js installed simply run:
 # Run this to install noblox.js locally to your repository. 
 $ npm install noblox.js
 
-# If you are using yarn:
+# Alternatively, if you are using yarn:
 $ yarn add noblox.js
 
 # To use noblox.js anywhere, run this code to install the package globally:
@@ -75,8 +75,6 @@ You may notice our documentation utilizes emojis in every function description; 
 <b id="f1">[1](#a1)</b> : Extended permissions may be required such as edit permissions or account ownership.
 
 <a href="https://discord.gg/R5GVSyTVGv"><img src="https://img.shields.io/badge/discord-noblox.js-blue.svg?style=flat-square" alt="noblox.js Discord"/></a>
-
-### [More examples can be found here.](https://github.com/noblox/noblox.js/tree/master/examples)
 
 ---
 
@@ -115,6 +113,8 @@ startApp()
 ```
 
 You are now using `noblox.js`!
+
+### [More examples can be found here.](https://github.com/noblox/noblox.js/tree/master/examples)
 
 **Promises are fundamental to this library**; if you are unfamiliar with JavaScript promises, we recommend you check out [our tutorial here](https://noblox.js.org/tutorial-Promises.html), and [Daniel Shiffman's JavaScript series](https://www.youtube.com/watch?v=QO4NXhWo_NM&list=PLRqwX-V7Uu6YgpA3Oht-7B4NBQwFVe3pr&index=12).
 
@@ -176,4 +176,4 @@ At the end of the day, a 'bot' is a user account, it cannot magically bypass pri
 
 ## License
 
-MIT
+[MIT](https://github.com/noblox/noblox.js/blob/master/LICENSE)
