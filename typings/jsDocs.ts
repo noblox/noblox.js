@@ -780,7 +780,7 @@ type Group = {
 type GroupGameInfo = {
     id: number;
     name: string;
-    description: string | null;
+    description: string;
     creator: {id: number; type: string;};
     rootPlace: {id: number; type: string;};
     created: Date;
