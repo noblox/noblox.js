@@ -39,6 +39,17 @@ declare module "noblox.js" {
         IsPrimary: boolean,
     }
 
+    interface GroupGameInfo {
+        id: number;
+        name: string;
+        description: string | null;
+        creator: {id: number; type: string;};
+        rootPlace: {id: number; type: string;};
+        created: Date;
+        updated: Date;
+        placeVisits: number;
+    }
+
     interface ProductInfo {
         AssetId: number;
         ProductId: number;
@@ -1355,6 +1366,11 @@ declare module "noblox.js" {
      * Gets a brief overview of the specified group.
      */
     function getGroup(groupId: number): Promise<Group>;
+
+    /**
+     * Gets a list of games from the specified group.
+     */
+    function getGroupGames(groupId: number, acccessFilter: "All" | "Public" | "Private", sortOrder: "Asc" | "Desc", limit: Limit, cursor: string): Promise<GroupGameInfo[]>;
 
     /**
      * Gets the groups a player is in.
