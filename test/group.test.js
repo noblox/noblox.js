@@ -1,4 +1,4 @@
-const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
+const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -108,6 +108,27 @@ describe('Group Methods', () => {
   it('getGroupFunds() returns amount of robux in group funds', () => {
     return getGroupFunds(9997719).then((res) => {
       return expect(res).toEqual(expect.any(Number))
+    })
+  })
+
+  it('getGroupGames() returns an array of group games', () => {
+    return getGroupGames({ groupId: 2629410, limit: 1 }).then((res) => { // FIXME: Convert to noblox.js groupId, currently Roblox broke the creation of group games during the experience rebranding
+      return expect(res[0]).toMatchObject({
+        id: expect.any(Number),
+        name: expect.any(String),
+        description: expect.any(String),
+        creator: {
+          id: expect.any(Number),
+          type: expect.any(String)
+        },
+        rootPlace: {
+          id: expect.any(Number),
+          type: expect.any(String)
+        },
+        created: expect.any(Date),
+        updated: expect.any(Date),
+        placeVisits: expect.any(Number)
+      })
     })
   })
 
