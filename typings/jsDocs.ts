@@ -38,15 +38,15 @@ type ProductInfo = {
     IconImageAssetId: number;
     Created: Date;
     Updated: Date;
-    PriceInRobux: number | null;
-    PriceInTickets: number | null;
+    PriceInRobux?: number;
+    PriceInTickets?: number;
     Sales: number;
     IsNew: boolean;
     IsForSale: boolean;
     IsPublicDomain: boolean;
     IsLimited: boolean;
     IsLimitedUnique: boolean;
-    Remaining: number | null;
+    Remaining?: number;
     MinimumMembershipLevel: number;
     ContentRatingTypeId: number;
 }
@@ -1226,9 +1226,9 @@ type BadgeUniverse = {
 type PlayerBadges = {
     id: number;
     name: string;
-    description: string|null;
+    description?: string;
     displayName: string;
-    displayDescription: string|null;
+    displayDescription?: string;
     enabled: boolean;
     iconImageId: number;
     displayIconImageId: number;
@@ -1245,9 +1245,9 @@ type PlayerBadges = {
 type BadgeInfo = {
     id: number;
     name: string;
-    description: string|null;
+    description?: string;
     displayName: string;
-    displayDescription: string|null;
+    displayDescription?: string;
     enabled: boolean;
     iconImageId: number;
     displayIconImageId: number;
@@ -1434,7 +1434,7 @@ type GetVerificationResponse = {
 */
 type HttpOptions = {
     verification?: string;
-    jar?: CookieJar | null;
+    jar?: CookieJar;
 }
 
 /**
