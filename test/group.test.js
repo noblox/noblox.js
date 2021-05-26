@@ -112,7 +112,7 @@ describe('Group Methods', () => {
   })
 
   it('getGroupGames() returns an array of group games', () => {
-    return getGroupGames({ groupId: 2629410, limit: 1 }).then((res) => { // FIXME: Convert to noblox.js groupId, currently Roblox broke the creation of group games during the experience rebranding
+    return getGroupGames({ groupId: 9997719, limit: 1 }).then((res) => {
       return expect(res[0]).toMatchObject({
         id: expect.any(Number),
         name: expect.any(String),
