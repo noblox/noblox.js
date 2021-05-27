@@ -727,6 +727,17 @@ declare module "noblox.js" {
         data: GroupJoinRequest[];
     }
 
+    interface RevenueSummaryResponse
+    {
+        recurringRobuxStipend?: number;
+        itemSaleRobux?: number;
+        purchasedRobux?: number;
+        tradeSystemRobux?: number;
+        pendingRobux?: number;
+        groupPayoutRobux?: number;
+        individualToGroupRobux?: number;
+    }
+
     interface WallPost
     {
         id: number;
@@ -1315,6 +1326,11 @@ declare module "noblox.js" {
      * Gets the amount of robux in a group.
      */
     function getGroupFunds(group: number): Promise<number>;
+
+    /**
+     * Gets recent Robux revenue summary for a group; shows pending Robux. | Requires "Spend group funds" permissions.
+     */
+    function getGroupRevenueSummary(group: number, timeFrame?: "Day" | "Week" | "Month" | "Year"): Promise<RevenueSummaryResponse>;
 
     /**
      * `Accepts user with `username` into `group`. Note that `username` is case-sensitive.

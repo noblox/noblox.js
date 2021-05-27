@@ -919,6 +919,19 @@ type GroupJoinRequestsPage = {
 
 /**
  * @typedef
+ */
+type RevenueSummaryResponse = {
+    recurringRobuxStipend?: number;
+    itemSaleRobux?: number;
+    purchasedRobux?: number;
+    tradeSystemRobux?: number;
+    pendingRobux?: number;
+    groupPayoutRobux?: number;
+    individualToGroupRobux?: number;
+}
+
+/**
+ * @typedef
 */
 type WallPost = {
     id: number;
