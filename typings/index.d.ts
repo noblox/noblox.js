@@ -39,6 +39,17 @@ declare module "noblox.js" {
         IsPrimary: boolean,
     }
 
+    interface GroupGameInfo {
+        id: number;
+        name: string;
+        description?: string;
+        creator: { id: number; type: string; };
+        rootPlace: { id: number; type: string; };
+        created: Date;
+        updated: Date;
+        placeVisits: number;
+    }
+
     interface ProductInfo {
         AssetId: number;
         ProductId: number;
@@ -49,22 +60,22 @@ declare module "noblox.js" {
         IconImageAssetId: number;
         Created: Date;
         Updated: Date;
-        PriceInRobux: number | null;
-        PriceInTickets: number | null;
+        PriceInRobux?: number;
+        PriceInTickets?: number;
         Sales: number;
         IsNew: boolean;
         IsForSale: boolean;
         IsPublicDomain: boolean;
         IsLimited: boolean;
         IsLimitedUnique: boolean;
-        Remaining: number | null;
+        Remaining?: number;
         MinimumMembershipLevel: number;
         ContentRatingTypeId: number;
     }
 
     interface BuyProductInfo {
         ProductId: number;
-        Creator: {Id: number};
+        Creator: { Id: number };
         PriceInRobux: number;
         UserAssetId: number;
     }
@@ -930,7 +941,7 @@ declare module "noblox.js" {
     interface PlayerThumbnailData {
         targetId: number;
         state: "Completed" | "Pending" | "Blocked";
-        imageUrl: string | null;
+        imageUrl?: string;
     }
 
     /// Badges
@@ -961,9 +972,9 @@ declare module "noblox.js" {
     interface PlayerBadges {
         id: number;
         name: string;
-        description: string | null;
+        description?: string;
         displayName: string;
-        displayDescription: string | null;
+        displayDescription?: string;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -977,9 +988,9 @@ declare module "noblox.js" {
     interface BadgeInfo {
         id: number;
         name: string;
-        description: string | null;
+        description?: string;
         displayName: string;
-        displayDescription: string | null;
+        displayDescription?: string;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -1108,7 +1119,7 @@ declare module "noblox.js" {
     interface HttpOptions
     {
         verification?: string;
-        jar?: CookieJar | null;
+        jar?: CookieJar;
     }
 
     interface ThreadedPromise extends Promise<void>
@@ -1373,6 +1384,11 @@ declare module "noblox.js" {
     function getGroup(groupId: number): Promise<Group>;
 
     /**
+     * Gets a list of games from the specified group.
+     */
+    function getGroupGames(groupId: number, acccessFilter: "All" | "Public" | "Private", sortOrder: "Asc" | "Desc", limit: Limit, cursor: string): Promise<GroupGameInfo[]>;
+
+    /**
      * Gets the groups a player is in.
      */
     function getGroups(userId: number): Promise<IGroupPartial[]>
@@ -1454,6 +1470,11 @@ declare module "noblox.js" {
      * Blocks the user with `userId`.
      */
     function block(userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * Returns whether the user can manage a given asset.
+     */
+    function canManage(userId: number, assetId: number): Promise<boolean>;
 
     /**
      * Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
