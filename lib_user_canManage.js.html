@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/util/getDate.js</title>
+  <title>noblox.js lib/user/canManage.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/util/getDate.js</h1>
+                    <h1>lib/user/canManage.js</h1>
                 </header>
                 
 
@@ -142,56 +142,49 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Args
-exports.required = ['time', 'timezone']
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('../util/http.js').func
+
+// Args
+exports.required = ['userId', 'assetId']
 
 // Docs
 /**
- * Get the date for the time and timezone.
- * @category Utility
- * @alias getDate
- * @param {string} time - The time to get.
- * @param {string} timezone - The timezone to get the date from.
- * @returns {Date}
+ * Returns whether the user can manage a given asset.
+ * @category User
+ * @alias canManage
+ * @param {number} userId - The id of the user.
+ * @param {number} assetId - The id of the asset.
+ * @returns {Promise&lt;boolean>}
  * @example const noblox = require("noblox.js")
- * const convertedDate = noblox.getDate(100000000, "CT")
+ * let canManage = await noblox.canManage(123456, 234567)
 **/
 
 // Define
-exports.isDST = function (time) {
-  const today = new Date(time)
-  const month = today.getMonth()
-  const dow = today.getDay()
-  const day = today.getDate()
-  const hours = today.getHours()
-  if (month &lt; 2 || month > 10) {
-    return false
-  }
-  if (month > 2 &amp;&amp; month &lt; 10) {
-    return true
-  }
-  if (dow === 0) {
-    if (month === 2) {
-      if (day >= 8 &amp;&amp; day &lt;= 14) {
-        return hours >= 2
-      }
-    } else if (month === 10) {
-      if (day >= 1 &amp;&amp; day &lt;= 7) {
-        return hours &lt; 2
-      }
+function canManage (userId, assetId) {
+  return http({
+    url: `//api.roblox.com/users/${userId}/canmanage/${assetId}`,
+    options: {
+      method: 'GET',
+      resolveWithFullResponse: true
     }
-  }
-  const previousSunday = day - dow
-  if (month === 2) {
-    return previousSunday >= 8
-  }
-  return previousSunday &lt;= 0
+  })
+    .then(function ({ statusCode, body }) {
+      const { Success: success, CanManage: canManage, ErrorMessage: error } = JSON.parse(body)
+      if (success) {
+        return canManage
+      } else {
+        if (error) {
+          throw new Error(`${error} | userId: ${userId}, assetId: ${assetId}`)
+        } else {
+          throw new Error(`An unknown error occurred with canManage() | [${statusCode}] userId: ${userId}, assetId: ${assetId}`)
+        }
+      }
+    })
 }
 
-exports.func = function (args) {
-  const time = args.time
-  const timezone = args.timezone
-  return new Date(time + ' ' + timezone.substring(0, 1) + (exports.isDST(time) ? 'D' : 'S') + timezone.substring(1))
+exports.func = function ({ userId, assetId }) {
+  return canManage(userId, assetId)
 }
 </code></pre>
         </article>
