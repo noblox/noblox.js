@@ -1440,6 +1440,11 @@ declare module "noblox.js" {
     function block(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
+     * Returns whether the user can manage a given asset.
+     */
+    function canManage(userId: number, assetId: number): Promise<boolean>;
+
+    /**
      * Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */

@@ -1,4 +1,4 @@
-const { acceptFriendRequest, block, unblock, declineFriendRequest, follow, unfollow, getBlurb, getCollectibles, getFollowers, getFollowings, getFriendRequests, getFriends, getGroups, getIdFromUsername, getInventory, getInventoryById, getMessages, getOwnership, getPlayerBadges, getPlayerInfo, getPlayerThumbnail, getStatus, getUserTransactions, getUsernameFromId, removeFriend, sendFriendRequest, setCookie } = require('../lib')
+const { acceptFriendRequest, block, unblock, canManage, declineFriendRequest, follow, unfollow, getBlurb, getCollectibles, getFollowers, getFollowings, getFriendRequests, getFriends, getGroups, getIdFromUsername, getInventory, getInventoryById, getMessages, getOwnership, getPlayerBadges, getPlayerInfo, getPlayerThumbnail, getStatus, getUserTransactions, getUsernameFromId, removeFriend, sendFriendRequest, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -84,6 +84,12 @@ describe('User Methods', () => {
 
   it('unblock() unblocks a user on Roblox', () => {
     return unblock(4397833)
+  })
+
+  it('canManage() checks if a user can manage an asset', () => {
+    return canManage(2416399685, 6792044666).then((res) => {
+      return expect(res).toBe(true)
+    })
   })
 
   it('getBlurb() returns a user\'s blurb', () => {
