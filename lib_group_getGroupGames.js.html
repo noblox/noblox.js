@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/user/getInventory.js</title>
+  <title>noblox.js lib/group/getGroupGames.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/user/getInventory.js</h1>
+                    <h1>lib/group/getGroupGames.js</h1>
                 </header>
                 
 
@@ -146,30 +146,29 @@
 const getPageResults = require('../util/getPageResults.js').func
 
 // Args
-exports.required = ['userId', 'assetTypes']
-exports.optional = ['sortOrder', 'limit', 'jar']
+exports.required = ['groupId']
+exports.optional = ['accessFilter', 'sortOrder', 'limit']
 
 // Docs
 /**
- * Get a user's inventory.
- * @category User
- * @alias getInventory
- * @param {number} userId - The id of user whose inventory is being returned.
- * @param {array} assetTypes - The types of assets being retrieved.
- * @param {SortOrder=} [sortOrder=Asc] - The order that the data will be returned in (Asc or Desc)
- * @param {Limit=} [limit=10] - The number of assets returned in each request (10, 25, 50, or 100)
- * @returns {Promise&lt;Inventory>}
+ * Get a group's games.
+ * @category Group
+ * @alias getGroupGames
+ * @param {number} groupId - The id of the group.
+ * @param {("All" | "Public" | "Private")=} [accessFilter=All] - Filtering games via access level.
+ * @param {SortOrder=} [sortOrder=Asc] - The order results are sorted in.
+ * @param {Limit=} [limit=∞] - The maximum number of games to return
+ * @returns {Promise&lt;GroupGameInfo[]>}
  * @example const noblox = require("noblox.js")
- * let inventory = await noblox.getInventory({userId: 123456, assetTypes: ["Shirt"], sortOrder: "Asc", limit: 100})
+ * const groupGames = await noblox.getGroupGames({groupId: 1, accessFilter: 'All', sortOrder: 'Asc', limit: '100'})
 **/
 
 // Define
 exports.func = function (args) {
   return getPageResults({
-    jar: args.jar,
-    url: `//inventory.roblox.com/v2/users/${args.userId}/inventory`,
-    query: { assetTypes: args.assetTypes.join(',') },
-    sortOrder: args.sortOrder,
+    url: `//games.roblox.com/v2/groups/${args.groupId}/games`,
+    query: { accessFilter: args.accessFilter || 'All' },
+    sortOrder: args.sortOrder || 'Asc',
     limit: args.limit
   })
 }
