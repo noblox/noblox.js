@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/user/unblock.js</title>
+  <title>noblox.js lib/group/getGroupRevenueSummary.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/user/unblock.js</h1>
+                    <h1>lib/group/getGroupRevenueSummary.js</h1>
                 </header>
                 
 
@@ -144,62 +144,51 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
-const getGeneralToken = require('../util/getGeneralToken.js').func
 
 // Args
-exports.required = ['userId']
-exports.optional = ['jar']
+exports.required = ['groupId']
+exports.optional = ['timeFrame', 'jar']
 
 // Docs
 /**
- * Unblock a user.
- * @category User
- * @alias unblock
- * @param {number} userId - The id of the user.
- * @returns {Promise&lt;void>}
+ * Gets recent Robux revenue summary for a group; shows pending Robux. | Requires "Spend group funds" permissions.
+ * @category Group
+ * @alias getGroupRevenueSummary
+ * @param {number} groupId - The group id to get Robux summary for.
+ * @param {("Day" | "Week" | "Month" | "Year")=} [timeFrame="Month"] - The time frame to get for.
+ * @returns {Promise&lt;RevenueSummaryResponse>}
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.unblock(123456)
+ * let revenueSummary = await noblox.getGroupRevenueSummary(9997719, "Year")
 **/
 
 // Define
-function unblock (jar, token, userId) {
-  return new Promise((resolve, reject) => {
-    const httpOpt = {
-      url: '//www.roblox.com/userblock/unblockuser',
-      options: {
-        method: 'POST',
-        jar: jar,
-        headers: {
-          'X-CSRF-TOKEN': token
-        },
-        json: {
-          blockeeId: userId
-        },
-        resolveWithFullResponse: true
-      }
+function getGroupRevenueSummary (group, timeFrame, jar) {
+  return http({
+    url: `//economy.roblox.com/v1/groups/${group}/revenue/summary/${timeFrame}`,
+    options: {
+      jar: jar,
+      resolveWithFullResponse: true
     }
-    return http(httpOpt)
-      .then(function (res) {
-        if (res.statusCode === 200) {
-          const body = res.body
-          if (!body.success) {
-            reject(new Error(body.error || body.message))
-          }
-          resolve()
-        } else {
-          reject(new Error('Unblock failed'))
-        }
-      })
   })
+    .then(({ statusCode, body }) => {
+      const { errors } = JSON.parse(body)
+      if (statusCode === 200) {
+        return JSON.parse(body)
+      } else if (statusCode === 400) {
+        throw new Error(`${errors[0].message} | groupId: ${group}, timeFrame: ${timeFrame}`)
+      } else if (statusCode === 401) {
+        throw new Error(`${errors[0].message} (Are you logged in?) | groupId: ${group}, timeFrame: ${timeFrame}`)
+      } else if (statusCode === 403) {
+        throw new Error('Insufficient permissions: "Spend group funds" role permissions required')
+      } else {
+        throw new Error(`An unknown error occurred with getGroupFunds() | [${statusCode}] groupId: ${group}, timeFrame: ${timeFrame}`)
+      }
+    })
 }
 
-exports.func = function (args) {
-  const jar = args.jar
-  return getGeneralToken({ jar: jar })
-    .then(function (xcsrf) {
-      return unblock(jar, xcsrf, args.userId)
-    })
+exports.func = function ({ groupId, timeFrame = 'Month', jar }) {
+  return getGroupRevenueSummary(groupId, timeFrame, jar)
 }
 </code></pre>
         </article>
