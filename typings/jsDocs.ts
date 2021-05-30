@@ -56,7 +56,7 @@ type ProductInfo = {
 */
 type BuyProductInfo = {
     ProductId: number;
-    Creator: {Id: number};
+    Creator: { Id: number };
     PriceInRobux: number;
     UserAssetId: number;
 }
@@ -781,8 +781,8 @@ type GroupGameInfo = {
     id: number;
     name: string;
     description: string;
-    creator: {id: number; type: string;};
-    rootPlace: {id: number; type: string;};
+    creator: { id: number; type: string; };
+    rootPlace: { id: number; type: string; };
     created: Date;
     updated: Date;
     placeVisits: number;
@@ -1096,8 +1096,6 @@ type FollowersPage = {
     data: FollowEntry[];
 }
 
-//
-
 /**
  * @typedef
 */
@@ -1107,8 +1105,6 @@ type PrivateMessagesPage = {
     totalCollectionSize: number;
     pageNumber: number;
 }
-
-//
 
 /**
  * @typedef
@@ -1186,8 +1182,12 @@ type PlayerInfo = {
     oldNames?: string[];
     isBanned: boolean;
 }
+
+/**
+ * @typedef
+*/
 type Presences = {
-    userPresences: UserPresence[]
+    userPresences: UserPresence[];
 }
 
 /**
@@ -1235,7 +1235,9 @@ type BadgeUniverse = {
     rootPlaceId: number;
 }
 
-//
+/**
+ * @typedef
+*/
 type PlayerBadges = {
     id: number;
     name: string;
@@ -1250,7 +1252,6 @@ type PlayerBadges = {
     created: Date;
     updated: Date;
 }
-//
 
 /**
  * @typedef
@@ -1301,7 +1302,6 @@ type CollectibleEntry = {
 type Collectibles = {
     collectibles: CollectibleEntry[];
 }
-//
 
 /**
  * @typedef
