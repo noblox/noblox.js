@@ -1801,6 +1801,11 @@ declare module "noblox.js" {
      */
     function threaded(getPage: (pageNum: number) => Promise<void> | void, start: number, end: number): ThreadedPromise;
 
+    /**
+     * Sets settings.json value.
+     */
+     function setOptions(option: string, value: string | number | object): Promise<boolean>;
+
     // Events
 
     /// Asset
