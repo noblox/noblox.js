@@ -1300,10 +1300,10 @@ declare module "noblox.js" {
     /**
      * 🔐 Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the game pass off-sale.
      * Returns a `GamePassResponse` with the changed attributes.
-     * 
+     *
      * NOTE: Updating `name` will affect `description`: you must repeat `description` with each `name` update, or `description` will be cleared.
      */
-    
+
     function configureGamePass(gamePassId: number, name: string, description?: string, price?: number | boolean, icon?: string | stream.Stream, jar?: CookieJar): Promise<GamePassResponse>;
 
     /// Group
@@ -1397,7 +1397,7 @@ declare module "noblox.js" {
      * ✅ Gets the logo of the specified group.
      */
     function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
-    
+
     /**
      * 🔐 Gets a specific group join request, if it exists.
      */
@@ -1643,7 +1643,7 @@ declare module "noblox.js" {
      * 🔐 Decline an active trade.
      */
     function declineTrade(tradeId: number, jar?: CookieJar): Promise<void>;
-    
+
     /**
      * 🔐 Accept an active trade.
      */
@@ -1800,6 +1800,18 @@ declare module "noblox.js" {
      * Returns a promise with the additional function properties `getStatus`, `getCompleted`, `getExpected` which represent the percent completion, the current number of completed threads, and the total number of threads for completion.
      */
     function threaded(getPage: (pageNum: number) => Promise<void> | void, start: number, end: number): ThreadedPromise;
+
+
+    /**
+     * ✅ Updates library options. This allows you to modify settings such as time-out, or number of event retries without
+     * altering the settings.json file. Objects passed to this function should match the format of the settings.json file.
+     * Unknown keys, or malformed options will be rejected with an error.
+     * resilient in that it will reject unknown values, or values which are nested incorrectly - meaning they are ineffective.
+     * @param newOptions - The new options to set, structured as per settings.json
+     * @see https://github.com/noblox/noblox.js/blob/master/settings.json
+     */
+    function setOptions(newOptions: any): void
+
 
     // Events
 
