@@ -161,7 +161,7 @@
     <img src="https://raw.githubusercontent.com/noblox/noblox.js/master/img/noblox-js.png" alt="noblox.js" width="400"/>
     <br>
 </h1>
-<h4 align="center">A Node.js wrapper for interacting with the Roblox API. Forked from <a href="https://github.com/sentanos/roblox-js">roblox-js</a>.</h4>
+<h4 align="center">A Node.js wrapper for interacting with the Roblox API; forked from <a href="https://github.com/sentanos/roblox-js">roblox-js</a>.</h4>
 <p align="center">
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-blue.svg?style=flat-square" alt="JavaScript Style Guide"/></a>
     <a href="https://discord.gg/R5GVSyTVGv"><img src="https://img.shields.io/badge/discord-noblox.js-blue.svg?style=flat-square" alt="noblox.js Discord"/></a>
@@ -172,78 +172,127 @@
   <a href="#about">About</a> •
   <a href="#prerequisites">Prerequisites</a> •
   <a href="#installation">Installation</a> •
-  <a href="#documentation">Docs</a> •
-  <a href="https://github.com/noblox/noblox.js/tree/master/examples">Examples</a> •
+  <a href="#quickstart">Quickstart</a> •
+  <a href="#documentation">Documentation</a> •
+  <a href="#common-issues">Common Issues</a> •
   <a href="https://www.youtube.com/playlist?list=PLEW4K4VqMUb_VMA3Yp9LI4gReRyVWGTnU">YouTube Series</a> •
   <a href="#credits">Credits</a> •
   <a href="#license">License</a>
 </p>
+<hr>
 <h2>About</h2>
-<p>Noblox.js is a node module that was forked from <a href="https://github.com/sentanos/roblox-js">sentanos's roblox-js module</a>. This project was created because the roblox-js repository was no longer maintained by sentanos.</p>
-<p>Noblox.js allows you to do things you would normally do on the <a href="https://www.roblox.com">Roblox</a> website through a Node.js interface. You can use noblox.js along with Roblox's <a href="http://wiki.roblox.com/index.php?title=API:Class/HttpService">HttpService feature</a> to create scripts that interact with the website. If you're looking for more information on how to create something like this, check out <a href="https://github.com/noblox/noblox.js-server">this</a> repository by our team. Keep in mind that this does not use the latest version of this module and it is <strong>highly</strong> encouraged that you learn to use the library directly.</p>
+<p><code>noblox.js</code> is an open-source Roblox API wrapper written in JavaScript (with TypeScript compatibility) as a fork from sentanos's <a href="https://github.com/sentanos/roblox-js"> roblox-js module</a>.</p>
+<p>This NPM package enables operations froms the <a href="https://www.roblox.com">Roblox website</a> to be executed via NodeJS; many individuals leverage <code>noblox.js</code> along side <a href="http://wiki.roblox.com/index.php?title=API:Class/HttpService">Roblox's HTTPService</a> to create in-game scripts that interact with the website, i.e. promote users, shout events, and so on, or to create Discord utiltiies to manage their community.</p>
+<p>If you are looking for more information on how to create something like this, check out <a href="https://github.com/noblox/noblox.js-server">our sister library, <code>noblox.js-server</code></a> or <a href="https://www.youtube.com/playlist?list=PLEW4K4VqMUb_VMA3Yp9LI4gReRyVWGTnU">our YouTube series</a>. Keep in mind that these resources may not always be up to date, so it is <strong>highly</strong> encouraged that you learn to use the <code>noblox.js</code> library directly.</p>
+<hr>
 <h2>Prerequisites</h2>
 <ul>
-<li><a href="https://nodejs.org/en/download/current/"><strong>node.js</strong></a></li>
+<li><a href="https://nodejs.org/en/download/current/"><strong>Node.js®</strong></a></li>
 </ul>
+<hr>
 <h2>Installation</h2>
 <p>With node.js installed simply run:</p>
 <pre class="prettyprint source lang-bash"><code># Run this to install noblox.js locally to your repository. 
-$ npm install noblox.js --save
+$ npm install noblox.js
 
-# if you're using yarn:
+# Alternatively, if you are using yarn:
 $ yarn add noblox.js
 
-# Run this instead to install noblox.js globally so you can use it anywhere.
+# To use noblox.js anywhere, run this code to install the package globally:
 $ npm install noblox.js -g
 </code></pre>
 <p>That's it!</p>
+<hr>
 <h2>Documentation</h2>
-<p>You can find the current noblox.js wiki with all API documentation <a href="https://noblox.js.org/">here</a>. Keep in mind that all methods may not be documented.</p>
-<h2>Making use of new login workaround</h2>
-<blockquote>
-<p>Note, as of v4.6.0 The way you log in to Noblox has changed significantly.
-The library is no longer responsible for refreshing your cookies</p>
-<p>This is because of many reasons including that creating a file caused several security/usability issues and made the library incompatible with some hosts.</p>
-</blockquote>
-<h3>Initial setup</h3>
-<ol>
-<li>Remove any usages of the <code>login</code> or <code>cookieLogin</code> methods.</li>
-<li>Run <code>setCookie</code> with your cookie. This will store your cookie internally and validate it</li>
-</ol>
-<blockquote>
-<p>Note: By default, setCookie will validate the cookie you provide by making a HTTP request.
-To Disable this behaviour, pass <code>false</code> as the second parameter (validate)</p>
-</blockquote>
-<h3>Getting your cookie (Chrome):</h3>
-<ol>
-<li>Open any Roblox page and login</li>
-<li>Press <code>Control + Shift + i</code> on your keyboard</li>
-<li>Click <code>Application</code></li>
-<li>Find <code>.ROBLOSECURITY</code>. Copy its contents, which will start with: <code>_|WARNING:-DO</code></li>
-<li>Put this full token, <em>including</em> the warning into setCookie: <code>rbx.setCookie( tokenHere )</code></li>
-</ol>
-<h3>Example</h3>
-<p>This example makes use of the new async-await syntax.</p>
-<pre class="prettyprint source lang-js"><code>const rbx = require(&quot;noblox.js&quot;)
-async function startApp () {
-    await rbx.setCookie(&quot;_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_F9F1EA531adk&quot;)
-    // Do everything else, calling functions and the like.
-    let currentUser = await rbx.getCurrentUser()
-}
+<p>You can locate the <a href="https://noblox.js.org/"><code>noblox.js</code> documentation here</a>; keep in mind some internal or legacy methods may not be documented.</p>
+<h3>Legend</h3>
+<p>You may notice our documentation utilizes emojis in every function description; they have meanings!</p>
+<table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔐</td>
+<td>Authentication through <code>setCookie()</code> is required to use this method.<sup id="a1"><a href="#f1">1</a></sup></td>
+</tr>
+<tr>
+<td>🔓</td>
+<td>Authentication through <code>setCookie()</code> is required in <strong>some</strong> use-cases; dependent on the target's privacy settings.</td>
+</tr>
+<tr>
+<td>✅</td>
+<td>No authentication is required to use this method.</td>
+</tr>
+</tbody>
+</table>
+<p><b id="f1"><a href="#a1">1</a></b> : Extended permissions may be required such as edit permissions or account ownership.</p>
+<p><a href="https://discord.gg/R5GVSyTVGv"><img src="https://img.shields.io/badge/discord-noblox.js-blue.svg?style=flat-square" alt="noblox.js Discord"/></a></p>
+<hr>
+<h2>Quickstart</h2>
+<p>1 | Install <code>noblox.js</code>:</p>
+<pre class="prettyprint source lang-bash"><code>npm install noblox.js
 </code></pre>
-<h2>Drawbacks</h2>
-<ul>
-<li>Roblox-js-server is <strong>not</strong> currently compatible. Use <a href="https://github.com/noblox/noblox.js-server">noblox.js-server</a> instead.</li>
-</ul>
-<h2>Common issues</h2>
-<h3>CSRF</h3>
-<p>In July 2020 Roblox updated the endpoint we used to get CSRF tokens (<code>auth.roblox.com/v1/logout</code>) and essentially disabled it.
-They didn't warn anyone of this change so as of v4.6.3 we've updated to a new endpoint that works.
-To make use of the new fix, run <code>npm install noblox.js@4.6.3</code>. Alternatively, use <code>latest</code> to get the latest version.</p>
-<h3>Cookie expiration</h3>
-<p>We previously advised users to refresh cookies. This is no longer the case.
-Your Roblox authentication cookies will not expire as long as you do not log into the account, or use the log out or &quot;Sign out all sessions&quot; buttons.</p>
-<p>For this reason, we advise you use a bot account.</p>
+<p>2 | Retrieve your <code>.ROBLOSECURITY</code> cookie (Google Chrome):</p>
+<ol>
+<li>Go to <code>https://www.roblox.com</code> and login to the bot account.</li>
+<li>Open the Developer Console by pressing <code>CTRL SHIFT I</code> or <code>F12</code>.</li>
+<li>Click the <code>Application</code> along the top row.</li>
+<li>Expand the <code>Cookies</code> dropdown in the left panel, and select <code>https://www.roblox.com</code>.</li>
+<li>Copy the value of the <code>.ROBLOSECURITY</code> cookie to your clipboard.</li>
+</ol>
+<blockquote>
+<p><a href="https://noblox.js.org/tutorial-Authentication.html">Instructions for alternative browsers can be found here.</a></p>
+</blockquote>
+<p>3 | Write your code.</p>
+<p><em>Using <code>async/await</code> syntax:</em></p>
+<pre class="prettyprint source lang-js"><code>const noblox = require('noblox.js')
+async function startApp () {
+    // You MUST call setCookie() before using any authenticated methods [marked by 🔐]
+    // Replace the parameter in setCookie() with your .ROBLOSECURITY cookie.
+    const currentUser = await noblox.setCookie('_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_6E6F626C6F782E6A73') 
+    console.log(`Logged in as ${currentUser.UserName} [${currentUser.UserID}]`)
+
+    // Do everything else, calling functions and the like.
+    const groupInfo = await noblox.getGroup(9997719)
+    console.log(groupInfo)
+}
+startApp()
+</code></pre>
+<p>You are now using <code>noblox.js</code>!</p>
+<h3><a href="https://github.com/noblox/noblox.js/tree/master/examples">More examples can be found here.</a></h3>
+<p><strong>Promises are fundamental to this library</strong>; if you are unfamiliar with JavaScript promises, we recommend you check out <a href="https://noblox.js.org/tutorial-Promises.html">our tutorial here</a>, and <a href="https://www.youtube.com/watch?v=QO4NXhWo_NM&amp;list=PLRqwX-V7Uu6YgpA3Oht-7B4NBQwFVe3pr&amp;index=12">Daniel Shiffman's JavaScript series</a>.</p>
+<hr>
+<h2>Hiding Your Cookie</h2>
+<p>It is bad practice to store your <code>.ROBLOSECURITY</code> cookie inside your codebase; it is too easy to accidentally screenshot or push this private key to GitHub. We recommend using a <a href="https://www.npmjs.com/package/dotenv">package such as <code>dotenv</code></a> to store your private information in environmental variables.</p>
+<p>We recommend using a secondary account for botting purposes.</p>
+<p>Consult their documentation or <a href="https://www.youtube.com/watch?v=17UVejOw3zA">follow this video</a>.</p>
+<hr>
+<h3>Invalidating A Cookie</h3>
+<p>In the event of accidentally exposing your <code>.ROBLOSECURITY</code> cookie, do not panic. Go to <a href="https://www.roblox.com/my/account#!/security"><code>'Account Settings'</code> &gt; <code>'Security'</code></a> then select <code>'Sign out of all other sessions'</code>, then log out of your account. This should invalidate your <code>.ROBLOSECURITY</code> cookie.</p>
+<hr>
+<h2>Common Issues</h2>
+<blockquote>
+<p><strong>Error: You are not logged in.</strong></p>
+</blockquote>
+<p>You may be calling a function before <code>setCookie()</code> is completed; make sure that you are awaiting <code>setCookie()</code> before initializing any event listeners or function calls.</p>
+<p><code>noblox.js</code> is a promise based library, this enables you to run operations concurrently; however if you are not awaiting your promises, this means while <code>setCookie()</code> is validating your cookie, <em>your other functions will continue to run</em>- ~30ms is a <strong>long time</strong> at the computer scale.</p>
+<p><strong>Promises are fundamental to this library</strong>; if you are unfamiliar with JavaScript promises, we recommend you check out <a href="https://noblox.js.org/tutorial-Promises.html">our tutorial here</a>, and <a href="https://www.youtube.com/watch?v=QO4NXhWo_NM&amp;list=PLRqwX-V7Uu6YgpA3Oht-7B4NBQwFVe3pr&amp;index=12">Daniel Shiffman's JavaScript series</a>.</p>
+<blockquote>
+<p><strong>Error: 400 The roleset is invalid or does not exist.</strong></p>
+</blockquote>
+<p>You likely are using a <code>rankId</code> (0 - 255) instead of a <code>rolesetId</code> (&gt;255); a <code>rolesetId</code> is a unique identifier for a role which you can find by calling <a href="https://noblox.js.org/global.html#getRoles"><code>getRoles(groupId)</code></a>.</p>
+<p>Roblox's naming scheme is a fickle beast; similarly, a <code>developerProductId</code> is <em>different</em> than a <code>productId</code> (which appears on the public facing dashboard); use <a href="https://noblox.js.org/global.html#getDeveloperProducts"><code>getDeveloperProducts(placeId)</code></a> to see the <code>developerProductId</code>.</p>
+<blockquote>
+<p><strong>Error: Initialization failed: 401 Authorization has been denied for this request.</strong></p>
+</blockquote>
+<p>First, see the steps for <code>Error: You are not logged in</code>.</p>
+<p>If this is unresolved, are you sure the bot has permissions to access this resource? Can you do this operation manually on the website through the bot account?</p>
+<p>At the end of the day, a 'bot' is a user account, it cannot magically bypass privacy restrictions or group permissions.</p>
+<hr>
 <h2>Credits</h2>
 <ul>
 <li><a href="https://github.com/suufi">suufi</a> - Lead maintainer</li>
@@ -252,8 +301,9 @@ Your Roblox authentication cookies will not expire as long as you do not log int
 <li><a href="https://github.com/popeeyy">popeeyy</a> - Creation of the documentation.</li>
 <li><a href="https://github.com/edwrddd">edward</a> - Helping with the creation of the documentation.</li>
 </ul>
+<hr>
 <h2>License</h2>
-<p>MIT</p></article>
+<p><a href="https://github.com/noblox/noblox.js/blob/master/LICENSE">MIT</a></p></article>
     </section>
 
 

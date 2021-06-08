@@ -231,7 +231,7 @@
     
     
     <div class="description">
-        <p>Accept a user's friend request.</p>
+        <p>🔐 Accept a user's friend request.</p>
     </div>
     
 
@@ -411,7 +411,7 @@ noblox.acceptFriendRequest(123456)</code></pre>
     
     
     <div class="description">
-        <p>Accept an active trade.</p>
+        <p>🔐 Accept an active trade.</p>
     </div>
     
 
@@ -513,7 +513,7 @@ noblox.acceptFriendRequest(123456)</code></pre>
         <p class="tag-source">
             <a href="lib_trade_acceptTrade.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_trade_acceptTrade.js.html">lib/trade/acceptTrade.js</a>, <a href="lib_trade_acceptTrade.js.html#line21">line 21</a>
+                <a href="lib_trade_acceptTrade.js.html">lib/trade/acceptTrade.js</a>, <a href="lib_trade_acceptTrade.js.html#line22">line 22</a>
             </span>
         </p>
     
@@ -566,6 +566,7 @@ noblox.acceptFriendRequest(123456)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
+// Login using your cookie
 noblox.acceptTrade(1234)</code></pre>
     
 
@@ -590,7 +591,7 @@ noblox.acceptTrade(1234)</code></pre>
     
     
     <div class="description">
-        <p>Create a developer product.</p>
+        <p>🔐 Create a developer product.</p>
     </div>
     
 
@@ -881,7 +882,7 @@ noblox.addDeveloperProduct(1, "A Developer Product", 100, "A cool item.")</code>
     
     
     <div class="description">
-        <p>Add users to a conversation.</p>
+        <p>🔐 Add users to a conversation.</p>
     </div>
     
 
@@ -1086,7 +1087,7 @@ noblox.addUsersToConversation(1, [1, 2, 3])</code></pre>
     
     
     <div class="description">
-        <p>Get the avatar rules.</p>
+        <p>✅ Get the avatar rules.</p>
     </div>
     
 
@@ -1277,7 +1278,7 @@ const avatarRules = await noblox.avatarRules()</code></pre>
     
     
     <div class="description">
-        <p>Block a user.</p>
+        <p>🔐 Block a user.</p>
     </div>
     
 
@@ -1457,7 +1458,7 @@ noblox.block(123456)</code></pre>
     
     
     <div class="description">
-        <p>Buy an asset from the marketplace.</p>
+        <p>🔐 Buy an asset from the marketplace.</p>
     </div>
     
 
@@ -1682,7 +1683,7 @@ noblox.buy(1117747196)</code></pre>
     
     
     <div class="description">
-        <p>Returns whether the user can manage a given asset.</p>
+        <p>✅ Returns whether the user can manage a given asset.</p>
     </div>
     
 
@@ -1886,7 +1887,7 @@ let canManage = await noblox.canManage(123456, 234567)</code></pre>
     
     
     <div class="description">
-        <p>Check if the signed in user can trade with another user.</p>
+        <p>🔐 Check if the signed in user can trade with another user.</p>
     </div>
     
 
@@ -1988,7 +1989,7 @@ let canManage = await noblox.canManage(123456, 234567)</code></pre>
         <p class="tag-source">
             <a href="lib_trade_canTradeWith.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_trade_canTradeWith.js.html">lib/trade/canTradeWith.js</a>, <a href="lib_trade_canTradeWith.js.html#line20">line 20</a>
+                <a href="lib_trade_canTradeWith.js.html">lib/trade/canTradeWith.js</a>, <a href="lib_trade_canTradeWith.js.html#line21">line 21</a>
             </span>
         </p>
     
@@ -2041,6 +2042,7 @@ let canManage = await noblox.canManage(123456, 234567)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
+// Login using your cookie
 const canTrade = await noblox.canTradeWith(1234)</code></pre>
     
 
@@ -2065,7 +2067,7 @@ const canTrade = await noblox.canTradeWith(1234)</code></pre>
     
     
     <div class="description">
-        <p>Change a user's rank.</p>
+        <p>🔐 Change a user's rank.</p>
     </div>
     
 
@@ -2295,7 +2297,7 @@ noblox.changeRank(1, 2, -1)</code></pre>
     
     
     <div class="description">
-        <p>Get the chat settings.</p>
+        <p>🔐 Get the chat settings.</p>
     </div>
     
 
@@ -2424,7 +2426,7 @@ const settings = await noblox.chatSettings()</code></pre>
     
     
     <div class="description">
-        <p>Check if a provided name is in use by another developer product.</p>
+        <p>🔐 Check if a provided name is in use by another developer product.</p>
     </div>
     
 
@@ -2682,7 +2684,7 @@ const productInfo = await noblox.checkDeveloperProductName(1, "A Developer Produ
     
     
     <div class="description">
-        <p>Remove .ROBLOSECURITY cookie from jar.</p>
+        <p>🔐 Remove .ROBLOSECURITY cookie from jar.</p>
     </div>
     
 
@@ -2861,7 +2863,7 @@ noblox.clearSession()</code></pre>
     
     
     <div class="description">
-        <p>Modifies an existing game pass.</p>
+        <p>🔐 Modifies an existing game pass.</p>
     </div>
     
 
@@ -3191,7 +3193,7 @@ noblox.configureGamePass(12345678, "Game Pass Title", "Game Pass Description", 1
     
     
     <div class="description">
-        <p>Configure an asset.</p>
+        <p>🔐 Configure an asset.</p>
     </div>
     
 
@@ -3581,7 +3583,7 @@ noblox.configureItem(1117747196, "Item", "A cool item.")</code></pre>
     
     
     <div class="description">
-        <p>Counter an active incoming trade.</p>
+        <p>🔐 Counter an active incoming trade.</p>
     </div>
     
 
@@ -3758,7 +3760,7 @@ noblox.configureItem(1117747196, "Item", "A cool item.")</code></pre>
         <p class="tag-source">
             <a href="lib_trade_counterTrade.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_trade_counterTrade.js.html">lib/trade/counterTrade.js</a>, <a href="lib_trade_counterTrade.js.html#line25">line 25</a>
+                <a href="lib_trade_counterTrade.js.html">lib/trade/counterTrade.js</a>, <a href="lib_trade_counterTrade.js.html#line26">line 26</a>
             </span>
         </p>
     
@@ -3811,6 +3813,7 @@ noblox.configureItem(1117747196, "Item", "A cool item.")</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
+// Login using your cookie
 noblox.counterTrade(1234, 80231025, { userAssetIds: [23289506393] }, { userAssetIds: [32924150919] })</code></pre>
     
 
@@ -3835,7 +3838,7 @@ noblox.counterTrade(1234, 80231025, { userAssetIds: [23289506393] }, { userAsset
     
     
     <div class="description">
-        <p>Get the assets a user is wearing.</p>
+        <p>✅ Get the assets a given user is wearing.</p>
     </div>
     
 
@@ -4014,7 +4017,7 @@ const wearingAssets = await noblox.currentlyWearing(1)</code></pre>
     
     
     <div class="description">
-        <p>Decline all incoming friend requests.</p>
+        <p>🔐 Decline all incoming friend requests.</p>
     </div>
     
 
@@ -4143,7 +4146,7 @@ noblox.declineAllFriendRequests()</code></pre>
     
     
     <div class="description">
-        <p>Decline a user's friend request.</p>
+        <p>🔐 Decline a user's friend request.</p>
     </div>
     
 
@@ -4323,7 +4326,7 @@ noblox.declineFriendRequest(123456)</code></pre>
     
     
     <div class="description">
-        <p>Decline an active trade.</p>
+        <p>🔐 Decline an active trade.</p>
     </div>
     
 
@@ -4425,7 +4428,7 @@ noblox.declineFriendRequest(123456)</code></pre>
         <p class="tag-source">
             <a href="lib_trade_declineTrade.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_trade_declineTrade.js.html">lib/trade/declineTrade.js</a>, <a href="lib_trade_declineTrade.js.html#line21">line 21</a>
+                <a href="lib_trade_declineTrade.js.html">lib/trade/declineTrade.js</a>, <a href="lib_trade_declineTrade.js.html#line22">line 22</a>
             </span>
         </p>
     
@@ -4478,6 +4481,7 @@ noblox.declineFriendRequest(123456)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
+// Login using your cookie
 noblox.declineTrade(1234)</code></pre>
     
 
@@ -4502,7 +4506,7 @@ noblox.declineTrade(1234)</code></pre>
     
     
     <div class="description">
-        <p>Delete a wall post.</p>
+        <p>🔐 Delete a wall post.</p>
     </div>
     
 
@@ -4707,7 +4711,7 @@ noblox.deleteWallPost(1, 2)</code></pre>
     
     
     <div class="description">
-        <p>Demote a user.</p>
+        <p>🔐 Demote a user.</p>
     </div>
     
 
@@ -4912,7 +4916,7 @@ noblox.demote(1, 2)</code></pre>
     
     
     <div class="description">
-        <p>Exile a user from a group.</p>
+        <p>🔐 Exile a user from a group.</p>
     </div>
     
 
@@ -5117,7 +5121,7 @@ noblox.exile(1, 2)</code></pre>
     
     
     <div class="description">
-        <p>Follow a user.</p>
+        <p>🔐 Follow a user.</p>
     </div>
     
 
@@ -5297,7 +5301,7 @@ noblox.follow(123456)</code></pre>
     
     
     <div class="description">
-        <p>Get the verification inputs and send a request.</p>
+        <p>🔐 Get the verification inputs and send a request.</p>
     </div>
     
 
@@ -5651,7 +5655,7 @@ noblox.generalRequest("//www.roblox.com/Groups/Group.aspx?gid=1", { __EVENTTARGE
     
     
     <div class="description">
-        <p>Get the action row for the audit log text. Supported: change rank, delete post, change group status.</p>
+        <p>✅ Get the action row for the audit log text. Supported: change rank, delete post, change group status.</p>
     </div>
     
 
@@ -5824,7 +5828,7 @@ noblox.generalRequest("//www.roblox.com/Groups/Group.aspx?gid=1", { __EVENTTARGE
     
     
     <div class="description">
-        <p>Get the audit log for the group.</p>
+        <p>🔐 Get the audit log for the group.</p>
     </div>
     
 
@@ -6312,7 +6316,7 @@ const rankLogs = await noblox.getAuditLog(1, "ChangeRank", 2, "Asc")</code></pre
     
     
     <div class="description">
-        <p>Get a user's avatar.</p>
+        <p>✅ Get a user's avatar.</p>
     </div>
     
 
@@ -6491,7 +6495,7 @@ const avatar = await noblox.getAvatar(1)</code></pre>
     
     
     <div class="description">
-        <p>Get the time the badge was awarded to a user.</p>
+        <p>✅ Get the time the badge was awarded to a user.</p>
     </div>
     
 
@@ -6699,7 +6703,7 @@ const badges = await noblox.getAwardedTimestamps(1, [1, 2, 3])</code></pre>
     
     
     <div class="description">
-        <p>Get the info of a badge.</p>
+        <p>✅ Get the info of a badge.</p>
     </div>
     
 
@@ -6877,7 +6881,7 @@ const badges = await noblox.getAwardedTimestamps(1, [1, 2, 3])</code></pre>
     
     
     <div class="description">
-        <p>Get a user's blurb - a user's description.</p>
+        <p>✅ Get a user's blurb - a user's description.</p>
     </div>
     
 
@@ -7058,7 +7062,7 @@ let blurb = await noblox.getBlurb({userId: 123456})</code></pre>
     
     
     <div class="description">
-        <p>Get the chat messages for a conversation.</p>
+        <p>🔐 Get the chat messages for a conversation.</p>
     </div>
     
 
@@ -7334,7 +7338,7 @@ const messages = await noblox.getChatMessages(1, 25)</code></pre>
     
     
     <div class="description">
-        <p>Get a user's collectibles.</p>
+        <p>🔓 Get a user's collectibles.</p>
     </div>
     
 
@@ -7689,7 +7693,7 @@ let collectibles = await noblox.getCollectibles({userId: 123456, sortOrder: "Asc
     
     
     <div class="description">
-        <p>Add users to a conversation.</p>
+        <p>🔐 Add users to a conversation.</p>
     </div>
     
 
@@ -7869,7 +7873,7 @@ const conversations = await noblox.getConversations([1, 2, 3])</code></pre>
     
     
     <div class="description">
-        <p>Gets your current avatar.</p>
+        <p>🔐 Gets your current avatar.</p>
     </div>
     
 
@@ -8061,7 +8065,7 @@ const avatar = await noblox.getCurrentAvatar()</code></pre>
     
     
     <div class="description">
-        <p>Get the current logged in user.</p>
+        <p>🔐 Get the current logged in user.</p>
     </div>
     
 
@@ -8253,7 +8257,7 @@ const user = await noblox.getCurrentUser()</code></pre>
     
     
     <div class="description">
-        <p>Get the date for the time and timezone.</p>
+        <p>✅ Get the date for the time and timezone.</p>
     </div>
     
 
@@ -8457,7 +8461,7 @@ const convertedDate = noblox.getDate(100000000, "CT")</code></pre>
     
     
     <div class="description">
-        <p>Returns the existing developer products in a specified game.</p>
+        <p>🔐 Returns the existing developer products in a specified game.</p>
     </div>
     
 
@@ -8685,7 +8689,7 @@ const convertedDate = noblox.getDate(100000000, "CT")</code></pre>
     
     
     <div class="description">
-        <p>Get a user's followers.</p>
+        <p>✅ Get a user's followers.</p>
     </div>
     
 
@@ -9001,7 +9005,7 @@ let followers = await noblox.getFollowers(123456, "Asc", 10)</code></pre>
     
     
     <div class="description">
-        <p>Get the users followed by the user.</p>
+        <p>✅ Get the users followed by the user.</p>
     </div>
     
 
@@ -9317,7 +9321,7 @@ let following = await noblox.getFollowings(123456, "Asc", 50)</code></pre>
     
     
     <div class="description">
-        <p>Get the friend requests of the authenticated user.</p>
+        <p>🔐 Get the friend requests of the authenticated user.</p>
     </div>
     
 
@@ -9597,7 +9601,7 @@ let friendRequests = await noblox.getFriendRequests({sortOrder: "Desc", limit: 1
     
     
     <div class="description">
-        <p>Get the friends of a user</p>
+        <p>✅ Get the friends of a user</p>
     </div>
     
 
@@ -9780,7 +9784,7 @@ let friends = await noblox.getFriends(123456)</code></pre>
     
     
     <div class="description">
-        <p>Get the badges in a specific game.</p>
+        <p>✅ Get the badges in a specific game.</p>
     </div>
     
 
@@ -10073,7 +10077,7 @@ let friends = await noblox.getFriends(123456)</code></pre>
     
     
     <div class="description">
-        <p>Get the servers in a game.</p>
+        <p>🔐 Get the servers in a game.</p>
     </div>
     
 
@@ -10298,7 +10302,7 @@ const servers = await noblox.getGameInstances(1)</code></pre>
     
     
     <div class="description">
-        <p>Get an XCSRF token.</p>
+        <p>🔐 Generate an X-CSRF-Token.</p>
     </div>
     
 
@@ -10490,7 +10494,7 @@ const XCSRF = await noblox.getGeneralToken()</code></pre>
     
     
     <div class="description">
-        <p>Get a group's info.</p>
+        <p>✅ Get a group's info.</p>
     </div>
     
 
@@ -10669,7 +10673,7 @@ const groupInfo = await noblox.getGroup(1)</code></pre>
     
     
     <div class="description">
-        <p>Gets the amount of robux in a group.</p>
+        <p>🔓 Gets the amount of robux in a group.</p>
     </div>
     
 
@@ -10849,7 +10853,7 @@ let robux = await noblox.getGroupFunds(9997719)</code></pre>
     
     
     <div class="description">
-        <p>Get a group's games.</p>
+        <p>✅ Get a group's games.</p>
     </div>
     
 
@@ -11173,7 +11177,7 @@ const groupGames = await noblox.getGroupGames({groupId: 1, accessFilter: 'All', 
     
     
     <div class="description">
-        <p>Gets recent Robux revenue summary for a group; shows pending Robux. | Requires &quot;Spend group funds&quot; permissions.</p>
+        <p>🔐 Gets recent Robux revenue summary for a group; shows pending Robux. | Requires &quot;Spend group funds&quot; permissions.</p>
     </div>
     
 
@@ -11419,7 +11423,7 @@ let revenueSummary = await noblox.getGroupRevenueSummary(9997719, "Year")</code>
     
     
     <div class="description">
-        <p>Get the groups of a user.</p>
+        <p>✅ Get the groups of a user.</p>
     </div>
     
 
@@ -11598,7 +11602,7 @@ let groups = await noblox.getGroups(123456)</code></pre>
     
     
     <div class="description">
-        <p>Get a group's transactions.</p>
+        <p>🔐 Get a group's transactions.</p>
     </div>
     
 
@@ -11906,7 +11910,7 @@ const transactions = await noblox.getGroupTransactions(1, "Sale")</code></pre>
     
     
     <div class="description">
-        <p>Get a unique hash for the given jar. Used to cache items that depend on session.</p>
+        <p>🔐 Get a unique hash for the given jar. Used to cache items that depend on session.</p>
     </div>
     
 
@@ -12086,7 +12090,7 @@ const hash = noblox.getHash()</code></pre>
     
     
     <div class="description">
-        <p>Get a user's id from their username.</p>
+        <p>✅ Get a user's id from their username.</p>
     </div>
     
 
@@ -12265,7 +12269,7 @@ let id = await noblox.getIdFromUsername("ROBLOX")</code></pre>
     
     
     <div class="description">
-        <p>Get verification inputs on a page.</p>
+        <p>✅ Get verification inputs on a page.</p>
     </div>
     
 
@@ -12489,7 +12493,8 @@ const inputs = noblox.getInputs("htmlhere")</code></pre>
     
     
     <div class="description">
-        <p>Get a user's inventory.</p>
+        <p>🔓 Get a user's inventory.
+NOTE: Badges must use <a href="https://noblox.js.org/global.html#getPlayerBadges">getPlayerBadges()</a> due to an issue with Roblox's API.</p>
     </div>
     
 
@@ -12596,7 +12601,7 @@ const inputs = noblox.getInputs("htmlhere")</code></pre>
       </td>
   
 
-  <td class="description last"><p>The types of assets being retrieved.</p></td>
+  <td class="description last"><p>The types of assets being retrieved: <a href="https://developer.roblox.com/en-us/api-reference/enum/AssetType">(&quot;Shirt&quot;, &quot;Pants&quot;)</a>.</p></td>
 </tr>
 
 
@@ -12726,7 +12731,7 @@ const inputs = noblox.getInputs("htmlhere")</code></pre>
         <p class="tag-source">
             <a href="lib_user_getInventory.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_getInventory.js.html">lib/user/getInventory.js</a>, <a href="lib_user_getInventory.js.html#line23">line 23</a>
+                <a href="lib_user_getInventory.js.html">lib/user/getInventory.js</a>, <a href="lib_user_getInventory.js.html#line24">line 24</a>
             </span>
         </p>
     
@@ -12803,7 +12808,7 @@ let inventory = await noblox.getInventory({userId: 123456, assetTypes: ["Shirt"]
     
     
     <div class="description">
-        <p>Get a user's inventory.</p>
+        <p>🔓 Get a user's inventory.</p>
     </div>
     
 
@@ -12910,7 +12915,7 @@ let inventory = await noblox.getInventory({userId: 123456, assetTypes: ["Shirt"]
       </td>
   
 
-  <td class="description last"><p>The asset type id of the items to get.</p></td>
+  <td class="description last"><p>The types of assets being retrieved: <a href="https://developer.roblox.com/en-us/api-reference/enum/AssetType">(11, 12)</a>.</p></td>
 </tr>
 
 
@@ -13117,7 +13122,7 @@ let inventory = await noblox.getInventoryById({userId: 123456, assetTypeId: 2, s
     
     
     <div class="description">
-        <p>Gets a specific join request, given a user ID.</p>
+        <p>🔐 Gets a specific join request, given a user ID.</p>
     </div>
     
 
@@ -13327,7 +13332,7 @@ const request = await noblox.getJoinRequest(4591072, 5903228)</code></pre>
     
     
     <div class="description">
-        <p>Get the join requests for a group.</p>
+        <p>🔐 Get the join requests for a group.</p>
     </div>
     
 
@@ -13622,7 +13627,7 @@ const requests = await noblox.getJoinRequests(1, "Asc")</code></pre>
     
     
     <div class="description">
-        <p>Get the group's logo.</p>
+        <p>✅ Get the group's logo.</p>
     </div>
     
 
@@ -13939,7 +13944,7 @@ const requests = await noblox.getJoinRequests(1, "Asc")</code></pre>
     
     
     <div class="description">
-        <p>Get the messages of the authenticated user.</p>
+        <p>🔐 Get the messages of the authenticated user.</p>
     </div>
     
 
@@ -14227,7 +14232,7 @@ let messages = await noblox.getMessages(1, 10, "Inbox"))</code></pre>
     
     
     <div class="description">
-        <p>Check if the user owns the asset.</p>
+        <p>✅ Check if the user owns the asset.</p>
     </div>
     
 
@@ -14509,7 +14514,7 @@ let ownership = await noblox.getOwnership(123456, 234567, "GamePass")</code></pr
     
     
     <div class="description">
-        <p>Handle pagination returned by Roblox.</p>
+        <p>✅ Handle pagination returned by Roblox.</p>
     </div>
     
 
@@ -14836,7 +14841,7 @@ const inventory = await noblox.getPageResults("//inventory.roblox.com/v2/users/1
     
     
     <div class="description">
-        <p>Get the info for a place.</p>
+        <p>🔓 Get the info for a place.</p>
     </div>
     
 
@@ -15006,7 +15011,7 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
         
         <span class="code-name">
             
-                getPlayerBadges<span class="signature">(userId, limit<span class="signature-attributes">opt</span>, cursor<span class="signature-attributes">opt</span>, sortOrder<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;PlayerBadges>}</span>
+                getPlayerBadges<span class="signature">(userId, limit<span class="signature-attributes">opt</span>, cursor<span class="signature-attributes">opt</span>, sortOrder<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#PlayerBadges">PlayerBadges</a>>}</span>
             
         </span>
     </h4>
@@ -15015,7 +15020,7 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
     
     
     <div class="description">
-        <p>Get the badges that a user has.</p>
+        <p>✅ Get the badges that a user has.</p>
     </div>
     
 
@@ -15289,7 +15294,7 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">Promise.&lt;PlayerBadges></span>
+<span class="param-type">Promise.&lt;<a href="global.html#PlayerBadges">PlayerBadges</a>></span>
 
 
     </div>
@@ -15330,7 +15335,7 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
     
     
     <div class="description">
-        <p>Get a user's information.</p>
+        <p>✅ Get a user's information.</p>
     </div>
     
 
@@ -15509,7 +15514,7 @@ let information = await noblox.getPlayerInfo({userId: 123456})</code></pre>
     
     
     <div class="description">
-        <p>Get the players in a group for a specific role.</p>
+        <p>✅ Get the players in a group for a specific role.</p>
     </div>
     
 
@@ -15839,7 +15844,7 @@ const players = await noblox.getPlayers(1, 1117747196)</code></pre>
     
     
     <div class="description">
-        <p>Get a user's thumbnail.</p>
+        <p>✅ Get a user's thumbnail.</p>
     </div>
     
 
@@ -16215,7 +16220,7 @@ let thumbnails_body = await noblox.getPlayerThumbnail([2416399685, 234567, 34567
     
     
     <div class="description">
-        <p>Gets whether or not a user has premium.</p>
+        <p>🔐 Gets whether or not a user has premium.</p>
     </div>
     
 
@@ -16386,7 +16391,7 @@ const hasPremium = await noblox.getPremium(123456)</code></pre>
         
         <span class="code-name">
             
-                getPresences<span class="signature">(userIds)</span><span class="type-signature"> &rarr; {Promise.&lt;Presences>}</span>
+                getPresences<span class="signature">(userIds)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#Presences">Presences</a>>}</span>
             
         </span>
     </h4>
@@ -16395,7 +16400,7 @@ const hasPremium = await noblox.getPremium(123456)</code></pre>
     
     
     <div class="description">
-        <p>Get the presence status of users.</p>
+        <p>🔐 Get the presence status of users.</p>
     </div>
     
 
@@ -16497,7 +16502,7 @@ const hasPremium = await noblox.getPremium(123456)</code></pre>
         <p class="tag-source">
             <a href="lib_presence_getPresences.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_presence_getPresences.js.html">lib/presence/getPresences.js</a>, <a href="lib_presence_getPresences.js.html#line21">line 21</a>
+                <a href="lib_presence_getPresences.js.html">lib/presence/getPresences.js</a>, <a href="lib_presence_getPresences.js.html#line22">line 22</a>
             </span>
         </p>
     
@@ -16532,7 +16537,7 @@ const hasPremium = await noblox.getPremium(123456)</code></pre>
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">Promise.&lt;Presences></span>
+<span class="param-type">Promise.&lt;<a href="global.html#Presences">Presences</a>></span>
 
 
     </div>
@@ -16550,6 +16555,7 @@ const hasPremium = await noblox.getPremium(123456)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
+// Login using your cookie
 const presences = await noblox.getPresences([1, 2, 3])</code></pre>
     
 
@@ -16574,7 +16580,7 @@ const presences = await noblox.getPresences([1, 2, 3])</code></pre>
     
     
     <div class="description">
-        <p>Get the info of an asset.</p>
+        <p>✅ Get the info of an asset.</p>
     </div>
     
 
@@ -16753,7 +16759,7 @@ const productInfo = await noblox.getProductInfo(1117747196)</code></pre>
     
     
     <div class="description">
-        <p>Get the user's rank in the group.</p>
+        <p>✅ Get the user's rank in the group.</p>
     </div>
     
 
@@ -16957,7 +16963,7 @@ const rankId = await noblox.getRankInGroup(1, 1)</code></pre>
     
     
     <div class="description">
-        <p>Get a user's rank name in a group.</p>
+        <p>✅ Get a user's rank name in a group.</p>
     </div>
     
 
@@ -17161,7 +17167,7 @@ const rankName = await noblox.getRankNameInGroup(1, 1)</code></pre>
     
     
     <div class="description">
-        <p>Get assets you've recently worn.</p>
+        <p>🔐 Get assets you've recently worn.</p>
     </div>
     
 
@@ -17353,7 +17359,7 @@ const recentlyWorn = await noblox.getRecentItems("All")</code></pre>
     
     
     <div class="description">
-        <p>Get a role in a group.</p>
+        <p>✅ Get a role in a group.</p>
     </div>
     
 
@@ -17563,7 +17569,7 @@ const customerRole = await noblox.getRole(1, "Customer")</code></pre>
     
     
     <div class="description">
-        <p>Get the permissions for a role.</p>
+        <p>🔐 Get the permissions for a role.</p>
     </div>
     
 
@@ -17768,7 +17774,7 @@ const rolePermissions = await noblox.getRolePermissions(1, 1117747196)</code></p
     
     
     <div class="description">
-        <p>Get the roles in a group.</p>
+        <p>✅ Get the roles in a group.</p>
     </div>
     
 
@@ -17947,7 +17953,7 @@ const roles = await noblox.getRoles(1)</code></pre>
     
     
     <div class="description">
-        <p>Get the rollout settings.</p>
+        <p>🔐 Get the rollout settings.</p>
     </div>
     
 
@@ -18139,7 +18145,7 @@ const settings = await noblox.getRolloutSettings(['LuaChat', 'Party'])</code></p
     
     
     <div class="description">
-        <p>Get the userId of the current user and cache it.</p>
+        <p>🔐 Get the userId of the current user and cache it.</p>
     </div>
     
 
@@ -18331,7 +18337,7 @@ const userId = await noblox.getSenderUserId()</code></pre>
     
     
     <div class="description">
-        <p>Get the .ROBLOSECURITY cookie from the jar.</p>
+        <p>🔐 Get the .ROBLOSECURITY cookie from the jar.</p>
     </div>
     
 
@@ -18523,7 +18529,7 @@ const cookie = await noblox.getSession()</code></pre>
     
     
     <div class="description">
-        <p>Get the group's shout.</p>
+        <p>🔓 Get the group's shout.</p>
     </div>
     
 
@@ -18702,7 +18708,7 @@ const groupShout = await noblox.getShout(1)</code></pre>
     
     
     <div class="description">
-        <p>Get a user's status.</p>
+        <p>✅ Get a user's status.</p>
     </div>
     
 
@@ -18883,7 +18889,7 @@ let status = await noblox.getStatus({userId: 123456})</code></pre>
     
     
     <div class="description">
-        <p>Get detailed information for a specific trade.</p>
+        <p>🔐 Get detailed information for a specific trade.</p>
     </div>
     
 
@@ -18985,7 +18991,7 @@ let status = await noblox.getStatus({userId: 123456})</code></pre>
         <p class="tag-source">
             <a href="lib_trade_getTradeInfo.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_trade_getTradeInfo.js.html">lib/trade/getTradeInfo.js</a>, <a href="lib_trade_getTradeInfo.js.html#line20">line 20</a>
+                <a href="lib_trade_getTradeInfo.js.html">lib/trade/getTradeInfo.js</a>, <a href="lib_trade_getTradeInfo.js.html#line21">line 21</a>
             </span>
         </p>
     
@@ -19038,6 +19044,7 @@ let status = await noblox.getStatus({userId: 123456})</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
+// Login using your cookie
 const tradeInfo = await noblox.getTradeInfo(1234)</code></pre>
     
 
@@ -19062,7 +19069,7 @@ const tradeInfo = await noblox.getTradeInfo(1234)</code></pre>
     
     
     <div class="description">
-        <p>Get the trades for a specific category.</p>
+        <p>🔐 Get the trades for a specific category.</p>
     </div>
     
 
@@ -19132,7 +19139,7 @@ const tradeInfo = await noblox.getTradeInfo(1234)</code></pre>
       </td>
   
 
-  <td class="description last"><p>The status of the trades to get.</p></td>
+  <td class="description last"><p>The status of the trades to get [Inbound, Outbound, Complete, Inactive].</p></td>
 </tr>
 
 
@@ -19262,7 +19269,7 @@ const tradeInfo = await noblox.getTradeInfo(1234)</code></pre>
         <p class="tag-source">
             <a href="lib_trade_getTrades.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_trade_getTrades.js.html">lib/trade/getTrades.js</a>, <a href="lib_trade_getTrades.js.html#line22">line 22</a>
+                <a href="lib_trade_getTrades.js.html">lib/trade/getTrades.js</a>, <a href="lib_trade_getTrades.js.html#line23">line 23</a>
             </span>
         </p>
     
@@ -19315,6 +19322,7 @@ const tradeInfo = await noblox.getTradeInfo(1234)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
+// Login using your cookie
 const trades = await noblox.getTrades("Inbound")</code></pre>
     
 
@@ -19339,7 +19347,7 @@ const trades = await noblox.getTrades("Inbound")</code></pre>
     
     
     <div class="description">
-        <p>Get a UserAssetID for a specific asset.</p>
+        <p>✅ Get a UserAssetID for a specific asset.</p>
     </div>
     
 
@@ -19596,7 +19604,7 @@ const UAIDInfo = await noblox.getUAIDs(80231025, [1974901902, 4255053867, 270589
     
     
     <div class="description">
-        <p>Get the number of unread conversations.</p>
+        <p>🔐 Get the number of unread conversations.</p>
     </div>
     
 
@@ -19725,7 +19733,7 @@ const unreadConversationCount = noblox.getUnreadConversationCount()</code></pre>
     
     
     <div class="description">
-        <p>Returns unread messages in the given conversations</p>
+        <p>🔐 Returns unread messages in the given conversations</p>
     </div>
     
 
@@ -19930,7 +19938,7 @@ noblox.getUnreadMessages([8212952828])</code></pre>
     
     
     <div class="description">
-        <p>Get your conversations.</p>
+        <p>🔐 Get your conversations.</p>
     </div>
     
 
@@ -20157,7 +20165,7 @@ const conversations = await noblox.getUserConversations()</code></pre>
     
     
     <div class="description">
-        <p>Get a user's username from their user id.</p>
+        <p>✅ Get a user's username from their user id.</p>
     </div>
     
 
@@ -20336,7 +20344,7 @@ let username = await noblox.getUsernameFromId(123456)</code></pre>
     
     
     <div class="description">
-        <p>Get a user's transactions.</p>
+        <p>🔐 Get a user's transactions.</p>
     </div>
     
 
@@ -20553,7 +20561,7 @@ let username = await noblox.getUsernameFromId(123456)</code></pre>
         <p class="tag-source">
             <a href="lib_user_getUserTransactions.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_getUserTransactions.js.html">lib/user/getUserTransactions.js</a>, <a href="lib_user_getUserTransactions.js.html#line20">line 20</a>
+                <a href="lib_user_getUserTransactions.js.html">lib/user/getUserTransactions.js</a>, <a href="lib_user_getUserTransactions.js.html#line21">line 21</a>
             </span>
         </p>
     
@@ -20606,6 +20614,7 @@ let username = await noblox.getUsernameFromId(123456)</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
+// Login using your cookie
 let transactions = await noblox.getUserTransactions("Sale", 10)</code></pre>
     
 
@@ -20630,7 +20639,7 @@ let transactions = await noblox.getUserTransactions("Sale", 10)</code></pre>
     
     
     <div class="description">
-        <p>Get the RequestVerificationToken from a url.</p>
+        <p>🔐 Get the RequestVerificationToken from a url.</p>
     </div>
     
 
@@ -20947,7 +20956,7 @@ const verificationTokenInfo = await noblox.getVerification()</code></pre>
     
     
     <div class="description">
-        <p>Get the verification inputs from the html.</p>
+        <p>✅ Get the verification inputs from the html.</p>
     </div>
     
 
@@ -21052,7 +21061,7 @@ const verificationTokenInfo = await noblox.getVerification()</code></pre>
         <p class="tag-source">
             <a href="lib_util_getVerificationInputs.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_util_getVerificationInputs.js.html">lib/util/getVerificationInputs.js</a>, <a href="lib_util_getVerificationInputs.js.html#line20">line 20</a>
+                <a href="lib_util_getVerificationInputs.js.html">lib/util/getVerificationInputs.js</a>, <a href="lib_util_getVerificationInputs.js.html#line19">line 19</a>
             </span>
         </p>
     
@@ -21105,7 +21114,6 @@ const verificationTokenInfo = await noblox.getVerification()</code></pre>
     
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
-// Login using your cookie.
 const inputs = noblox.getVerificationInputs("htmlstuff")</code></pre>
     
 
@@ -21130,7 +21138,7 @@ const inputs = noblox.getVerificationInputs("htmlstuff")</code></pre>
     
     
     <div class="description">
-        <p>Get the posts on the group wall.</p>
+        <p>🔓 Get the posts on the group wall.</p>
     </div>
     
 
@@ -21425,7 +21433,7 @@ const wallPosts = await noblox.getWall(1)</code></pre>
     
     
     <div class="description">
-        <p>Pay group funds out to a user.</p>
+        <p>🔐 Pay group funds out to a user.</p>
     </div>
     
 
@@ -21780,7 +21788,7 @@ noblox.groupPayout(1117747196, 55549140, 30)</code></pre>
     
     
     <div class="description">
-        <p>Accept/decline a user's join request.</p>
+        <p>🔐 Accept/decline a user's join request.</p>
     </div>
     
 
@@ -22010,7 +22018,7 @@ noblox.handleJoinRequest(1, 1, true)</code></pre>
     
     
     <div class="description">
-        <p>Send an http request to url with options.</p>
+        <p>✅ Send an http request to url with options.</p>
     </div>
     
 
@@ -22239,7 +22247,7 @@ const body = await noblox.http("https://roblox.com/login", { method: "GET" })</c
     
     
     <div class="description">
-        <p>Create a jar file based on sessionOnly.</p>
+        <p>✅ Create a jar file based on sessionOnly.</p>
     </div>
     
 
@@ -22430,7 +22438,7 @@ const jar = noblox.jar()</code></pre>
     
     
     <div class="description">
-        <p>Leave a group.</p>
+        <p>🔐 Leave a group.</p>
     </div>
     
 
@@ -22610,7 +22618,7 @@ noblox.leaveGroup(1)</code></pre>
     
     
     <div class="description">
-        <p>Mark a chat as read.</p>
+        <p>🔐 Mark a chat as read.</p>
     </div>
     
 
@@ -22815,7 +22823,7 @@ noblox.markChatAsRead(8212952828, 'e775e103-876f-4332-84ab-1ea14f326d39')</code>
     
     
     <div class="description">
-        <p>Mark chats as seen.</p>
+        <p>🔐 Mark chats as seen.</p>
     </div>
     
 
@@ -22995,7 +23003,7 @@ noblox.markChatAsSeen([1, 2, 3])</code></pre>
     
     
     <div class="description">
-        <p>Send a message. NOTE: Roblox blocks web servers and proxies from sending messages.</p>
+        <p>🔐 Send a message. NOTE: Roblox blocks web servers and proxies from sending messages.</p>
     </div>
     
 
@@ -23345,7 +23353,7 @@ noblox.message(1, "A subject", "A body", 1234, true)</code></pre>
     
     
     <div class="description">
-        <p>Get multiple of the latest messages.</p>
+        <p>🔐 Get multiple of the latest messages.</p>
     </div>
     
 
@@ -23525,7 +23533,7 @@ const recentMessages = await noblox.multiGetLatestMessages([1, 2, 3])</code></pr
     
     
     <div class="description">
-        <p>An event for when an audit log event is added.</p>
+        <p>🔐 An event for when an audit log event is added.</p>
     </div>
     
 
@@ -23701,7 +23709,7 @@ noblox.onAuditLog().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when a user's blurb changes.</p>
+        <p>✅ An event for when a user's blurb changes.</p>
     </div>
     
 
@@ -23873,7 +23881,7 @@ noblox.onAuditLog().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when a user sends you a friend request.</p>
+        <p>🔐 An event for when a user sends you a friend request.</p>
     </div>
     
 
@@ -24002,7 +24010,7 @@ noblox.onFriendRequest().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when someone is added to the join requests.</p>
+        <p>🔐 An event for when someone is added to the join requests.</p>
     </div>
     
 
@@ -24178,7 +24186,7 @@ noblox.onJoinRequestHandle().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when a user sends you a message.</p>
+        <p>🔐 An event for when a user sends you a message.</p>
     </div>
     
 
@@ -24303,7 +24311,7 @@ noblox.onMessage().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when a conversation is created.</p>
+        <p>🔐 An event for when a conversation is created.</p>
     </div>
     
 
@@ -24428,7 +24436,7 @@ noblox.onNewConversation().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when someone messages you.</p>
+        <p>🔐 An event for when someone messages you.</p>
     </div>
     
 
@@ -24553,7 +24561,7 @@ noblox.onNewMessage().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when you send a new message.</p>
+        <p>🔐 An event for when you send a new message.</p>
     </div>
     
 
@@ -24678,7 +24686,7 @@ noblox.onNewMessageBySelf().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when you get a notification.</p>
+        <p>🔐 An event for when you get a notification.</p>
     </div>
     
 
@@ -24803,7 +24811,7 @@ noblox.onNotification().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when you're invited to a party.</p>
+        <p>🔐 An event for when you're invited to a party.</p>
     </div>
     
 
@@ -24928,7 +24936,7 @@ noblox.onPartyInvite().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when a party is deleted.</p>
+        <p>🔐 An event for when a party is deleted.</p>
     </div>
     
 
@@ -25053,7 +25061,7 @@ noblox.onPartyDeleted().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when a party joins a game.</p>
+        <p>🔐 An event for when a party joins a game.</p>
     </div>
     
 
@@ -25178,7 +25186,7 @@ noblox.onPartyJoinedGame().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when a party leaves a game.</p>
+        <p>🔐 An event for when a party leaves a game.</p>
     </div>
     
 
@@ -25303,7 +25311,7 @@ noblox.onPartyLeftGame().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when you join a party.</p>
+        <p>🔐 An event for when you join a party.</p>
     </div>
     
 
@@ -25428,7 +25436,7 @@ noblox.onPartySelfJoined().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when you leave a party.</p>
+        <p>🔐 An event for when you leave a party.</p>
     </div>
     
 
@@ -25553,7 +25561,7 @@ noblox.onPartySelfLeft().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when someone joins a party.</p>
+        <p>🔐 An event for when someone joins a party.</p>
     </div>
     
 
@@ -25678,7 +25686,7 @@ noblox.onPartyUserJoined().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when someone leaves a party.</p>
+        <p>🔐 An event for when someone leaves a party.</p>
     </div>
     
 
@@ -25803,7 +25811,7 @@ noblox.onPartyUserLeft().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when the shout is changed.</p>
+        <p>🔐 An event for when the shout is changed.</p>
     </div>
     
 
@@ -25979,7 +25987,7 @@ noblox.onShout(1).on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when someone comes online.</p>
+        <p>🔐 An event for when someone comes online.</p>
     </div>
     
 
@@ -26104,7 +26112,7 @@ noblox.onUserOnline().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when someone starts typing in a chat.</p>
+        <p>🔐 An event for when someone starts typing in a chat.</p>
     </div>
     
 
@@ -26229,7 +26237,7 @@ noblox.onUserTyping().on("data", function(data) {
     
     
     <div class="description">
-        <p>An event for when someone posts on the group wall.</p>
+        <p>🔐 An event for when someone posts on the group wall.</p>
     </div>
     
 
@@ -26405,7 +26413,7 @@ noblox.onWallPost().on("data", function(data) {
     
     
     <div class="description">
-        <p>Get the details of an outfit.</p>
+        <p>✅ Get the details of an outfit.</p>
     </div>
     
 
@@ -26584,7 +26592,7 @@ const outfit = await noblox.outfitDetails(111)</code></pre>
     
     
     <div class="description">
-        <p>Get a user's outfits.</p>
+        <p>✅ Get a user's outfits.</p>
     </div>
     
 
@@ -26843,7 +26851,7 @@ const outfits = await noblox.outfits(1)</code></pre>
     
     
     <div class="description">
-        <p>Promote a user.</p>
+        <p>🔐 Promote a user.</p>
     </div>
     
 
@@ -27048,7 +27056,7 @@ noblox.promote(1, 2)</code></pre>
     
     
     <div class="description">
-        <p>Redraw your avatar.</p>
+        <p>🔐 Redraw your avatar.</p>
     </div>
     
 
@@ -27177,7 +27185,7 @@ noblox.redrawAvatar()</code></pre>
     
     
     <div class="description">
-        <p>Refreshes the stored cookie, stores it, and returns it.</p>
+        <p>🔐 Refreshes the stored cookie, stores it, and returns it.</p>
     </div>
     
 
@@ -27273,6 +27281,8 @@ noblox.redrawAvatar()</code></pre>
     
 
     
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li><a href="https://noblox.js.org/tutorial-Authentication.html">Retrieving your .ROBLOSECURITY cookie in incognito mode should make a cookie that does not expire.</a></li></ul></dd>
+    
 
     
 
@@ -27291,7 +27301,7 @@ noblox.redrawAvatar()</code></pre>
         <p class="tag-source">
             <a href="lib_util_refreshCookie.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_util_refreshCookie.js.html">lib/util/refreshCookie.js</a>, <a href="lib_util_refreshCookie.js.html#line22">line 22</a>
+                <a href="lib_util_refreshCookie.js.html">lib/util/refreshCookie.js</a>, <a href="lib_util_refreshCookie.js.html#line23">line 23</a>
             </span>
         </p>
     
@@ -27367,7 +27377,7 @@ noblox.redrawAvatar()</code></pre>
     
     
     <div class="description">
-        <p>Removes an asset from your avatar.</p>
+        <p>🔐 Removes an asset from your avatar.</p>
     </div>
     
 
@@ -27547,7 +27557,7 @@ noblox.removeAssetId(1)</code></pre>
     
     
     <div class="description">
-        <p>Remove a user from your friends list.</p>
+        <p>🔐 Remove a user from your friends list.</p>
     </div>
     
 
@@ -27727,7 +27737,7 @@ noblox.removeFriend(123456)</code></pre>
     
     
     <div class="description">
-        <p>Remove a user from the group conversation.</p>
+        <p>🔐 Remove a user from the group conversation.</p>
     </div>
     
 
@@ -27932,7 +27942,7 @@ noblox.removeFromGroupConversation(1, 2)</code></pre>
     
     
     <div class="description">
-        <p>Rename a group conversation.</p>
+        <p>🔐 Rename a group conversation.</p>
     </div>
     
 
@@ -28137,7 +28147,7 @@ noblox.renameGroupConversation(1, "A cool group.")</code></pre>
     
     
     <div class="description">
-        <p>Send a message in a chat.</p>
+        <p>🔐 Send a message in a chat.</p>
     </div>
     
 
@@ -28342,7 +28352,7 @@ noblox.sendChatMessage(1, "Hello world!")</code></pre>
     
     
     <div class="description">
-        <p>Send a friend request to a user.</p>
+        <p>🔐 Send a friend request to a user.</p>
     </div>
     
 
@@ -28522,7 +28532,7 @@ noblox.sendFriendRequest(123456)</code></pre>
     
     
     <div class="description">
-        <p>Send a trade to another user.</p>
+        <p>🔐 Send a trade to another user.</p>
     </div>
     
 
@@ -28751,7 +28761,7 @@ noblox.sendTrade(80231025, { userAssetIds: [23289506393] }, { userAssetIds: [329
     
     
     <div class="description">
-        <p>Set the colors of your avatar.</p>
+        <p>🔐 Set the colors of your avatar.</p>
     </div>
     
 
@@ -29056,7 +29066,7 @@ noblox.setAvatarBodyColours(125, 125, 125, 125, 125, 125)</code></pre>
     
     
     <div class="description">
-        <p>Set the scale of your avatar.</p>
+        <p>🔐 Set the scale of your avatar.</p>
     </div>
     
 
@@ -29417,7 +29427,7 @@ noblox.setAvatarScales(1, 1, 1, 1, 1, 1)</code></pre>
     
     
     <div class="description">
-        <p>Trigger the typing action in a conversation.</p>
+        <p>🔐 Trigger the typing action in a conversation.</p>
     </div>
     
 
@@ -29622,7 +29632,7 @@ noblox.setChatUserTyping(1, true)</code></pre>
     
     
     <div class="description">
-        <p>Sign in with a cookie.</p>
+        <p>🔑 Sign in with a cookie.</p>
     </div>
     
 
@@ -29857,7 +29867,7 @@ noblox.setChatUserTyping(1, true)</code></pre>
     
     
     <div class="description">
-        <p>Set the type of your avatar.</p>
+        <p>🔐 Set the type of your avatar.</p>
     </div>
     
 
@@ -30037,7 +30047,7 @@ noblox.setPlayerAvatarType("R6")</code></pre>
     
     
     <div class="description">
-        <p>Change a user's rank.</p>
+        <p>🔐 Change a user's rank.</p>
     </div>
     
 
@@ -30273,7 +30283,7 @@ noblox.setRank(1, 1, "Customer")</code></pre>
     
     
     <div class="description">
-        <p>Set the assets your avatar is wearing.</p>
+        <p>🔐 Set the assets your avatar is wearing.</p>
     </div>
     
 
@@ -30453,7 +30463,7 @@ noblox.setWearingAssets([1, 2, 3])</code></pre>
     
     
     <div class="description">
-        <p>This is the base for events that do not rely on true streams. The <code>getLatest</code> function receives some value that represents the latest version of something (eg. a date or unique ID) and determines if there is new information, every time it is fired it waits <code>delay</code> ms before being fired again. Every time it must return an object with the field <code>latest</code>, representing the latest value (which will not change if new information was not received), and an array <code>data</code> which has the new values (if there are multiple they each have their own index, if there is only one then it is by itself in the array). If <code>latest</code> is equal to -2, the returned data will be processed even if it is the initial run (which usually only establishes the latest value). If the return object has a true <code>repeat</code> value, the function latest will be run again immediately after. If <code>delay</code> is a string it will take the number from that string key in the <code>event</code> object of the settings.json file.
+        <p>✅ This is the base for events that do not rely on true streams. The <code>getLatest</code> function receives some value that represents the latest version of something (eg. a date or unique ID) and determines if there is new information, every time it is fired it waits <code>delay</code> ms before being fired again. Every time it must return an object with the field <code>latest</code>, representing the latest value (which will not change if new information was not received), and an array <code>data</code> which has the new values (if there are multiple they each have their own index, if there is only one then it is by itself in the array). If <code>latest</code> is equal to -2, the returned data will be processed even if it is the initial run (which usually only establishes the latest value). If the return object has a true <code>repeat</code> value, the function latest will be run again immediately after. If <code>delay</code> is a string it will take the number from that string key in the <code>event</code> object of the settings.json file.
 When the function is first called it will initialize <code>getLatest</code> with the value -1 and then emit the <code>connect</code> event. Whenever data is received, it will emit the <code>data</code> event for each value. If the <code>close</code> event is emitted the function will no longer run. If an error occurs the <code>error</code> event will be emitted, the function will log a retry and after the number of max retries as specified by settings, it will emit the <code>close</code> event.
 The <code>getLatest</code> function will be marked as failed if it does not resolve within <code>timeout</code> ms (which can be disabled if timeout is negative). If getLatest fails for any reason (including timeout) it will be retried <code>maxRetries</code> times before stopping.</p>
     </div>
@@ -30626,7 +30636,7 @@ The <code>getLatest</code> function will be marked as failed if it does not reso
     
     
     <div class="description">
-        <p>Change a group's shout.</p>
+        <p>🔐 Change a group's shout.</p>
     </div>
     
 
@@ -30863,7 +30873,7 @@ noblox.shout(1, "Hello world!")</code></pre>
     
     
     <div class="description">
-        <p>Start a conversation with another user.</p>
+        <p>🔐 Start a conversation with another user.</p>
     </div>
     
 
@@ -31043,7 +31053,7 @@ noblox.start121Conversation(1)</code></pre>
     
     
     <div class="description">
-        <p>Start a Cloud Edit/Team Create conversation.</p>
+        <p>🔐 Start a Cloud Edit/Team Create conversation.</p>
     </div>
     
 
@@ -31223,7 +31233,7 @@ noblox.startCloudEditConversation(1117747196)</code></pre>
     
     
     <div class="description">
-        <p>Start a group conversation.</p>
+        <p>🔐 Start a group conversation.</p>
     </div>
     
 
@@ -31428,7 +31438,7 @@ noblox.startGroupConversation([1, 2, 3], "A group conversation.")</code></pre>
     
     
     <div class="description">
-        <p>Unblock a user.</p>
+        <p>🔐 Unblock a user.</p>
     </div>
     
 
@@ -31608,7 +31618,7 @@ noblox.unblock(123456)</code></pre>
     
     
     <div class="description">
-        <p>Unfollow a user.</p>
+        <p>🔐 Unfollow a user.</p>
     </div>
     
 
@@ -31788,7 +31798,7 @@ noblox.unfollow(123456)</code></pre>
     
     
     <div class="description">
-        <p>Configure a badge.</p>
+        <p>🔐 Configure a badge.</p>
     </div>
     
 
@@ -32081,7 +32091,7 @@ noblox.unfollow(123456)</code></pre>
     
     
     <div class="description">
-        <p>Update a developer product.</p>
+        <p>🔐 Update a developer product.</p>
     </div>
     
 
@@ -32405,7 +32415,7 @@ noblox.updateDeveloperProduct(1, 2, "An Updated Developer Product", 10, "My new 
     
     
     <div class="description">
-        <p>Upload an item.</p>
+        <p>🔐 Upload an item.</p>
     </div>
     
 
@@ -32697,7 +32707,7 @@ noblox.uploadItem("A cool decal.", 13, fs.createReadStream("./Image.png"))</code
     
     
     <div class="description">
-        <p>Upload a model.</p>
+        <p>🔐 Upload a model.</p>
     </div>
     
 
@@ -33135,7 +33145,7 @@ noblox.uploadModel(fs.readFileSync("./model.rbxm"), {
     
     
     <div class="description">
-        <p>Wear a specific asset.</p>
+        <p>🔐 Wear a specific asset.</p>
     </div>
     
 
@@ -33590,7 +33600,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line967">line 967</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line986">line 986</a>
             </span>
         </p>
     
@@ -36923,7 +36933,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line924">line 924</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line928">line 928</a>
             </span>
         </p>
     
@@ -37379,7 +37389,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line951">line 951</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line970">line 970</a>
             </span>
         </p>
     
@@ -37550,7 +37560,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line936">line 936</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line940">line 940</a>
             </span>
         </p>
     
@@ -37721,7 +37731,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line943">line 943</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line947">line 947</a>
             </span>
         </p>
     
@@ -38407,7 +38417,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1014">line 1014</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1033">line 1033</a>
             </span>
         </p>
     
@@ -41185,7 +41195,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line974">line 974</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line993">line 993</a>
             </span>
         </p>
     
@@ -41310,7 +41320,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line986">line 986</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1005">line 1005</a>
             </span>
         </p>
     
@@ -42438,7 +42448,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1037">line 1037</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1056">line 1056</a>
             </span>
         </p>
     
@@ -42609,7 +42619,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1049">line 1049</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1068">line 1068</a>
             </span>
         </p>
     
@@ -46773,7 +46783,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1103">line 1103</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1122">line 1122</a>
             </span>
         </p>
     
@@ -47364,7 +47374,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1090">line 1090</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1109">line 1109</a>
             </span>
         </p>
     
@@ -50151,7 +50161,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1097">line 1097</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1116">line 1116</a>
             </span>
         </p>
     
@@ -50562,7 +50572,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1085">line 1085</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1104">line 1104</a>
             </span>
         </p>
     
@@ -50687,7 +50697,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1003">line 1003</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1022">line 1022</a>
             </span>
         </p>
     
@@ -51031,7 +51041,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line991">line 991</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1010">line 1010</a>
             </span>
         </p>
     
@@ -52646,6 +52656,462 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
 
     </span>
 
+<h4 class="name" id="PlayerBadges">
+    <a class="href-link" href="#PlayerBadges">#</a>
+    
+    <span class="code-name">
+        PlayerBadges
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>id</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>name</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>description</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>displayName</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>displayDescription</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>enabled</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>iconImageId</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>displayIconImageId</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>awarder</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="global.html#BadgeAwarder">BadgeAwarder</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>statistics</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="global.html#BadgeStatistics">BadgeStatistics</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>created</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Date</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>updated</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Date</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="typings_jsDocs.ts.html" class="button">View Source</a>
+            <span>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line954">line 954</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
 <h4 class="name" id="PlayerInfo">
     <a class="href-link" href="#PlayerInfo">#</a>
     
@@ -53201,7 +53667,132 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line917">line 917</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line921">line 921</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id="Presences">
+    <a class="href-link" href="#Presences">#</a>
+    
+    <span class="code-name">
+        Presences
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>userPresences</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="typings_jsDocs.ts.html" class="button">View Source</a>
+            <span>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line916">line 916</a>
             </span>
         </p>
     
@@ -56365,7 +56956,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1078">line 1078</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1097">line 1097</a>
             </span>
         </p>
     
@@ -56769,7 +57360,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1073">line 1073</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1092">line 1092</a>
             </span>
         </p>
     
@@ -57243,7 +57834,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1027">line 1027</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1046">line 1046</a>
             </span>
         </p>
     
@@ -57552,7 +58143,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1062">line 1062</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1081">line 1081</a>
             </span>
         </p>
     
@@ -57700,7 +58291,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1056">line 1056</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1075">line 1075</a>
             </span>
         </p>
     
@@ -57871,7 +58462,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1020">line 1020</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1039">line 1039</a>
             </span>
         </p>
     
@@ -58955,7 +59546,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1008">line 1008</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1027">line 1027</a>
             </span>
         </p>
     
@@ -59758,7 +60349,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line930">line 930</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line934">line 934</a>
             </span>
         </p>
     

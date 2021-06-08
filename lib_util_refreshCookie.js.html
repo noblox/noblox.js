@@ -152,8 +152,9 @@ exports.optional = ['cookie']
 
 // Docs
 /**
- * Refreshes the stored cookie, stores it, and returns it.
+ * 🔐 Refreshes the stored cookie, stores it, and returns it.
  * @category Utility
+ * @deprecated [Retrieving your .ROBLOSECURITY cookie in incognito mode should make a cookie that does not expire.]{@link https://noblox.js.org/tutorial-Authentication.html}
  * @alias refreshCookie
  * @param {string=} cookie - The cookie to refresh.
  * @returns {Promise&lt;string>}

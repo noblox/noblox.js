@@ -151,14 +151,15 @@ exports.optional = ['sortOrder', 'limit', 'jar']
 
 // Docs
 /**
- * Get the trades for a specific category.
+ * 🔐 Get the trades for a specific category.
  * @category Trade
  * @alias getTrades
- * @param {String} tradeStatusType - The status of the trades to get.
+ * @param {String} tradeStatusType - The status of the trades to get [Inbound, Outbound, Complete, Inactive].
  * @param {SortOrder=} [sortOrder=Asc] - The order that the data will be returned in (Asc or Desc)
  * @param {Limit=} [limit=10] - The number of assets returned in each request (10, 25, 50, or 100)
  * @returns {Promise&lt;TradeAsset[]>}
  * @example const noblox = require("noblox.js")
+ * // Login using your cookie
  * const trades = await noblox.getTrades("Inbound")
 **/
 

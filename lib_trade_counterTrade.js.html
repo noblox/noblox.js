@@ -153,7 +153,7 @@ exports.optional = ['jar']
 
 // Docs
 /**
- * Counter an active incoming trade.
+ * 🔐 Counter an active incoming trade.
  * @category Trade
  * @alias counterTrade
  * @param {Number} tradeId - The id of the active trade
@@ -162,6 +162,7 @@ exports.optional = ['jar']
  * @param {TradeOffer} recievingOffer - The offer you are requesting from the other user.
  * @returns {Promise&lt;SendTradeResponse>}
  * @example const noblox = require("noblox.js")
+ * // Login using your cookie
  * noblox.counterTrade(1234, 80231025, { userAssetIds: [23289506393] }, { userAssetIds: [32924150919] })
 **/
 

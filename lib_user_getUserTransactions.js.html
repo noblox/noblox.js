@@ -150,7 +150,7 @@ exports.optional = ['transactionType', 'limit', 'cursor', 'jar']
 
 // Docs
 /**
- * Get a user's transactions.
+ * 🔐 Get a user's transactions.
  * @category User
  * @alias getUserTransactions
  * @param {("Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout")} [transactionType=Sale] - The type of transactions being fetched.
@@ -158,6 +158,7 @@ exports.optional = ['transactionType', 'limit', 'cursor', 'jar']
  * @param {string=} cursor - The previous or next page cursor.
  * @returns {Promise&lt;TransactionPage>}
  * @example const noblox = require("noblox.js")
+ * // Login using your cookie
  * let transactions = await noblox.getUserTransactions("Sale", 10)
 **/
 
