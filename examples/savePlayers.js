@@ -33,7 +33,7 @@ function shouldSave (player) {
 }
 
 // Dependencies
-const rbx = require('noblox.js')
+const noblox = require('noblox.js')
 const js = require('JSONStream')
 const fs = require('fs')
 
@@ -42,7 +42,7 @@ const stream = js.stringify('[\n  ', ',\n  ', '\n]\n')
 const output = fs.createWriteStream(`./${outputFile}`)
 stream.pipe(output)
 
-rbx.setCookie(cookie)
+noblox.setCookie(cookie)
   .then(async () => {
     console.time('Time taken')
 
@@ -50,7 +50,7 @@ rbx.setCookie(cookie)
       group: options.group
     }
 
-    const groupRoles = await rbx.getRoles(getRolesOptions)
+    const groupRoles = await noblox.getRoles(getRolesOptions)
     let targetRoles = []
 
     if (options.all) {
@@ -101,7 +101,7 @@ rbx.setCookie(cookie)
       sortOrder: options.sortOrder
     }
 
-    const groupPlayers = await rbx.getPlayers(getPlayersOptions)
+    const groupPlayers = await noblox.getPlayers(getPlayersOptions)
 
     console.log(`Writing ${totalPlayers} players to file...`)
 

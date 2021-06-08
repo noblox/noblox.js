@@ -30,7 +30,7 @@ function shouldSave (wallPost) {
 }
 
 // Dependencies
-const rbx = require('noblox.js')
+const noblox = require('noblox.js')
 const logUpdate = require('log-update')
 const js = require('JSONStream')
 const fs = require('fs')
@@ -50,7 +50,7 @@ async function getWallPage (getWallOptions, cursor) {
   getWallOptions.limit = 100
   getWallOptions.cursor = cursor || ''
 
-  const wallPage = await rbx.getWall(getWallOptions)
+  const wallPage = await noblox.getWall(getWallOptions)
 
   return wallPage
 }
@@ -66,7 +66,7 @@ function streamWallPageData (wallPageData) {
   }
 }
 
-rbx.setCookie(cookie)
+noblox.setCookie(cookie)
   .then(async () => {
     console.time('Time taken')
 
