@@ -260,7 +260,7 @@ declare module "noblox.js" {
 
     interface ConversationAddResponse
     {
-        conversationId: Number;
+        conversationId: number;
         rejectedParticipants: RejectedParticipant[];
         resultType: string;
         statusMessage: string;
@@ -268,7 +268,7 @@ declare module "noblox.js" {
 
     interface ConversationRemoveResponse
     {
-        conversationId: Number;
+        conversationId: number;
         resultType: string;
         statusMessage: string;
     }
