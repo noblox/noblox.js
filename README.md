@@ -73,9 +73,6 @@ You may notice our documentation utilizes emojis in every function description; 
 | ✅ | No authentication is required to use this method.
 
 <b id="f1">[1](#a1)</b> : Extended permissions may be required such as edit permissions or account ownership.
-
-<a href="https://discord.gg/R5GVSyTVGv"><img src="https://img.shields.io/badge/discord-noblox.js-blue.svg?style=flat-square" alt="noblox.js Discord"/></a>
-
 ---
 
 ## Quickstart
@@ -169,6 +166,7 @@ At the end of the day, a 'bot' is a user account, it cannot magically bypass pri
 * [suufi](https://github.com/suufi) - Lead maintainer
 * [sentanos](https://github.com/sentanos) - We wouldn't exist without him. 😀
 * [Neztore](https://github.com/Neztore) - Library maintenance and review 
+* [Alan Bixby](https://github.com/alanbixby) - Library maintenance
 * [popeeyy](https://github.com/popeeyy) - Creation of the documentation.
 * [edward](https://github.com/edwrddd) - Helping with the creation of the documentation.
 
