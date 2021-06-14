@@ -155,8 +155,8 @@ exports.optional = ['exclusionList', 'jar']
  * @category User
  * @alias getUAIDs
  * @param {number} userId - The id of the user to search.
- * @param {Array} assetIds - The ids of the assets to retrieve.
- * @param {Array=} exclusionList - The UAIDs to exclude from the search.
+ * @param {Array&lt;number>} assetIds - The ids of the assets to retrieve.
+ * @param {Array&lt;number>=} exclusionList - The UAIDs to exclude from the search.
  * @returns {Promise&lt;UAIDResponse>}
  * @example const noblox = require("noblox.js")
  * const UAIDInfo = await noblox.getUAIDs(80231025, [1974901902, 4255053867, 2705893733, 1532395])

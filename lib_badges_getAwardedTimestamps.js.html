@@ -154,7 +154,7 @@ exports.required = ['userId', 'badgeId']
  * @category Badges
  * @alias getAwardedTimestamps
  * @param {number} userId - The userId of the user.
- * @param {Array} badgeId - The ids of the badges.
+ * @param {Array&lt;number>} badgeId - The ids of the badges.
  * @returns {Promise&lt;UserBadgeStats>}
  * @example const noblox = require("noblox.js")
  * const badges = await noblox.getAwardedTimestamps(1, [1, 2, 3])
