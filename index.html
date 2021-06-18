@@ -229,23 +229,18 @@ $ npm install noblox.js -g
 </tr>
 </tbody>
 </table>
-<h2><b id="f1"><a href="#a1">1</a></b> : Extended permissions may be required such as edit permissions or account ownership.</h2>
+<p><b id="f1"><a href="#a1">1</a></b> : Extended permissions may be required such as edit permissions or account ownership.</p>
+<hr>
 <h2>Quickstart</h2>
-<p>1 | Install <code>noblox.js</code>:</p>
-<pre class="prettyprint source lang-bash"><code>npm install noblox.js
-</code></pre>
-<p>2 | Retrieve your <code>.ROBLOSECURITY</code> cookie (Google Chrome):</p>
 <ol>
-<li>Go to <code>https://www.roblox.com</code> and login to the bot account.</li>
-<li>Open the Developer Console by pressing <code>CTRL SHIFT I</code> or <code>F12</code>.</li>
-<li>Click the <code>Application</code> along the top row.</li>
-<li>Expand the <code>Cookies</code> dropdown in the left panel, and select <code>https://www.roblox.com</code>.</li>
-<li>Copy the value of the <code>.ROBLOSECURITY</code> cookie to your clipboard.</li>
-</ol>
-<blockquote>
-<p><a href="https://noblox.js.org/tutorial-Authentication.html">Instructions for alternative browsers can be found here.</a></p>
-</blockquote>
-<p>3 | Write your code.</p>
+<li>
+<p><a href="#installation">Install <code>noblox.js</code>.</a></p>
+</li>
+<li>
+<p>Retrieve your <code>.ROBLOSECURITY</code> cookie. Instructions on how to do that can be found <a href="https://noblox.js.org/tutorial-Authentication.html">here</a>.</p>
+</li>
+<li>
+<p>Write your code.</p>
 <p><em>Using <code>async/await</code> syntax:</em></p>
 <pre class="prettyprint source lang-js"><code>const noblox = require('noblox.js')
 async function startApp () {
@@ -260,7 +255,9 @@ async function startApp () {
 }
 startApp()
 </code></pre>
-<p>You are now using <code>noblox.js</code>!</p>
+</li>
+</ol>
+<p>You are now using noblox.js!</p>
 <h3><a href="https://github.com/noblox/noblox.js/tree/master/examples">More examples can be found here.</a></h3>
 <p><strong>Promises are fundamental to this library</strong>; if you are unfamiliar with JavaScript promises, we recommend you check out <a href="https://noblox.js.org/tutorial-Promises.html">our tutorial here</a>, and <a href="https://www.youtube.com/watch?v=QO4NXhWo_NM&amp;list=PLRqwX-V7Uu6YgpA3Oht-7B4NBQwFVe3pr&amp;index=12">Daniel Shiffman's JavaScript series</a>.</p>
 <hr>
@@ -270,7 +267,7 @@ startApp()
 <p>Consult their documentation or <a href="https://www.youtube.com/watch?v=17UVejOw3zA">follow this video</a>.</p>
 <hr>
 <h3>Invalidating A Cookie</h3>
-<p>In the event of accidentally exposing your <code>.ROBLOSECURITY</code> cookie, do not panic. Go to <a href="https://www.roblox.com/my/account#!/security"><code>'Account Settings'</code> &gt; <code>'Security'</code></a> then select <code>'Sign out of all other sessions'</code>, then log out of your account. This should invalidate your <code>.ROBLOSECURITY</code> cookie.</p>
+<p>In the event of accidentally exposing your <code>.ROBLOSECURITY</code> cookie, do not panic. Go to <a href="https://www.roblox.com/my/account#!/security"><code>Account Settings</code> &gt; <code>Security</code></a>, select <code>Sign out of all other sessions</code>, then log out of your account. This should invalidate your <code>.ROBLOSECURITY</code> cookie.</p>
 <hr>
 <h2>Common Issues</h2>
 <blockquote>
