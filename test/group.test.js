@@ -1,4 +1,4 @@
-const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
+const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupSocialLinks, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -129,6 +129,21 @@ describe('Group Methods', () => {
         updated: expect.any(Date),
         placeVisits: expect.any(Number)
       })
+    })
+  })
+
+  it('getGroupSocialLinks() should return social link information of a game, given universeId', () => {
+    return getGroupSocialLinks(9997719).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(Number),
+            title: expect.any(String),
+            type: expect.any(String),
+            url: expect.any(String)
+          })
+        ])
+      )
     })
   })
 

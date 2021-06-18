@@ -1,4 +1,4 @@
-const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getPlaceInfo, updateDeveloperProduct, setCookie } = require('../lib')
+const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGameSocialLinks, getPlaceInfo, updateDeveloperProduct, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -36,11 +36,11 @@ describe('Game Methods', () => {
 
   it('configureGamePass() should configure a game pass', () => {
     const randomString = Date.now().toString().substr(-2)
-    return configureGamePass(13925030, `name${randomString}`, `random description`, parseInt(randomString)).then((res) => {
+    return configureGamePass(13925030, `name${randomString}`, 'random description', parseInt(randomString)).then((res) => {
       return expect(res).toMatchObject({
         gamePassId: 13925030,
         name: `name${randomString}`,
-        description: `random description`,
+        description: 'random description',
         price: parseInt(randomString),
         isForSale: true,
         iconChanged: false
@@ -78,6 +78,21 @@ describe('Game Methods', () => {
         Collection: expect.any(Array),
         TotalCollectionSize: expect.any(Number)
       })
+    })
+  })
+
+  it('getGameSocialLinks() should return social link information of a game, given universeId', () => {
+    return getGameSocialLinks(2615802125).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(Number),
+            title: expect.any(String),
+            type: expect.any(String),
+            url: expect.any(String)
+          })
+        ])
+      )
     })
   })
 

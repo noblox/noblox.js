@@ -1,4 +1,4 @@
-const { acceptFriendRequest, block, unblock, canManage, declineFriendRequest, follow, unfollow, getBlurb, getCollectibles, getFollowers, getFollowings, getFriendRequests, getFriends, getGroups, getIdFromUsername, getInventory, getInventoryById, getMessages, getOwnership, getPlayerBadges, getPlayerInfo, getPlayerThumbnail, getStatus, getUserTransactions, getUsernameFromId, removeFriend, sendFriendRequest, setCookie } = require('../lib')
+const { acceptFriendRequest, block, unblock, canManage, declineFriendRequest, follow, unfollow, getBlurb, getCollectibles, getFollowers, getFollowings, getFriendRequests, getFriends, getGroups, getIdFromUsername, getInventory, getInventoryById, getMessages, getOwnership, getPlayerBadges, getPlayerInfo, getPlayerThumbnail, getStatus, getUserSocialLinks, getUserTransactions, getUsernameFromId, removeFriend, sendFriendRequest, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -339,6 +339,17 @@ describe('User Methods', () => {
   it('getUsernameFromId() returns a player\'s username given an ID', () => {
     return getUsernameFromId(1).then((res) => {
       return expect(res).toEqual(expect.any(String))
+    })
+  })
+
+  it('getUserSocialLinks() returns a player\'s promotion channel links', () => {
+    return getUserSocialLinks(2416399685).then((res) => {
+      return expect(res).toMatchObject({
+        facebook: expect.nullOrAny(String),
+        twitter: expect.nullOrAny(String),
+        youtube: expect.nullOrAny(String),
+        twitch: expect.nullOrAny(String)
+      })
     })
   })
 
