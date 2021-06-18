@@ -499,6 +499,13 @@ declare module "noblox.js" {
         Price: number
     }
 
+    type SocialLinkResponse = {
+        id: number;
+        type: 'Facebook' | 'Twitter' | 'YouTube' | 'Twitch' | 'GooglePlus' | 'Discord' | 'RobloxGroup' | 'Amazon';
+        url: string;
+        title: string;
+    }
+
     interface DeveloperProduct {
         ProductId: number,
         DeveloperProductId: number,
@@ -944,6 +951,13 @@ declare module "noblox.js" {
         imageUrl?: string;
     }
 
+    interface PromotionChannelsResponse {
+        facebook?: string;
+        twitter?: string;
+        youtube?: string;
+        twitch?: string;
+    }
+
     /// Badges
 
     interface BadgeAwarder {
@@ -1306,6 +1320,11 @@ declare module "noblox.js" {
     
     function configureGamePass(gamePassId: number, name: string, description?: string, price?: number | boolean, icon?: string | stream.Stream, jar?: CookieJar): Promise<GamePassResponse>;
 
+    /**
+     * 🔐 Get the social link data associated with a game.
+     */
+    function getGameSocialLinks(universeId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
+
     /// Group
 
     /**
@@ -1372,6 +1391,11 @@ declare module "noblox.js" {
      * 🔐 Gets the audit logs of the specified group.
      */
     function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar ): Promise<AuditPage>;
+
+    /**
+     * 🔐 Get the social link data associated with a group.
+     */
+    function getGroupSocialLinks(groupId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
 
     /**
      * 🔐 Gets the transaction history of the specified group.
@@ -1558,6 +1582,11 @@ declare module "noblox.js" {
      * ✅ Get the groups a user is in.
      */
     function getGroups(userId: number): Promise<Group[]>;
+
+    /**
+     * 🔐 Get the social link data (promotion channels) associated with a user.
+     */
+    function getUserSocialLinks(userId: number, jar?: CookieJar): Promise<PromotionChannelsResponse>;
 
     /**
      * 🔐 Gets the transaction history of the logged in user or of the user specified by the jar.
@@ -1946,7 +1975,7 @@ declare module "noblox.js" {
     /// Group
 
     /**
-     * This function emits all join requests and waits until all of them have been resolved by firing the `handle` event with the request and either true or false. You can also pass a third argument `callback` to handle to execute once the join request has been handled. Once all requests on a page have been resolved, the next page is collected. Make sure that all join requests are handled in some way. Because this function has to wait for input, it does handle timeouts but does them within the function as opposed to within shortPoll.
+     * 🔐 This function emits all join requests and waits until all of them have been resolved by firing the `handle` event with the request and either true or false. You can also pass a third argument `callback` to handle to execute once the join request has been handled. Once all requests on a page have been resolved, the next page is collected. Make sure that all join requests are handled in some way. Because this function has to wait for input, it does handle timeouts but does them within the function as opposed to within shortPoll.
      *
      * To accept all new users that aren't on a blacklist and send them a message, for example:
      * ```javascript
@@ -1970,14 +1999,14 @@ declare module "noblox.js" {
     function onJoinRequestHandle(group: number, jar?: CookieJar): OnJoinRequestHandleEventEmitter;
 
     /**
-     * Fires when there is a shout in the group with groupId `group`. If the shout was cleared the shout body will be blank.
+     * 🔓 Fires when there is a shout in the group with groupId `group`. If the shout was cleared the shout body will be blank.
      */
     function onShout(group: number, jar?: CookieJar): OnShoutEventEmitter;
 
     function onAuditLog(group: number, jar?: CookieJar): OnAuditLogEventEmitter;
 
     /**
-     * Fires when there is a new wall post in the group with groupId `group`. If `view` is enabled the wall posts viewstate will be returned in `view`, otherwise it will not be present.
+     * 🔓 Fires when there is a new wall post in the group with groupId `group`. If `view` is enabled the wall posts viewstate will be returned in `view`, otherwise it will not be present.
      */
     function onWallPost(group: number, view?: boolean, jar?: CookieJar): OnWallPostEventEmitter;
 
@@ -2005,17 +2034,17 @@ declare module "noblox.js" {
     /// User
 
     /**
-     * Fires when new friend requests are received.
+     * 🔐 Fires when new friend requests are received.
      */
     function onFriendRequest(jar?: CookieJar): OnFriendRequestEventEmitter;
 
     /**
-     * Fires whenever a new message is received. Because it relies on `onNotification`, the logged in user's notification stream for messages must be enabled; however, it is one of the true events and does not rely on short polling.
+     * 🔐 Fires whenever a new message is received. Because it relies on `onNotification`, the logged in user's notification stream for messages must be enabled; however, it is one of the true events and does not rely on short polling.
      */
     function onMessage(jar?: CookieJar): OnMessageEventEmitter;
 
     /**
-     * This is one of the only true streams, using web sockets to connect to ROBLOX's notification system. The logged in user must have relevant notifications enabled in their settings in order to receive notifications through this (of course). All notifications haven't been mapped out but what is known is that they all have a `name` and `message` (separate arguments to the `data` event), where `message` is an object that includes a field `type`.
+     * 🔐 This is one of the only true streams, using web sockets to connect to ROBLOX's notification system. The logged in user must have relevant notifications enabled in their settings in order to receive notifications through this (of course). All notifications haven't been mapped out but what is known is that they all have a `name` and `message` (separate arguments to the `data` event), where `message` is an object that includes a field `type`.
      */
     function onNotification(jar?: CookieJar): OnNotificationEventEmitter;
 
@@ -2033,7 +2062,7 @@ declare module "noblox.js" {
     function getAwardedTimestamps(userId: number, badgeId: number[]): Promise<UserBadgeStats>
 
     /**
-     * Updates badge information.
+     * 🔐 Updates badge information.
      */
     function updateBadgeInfo(badgeId: number, name?: string, description?: string, enabled?: boolean, jar?: CookieJar): Promise<void>
 }

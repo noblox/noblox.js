@@ -620,6 +620,16 @@ type DeveloperProduct = {
 /**
  * @typedef
  */
+type SocialLinkResponse = {
+    id: number;
+    type: 'Facebook' | 'Twitter' | 'YouTube' | 'Twitch' | 'GooglePlus' | 'Discord' | 'RobloxGroup' | 'Amazon';
+    url: string;
+    title: string;
+}
+
+/**
+ * @typedef
+ */
 type DeveloperProductsResult = {
     DeveloperProducts: Array<DeveloperProduct>,
     FinalPage: boolean,
@@ -1192,10 +1202,20 @@ type Presences = {
 /**
  * @typedef
 */
-type playerThumbnailData = {
+type PlayerThumbnailData = {
     targetId: number;
     state: string;
     imageUrl: string;
+}
+
+/**
+ * @typedef
+ */
+type PromotionChannelsResponse = {
+    facebook?: string;
+    twitter?: string;
+    youtube?: string;
+    twitch?: string;
 }
 
 /// Badges
