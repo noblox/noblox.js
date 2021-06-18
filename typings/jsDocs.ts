@@ -5,8 +5,7 @@ import * as stream from "stream";
 /**
  * @typedef
 */
-type CookieJar =
-{
+type CookieJar = {
     session?: string;
 }
 
@@ -143,19 +142,19 @@ type BodyColorModel = {
  * @typedef
 */
 type DefaultClothingAssetLists = {
-    defaultShirtAssetIds: number[];
-    defaultPantAssetIds: number[];
+    defaultShirtAssetIds: Array<number>;
+    defaultPantAssetIds: Array<number>;
 }
 
 /**
  * @typedef
 */
 type AvatarRules = {
-    playerAvatarTypes: string[];
+    playerAvatarTypes: Array<string>;
     scales: AvatarRulesScales;
-    wearableAssetTypes: WearableAssetType[];
-    bodyColorsPalette: BodyColorModel[];
-    basicBodyColorsPalette: BodyColorModel[];
+    wearableAssetTypes: Array<WearableAssetType>;
+    bodyColorsPalette: Array<BodyColorModel>;
+    basicBodyColorsPalette: Array<BodyColorModel>;
     minimumDeltaEBodyColorDifference: number;
     proportionsAndBodyTypeEnabledForUser: boolean;
     defaultClothingAssetLists: DefaultClothingAssetLists;
@@ -167,7 +166,7 @@ type AvatarRules = {
  * @typedef
 */
 type AssetIdList = {
-    assetIds: number[];
+    assetIds: Array<number>;
 }
 
 /**
@@ -223,7 +222,7 @@ type AvatarInfo = {
     scales: AvatarScale;
     playerAvatarType: PlayerAvatarType;
     bodyColors: AvatarBodyColors;
-    assets: AvatarAsset[];
+    assets: Array<AvatarAsset>;
     defaultShirtApplied: boolean;
     defaultPantsApplied: boolean;
 }
@@ -253,7 +252,7 @@ type AssetRecentItem = {
  * @typedef
 */
 type AssetRecentItemsResult = {
-    data: AssetRecentItem[];
+    data: Array<AssetRecentItem>;
     total: number;
 }
 
@@ -263,8 +262,8 @@ type AssetRecentItemsResult = {
 type AvatarOutfitDetails = {
     id: number;
     name: string;
-    assets: AvatarAsset[];
-    bodyColors: AvatarBodyColors[];
+    assets: Array<AvatarAsset>;
+    bodyColors: Array<AvatarBodyColors>;
     scale: AvatarScale;
     playerAvatarType: PlayerAvatarType;
     isEditable: boolean;
@@ -283,7 +282,7 @@ type AvatarOutfit = {
  * @typedef
 */
 type GetOutfitsResult = {
-    data: AvatarOutfit[];
+    data: Array<AvatarOutfit>;
     total: number;
 }
 
@@ -304,8 +303,8 @@ type RejectedParticipant = {
  * @typedef
 */
 type ConversationAddResponse = {
-    conversationId: Number;
-    rejectedParticipants: RejectedParticipant[];
+    conversationId: number;
+    rejectedParticipants: Array<RejectedParticipant>;
     resultType: string;
     statusMessage: string;
 }
@@ -314,7 +313,7 @@ type ConversationAddResponse = {
  * @typedef
 */
 type ConversationRemoveResponse = {
-    conversationId: Number;
+    conversationId: number;
     resultType: string;
     statusMessage: string;
 }
@@ -334,7 +333,7 @@ type ConversationRenameResponse = {
 */
 type SendChatResponse = {
     content: string;
-    filteredForRecievers: boolean;
+    filteredForReceivers: boolean;
     messageId: string;
     sent: string;
     messageType: string;
@@ -354,7 +353,7 @@ type UpdateTypingResponse = {
 */
 type StartGroupConversationResponse = {
     conversation: ChatConversation;
-    rejectedParticipants: RejectedParticipant[];
+    rejectedParticipants: Array<RejectedParticipant>;
     resultType: string;
     statusMessage: string;
 }
@@ -382,7 +381,7 @@ type ChatMessage = {
     sent: string;
     read: boolean;
     messageType: "PlainText" | "Link" | "EventBased";
-    decorators: string[];
+    decorators: Array<string>;
     senderTargetId: number;
     content: string;
     link: ChatMessageLink;
@@ -428,7 +427,7 @@ type ChatConversation = {
     title: string;
     initiator: ChatParticipant;
     hasUnreadMessages: boolean;
-    participants: ChatParticipant[];
+    participants: Array<ChatParticipant>;
     conversationType: "OneToOneConversation" | "MultiUserConversation" | "CloudEditConversation";
     conversationTitle: ChatConversationTitle;
     lastUpdated: string;
@@ -469,7 +468,7 @@ type ChatFeatureNames = "LuaChat" | "ConversationUniverse" | "PlayTogether" | "P
  * @typedef
 */
 type GetRolloutSettingsResult = {
-    rolloutFeatures: ChatRolloutFeature[];
+    rolloutFeatures: Array<ChatRolloutFeature>;
 }
 
 /**
@@ -492,7 +491,7 @@ type GetUnreadConversationCountResult = {
 */
 type ChatConversationWithMessages = {
     conversationId: number;
-    chatMessages: ChatMessage[];
+    chatMessages: Array<ChatMessage>;
 }
 
 /**
@@ -535,7 +534,7 @@ type GameInstance = {
     ShowSlowGameMessage: boolean;
     Guid: string;
     PlaceId: number;
-    CurrentPlayers: GameInstancePlayer[];
+    CurrentPlayers: Array<GameInstancePlayer>;
     UserCanJoin: boolean;
     ShowShutdownButton: boolean;
     JoinScript: string;
@@ -550,7 +549,7 @@ type GameInstance = {
 type GameInstances = {
     PlaceId: number;
     ShowShutdownAllButton: boolean;
-    Collection: GameInstance[];
+    Collection: Array<GameInstance>;
     TotalCollectionSize: number;
 }
 
@@ -622,7 +621,7 @@ type DeveloperProduct = {
  * @typedef
  */
 type DeveloperProductsResult = {
-    DeveloperProducts: DeveloperProduct[],
+    DeveloperProducts: Array<DeveloperProduct>,
     FinalPage: boolean,
     PageSize: number
 }
@@ -854,7 +853,7 @@ type AuditItem = {
  * @typedef
 */
 type AuditPage = {
-    data: AuditItem[];
+    data: Array<AuditItem>;
     nextPageCursor?: string;
     previousPageCursor?: string;
 }
@@ -900,7 +899,7 @@ type TransactionItem = {
  * @typedef
 */
 type TransactionPage = {
-    data: TransactionItem[];
+    data: Array<TransactionItem>;
     nextPageCursor?: string;
     previousPageCursor?: string;
 }
@@ -928,7 +927,7 @@ type GroupJoinRequest = {
 type GroupJoinRequestsPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: GroupJoinRequest[];
+    data: Array<GroupJoinRequest>;
 }
 
 /**
@@ -961,7 +960,7 @@ type WallPost = {
 type WallPostPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: WallPost[];
+    data: Array<WallPost>;
 }
 
 /// Party
@@ -1045,7 +1044,7 @@ type FriendRequestEntry = {
 type FriendRequestsPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: FriendRequestEntry[];
+    data: Array<FriendRequestEntry>;
 }
 
 /**
@@ -1064,7 +1063,7 @@ type FriendEntry = {
  * @typedef
 */
 type Friends = {
-    friends: FriendEntry[];
+    friends: Array<FriendEntry>;
 }
 
 /**
@@ -1084,7 +1083,7 @@ type FollowEntry = {
 type FollowingsPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: FollowEntry[];
+    data: Array<FollowEntry>;
 }
 
 /**
@@ -1093,14 +1092,14 @@ type FollowingsPage = {
 type FollowersPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: FollowEntry[];
+    data: Array<FollowEntry>;
 }
 
 /**
  * @typedef
 */
 type PrivateMessagesPage = {
-    collection: PrivateMessage[];
+    collection: Array<PrivateMessage>;
     totalPages: number;
     totalCollectionSize: number;
     pageNumber: number;
@@ -1172,6 +1171,7 @@ type UserPresence = {
 */
 type PlayerInfo = {
     username: string;
+    displayName: string;
     status?: string;
     blurb: string;
     joinDate: Date;
@@ -1179,7 +1179,7 @@ type PlayerInfo = {
     friendCount?: number;
     followerCount?: number;
     followingCount?: number;
-    oldNames?: string[];
+    oldNames?: Array<string>;
     isBanned: boolean;
 }
 
@@ -1187,7 +1187,7 @@ type PlayerInfo = {
  * @typedef
 */
 type Presences = {
-    userPresences: UserPresence[];
+    userPresences: Array<UserPresence>;
 }
 
 /**
@@ -1300,7 +1300,7 @@ type CollectibleEntry = {
  * @typedef
 */
 type Collectibles = {
-    collectibles: CollectibleEntry[];
+    collectibles: Array<CollectibleEntry>;
 }
 
 /**
@@ -1321,7 +1321,7 @@ type InventoryEntry = {
  * @typedef
 */
 type Inventory = {
-    items: InventoryEntry[];
+    items: Array<InventoryEntry>;
 }
 
 ///Trading
@@ -1330,8 +1330,8 @@ type Inventory = {
  * @typedef
 */
 type UAIDResponse = {
-    uaids: number[],
-    failedIds: number[]
+    uaids: Array<number>,
+    failedIds: Array<number>
 }
 
 /**
@@ -1382,7 +1382,7 @@ type DetailedTradeAsset = {
 */
 type DetailedTradeOffer = {
     user: TradeUser,
-    userAssets: DetailedTradeAsset[],
+    userAssets: Array<DetailedTradeAsset>,
     robux: number
 }
 
@@ -1390,7 +1390,7 @@ type DetailedTradeOffer = {
  * @typedef
 */
 type TradeOffer = {
-    userAssetIds: number[],
+    userAssetIds: Array<number>,
     robux: number
 }
 
@@ -1398,7 +1398,7 @@ type TradeOffer = {
  * @typedef
 */
 type TradeInfo = {
-    offers: DetailedTradeOffer[],
+    offers: Array<DetailedTradeOffer>,
     id: number,
     user: TradeUser,
     created: Date,
