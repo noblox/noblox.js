@@ -73,43 +73,34 @@ You may notice our documentation utilizes emojis in every function description; 
 | ✅ | No authentication is required to use this method.
 
 <b id="f1">[1](#a1)</b> : Extended permissions may be required such as edit permissions or account ownership.
+
 ---
 
 ## Quickstart
 
-1 | Install `noblox.js`:
-```bash
-npm install noblox.js
-```
+1) [Install `noblox.js`.](#installation)
 
-2 | Retrieve your `.ROBLOSECURITY` cookie (Google Chrome):
-1) Go to `https://www.roblox.com` and login to the bot account.
-2) Open the Developer Console by pressing `CTRL SHIFT I` or `F12`.
-3) Click the `Application` along the top row.
-4) Expand the `Cookies` dropdown in the left panel, and select `https://www.roblox.com`.
-5) Copy the value of the `.ROBLOSECURITY` cookie to your clipboard.
+2) Retrieve your `.ROBLOSECURITY` cookie. Instructions on how to do that can be found [here](https://noblox.js.org/tutorial-Authentication.html).
 
-> [Instructions for alternative browsers can be found here.](https://noblox.js.org/tutorial-Authentication.html)
+3) Write your code.
 
-3 | Write your code.
+    _Using `async/await` syntax:_
+    ```js
+    const noblox = require('noblox.js')
+    async function startApp () {
+        // You MUST call setCookie() before using any authenticated methods [marked by 🔐]
+        // Replace the parameter in setCookie() with your .ROBLOSECURITY cookie.
+        const currentUser = await noblox.setCookie('_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_6E6F626C6F782E6A73') 
+        console.log(`Logged in as ${currentUser.UserName} [${currentUser.UserID}]`)
+    
+        // Do everything else, calling functions and the like.
+        const groupInfo = await noblox.getGroup(9997719)
+        console.log(groupInfo)
+    }
+    startApp()
+    ```
 
-_Using `async/await` syntax:_
-```js
-const noblox = require('noblox.js')
-async function startApp () {
-    // You MUST call setCookie() before using any authenticated methods [marked by 🔐]
-    // Replace the parameter in setCookie() with your .ROBLOSECURITY cookie.
-    const currentUser = await noblox.setCookie('_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_6E6F626C6F782E6A73') 
-    console.log(`Logged in as ${currentUser.UserName} [${currentUser.UserID}]`)
-
-    // Do everything else, calling functions and the like.
-    const groupInfo = await noblox.getGroup(9997719)
-    console.log(groupInfo)
-}
-startApp()
-```
-
-You are now using `noblox.js`!
+You are now using noblox.js!
 
 ### [More examples can be found here.](https://github.com/noblox/noblox.js/tree/master/examples)
 
@@ -129,7 +120,7 @@ Consult their documentation or [follow this video](https://www.youtube.com/watch
 
 ### Invalidating A Cookie
 
-In the event of accidentally exposing your `.ROBLOSECURITY` cookie, do not panic. Go to [`'Account Settings'` > `'Security'`](https://www.roblox.com/my/account#!/security) then select `'Sign out of all other sessions'`, then log out of your account. This should invalidate your `.ROBLOSECURITY` cookie. 
+In the event of accidentally exposing your `.ROBLOSECURITY` cookie, do not panic. Go to [`Account Settings` > `Security`](https://www.roblox.com/my/account#!/security), select `Sign out of all other sessions`, then log out of your account. This should invalidate your `.ROBLOSECURITY` cookie. 
 
 
 ---
