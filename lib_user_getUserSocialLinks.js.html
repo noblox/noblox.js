@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/chat/markChatAsRead.js</title>
+  <title>noblox.js lib/user/getUserSocialLinks.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/chat/markChatAsRead.js</h1>
+                    <h1>lib/user/getUserSocialLinks.js</h1>
                 </header>
                 
 
@@ -142,57 +142,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
-const getGeneralToken = require('../util/getGeneralToken.js').func
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('../util/http.js').func
 
-exports.required = ['conversationId', 'endMessageId']
+// Args
+exports.required = ['userId']
 exports.optional = ['jar']
 
 // Docs
 /**
- * 🔐 Mark a chat as read.
- * @category Chat
- * @alias markChatAsRead
- * @param {number} conversationId - The id of the conversation.
- * @param {string} endMessageId - The last message to read.
- * @returns {Promise&lt;void>}
+ * 🔐 Get the social link data (promotion channels) associated with a user.
+ * @category User
+ * @alias getUserSocialLinks
+ * @param {number} userId - The id of the user.
+ * @returns {Promise&lt;PromotionChannelsResponse>}
  * @example const noblox = require("noblox.js")
- * // Login using your cookie
- * noblox.markChatAsRead(8212952828, 'e775e103-876f-4332-84ab-1ea14f326d39')
+ * const userSocialLinks = await noblox.getUserSocialLinks(2416399685)
 **/
 
-const nextFunction = (jar, token, conversationId, endMessageId) => {
+// Define
+function getUserSocialLinks (userId, jar) {
   return http({
-    url: '//chat.roblox.com/v2/mark-as-read',
+    url: `//accountinformation.roblox.com/v1/users/${userId}/promotion-channels`,
     options: {
-      method: 'POST',
       jar: jar,
-      headers: {
-        'X-CSRF-TOKEN': token
-      },
-      json: {
-        conversationId: conversationId,
-        endMessageId: endMessageId
-      },
       resolveWithFullResponse: true
     }
-  }).then((res) => {
-    if (res.statusCode === 200) {
-      if (!res.body.resultType === 'Success') {
-        throw new Error(res.body.statusMessage)
-      }
-    } else {
-      throw new Error('Mark as read failed')
-    }
   })
+    .then(({ statusCode, body }) => {
+      const { errors } = JSON.parse(body)
+      if (statusCode === 200) {
+        return JSON.parse(body)
+      } else if (statusCode === 400) {
+        throw new Error(`${errors[0].message} | userId: ${userId}`)
+      } else {
+        throw new Error(`An unknown error occurred with getUserSocialLinks() | [${statusCode}] userId: ${userId}`)
+      }
+    })
 }
 
-exports.func = (args) => {
-  const jar = args.jar
-
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
-    return nextFunction(jar, xcsrf, args.conversationId, args.endMessageId)
-  })
+exports.func = function ({ userId, jar }) {
+  return getUserSocialLinks(userId, jar)
 }
 </code></pre>
         </article>
