@@ -14,6 +14,134 @@ declare module "noblox.js" {
         session?: string;
     }
 
+    /**
+     * NobloxOptions for setOptions, based from settings.json
+     */
+    interface NobloxOptions {
+        /** Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well. (Default: true) */
+        session_only: boolean;
+
+        /** This is usually used for functions that have to receive a lot of pages at once. Only this amount will be queued up as to preserve memory, make this as high as possible for fastest responses (although it will be somewhat limited by maxSockets). (Default: 50) */
+        max_threads: number;
+
+        /** Timeout for http requests. This is necessary for functions that make a very large number of requests, where it is possible some simply won't connect. (Default: 10000) */
+        timeout: number;
+
+        event: {
+            /** Maximum number of consecutive retries after an event times out or fails in some other way. (Default: 5) */
+            maxRetries: number;
+            /** Maximum time (in milliseconds) a request can take. If your server has extremely high latency you may have to raise this. (Default: 10000) */
+            timeout: number;
+            /** The poll time in milliseconds by default. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            defaultDelay: number;
+            /** The poll time in milliseconds to check for new audit log entries. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onAuditLog: number;
+            /** The poll time in milliseconds to check for new wall posts. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onWallPost: number;
+            /** The poll time in milliseconds to check for new join requests. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onJoinRequestHandle: number;
+            /** The poll time in milliseconds to check for a new shout message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onShout: number;
+            /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onBlurbChange: number;
+        }
+
+        thumbnail: {
+            /** Maximum number of retries to retrieve a pending thumbnail, rare, but occurs with uncached users (Roblox's cache) (Default: 2) */
+            maxRetries: number;
+            /** The time to wait between consecutive retries of retrieving pending thumbnails. (Default: 500) */
+            retryDelay: number;
+
+            failedUrl: {
+                /** The image URL to provide when an asset thumbnail is still pending; defaults to Roblox moderation icon via noblox.js's GitHub repo at https://noblox.js.org/moderatedThumbnails/moderatedThumbnail_{size}.png */
+                pending: string;
+                /** The image URL to provide when an asset thumbnail has been moderated by Roblox; defaults to Roblox moderation icon via noblox.js's GitHub repo at https://noblox.js.org/moderatedThumbnails/moderatedThumbnail_{size}.png */
+                blocked: string;
+            }
+        }
+
+        queue: {
+            Message: {
+                /** Although messages do have a floodcheck, it is not instituted immediately so this is disabled by default. If you are sending a lot of messages set a delay around 10-15 seconds (10000-15000). (Default: 0) */
+                delay: number
+            }
+        }
+
+        cache: {
+            /** XCSRF tokens expire 30 minutes after being created. Until they expire, however, no new tokens can be made. Sometimes an XCSRF token has already been created for the user so the server doesn't know when to collect a new one. During transitions some requests may use invalid tokens. For now, new XCSRF tokens are automatically retrieved when cached ones get rejected. */
+            XCSRF: {
+                /** Default: 1800 */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Verification tokens seem to last extremely long times. */
+            Verify: {
+                /** Default: 7200 */
+                expire: number | boolean;
+                /** Default: 3600 */
+                refresh: number | boolean;
+            },
+
+            /** This should be fine unless your group changes its ranks often. */
+            Roles: {
+                /** Default: 600 */
+                expire: number | boolean;
+                /** Default: true */
+                refresh: number | boolean;
+            },
+
+            /** Disable this completely if you don't plan on ever changing your exile bot's rank. */
+            RolesetId: {
+                /** Default: 86400 */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Disabled by default for security (price checks). If you are only working with ROBLOX assets, however, you can set this to something high (since ROBLOX product info rarely changes). */
+            Product: {
+                /** Default: false */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Caches a user's username based on their ID. It is not on by default because it is an uncontrollable change but the option is there to cache it if you would like. */
+            NameFromID: {
+                /** Default: false */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Permanent cache for a user's ID based on their name. There is no reason this would ever change (changing names would re-match it and old names cannot be reused by other accounts). Only disable if you want this to match current names only. */
+            IDFromName: {
+                /** Default: true */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Permanent cache for the sender's user ID. This should literally never change. */
+            SenderId: {
+                /** Default: true */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Caches rank by user ID. Changes cannot be anticipated so this is not enabled by default. */
+            Rank: {
+                /** Default: false */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            }
+        }
+    }
+
     /// Asset
 
     /**
@@ -1811,7 +1939,7 @@ declare module "noblox.js" {
      * @param newOptions - The new options to set, structured as per settings.json
      * @see https://github.com/noblox/noblox.js/blob/master/settings.json
      */
-    function setOptions(newOptions: any): void
+    function setOptions(newOptions: NobloxOptions): void
 
 
     // Events
