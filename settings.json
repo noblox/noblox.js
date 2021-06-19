@@ -38,10 +38,6 @@
     "Message": {
       "delay": 0,
       "desc": "Although messages do have a floodcheck, it is not instituted immediately so this is disabled by default. If you are sending a lot of messages set a delay around 10-15 seconds (10000-15000)"
-    },
-    "Forum": {
-      "delay": 15000,
-      "desc": "All forum posts have a mandatory 15 second delay, there is no reason for this to be disabled"
     }
   },
 
