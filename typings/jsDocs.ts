@@ -208,6 +208,46 @@ type BuyAssetResponse = {
 /**
  * @typedef
 */
+type ChartDataPointResponse = {
+    value?: number;
+    date?: Date;
+}
+
+/**
+ * @typedef
+*/
+type ResaleDataResponse = {
+    assetStock?: number;
+    sales?: number;
+    numberRemaining?: number;
+    recentAveragePrice?: number;
+    originalPrice?: number;
+    priceDataPoints?: ChartDataPointResponse[];
+    volumeDataPoints?: ChartDataPointResponse[];
+}
+
+/**
+ * @typedef
+*/
+type ResellerAgent = {
+    id: number;
+    type: "User" | "Group";
+    name: string;
+}
+
+/**
+ * @typedef
+*/
+type ResellerData = {
+    userAssetId: number;
+    seller: ResellerAgent;
+    price: number;
+    serialNumber?: number;
+}
+
+/**
+ * @typedef
+*/
 type UploadItemResponse = {
     id: number;
 }
