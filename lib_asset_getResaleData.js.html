@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/party/onPartySelfLeft.js</title>
+  <title>noblox.js lib/asset/getResaleData.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/party/onPartySelfLeft.js</h1>
+                    <h1>lib/asset/getResaleData.js</h1>
                 </header>
                 
 
@@ -142,53 +142,59 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const events = require('events')
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('../util/http').func
 
-const onNotification = require('../user/onNotification.js').func
-
+// Args
+exports.required = ['assetId']
 exports.optional = ['jar']
 
 // Docs
 /**
- * 🔐 An event for when you leave a party.
- * @category Party
- * @alias onPartySelfLeft
- * @returns An EventEmitter that emits when you leave a party.
+ * ✅ Get the recent sale history (price and volume per day for 180 days) of a limited asset.
+ * @category Assets
+ * @alias getResaleData
+ * @param {number} assetId - The id of the asset.
+ * @returns {Promise&lt;ResaleDataResponse>}
  * @example const noblox = require("noblox.js")
- * // Login using your cookie
- * noblox.onPartySelfLeft().on("data", function(data) {
- *  console.log("You left a party!", data)
- * })
+ * const resaleData = await noblox.getResaleData(20573078)
 **/
 
-exports.func = (args) => {
-  const jar = args.jar
-  const newEvent = new events.EventEmitter()
-  const notifications = onNotification({ jar: jar })
-
-  notifications.on('data', (name, message) => {
-    if (name === 'PartyNotifications' &amp;&amp; message.Type === 'ILeftParty') {
-      newEvent.emit('data', {
-        PartyId: message.PartyId,
-        PartyType: message.PartyType
-      })
+// Define
+const getResaleData = async (assetId) => {
+  return http({
+    url: `//economy.roblox.com/v1/assets/${assetId}/resale-data`,
+    options: {
+      resolveWithFullResponse: true
+    }
+  }).then(({ body, statusCode }) => {
+    const { errors } = JSON.parse(body)
+    if (statusCode === 200) {
+      try {
+        const resaleData = JSON.parse(body)
+        for (const priceDataPoint of resaleData.priceDataPoints) {
+          priceDataPoint.date = new Date(priceDataPoint.date)
+        }
+        for (const volumeDataPoint of resaleData.volumeDataPoints) {
+          volumeDataPoint.date = new Date(volumeDataPoint.date)
+        }
+        return resaleData
+      } catch (err) {
+        throw new Error(`An unknown error occurred with getResaleData() | [${statusCode}] assetId: ${assetId}`)
+      }
+    } else if (statusCode === 400) {
+      throw new Error(`${errors[0].message} | assetId: ${assetId}`)
+    } else {
+      throw new Error(`An unknown error occurred with getResaleData() | [${statusCode}] assetId: ${assetId}`)
     }
   })
+}
 
-  notifications.on('error', (err) => {
-    newEvent.emit('error', err)
-  })
-
-  notifications.on('connect', () => {
-    newEvent.emit('connect')
-  })
-
-  notifications.on('close', (internal) => {
-    if (internal) return
-    notifications.emit('close', true)
-  })
-
-  return newEvent
+exports.func = function ({ assetId }) {
+  if (isNaN(assetId)) {
+    throw new Error('The provided assetId is not a number.')
+  }
+  return getResaleData(assetId)
 }
 </code></pre>
         </article>
