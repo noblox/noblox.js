@@ -9,8 +9,19 @@ beforeAll(() => {
 })
 
 describe('Badges Methods', () => {
-  it('getAwardedTimestamps() returns when badges were awarded to a player', () => {
-    return getAwardedTimestamps(64679301, [459405541]).then((res) => {
+  it('getAwardedTimestamps() [NUMBER] returns when badges were awarded to a player', () => {
+    return getAwardedTimestamps(2416399685, 2124549302).then((res) => {
+      expect(res).toEqual(
+        expect.arrayContaining([{
+          badgeId: expect.any(Number),
+          awardedDate: expect.any(Date)
+        }])
+      )
+    })
+  })
+
+  it('getAwardedTimestamps() [ARRAY] returns when badges were awarded to a player', () => {
+    return getAwardedTimestamps(2416399685, [2124549302, 2124549305, 2124549306]).then((res) => {
       expect(res).toEqual(
         expect.arrayContaining([{
           badgeId: expect.any(Number),
