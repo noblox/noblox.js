@@ -1351,7 +1351,6 @@ type UserPresence = {
 type PlayerInfo = {
     username: string;
     displayName: string;
-    status?: string;
     blurb: string;
     joinDate: Date;
     age?: number;
