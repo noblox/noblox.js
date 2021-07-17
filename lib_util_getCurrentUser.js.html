@@ -179,7 +179,13 @@ exports.func = function (args) {
         throw new Error('You are not logged in.')
       } else {
         const json = JSON.parse(res.body)
-        return (option ? json[option] : json)
+        if (option) {
+          const searchKey = Object.keys(json).filter((key) => {
+            return option.toLowerCase() === key.toLowerCase()
+          })[0]
+          return json[searchKey]
+        }
+        return json
       }
     })
 }

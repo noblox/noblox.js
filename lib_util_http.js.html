@@ -209,6 +209,9 @@ function http (url, opt) {
 
 exports.func = function (args) {
   const opt = args.options || {}
+  if (typeof opt.jar === 'string') {
+    opt.jar = { session: opt.jar }
+  }
   const jar = opt.jar
   let depth = args.depth || 0
   const full = opt.resolveWithFullResponse || false
