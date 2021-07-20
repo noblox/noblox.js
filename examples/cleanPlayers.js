@@ -32,7 +32,7 @@ function shouldExile (player) {
 }
 
 // Dependencies
-const rbx = require('noblox.js')
+const noblox = require('noblox.js')
 const logUpdate = require('log-update')
 
 const players = {
@@ -41,7 +41,7 @@ const players = {
   failed: 0
 }
 
-rbx.setCookie(cookie)
+noblox.setCookie(cookie)
   .then(async () => {
     console.time('Time taken')
 
@@ -49,7 +49,7 @@ rbx.setCookie(cookie)
       group: options.group
     }
 
-    const groupRoles = await rbx.getRoles(getRolesOptions)
+    const groupRoles = await noblox.getRoles(getRolesOptions)
     const targetRoles = []
 
     for (const role of groupRoles) {
@@ -96,7 +96,7 @@ rbx.setCookie(cookie)
       sortOrder: options.sortOrder
     }
 
-    const groupPlayers = await rbx.getPlayers(getPlayersOptions)
+    const groupPlayers = await noblox.getPlayers(getPlayersOptions)
 
     const logUpdater = setInterval(() => {
       logUpdate(`Got ${groupPlayers.length} players, exiling...\nPassed: ${players.passed}\nExiled: ${players.exiled}\nFailed: ${players.failed}`)
@@ -115,7 +115,7 @@ rbx.setCookie(cookie)
           target: player.userId
         }
 
-        rbx.exile(exileOptions)
+        noblox.exile(exileOptions)
           .then(() => {
             players.exiled++
           })

@@ -5,9 +5,137 @@ import * as stream from "stream";
 /**
  * @typedef
 */
-type CookieJar =
-{
+type CookieJar = {
     session?: string;
+}
+
+/**
+ * @typedef
+ * NobloxOptions for setOptions, based from settings.json
+ */
+type NobloxOptions = {
+    /** Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well. (Default: true) */
+    session_only: boolean;
+
+    /** This is usually used for functions that have to receive a lot of pages at once. Only this amount will be queued up as to preserve memory, make this as high as possible for fastest responses (although it will be somewhat limited by maxSockets). (Default: 50) */
+    max_threads: number;
+
+    /** Timeout for http requests. This is necessary for functions that make a very large number of requests, where it is possible some simply won't connect. (Default: 10000) */
+    timeout: number;
+
+    event: {
+        /** Maximum number of consecutive retries after an event times out or fails in some other way. (Default: 5) */
+        maxRetries: number;
+        /** Maximum time (in milliseconds) a request can take. If your server has extremely high latency you may have to raise this. (Default: 10000) */
+        timeout: number;
+        /** The poll time in milliseconds by default. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+        defaultDelay: number;
+        /** The poll time in milliseconds to check for new audit log entries. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+        onAuditLog: number;
+        /** The poll time in milliseconds to check for new wall posts. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+        onWallPost: number;
+        /** The poll time in milliseconds to check for new join requests. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+        onJoinRequestHandle: number;
+        /** The poll time in milliseconds to check for a new shout message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+        onShout: number;
+        /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+        onBlurbChange: number;
+    }
+
+    thumbnail: {
+        /** Maximum number of retries to retrieve a pending thumbnail, rare, but occurs with uncached users (Roblox's cache) (Default: 2) */
+        maxRetries: number;
+        /** The time to wait between consecutive retries of retrieving pending thumbnails. (Default: 500) */
+        retryDelay: number;
+
+        failedUrl: {
+            /** The image URL to provide when an asset thumbnail is still pending; defaults to Roblox moderation icon via noblox.js's GitHub repo at https://noblox.js.org/moderatedThumbnails/moderatedThumbnail_{size}.png */
+            pending: string;
+            /** The image URL to provide when an asset thumbnail has been moderated by Roblox; defaults to Roblox moderation icon via noblox.js's GitHub repo at https://noblox.js.org/moderatedThumbnails/moderatedThumbnail_{size}.png */
+            blocked: string;
+        }
+    }
+
+    queue: {
+        Message: {
+            /** Although messages do have a floodcheck, it is not instituted immediately so this is disabled by default. If you are sending a lot of messages set a delay around 10-15 seconds (10000-15000). (Default: 0) */
+            delay: number
+        }
+    }
+
+    cache: {
+        /** XCSRF tokens expire 30 minutes after being created. Until they expire, however, no new tokens can be made. Sometimes an XCSRF token has already been created for the user so the server doesn't know when to collect a new one. During transitions some requests may use invalid tokens. For now, new XCSRF tokens are automatically retrieved when cached ones get rejected. */
+        XCSRF: {
+            /** Default: 1800 */
+            expire: number | boolean;
+            /** Default: false */
+            refresh: number | boolean;
+        },
+
+        /** Verification tokens seem to last extremely long times. */
+        Verify: {
+            /** Default: 7200 */
+            expire: number | boolean;
+            /** Default: 3600 */
+            refresh: number | boolean;
+        },
+
+        /** This should be fine unless your group changes its ranks often. */
+        Roles: {
+            /** Default: 600 */
+            expire: number | boolean;
+            /** Default: true */
+            refresh: number | boolean;
+        },
+
+        /** Disable this completely if you don't plan on ever changing your exile bot's rank. */
+        RolesetId: {
+            /** Default: 86400 */
+            expire: number | boolean;
+            /** Default: false */
+            refresh: number | boolean;
+        },
+
+        /** Disabled by default for security (price checks). If you are only working with ROBLOX assets, however, you can set this to something high (since ROBLOX product info rarely changes). */
+        Product: {
+            /** Default: false */
+            expire: number | boolean;
+            /** Default: false */
+            refresh: number | boolean;
+        },
+
+        /** Caches a user's username based on their ID. It is not on by default because it is an uncontrollable change but the option is there to cache it if you would like. */
+        NameFromID: {
+            /** Default: false */
+            expire: number | boolean;
+            /** Default: false */
+            refresh: number | boolean;
+        },
+
+        /** Permanent cache for a user's ID based on their name. There is no reason this would ever change (changing names would re-match it and old names cannot be reused by other accounts). Only disable if you want this to match current names only. */
+        IDFromName: {
+            /** Default: true */
+            expire: number | boolean;
+            /** Default: false */
+            refresh: number | boolean;
+        },
+
+        /** Permanent cache for the sender's user ID. This should literally never change. */
+        SenderId: {
+            /** Default: true */
+            expire: number | boolean;
+            /** Default: false */
+            refresh: number | boolean;
+        },
+
+        /** Caches rank by user ID. Changes cannot be anticipated so this is not enabled by default. */
+        Rank: {
+            /** Default: false */
+            expire: number | boolean;
+            /** Default: false */
+            refresh: number | boolean;
+        }
+    }
 }
 
 /// Asset
@@ -38,15 +166,15 @@ type ProductInfo = {
     IconImageAssetId: number;
     Created: Date;
     Updated: Date;
-    PriceInRobux: number | null;
-    PriceInTickets: number | null;
+    PriceInRobux?: number;
+    PriceInTickets?: number;
     Sales: number;
     IsNew: boolean;
     IsForSale: boolean;
     IsPublicDomain: boolean;
     IsLimited: boolean;
     IsLimitedUnique: boolean;
-    Remaining: number | null;
+    Remaining?: number;
     MinimumMembershipLevel: number;
     ContentRatingTypeId: number;
 }
@@ -56,7 +184,7 @@ type ProductInfo = {
 */
 type BuyProductInfo = {
     ProductId: number;
-    Creator: {Id: number};
+    Creator: { Id: number };
     PriceInRobux: number;
     UserAssetId: number;
 }
@@ -75,6 +203,46 @@ type PriceRange = {
 type BuyAssetResponse = {
     productId: number;
     price: number;
+}
+
+/**
+ * @typedef
+*/
+type ChartDataPointResponse = {
+    value?: number;
+    date?: Date;
+}
+
+/**
+ * @typedef
+*/
+type ResaleDataResponse = {
+    assetStock?: number;
+    sales?: number;
+    numberRemaining?: number;
+    recentAveragePrice?: number;
+    originalPrice?: number;
+    priceDataPoints?: ChartDataPointResponse[];
+    volumeDataPoints?: ChartDataPointResponse[];
+}
+
+/**
+ * @typedef
+*/
+type ResellerAgent = {
+    id: number;
+    type: "User" | "Group";
+    name: string;
+}
+
+/**
+ * @typedef
+*/
+type ResellerData = {
+    userAssetId: number;
+    seller: ResellerAgent;
+    price: number;
+    serialNumber?: number;
 }
 
 /**
@@ -143,19 +311,19 @@ type BodyColorModel = {
  * @typedef
 */
 type DefaultClothingAssetLists = {
-    defaultShirtAssetIds: number[];
-    defaultPantAssetIds: number[];
+    defaultShirtAssetIds: Array<number>;
+    defaultPantAssetIds: Array<number>;
 }
 
 /**
  * @typedef
 */
 type AvatarRules = {
-    playerAvatarTypes: string[];
+    playerAvatarTypes: Array<string>;
     scales: AvatarRulesScales;
-    wearableAssetTypes: WearableAssetType[];
-    bodyColorsPalette: BodyColorModel[];
-    basicBodyColorsPalette: BodyColorModel[];
+    wearableAssetTypes: Array<WearableAssetType>;
+    bodyColorsPalette: Array<BodyColorModel>;
+    basicBodyColorsPalette: Array<BodyColorModel>;
     minimumDeltaEBodyColorDifference: number;
     proportionsAndBodyTypeEnabledForUser: boolean;
     defaultClothingAssetLists: DefaultClothingAssetLists;
@@ -167,7 +335,7 @@ type AvatarRules = {
  * @typedef
 */
 type AssetIdList = {
-    assetIds: number[];
+    assetIds: Array<number>;
 }
 
 /**
@@ -223,7 +391,7 @@ type AvatarInfo = {
     scales: AvatarScale;
     playerAvatarType: PlayerAvatarType;
     bodyColors: AvatarBodyColors;
-    assets: AvatarAsset[];
+    assets: Array<AvatarAsset>;
     defaultShirtApplied: boolean;
     defaultPantsApplied: boolean;
 }
@@ -253,7 +421,7 @@ type AssetRecentItem = {
  * @typedef
 */
 type AssetRecentItemsResult = {
-    data: AssetRecentItem[];
+    data: Array<AssetRecentItem>;
     total: number;
 }
 
@@ -263,8 +431,8 @@ type AssetRecentItemsResult = {
 type AvatarOutfitDetails = {
     id: number;
     name: string;
-    assets: AvatarAsset[];
-    bodyColors: AvatarBodyColors[];
+    assets: Array<AvatarAsset>;
+    bodyColors: Array<AvatarBodyColors>;
     scale: AvatarScale;
     playerAvatarType: PlayerAvatarType;
     isEditable: boolean;
@@ -283,7 +451,7 @@ type AvatarOutfit = {
  * @typedef
 */
 type GetOutfitsResult = {
-    data: AvatarOutfit[];
+    data: Array<AvatarOutfit>;
     total: number;
 }
 
@@ -304,8 +472,8 @@ type RejectedParticipant = {
  * @typedef
 */
 type ConversationAddResponse = {
-    conversationId: Number;
-    rejectedParticipants: RejectedParticipant[];
+    conversationId: number;
+    rejectedParticipants: Array<RejectedParticipant>;
     resultType: string;
     statusMessage: string;
 }
@@ -314,7 +482,7 @@ type ConversationAddResponse = {
  * @typedef
 */
 type ConversationRemoveResponse = {
-    conversationId: Number;
+    conversationId: number;
     resultType: string;
     statusMessage: string;
 }
@@ -334,7 +502,7 @@ type ConversationRenameResponse = {
 */
 type SendChatResponse = {
     content: string;
-    filteredForRecievers: boolean;
+    filteredForReceivers: boolean;
     messageId: string;
     sent: string;
     messageType: string;
@@ -354,7 +522,7 @@ type UpdateTypingResponse = {
 */
 type StartGroupConversationResponse = {
     conversation: ChatConversation;
-    rejectedParticipants: RejectedParticipant[];
+    rejectedParticipants: Array<RejectedParticipant>;
     resultType: string;
     statusMessage: string;
 }
@@ -382,7 +550,7 @@ type ChatMessage = {
     sent: string;
     read: boolean;
     messageType: "PlainText" | "Link" | "EventBased";
-    decorators: string[];
+    decorators: Array<string>;
     senderTargetId: number;
     content: string;
     link: ChatMessageLink;
@@ -428,7 +596,7 @@ type ChatConversation = {
     title: string;
     initiator: ChatParticipant;
     hasUnreadMessages: boolean;
-    participants: ChatParticipant[];
+    participants: Array<ChatParticipant>;
     conversationType: "OneToOneConversation" | "MultiUserConversation" | "CloudEditConversation";
     conversationTitle: ChatConversationTitle;
     lastUpdated: string;
@@ -469,7 +637,7 @@ type ChatFeatureNames = "LuaChat" | "ConversationUniverse" | "PlayTogether" | "P
  * @typedef
 */
 type GetRolloutSettingsResult = {
-    rolloutFeatures: ChatRolloutFeature[];
+    rolloutFeatures: Array<ChatRolloutFeature>;
 }
 
 /**
@@ -492,7 +660,7 @@ type GetUnreadConversationCountResult = {
 */
 type ChatConversationWithMessages = {
     conversationId: number;
-    chatMessages: ChatMessage[];
+    chatMessages: Array<ChatMessage>;
 }
 
 /**
@@ -535,7 +703,7 @@ type GameInstance = {
     ShowSlowGameMessage: boolean;
     Guid: string;
     PlaceId: number;
-    CurrentPlayers: GameInstancePlayer[];
+    CurrentPlayers: Array<GameInstancePlayer>;
     UserCanJoin: boolean;
     ShowShutdownButton: boolean;
     JoinScript: string;
@@ -550,7 +718,7 @@ type GameInstance = {
 type GameInstances = {
     PlaceId: number;
     ShowShutdownAllButton: boolean;
-    Collection: GameInstance[];
+    Collection: Array<GameInstance>;
     TotalCollectionSize: number;
 }
 
@@ -621,8 +789,18 @@ type DeveloperProduct = {
 /**
  * @typedef
  */
+type SocialLinkResponse = {
+    id: number;
+    type: 'Facebook' | 'Twitter' | 'YouTube' | 'Twitch' | 'GooglePlus' | 'Discord' | 'RobloxGroup' | 'Amazon';
+    url: string;
+    title: string;
+}
+
+/**
+ * @typedef
+ */
 type DeveloperProductsResult = {
-    DeveloperProducts: DeveloperProduct[],
+    DeveloperProducts: Array<DeveloperProduct>,
     FinalPage: boolean,
     PageSize: number
 }
@@ -777,6 +955,20 @@ type Group = {
 /**
  * @typedef
  */
+type GroupGameInfo = {
+    id: number;
+    name: string;
+    description: string;
+    creator: { id: number; type: string; };
+    rootPlace: { id: number; type: string; };
+    created: Date;
+    updated: Date;
+    placeVisits: number;
+}
+
+/**
+ * @typedef
+ */
 type IGroupPartial = {
     Name: string;
     Id: number;
@@ -840,7 +1032,7 @@ type AuditItem = {
  * @typedef
 */
 type AuditPage = {
-    data: AuditItem[];
+    data: Array<AuditItem>;
     nextPageCursor?: string;
     previousPageCursor?: string;
 }
@@ -886,7 +1078,7 @@ type TransactionItem = {
  * @typedef
 */
 type TransactionPage = {
-    data: TransactionItem[];
+    data: Array<TransactionItem>;
     nextPageCursor?: string;
     previousPageCursor?: string;
 }
@@ -914,7 +1106,20 @@ type GroupJoinRequest = {
 type GroupJoinRequestsPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: GroupJoinRequest[];
+    data: Array<GroupJoinRequest>;
+}
+
+/**
+ * @typedef
+ */
+type RevenueSummaryResponse = {
+    recurringRobuxStipend?: number;
+    itemSaleRobux?: number;
+    purchasedRobux?: number;
+    tradeSystemRobux?: number;
+    pendingRobux?: number;
+    groupPayoutRobux?: number;
+    individualToGroupRobux?: number;
 }
 
 /**
@@ -934,7 +1139,7 @@ type WallPost = {
 type WallPostPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: WallPost[];
+    data: Array<WallPost>;
 }
 
 /// Party
@@ -1018,7 +1223,7 @@ type FriendRequestEntry = {
 type FriendRequestsPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: FriendRequestEntry[];
+    data: Array<FriendRequestEntry>;
 }
 
 /**
@@ -1037,7 +1242,7 @@ type FriendEntry = {
  * @typedef
 */
 type Friends = {
-    friends: FriendEntry[];
+    friends: Array<FriendEntry>;
 }
 
 /**
@@ -1057,7 +1262,7 @@ type FollowEntry = {
 type FollowingsPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: FollowEntry[];
+    data: Array<FollowEntry>;
 }
 
 /**
@@ -1066,22 +1271,18 @@ type FollowingsPage = {
 type FollowersPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
-    data: FollowEntry[];
+    data: Array<FollowEntry>;
 }
-
-//
 
 /**
  * @typedef
 */
 type PrivateMessagesPage = {
-    collection: PrivateMessage[];
+    collection: Array<PrivateMessage>;
     totalPages: number;
     totalCollectionSize: number;
     pageNumber: number;
 }
-
-//
 
 /**
  * @typedef
@@ -1149,6 +1350,7 @@ type UserPresence = {
 */
 type PlayerInfo = {
     username: string;
+    displayName: string;
     status?: string;
     blurb: string;
     joinDate: Date;
@@ -1156,20 +1358,34 @@ type PlayerInfo = {
     friendCount?: number;
     followerCount?: number;
     followingCount?: number;
-    oldNames?: string[];
+    oldNames?: Array<string>;
     isBanned: boolean;
-}
-type Presences = {
-    userPresences: UserPresence[]
 }
 
 /**
  * @typedef
 */
-type playerThumbnailData = {
+type Presences = {
+    userPresences: Array<UserPresence>;
+}
+
+/**
+ * @typedef
+*/
+type PlayerThumbnailData = {
     targetId: number;
     state: string;
     imageUrl: string;
+}
+
+/**
+ * @typedef
+ */
+type PromotionChannelsResponse = {
+    facebook?: string;
+    twitter?: string;
+    youtube?: string;
+    twitch?: string;
 }
 
 /// Badges
@@ -1208,13 +1424,15 @@ type BadgeUniverse = {
     rootPlaceId: number;
 }
 
-//
+/**
+ * @typedef
+*/
 type PlayerBadges = {
     id: number;
     name: string;
-    description: string|null;
+    description?: string;
     displayName: string;
-    displayDescription: string|null;
+    displayDescription?: string;
     enabled: boolean;
     iconImageId: number;
     displayIconImageId: number;
@@ -1223,7 +1441,6 @@ type PlayerBadges = {
     created: Date;
     updated: Date;
 }
-//
 
 /**
  * @typedef
@@ -1231,9 +1448,9 @@ type PlayerBadges = {
 type BadgeInfo = {
     id: number;
     name: string;
-    description: string|null;
+    description?: string;
     displayName: string;
-    displayDescription: string|null;
+    displayDescription?: string;
     enabled: boolean;
     iconImageId: number;
     displayIconImageId: number;
@@ -1272,9 +1489,8 @@ type CollectibleEntry = {
  * @typedef
 */
 type Collectibles = {
-    collectibles: CollectibleEntry[];
+    collectibles: Array<CollectibleEntry>;
 }
-//
 
 /**
  * @typedef
@@ -1294,7 +1510,7 @@ type InventoryEntry = {
  * @typedef
 */
 type Inventory = {
-    items: InventoryEntry[];
+    items: Array<InventoryEntry>;
 }
 
 ///Trading
@@ -1303,8 +1519,8 @@ type Inventory = {
  * @typedef
 */
 type UAIDResponse = {
-    uaids: number[],
-    failedIds: number[]
+    uaids: Array<number>,
+    failedIds: Array<number>
 }
 
 /**
@@ -1355,7 +1571,7 @@ type DetailedTradeAsset = {
 */
 type DetailedTradeOffer = {
     user: TradeUser,
-    userAssets: DetailedTradeAsset[],
+    userAssets: Array<DetailedTradeAsset>,
     robux: number
 }
 
@@ -1363,7 +1579,7 @@ type DetailedTradeOffer = {
  * @typedef
 */
 type TradeOffer = {
-    userAssetIds: number[],
+    userAssetIds: Array<number>,
     robux: number
 }
 
@@ -1371,7 +1587,7 @@ type TradeOffer = {
  * @typedef
 */
 type TradeInfo = {
-    offers: DetailedTradeOffer[],
+    offers: Array<DetailedTradeOffer>,
     id: number,
     user: TradeUser,
     created: Date,
@@ -1420,7 +1636,7 @@ type GetVerificationResponse = {
 */
 type HttpOptions = {
     verification?: string;
-    jar?: CookieJar | null;
+    jar?: CookieJar;
 }
 
 /**

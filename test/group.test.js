@@ -1,4 +1,4 @@
-const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
+const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupSocialLinks, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -108,6 +108,42 @@ describe('Group Methods', () => {
   it('getGroupFunds() returns amount of robux in group funds', () => {
     return getGroupFunds(9997719).then((res) => {
       return expect(res).toEqual(expect.any(Number))
+    })
+  })
+
+  it('getGroupGames() returns an array of group games', () => {
+    return getGroupGames({ groupId: 9997719, limit: 1 }).then((res) => {
+      return expect(res[0]).toMatchObject({
+        id: expect.any(Number),
+        name: expect.any(String),
+        description: expect.any(String),
+        creator: {
+          id: expect.any(Number),
+          type: expect.any(String)
+        },
+        rootPlace: {
+          id: expect.any(Number),
+          type: expect.any(String)
+        },
+        created: expect.any(Date),
+        updated: expect.any(Date),
+        placeVisits: expect.any(Number)
+      })
+    })
+  })
+
+  it('getGroupSocialLinks() should return social link information of a game, given universeId', () => {
+    return getGroupSocialLinks(9997719).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(Number),
+            title: expect.any(String),
+            type: expect.any(String),
+            url: expect.any(String)
+          })
+        ])
+      )
     })
   })
 

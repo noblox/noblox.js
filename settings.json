@@ -14,8 +14,8 @@
     "timeout": 10000,
     "timeout_desc": "Maximum time (in milliseconds) a request can take. If your server has extremely high latency you may have to raise this.",
     "event_desc": "Below is the poll time (in milliseconds) for each of the event functions. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite.",
-    "onForumReply": 10000,
-    "onForumPost": 10000,
+    "defaultDelay": 10000,
+    "onAuditLog": 10000,
     "onWallPost": 10000,
     "onJoinRequestHandle": 10000,
     "onShout": 10000,
@@ -38,10 +38,6 @@
     "Message": {
       "delay": 0,
       "desc": "Although messages do have a floodcheck, it is not instituted immediately so this is disabled by default. If you are sending a lot of messages set a delay around 10-15 seconds (10000-15000)"
-    },
-    "Forum": {
-      "delay": 15000,
-      "desc": "All forum posts have a mandatory 15 second delay, there is no reason for this to be disabled"
     }
   },
 

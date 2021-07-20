@@ -14,6 +14,134 @@ declare module "noblox.js" {
         session?: string;
     }
 
+    /**
+     * NobloxOptions for setOptions, based from settings.json
+     */
+    interface NobloxOptions {
+        /** Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well. (Default: true) */
+        session_only: boolean;
+
+        /** This is usually used for functions that have to receive a lot of pages at once. Only this amount will be queued up as to preserve memory, make this as high as possible for fastest responses (although it will be somewhat limited by maxSockets). (Default: 50) */
+        max_threads: number;
+
+        /** Timeout for http requests. This is necessary for functions that make a very large number of requests, where it is possible some simply won't connect. (Default: 10000) */
+        timeout: number;
+
+        event: {
+            /** Maximum number of consecutive retries after an event times out or fails in some other way. (Default: 5) */
+            maxRetries: number;
+            /** Maximum time (in milliseconds) a request can take. If your server has extremely high latency you may have to raise this. (Default: 10000) */
+            timeout: number;
+            /** The poll time in milliseconds by default. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            defaultDelay: number;
+            /** The poll time in milliseconds to check for new audit log entries. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onAuditLog: number;
+            /** The poll time in milliseconds to check for new wall posts. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onWallPost: number;
+            /** The poll time in milliseconds to check for new join requests. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onJoinRequestHandle: number;
+            /** The poll time in milliseconds to check for a new shout message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onShout: number;
+            /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onBlurbChange: number;
+        }
+
+        thumbnail: {
+            /** Maximum number of retries to retrieve a pending thumbnail, rare, but occurs with uncached users (Roblox's cache) (Default: 2) */
+            maxRetries: number;
+            /** The time to wait between consecutive retries of retrieving pending thumbnails. (Default: 500) */
+            retryDelay: number;
+
+            failedUrl: {
+                /** The image URL to provide when an asset thumbnail is still pending; defaults to Roblox moderation icon via noblox.js's GitHub repo at https://noblox.js.org/moderatedThumbnails/moderatedThumbnail_{size}.png */
+                pending: string;
+                /** The image URL to provide when an asset thumbnail has been moderated by Roblox; defaults to Roblox moderation icon via noblox.js's GitHub repo at https://noblox.js.org/moderatedThumbnails/moderatedThumbnail_{size}.png */
+                blocked: string;
+            }
+        }
+
+        queue: {
+            Message: {
+                /** Although messages do have a floodcheck, it is not instituted immediately so this is disabled by default. If you are sending a lot of messages set a delay around 10-15 seconds (10000-15000). (Default: 0) */
+                delay: number
+            }
+        }
+
+        cache: {
+            /** XCSRF tokens expire 30 minutes after being created. Until they expire, however, no new tokens can be made. Sometimes an XCSRF token has already been created for the user so the server doesn't know when to collect a new one. During transitions some requests may use invalid tokens. For now, new XCSRF tokens are automatically retrieved when cached ones get rejected. */
+            XCSRF: {
+                /** Default: 1800 */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Verification tokens seem to last extremely long times. */
+            Verify: {
+                /** Default: 7200 */
+                expire: number | boolean;
+                /** Default: 3600 */
+                refresh: number | boolean;
+            },
+
+            /** This should be fine unless your group changes its ranks often. */
+            Roles: {
+                /** Default: 600 */
+                expire: number | boolean;
+                /** Default: true */
+                refresh: number | boolean;
+            },
+
+            /** Disable this completely if you don't plan on ever changing your exile bot's rank. */
+            RolesetId: {
+                /** Default: 86400 */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Disabled by default for security (price checks). If you are only working with ROBLOX assets, however, you can set this to something high (since ROBLOX product info rarely changes). */
+            Product: {
+                /** Default: false */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Caches a user's username based on their ID. It is not on by default because it is an uncontrollable change but the option is there to cache it if you would like. */
+            NameFromID: {
+                /** Default: false */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Permanent cache for a user's ID based on their name. There is no reason this would ever change (changing names would re-match it and old names cannot be reused by other accounts). Only disable if you want this to match current names only. */
+            IDFromName: {
+                /** Default: true */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Permanent cache for the sender's user ID. This should literally never change. */
+            SenderId: {
+                /** Default: true */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            },
+
+            /** Caches rank by user ID. Changes cannot be anticipated so this is not enabled by default. */
+            Rank: {
+                /** Default: false */
+                expire: number | boolean;
+                /** Default: false */
+                refresh: number | boolean;
+            }
+        }
+    }
+
     /// Asset
 
     /**
@@ -39,6 +167,17 @@ declare module "noblox.js" {
         IsPrimary: boolean,
     }
 
+    interface GroupGameInfo {
+        id: number;
+        name: string;
+        description?: string;
+        creator: { id: number; type: string; };
+        rootPlace: { id: number; type: string; };
+        created: Date;
+        updated: Date;
+        placeVisits: number;
+    }
+
     interface ProductInfo {
         AssetId: number;
         ProductId: number;
@@ -49,22 +188,22 @@ declare module "noblox.js" {
         IconImageAssetId: number;
         Created: Date;
         Updated: Date;
-        PriceInRobux: number | null;
-        PriceInTickets: number | null;
+        PriceInRobux?: number;
+        PriceInTickets?: number;
         Sales: number;
         IsNew: boolean;
         IsForSale: boolean;
         IsPublicDomain: boolean;
         IsLimited: boolean;
         IsLimitedUnique: boolean;
-        Remaining: number | null;
+        Remaining?: number;
         MinimumMembershipLevel: number;
         ContentRatingTypeId: number;
     }
 
     interface BuyProductInfo {
         ProductId: number;
-        Creator: {Id: number};
+        Creator: { Id: number };
         PriceInRobux: number;
         UserAssetId: number;
     }
@@ -77,6 +216,34 @@ declare module "noblox.js" {
     interface BuyAssetResponse {
         productId: number;
         price: number;
+    }
+
+    interface ChartDataPointResponse {
+        value?: number;
+        date?: Date;
+    }
+
+    interface ResaleDataResponse {
+        assetStock?: number;
+        sales?: number;
+        numberRemaining?: number;
+        recentAveragePrice?: number;
+        originalPrice?: number;
+        priceDataPoints?: ChartDataPointResponse[];
+        volumeDataPoints?: ChartDataPointResponse[];
+    }
+
+    interface ResellerAgent {
+        id: number;
+        type: "User" | "Group";
+        name: string;
+    }
+
+    interface ResellerData {
+        userAssetId: number;
+        seller: ResellerAgent;
+        price: number;
+        serialNumber?: number;
     }
 
     interface UploadItemResponse {
@@ -249,7 +416,7 @@ declare module "noblox.js" {
 
     interface ConversationAddResponse
     {
-        conversationId: Number;
+        conversationId: number;
         rejectedParticipants: RejectedParticipant[];
         resultType: string;
         statusMessage: string;
@@ -257,7 +424,7 @@ declare module "noblox.js" {
 
     interface ConversationRemoveResponse
     {
-        conversationId: Number;
+        conversationId: number;
         resultType: string;
         statusMessage: string;
     }
@@ -486,6 +653,13 @@ declare module "noblox.js" {
         OverridesDefaultAvatar: boolean,
         UsePortraitMode: boolean,
         Price: number
+    }
+
+    type SocialLinkResponse = {
+        id: number;
+        type: 'Facebook' | 'Twitter' | 'YouTube' | 'Twitch' | 'GooglePlus' | 'Discord' | 'RobloxGroup' | 'Amazon';
+        url: string;
+        title: string;
     }
 
     interface DeveloperProduct {
@@ -727,6 +901,17 @@ declare module "noblox.js" {
         data: GroupJoinRequest[];
     }
 
+    interface RevenueSummaryResponse
+    {
+        recurringRobuxStipend?: number;
+        itemSaleRobux?: number;
+        purchasedRobux?: number;
+        tradeSystemRobux?: number;
+        pendingRobux?: number;
+        groupPayoutRobux?: number;
+        individualToGroupRobux?: number;
+    }
+
     interface WallPost
     {
         id: number;
@@ -902,6 +1087,7 @@ declare module "noblox.js" {
 
     interface PlayerInfo {
         username: string;
+        displayName: string;
         status?: string;
         blurb: string;
         joinDate: Date;
@@ -919,7 +1105,14 @@ declare module "noblox.js" {
     interface PlayerThumbnailData {
         targetId: number;
         state: "Completed" | "Pending" | "Blocked";
-        imageUrl: string | null;
+        imageUrl?: string;
+    }
+
+    interface PromotionChannelsResponse {
+        facebook?: string;
+        twitter?: string;
+        youtube?: string;
+        twitch?: string;
     }
 
     /// Badges
@@ -950,9 +1143,9 @@ declare module "noblox.js" {
     interface PlayerBadges {
         id: number;
         name: string;
-        description: string | null;
+        description?: string;
         displayName: string;
-        displayDescription: string | null;
+        displayDescription?: string;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -966,9 +1159,9 @@ declare module "noblox.js" {
     interface BadgeInfo {
         id: number;
         name: string;
-        description: string | null;
+        description?: string;
         displayName: string;
-        displayDescription: string | null;
+        displayDescription?: string;
         enabled: boolean;
         iconImageId: number;
         displayIconImageId: number;
@@ -1097,7 +1290,7 @@ declare module "noblox.js" {
     interface HttpOptions
     {
         verification?: string;
-        jar?: CookieJar | null;
+        jar?: CookieJar;
     }
 
     interface ThreadedPromise extends Promise<void>
@@ -1120,34 +1313,45 @@ declare module "noblox.js" {
     /// Asset
 
     /**
-     * Buys asset `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets). You are able to use product instead of asset, the options in `product` are collected automatically if not provided.
+     * 🔐 Buys asset `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets). You are able to use product instead of asset, the options in `product` are collected automatically if not provided.
      */
     function buy(asset: number | ProductInfo | BuyProductInfo, price?: number | PriceRange, jar?: CookieJar): Promise<BuyAssetResponse>;
 
     /**
-     * Configures an item (shirt, pants, decal, etc.) with the id `id` to have `name` and `description`. If `enableComments` is true comments will be allowed and if `sellForRobux` is set it will be put on sale for that amount of robux.
+     * 🔐 Configures an item (shirt, pants, decal, etc.) with the id `id` to have `name` and `description`. If `enableComments` is true comments will be allowed and if `sellForRobux` is set it will be put on sale for that amount of robux.
      *
      * NOTE: Use `configureGamePass()` for Game Passes.
      */
     function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Deletes an item from the logged in user's inventory
+     * 🔐 Deletes an item from the logged in user's inventory
      */
     function deleteFromInventory(assetId: number, jar?: CookieJar): Promise<void>;
 
+
     /**
-     * Uploads an image stored in `file` as an `assetType` with `name`. If `groupId` is specified it will be uploaded to that group. This is for uploading shirts, pants, or decals which have the assetTypes `11`, `12`, and `13`, respectively. Returns the asset `id` of the new item.
+     * ✅ Get the recent sale history (price and volume per day for 180 days) of a limited asset.
+     */
+    function getResaleData(assetId: number): Promise<ResaleDataResponse>;
+
+    /**
+     * 🔐 Gets available resale copies of a limited asset.
+     */
+    function getResellers(assetId: number, limit?: Limit, jar?: CookieJar): Promise<ResellerData[]>;
+
+    /**
+     * 🔐 Uploads an image stored in `file` as an `assetType` with `name`. If `groupId` is specified it will be uploaded to that group. This is for uploading shirts, pants, or decals which have the assetTypes `11`, `12`, and `13`, respectively. Returns the asset `id` of the new item.
      */
     function uploadItem(name: string, assetType: UploadItemAssetType, file: string | stream.Stream, groupId?: number, jar?: CookieJar): Promise<UploadItemResponse>;
 
     /**
-     * Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will be created. Both the assetId as well as the assetVersionId are returned in a object. Note that `itemOptions` is required when creating a new asset. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
+     * 🔐 Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will be created. Both the assetId as well as the assetVersionId are returned in a object. Note that `itemOptions` is required when creating a new asset. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
      */
     function uploadModel(data: string | stream.Stream, itemOptions?: UploadModelItemOptions, asset?: number, jar?: CookieJar): Promise<UploadModelResponse>;
 
     /**
-     * Gets `info` of `asset` and caches according to settings.
+     * ✅ Gets `info` of `asset` and caches according to settings.
      */
     function getProductInfo(asset: number): Promise<ProductInfo>;
 
@@ -1240,7 +1444,7 @@ declare module "noblox.js" {
     /// Game
 
     /**
-     * Returns data about the existing game instances (servers) of the specified place. You must have permission to view the game's server list to use this. (Must be logged in)
+     * 🔐 Returns data about the existing game instances (servers) of the specified place. You must have permission to view the game's server list to use this. (Must be logged in)
      * @param placeId The place whose game instances are being fetched.
      * @param startIndex The index to start from in regards to server list.
      */
@@ -1249,7 +1453,7 @@ declare module "noblox.js" {
     function getGameBadges(universeId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<BadgeInfo>
 
     /**
-     * Returns information about the place in question, such as description, name etc; varies based on whether or not you're logged in.
+     * 🔓 Returns information about the place in question, such as description, name etc; varies based on whether or not you're logged in.
      * @param placeId The place whose information is being fetched.
      */
     function getPlaceInfo(placeId: number, jar?: CookieJar): Promise<PlaceInformation>;
@@ -1260,14 +1464,14 @@ declare module "noblox.js" {
     function addDeveloperProduct(universeId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductAddResult>;
 
     /**
-     * Checks to see if the provided `produceName` is able to be used on `productId`.
+     * 🔐 Checks to see if the provided `produceName` is able to be used on `productId`.
      *
      * NOTE: You actually need a valid `productId` and `universeId` otherwise, the http request returns a `404 Not Found` response.
      */
     function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<CheckDeveloperProductNameResult>;
 
     /**
-     * Returns the existing developer products in a specified game.
+     * 🔐 Returns the existing developer products in a specified game.
      * @param placeId The place whose developer products are being fetched.
      * @param page Which page of developer products to return (pageSize is 50)
      */
@@ -1276,143 +1480,168 @@ declare module "noblox.js" {
     function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
 
     /**
-     * Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the game pass off-sale.
+     * 🔐 Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the game pass off-sale.
      * Returns a `GamePassResponse` with the changed attributes.
-     * 
+     *
      * NOTE: Updating `name` will affect `description`: you must repeat `description` with each `name` update, or `description` will be cleared.
      */
-    
+
     function configureGamePass(gamePassId: number, name: string, description?: string, price?: number | boolean, icon?: string | stream.Stream, jar?: CookieJar): Promise<GamePassResponse>;
+
+    /**
+     * 🔐 Get the social link data associated with a game.
+     */
+    function getGameSocialLinks(universeId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
 
     /// Group
 
     /**
-     * Moves the user with userId `target` up or down the list of ranks in `group` by `change`. For example `changeRank(group, target, 1)` would promote the user 1 rank and `changeRank(group, target, -1)` would demote them down 1. Note that this simply follows the list, ignoring ambiguous ranks. The full `newRole` as well as the user's original `oldRole` is returned.
+     * 🔐 Moves the user with userId `target` up or down the list of ranks in `group` by `change`. For example `changeRank(group, target, 1)` would promote the user 1 rank and `changeRank(group, target, -1)` would demote them down 1. Note that this simply follows the list, ignoring ambiguous ranks. The full `newRole` as well as the user's original `oldRole` is returned.
      */
     function changeRank(group: number, target: number, change: number, jar?: CookieJar): Promise<ChangeRankResult>;
 
     /**
-     * Deletes the wall post with `id` in `group`. If `page` is known it can be inserted to speed up finding the post, otherwise it will search for the post. Alternatively `post` can be passed in, which only has to contain `view` and `parent.index` to work properly. Using `post` will be much faster because it will not have to search for the post first.
+     * 🔐 Deletes the wall post with `id` in `group`. If `page` is known it can be inserted to speed up finding the post, otherwise it will search for the post. Alternatively `post` can be passed in, which only has to contain `view` and `parent.index` to work properly. Using `post` will be much faster because it will not have to search for the post first.
      */
     function deleteWallPost(group: number, post: number | WallPost, page?: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Alias of `changeRank(group, target, -1)`.
+     * 🔐 Alias of `changeRank(group, target, -1)`.
      */
     function demote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
 
     /**
-     * Exiles user with `userId` target from `group`.
+     * 🔐 Exiles user with `userId` target from `group`.
      */
     function exile(group: number, target: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Performs a payout in group with the groupId `group`. If `recurring` is true this will configure the recurring options for the group's payout replacing all old values, otherwise a one-time-payout is made. To clear the recurring payouts, pass in empty arrays to both member and amount. Argument `member` can either be a single userId or an array of userIds. If it is a single value `amount` must be as well, otherwise `amount` has to be a parallel array of equal length. If `usePercentage` is true `amount` percentage of the total group funds is paid to the members, otherwise it pays `amount` ROBUX. Note that recurring payouts are always percentages, and when `recurring` is true `usePercentage` is ignored.
+     * 🔐 Performs a payout in group with the groupId `group`. If `recurring` is true this will configure the recurring options for the group's payout replacing all old values, otherwise a one-time-payout is made. To clear the recurring payouts, pass in empty arrays to both member and amount. Argument `member` can either be a single userId or an array of userIds. If it is a single value `amount` must be as well, otherwise `amount` has to be a parallel array of equal length. If `usePercentage` is true `amount` percentage of the total group funds is paid to the members, otherwise it pays `amount` ROBUX. Note that recurring payouts are always percentages, and when `recurring` is true `usePercentage` is ignored.
      */
     function groupPayout(group: number, member: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
 
     /**
-     * Gets the amount of robux in a group.
+     * 🔓 Gets the amount of robux in a group.
      */
     function getGroupFunds(group: number): Promise<number>;
 
     /**
-     * `Accepts user with `username` into `group`. Note that `username` is case-sensitive.
+     * 🔐 Gets recent Robux revenue summary for a group; shows pending Robux. | Requires "Spend group funds" permissions.
+     */
+    function getGroupRevenueSummary(group: number, timeFrame?: "Day" | "Week" | "Month" | "Year"): Promise<RevenueSummaryResponse>;
+
+    /**
+     * 🔐 Accepts user with `username` into `group`. Note that `username` is case-sensitive.
      */
     function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
 
     /**
-     * Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
+     * 🔐 Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
      */
     function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Alias of `changeRank(group, target, 1)`.
+     * 🔐 Alias of `changeRank(group, target, 1)`.
      */
     function promote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
 
     /**
-     * Changes the rank of the player with the `target` userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
+     * 🔐 Changes the rank of the player with the `target` userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
      */
     function setRank(group: number, target: number, rank: number | string | Role, jar?: CookieJar): Promise<Role>;
 
     /**
-     * Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
+     * 🔐 Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
      */
     function shout(group: number, message: string, jar?: CookieJar): Promise<GroupShout>;
 
     /**
-     * Gets the audit logs of the specified group.
+     * 🔐 Gets the audit logs of the specified group.
      */
     function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar ): Promise<AuditPage>;
 
     /**
-     * Gets the transaction history of the specified group.
+     * 🔐 Get the social link data associated with a group.
+     */
+    function getGroupSocialLinks(groupId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
+
+    /**
+     * 🔐 Gets the transaction history of the specified group.
      */
     function getGroupTransactions(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<TransactionPage>;
 
     /**
-     * Gets a brief overview of the specified group.
+     * ✅ Gets a brief overview of the specified group.
      */
     function getGroup(groupId: number): Promise<Group>;
 
     /**
-     * Gets the groups a player is in.
+     * ✅ Gets a list of games from the specified group.
+     */
+    function getGroupGames(groupId: number, acccessFilter: "All" | "Public" | "Private", sortOrder: "Asc" | "Desc", limit: Limit, cursor: string): Promise<GroupGameInfo[]>;
+
+    /**
+     * ✅ Gets the groups a player is in.
      */
     function getGroups(userId: number): Promise<IGroupPartial[]>
 
     /**
-     * Gets the logo of the specified group.
+     * ✅ Gets the logo of the specified group.
      */
     function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
 
     /**
-     * Gets the first page of join requests from `group`.
+     * 🔐 Gets a specific group join request, if it exists.
+     */
+     function getJoinRequest(group: number, userId: number, jar?: CookieJar): Promise<GroupJoinRequest>;
+
+    /**
+     * 🔐 Gets the first page of join requests from `group`.
      */
     function getJoinRequests(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupJoinRequestsPage>;
 
     /**
-     * Gets all (or up to limit when provided and greater than 0) players in `group` with the number/array of `roleset`.
+     * ✅ Gets all (or up to limit when provided and greater than 0) players in `group` with the number/array of `roleset`.
      */
     function getPlayers(group: number, rolesetId: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
     /**
-     * Gets whether or not a user has premium.
+     * 🔐 Gets whether or not a user has premium.
      */
     function getPremium(userId: number, jar?: CookieJar): Promise<boolean>;
 
     /**
-     * Gets `rank` of user with `userId` in `group` and caches according to settings.
+     * ✅ Gets `rank` of user with `userId` in `group` and caches according to settings.
      */
     function getRankInGroup(group: number, userId: number): Promise<number>;
 
     /**
-     * Gets the rank `name` of user with `userId` in `group` and caches according to settings.
+     * ✅ Gets the rank `name` of user with `userId` in `group` and caches according to settings.
      */
     function getRankNameInGroup(group: number, userId: number): Promise<string>;
 
     /**
-     * Returns role information of rank `rank`, which can be a single rank or an array of ranks. The `roles` object can be passed in directly from the `getRoles` function or the `group` id can be given to retrieve it automatically. If an array of ranks is inputted a parallel array of roles is returned. Alternatively, the name `name` of the role can be searched for, this should be used if there are "ambiguous roles" that have the same rank. If ambiguous roles cannot be resolved an error will be thrown. The actual roleset `id` may be used as well.
+     * ✅ Returns role information of rank `rank`, which can be a single rank or an array of ranks. The `roles` object can be passed in directly from the `getRoles` function or the `group` id can be given to retrieve it automatically. If an array of ranks is inputted a parallel array of roles is returned. Alternatively, the name `name` of the role can be searched for, this should be used if there are "ambiguous roles" that have the same rank. If ambiguous roles cannot be resolved an error will be thrown. The actual roleset `id` may be used as well.
      */
     function getRole(group: number | Role[], roleQuery: number | string): Promise<Role>;
 
     /**
-     * Returns the permissions a role has been assigned.
+     * 🔐 Returns the permissions a role has been assigned.
      */
     function getRolePermissions(group: number, rolesetId: number, jar?: CookieJar): Promise<RolePermissions>;
 
     /**
-     * Returns role information of a group with groupId `group` in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`.
+     * ✅ Returns role information of a group with groupId `group` in the form `[{"ID":number,"Name":"string","Rank":number},{"ID":number,"Name":"string","Rank":number}]`.
      */
     function getRoles(group: number): Promise<Role[]>;
 
     /**
-     * Gets the current shout in `group`. If there is no shout the promise is fulfilled but nothing is returned.
+     * 🔓 Gets the current shout in `group`. If there is no shout the promise is fulfilled but nothing is returned.
      */
     function getShout(group: number, jar?: CookieJar): Promise<GroupShout>;
 
     /**
-     * Gets posts on the `group` wall. Parameter `page` may be a number or array where negative numbers indicate trailing pages, if it is not specified all pages of the wall will be retrieved.
+     * 🔓 Gets posts on the `group` wall. Parameter `page` may be a number or array where negative numbers indicate trailing pages, if it is not specified all pages of the wall will be retrieved.
      * The body of the post is in `content` and the `id` and `name` of the poster are stored in the `author` object. The `id` is the unique ID of the wall post that is internally used by ROBLOX. This serves no real use other than reporting it (although it can be used indirectly to track down specific posts).
      * The `page` the post was found on and its `index` on that page are both in the `parent` object.
      * If `view` is true the viewstates of each page will be returned in the `views` object, with each page having its viewstates at the corresponding page number. For example page 5 of the wall will have its view stored in `wall.views[5]`.
@@ -1425,205 +1654,215 @@ declare module "noblox.js" {
     /// User
 
     /**
-     * Accepts friend requests from `userId`.
+     * 🔐 Accepts friend requests from `userId`.
      */
     function acceptFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Blocks the user with `userId`.
+     * 🔐 Blocks the user with `userId`.
      */
     function block(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
+     * ✅ Returns whether the user can manage a given asset.
+     */
+    function canManage(userId: number, assetId: number): Promise<boolean>;
+
+    /**
+     * 🔐 Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */
     function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
 
     /**
-     * Declines friend requests from `userId`.
+     * 🔐 Declines friend requests from `userId`.
      */
     function declineFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Declines all friend requests.
+     * 🔐 Declines all friend requests.
      */
     function declineAllFriendRequest(jar?: CookieJar): Promise<void>;
 
     /**
-     * Follows the user with `userId`.
+     * 🔐 Follows the user with `userId`.
      */
     function follow(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Logs into the user account with a provided `username` and `password`. On success -, stores the account cookie in `jar`.
+     * 🔑 Logs into the user account with a provided `username` and `password`. On success -, stores the account cookie in `jar`.
      *
      * NOTE: Usage of this function is deprecated as of v4.6.0 and calling requires passing the robot test.
      */
     function login(username: string, password: string, jar?: CookieJar): Promise<UserLoginApiData>;
 
     /**
-     * Sends a message with `body` and `subject` to the user with id `recipient`.
+     * 🔐 Sends a message with `body` and `subject` to the user with id `recipient`.
      */
     function message(recipient: number, subject: string, body: string, replyMessageId?: number, includePreviousMessage?: boolean, jar?: CookieJar): Promise<void>;
 
     /**
-     * Removes friendship with `userId`.
+     * 🔐 Removes friendship with `userId`.
      */
     function removeFriend(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Sends a friend request to `userId`.
+     * 🔐 Sends a friend request to `userId`.
      */
     function sendFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Unblocks the user with `userId`.
+     * 🔐 Unblocks the user with `userId`.
      */
     function unblock(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Unfollows the user with `userId`.
+     * 🔐 Unfollows the user with `userId`.
      */
     function unfollow(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Gets the `blurb` of the user with the ID `userId`.
+     * ✅ Gets the `blurb` of the user with the ID `userId`.
      */
     function getBlurb(userId: number): Promise<string>;
 
     /**
-     * Gets the pending friend requests of the logged in user.
+     * 🔐 Gets the pending friend requests of the logged in user.
      */
     function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestsPage>;
 
     /**
-     * Gets the friends list of the specified user.
+     * ✅ Gets the friends list of the specified user.
      */
     function getFriends(userId: number, jar?: CookieJar): Promise<Friends>;
 
     /**
-     * Get the followings of a user (users who have been followed by the specified person)
+     * ✅ Get the followings of a user (users who have been followed by the specified person)
      */
     function getFollowings(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowingsPage>;
 
     /**
-     * Get the followers of a user (users who follow the specified person)
+     * ✅ Get the followers of a user (users who follow the specified person)
      */
     function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
 
     /**
-     * Get the groups a user is in.
+     * ✅ Get the groups a user is in.
      */
     function getGroups(userId: number): Promise<Group[]>;
 
     /**
-     * Gets the transaction history of the logged in user or of the user specified by the jar.
+     * 🔐 Get the social link data (promotion channels) associated with a user.
+     */
+    function getUserSocialLinks(userId: number, jar?: CookieJar): Promise<PromotionChannelsResponse>;
+
+    /**
+     * 🔐 Gets the transaction history of the logged in user or of the user specified by the jar.
      */
     function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<TransactionPage>;
 
 
     /**
-     * Gets the `id` of user with `username` and caches according to settings.
+     * ✅ Gets the `id` of user with `username` and caches according to settings.
      * Username is not case-sensitive.
      */
     function getIdFromUsername(username: string): Promise<number>;
 
     /**
-     * Gets the messages of the logged in user or of the user specified by the jar. Returns by newest to oldest messages.
+     * 🔐 Gets the messages of the logged in user or of the user specified by the jar. Returns by newest to oldest messages.
      */
     function getMessages(pageNumber?: number, pageSize?: number, messageTab?: "Archive" | "Inbox" | "Sent", jar?: CookieJar): Promise<PrivateMessagesPage>;
 
     /**
-     * Returns whether a user owns an asset or not
+     * ✅ Returns whether a user owns an asset or not
      */
     function getOwnership(userId: number, itemTargetId: number, itemType?: "Asset" | "GamePass" | "Badge" | "Bundle"): Promise<boolean>;
 
     /**
-     * Gets the badges of a user.
+     * ✅ Gets the badges of a user.
      */
     function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<PlayerBadges>
 
     /**
-     * Gets a brief overview of a user.
+     * ✅ Gets a brief overview of a user.
      */
     function getPlayerInfo(userId: number): Promise<PlayerInfo>;
 
     /**
-     * Gets the thumbnail of an array of users.
+     * ✅ Gets the thumbnail of an array of users.
      */
     function getPlayerThumbnail(userIds: number | number[], size: BodySizes | BustSizes | HeadshotSizes, format?: "png" | "jpeg", isCircular?: boolean, cropType?: "body" | "bust" | "headshot"): Promise<PlayerThumbnailData[]>;
 
     /**
-     * Gets the presence statuses of the specified users
+     * 🔐 Gets the presence statuses of the specified users
      */
     function getPresences(userIds: number[]): Promise<Presences>;
 
     /**
-     * Gets the `status` message of the user with the ID `userId`.
+     * ✅ Gets the `status` message of the user with the ID `userId`.
      */
     function getStatus(userId: number): Promise<string>;
 
     /**
-     * Gets `username` of user with `id` and caches according to settings.
+     * ✅ Gets `username` of user with `id` and caches according to settings.
      */
     function getUsernameFromId(id: number): Promise<string>;
 
 
     /**
-     * Get the collectibles of a user.
+     * 🔓 Get the collectibles of a user.
      */
     function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<CollectibleEntry[]>;
 
     /**
-     * Get the UserAssetIDs for assets a user owns.
+     * ✅ Get the UserAssetIDs for assets a user owns.
      */
     function getUAIDs(userId: number, assetIds: number[], exclusionList?: number[], jar?: CookieJar): Promise<UAIDResponse>;
 
     /**
-     * Get the inventory of a user.
+     * 🔓 Get the inventory of a user.
      */
     function getInventory(userId: number, assetTypes: Array<string>, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<InventoryEntry[]>;
 
     /**
-     * Get the inventory of a user by the assetTypeId.
+     * 🔓 Get the inventory of a user by the assetTypeId.
      */
     function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<InventoryEntry[]>;
 
     /// Trades
 
     /**
-     * Check if the current user can trade with another user.
+     * 🔐 Check if the current user can trade with another user.
      */
     function canTradeWith(userId: number, jar?: CookieJar): Promise<CanTradeResponse>;
 
     /**
-     * Decline an active trade.
+     * 🔐 Decline an active trade.
      */
     function declineTrade(tradeId: number, jar?: CookieJar): Promise<void>;
-    
+
     /**
-     * Accept an active trade.
+     * 🔐 Accept an active trade.
      */
     function acceptTrade(tradeId: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * Get detailed info about a trade.
+     * 🔐 Get detailed info about a trade.
      */
     function getTradeInfo(tradeId: number, jar?: CookieJar): Promise<TradeInfo>;
 
     /**
-     * Get all trades under a category.
+     * 🔐 Get all trades under a category.
      */
     function getTrades(tradeStatusType: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<TradeAsset[]>;
 
     /**
-     * Send a trade to a user.
+     * 🔐 Send a trade to a user.
      */
     function sendTrade(targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
 
     /**
-     * Counter an active incoming trade..
+     * 🔐 Counter an active incoming trade..
      */
     function counterTrade(tradeId: number, targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
 
@@ -1631,122 +1870,122 @@ declare module "noblox.js" {
     /// Utility
 
     /**
-     * Removes the `.ROBLOSECURITY` cookie from `jar`. Note that this does not return a new jar, it simply changes the existing one.
+     * 🔐 Removes the `.ROBLOSECURITY` cookie from `jar`. Note that this does not return a new jar, it simply changes the existing one.
      */
     function clearSession(jar: CookieJar): Promise<string>;
 
     /**
-     * Gets the verification inputs from `url` and sends a post request with data from `events`, returning the original body before the post request according to `getBody` and obeying the cache based on `ignoreCache`. Use `http` for custom request options for the post request; if url is contained, it will not replace the main url but the url used for getting verification tokens. This function is used for primitive site functions that involve ASP viewstates.
+     * 🔐 Gets the verification inputs from `url` and sends a post request with data from `events`, returning the original body before the post request according to `getBody` and obeying the cache based on `ignoreCache`. Use `http` for custom request options for the post request; if url is contained, it will not replace the main url but the url used for getting verification tokens. This function is used for primitive site functions that involve ASP viewstates.
      */
     function generalRequest(url: string, events: object, http?: object, ignoreCache?: boolean, getBody?: boolean, jar?: CookieJar): Promise<Object>;
 
     /**
-     * Gets the action row for audit log text. Current supported types are: change rank, delete post, and change group status (shouts).
+     * ✅ Gets the action row for audit log text. Current supported types are: change rank, delete post, and change group status (shouts).
      */
     function getAction(row: string): AuditItem;
 
     /**
-     * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
+     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option?: "UserID" | "UserName" | "RobuxBalance" | "TicketsBalance" | "ThumbnailUrl" | "IsAnyBuildersClubMember" | "IsPremium" | undefined, jar?: CookieJar): Promise<LoggedInUserData>;
 
     /**
-     * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
+     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option: "UserID", jar?: CookieJar): Promise<number>;
 
     /**
-     * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
+     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option: "UserName", jar?: CookieJar): Promise<string>;
 
     /**
-     * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
+     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option: "RobuxBalance", jar?: CookieJar): Promise<number>;
 
     /**
-     * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
+     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option: "TicketsBalance", jar?: CookieJar): Promise<number>;
 
     /**
-     * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
+     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option: "ThumbnailUrl", jar?: CookieJar): Promise<string>;
 
     /**
-     * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
+     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option: "IsAnyBuildersClubMember", jar?: CookieJar): Promise<boolean>;
 
     /**
-     * Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
+     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option: "IsPremium", jar?: CookieJar): Promise<boolean>;
 
     /**
-     * Gets the date for `time` which originates from a two-letter `timezone`. This is used to get the time for that timezone despite daylight savings. For example if you did `getDate(time, 'CT')` it would return the time in CST if daylight savings is inactive or CDT if it is active.
+     * ✅ Gets the date for `time` which originates from a two-letter `timezone`. This is used to get the time for that timezone despite daylight savings. For example if you did `getDate(time, 'CT')` it would return the time in CST if daylight savings is inactive or CDT if it is active.
      */
     function getDate(time: string, timezone: string): Date;
 
     /**
-     * Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This uses the https://api.roblox.com/sign-out/v1 API to get tokens.
+     * 🔐 Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This uses the https://api.roblox.com/sign-out/v1 API to get tokens.
      */
     function getGeneralToken(jar?: CookieJar): Promise<string>;
 
     /**
-     * Generates a unique hash for the given jar file `jar` or default if none is specified. Typically used to cache items that depend on session.
+     * 🔐 Generates a unique hash for the given jar file `jar` or default if none is specified. Typically used to cache items that depend on session.
      */
     function getHash(jar?: CookieJar): string;
 
     /**
-     * Returns verification inputs on the page with the names in `find` - or all inputs if not provided. Typically used for ROBLOX requests working with ASP.NET.
+     * ✅ Returns verification inputs on the page with the names in `find` - or all inputs if not provided. Typically used for ROBLOX requests working with ASP.NET.
      */
     function getInputs(html: string, find?: Array<any>): Inputs;
 
     /**
-     * Returns the results from indexing the requested pages.
+     * ✅ Returns the results from indexing the requested pages.
      */
     function getPageResults(url: string, query: string, sortOrder?: string): Array<any>;
 
     /**
-     * Gets the user ID of the current logged in user and caches it permanently. This is needed for some functions.
+     * 🔐 Gets the user ID of the current logged in user and caches it permanently. This is needed for some functions.
      */
     function getSenderUserId(jar?: CookieJar): Promise<number>;
 
     /**
-     * Gets the `.ROBLOSECURITY` session cookie from `jar`, which is the default jar file if not specified.
+     * 🔐 Gets the `.ROBLOSECURITY` session cookie from `jar`, which is the default jar file if not specified.
      */
     function getSession(jar?: CookieJar): Promise<string>;
 
     /**
-     * Gets verification inputs off of `url` using `jar` and caches them. If `getBody` is true, the body and inputs will both be returned in an object. The `header` is the value of the `__RequestVerificationToken` cookie if it exists. If `ignoreCache` is enabled, the resulting tokens will not be cached.
+     * 🔐 Gets verification inputs off of `url` using `jar` and caches them. If `getBody` is true, the body and inputs will both be returned in an object. The `header` is the value of the `__RequestVerificationToken` cookie if it exists. If `ignoreCache` is enabled, the resulting tokens will not be cached.
      */
     function getVerification(url: string, ignoreCache?: boolean, getBody?: boolean, jar?: CookieJar): Promise<GetVerificationResponse>;
 
     /**
-     * Gets verification inputs from `html`. Short for `getInputs(html,['__VIEWSTATE','__VIEWSTATEGENERATOR','__EVENTVALIDATION, '__RequestVerificationToken']')`. Typically used for ROBLOX requests working with ASP.NET. If you have already loaded html with a parser you can pass the `selector` directly.
+     * ✅ Gets verification inputs from `html`. Short for `getInputs(html,['__VIEWSTATE','__VIEWSTATEGENERATOR','__EVENTVALIDATION, '__RequestVerificationToken']')`. Typically used for ROBLOX requests working with ASP.NET. If you have already loaded html with a parser you can pass the `selector` directly.
      */
     function getVerificationInputs(html: string | SelectorFunction): Inputs;
 
     /**
-     * Sends an http request to `url` with `options`. If `ignoreLoginError` is true the function will not error when the user is redirected to the ROBLOX login page, otherwise it will as detection for failed logins and preventing further errors. The custom option `verification` adds the token to the cookies as `__RequestVerificationToken`. *Note that if jar is a key in the options object but is still null, the default jar will be used*
+     * ✅ Sends an http request to `url` with `options`. If `ignoreLoginError` is true the function will not error when the user is redirected to the ROBLOX login page, otherwise it will as detection for failed logins and preventing further errors. The custom option `verification` adds the token to the cookies as `__RequestVerificationToken`. *Note that if jar is a key in the options object but is still null, the default jar will be used*
      */
     function http(url: string, options?: HttpOptions, ignoreLoginError?: boolean): Promise<string>;
 
     /**
-     * Creates a jar file based on `sessionOnly`. Normally you will not need this argument as the function will use the default from settings.json. If for some other reason you need a jar file you can collect it this way, but without changing the settings it will not work.
+     * ✅ Creates a jar file based on `sessionOnly`. Normally you will not need this argument as the function will use the default from settings.json. If for some other reason you need a jar file you can collect it this way, but without changing the settings it will not work.
      */
     function jar(sessionOnly?: boolean): CookieJar;
 
     /**
-     * Refreshes the internally stored cookie, or the cookie provided, stores the new cookie and returns it.
+     * 🔐 Refreshes the internally stored cookie, or the cookie provided, stores the new cookie and returns it.
      */
     function refreshCookie(cookie?: string): Promise<string>;
 
     /**
-     * This is the base for events that do not rely on true streams. The `getLatest` function receives some value that represents the latest version of something (eg. a date or unique ID) and determines if there is new information, every time it is fired it waits `delay` ms before being fired again. Every time it must return an object with the field `latest`, representing the latest value (which will not change if new information was not received), and an array `data` which has the new values (if there are multiple they each have their own index, if there is only one then it is by itself in the array). If `latest` is equal to -2, the returned data will be processed even if it is the initial run (which usually only establishes the latest value). If the return object has a true `repeat` value, the function latest will be run again immediately after. If `delay` is a string it will take the number from that string key in the `event` object of the settings.json file.
+     * ✅ This is the base for events that do not rely on true streams. The `getLatest` function receives some value that represents the latest version of something (eg. a date or unique ID) and determines if there is new information, every time it is fired it waits `delay` ms before being fired again. Every time it must return an object with the field `latest`, representing the latest value (which will not change if new information was not received), and an array `data` which has the new values (if there are multiple they each have their own index, if there is only one then it is by itself in the array). If `latest` is equal to -2, the returned data will be processed even if it is the initial run (which usually only establishes the latest value). If the return object has a true `repeat` value, the function latest will be run again immediately after. If `delay` is a string it will take the number from that string key in the `event` object of the settings.json file.
      * When the function is first called it will initialize `getLatest` with the value -1 and then emit the `connect` event. Whenever data is received, it will emit the `data` event for each value. If the `close` event is emitted the function will no longer run. If an error occurs the `error` event will be emitted, the function will log a retry and after the number of max retries as specified by settings, it will emit the `close` event.
      * The `getLatest` function will be marked as failed if it does not resolve within `timeout` ms (which can be disabled if timeout is negative). If getLatest fails for any reason (including timeout) it will be retried `maxRetries` times before stopping.
      */
@@ -1758,6 +1997,18 @@ declare module "noblox.js" {
      * Returns a promise with the additional function properties `getStatus`, `getCompleted`, `getExpected` which represent the percent completion, the current number of completed threads, and the total number of threads for completion.
      */
     function threaded(getPage: (pageNum: number) => Promise<void> | void, start: number, end: number): ThreadedPromise;
+
+
+    /**
+     * ✅ Updates library options. This allows you to modify settings such as time-out, or number of event retries without
+     * altering the settings.json file. Objects passed to this function should match the format of the settings.json file.
+     * Unknown keys, or malformed options will be rejected with an error.
+     * resilient in that it will reject unknown values, or values which are nested incorrectly - meaning they are ineffective.
+     * @param newOptions - The new options to set, structured as per settings.json
+     * @see https://github.com/noblox/noblox.js/blob/master/settings.json
+     */
+    function setOptions(newOptions: NobloxOptions): void
+
 
     // Events
 
@@ -1904,14 +2155,14 @@ declare module "noblox.js" {
     /// Group
 
     /**
-     * This function emits all join requests and waits until all of them have been resolved by firing the `handle` event with the request and either true or false. You can also pass a third argument `callback` to handle to execute once the join request has been handled. Once all requests on a page have been resolved, the next page is collected. Make sure that all join requests are handled in some way. Because this function has to wait for input, it does handle timeouts but does them within the function as opposed to within shortPoll.
+     * 🔐 This function emits all join requests and waits until all of them have been resolved by firing the `handle` event with the request and either true or false. You can also pass a third argument `callback` to handle to execute once the join request has been handled. Once all requests on a page have been resolved, the next page is collected. Make sure that all join requests are handled in some way. Because this function has to wait for input, it does handle timeouts but does them within the function as opposed to within shortPoll.
      *
      * To accept all new users that aren't on a blacklist and send them a message, for example:
      * ```javascript
      * const blacklist = [1, 261]
-     * const evt = rbx.onJoinRequestHandle(18)
+     * const evt = noblox.onJoinRequestHandle(18)
      * evt.on('data', function (request) {
-     *   rbx.getIdFromUsername(request.username).then(function (id) {
+     *   noblox.getIdFromUsername(request.username).then(function (id) {
      *     for (const i = 0; i < blacklist.length; i++) {
      *       if (blacklist[i] === id) {
      *         evt.emit('handle', request, false);
@@ -1919,7 +2170,7 @@ declare module "noblox.js" {
      *       }
      *     }
      *     evt.emit('handle', request, true, function () {
-     *       rbx.message(id, 'Welcome', 'Welcome to my group');
+     *       noblox.message(id, 'Welcome', 'Welcome to my group');
      *     });
      *   });
      * });
@@ -1928,14 +2179,14 @@ declare module "noblox.js" {
     function onJoinRequestHandle(group: number, jar?: CookieJar): OnJoinRequestHandleEventEmitter;
 
     /**
-     * Fires when there is a shout in the group with groupId `group`. If the shout was cleared the shout body will be blank.
+     * 🔓 Fires when there is a shout in the group with groupId `group`. If the shout was cleared the shout body will be blank.
      */
     function onShout(group: number, jar?: CookieJar): OnShoutEventEmitter;
 
     function onAuditLog(group: number, jar?: CookieJar): OnAuditLogEventEmitter;
 
     /**
-     * Fires when there is a new wall post in the group with groupId `group`. If `view` is enabled the wall posts viewstate will be returned in `view`, otherwise it will not be present.
+     * 🔓 Fires when there is a new wall post in the group with groupId `group`. If `view` is enabled the wall posts viewstate will be returned in `view`, otherwise it will not be present.
      */
     function onWallPost(group: number, view?: boolean, jar?: CookieJar): OnWallPostEventEmitter;
 
@@ -1963,17 +2214,17 @@ declare module "noblox.js" {
     /// User
 
     /**
-     * Fires when new friend requests are received.
+     * 🔐 Fires when new friend requests are received.
      */
     function onFriendRequest(jar?: CookieJar): OnFriendRequestEventEmitter;
 
     /**
-     * Fires whenever a new message is received. Because it relies on `onNotification`, the logged in user's notification stream for messages must be enabled; however, it is one of the true events and does not rely on short polling.
+     * 🔐 Fires whenever a new message is received. Because it relies on `onNotification`, the logged in user's notification stream for messages must be enabled; however, it is one of the true events and does not rely on short polling.
      */
     function onMessage(jar?: CookieJar): OnMessageEventEmitter;
 
     /**
-     * This is one of the only true streams, using web sockets to connect to ROBLOX's notification system. The logged in user must have relevant notifications enabled in their settings in order to receive notifications through this (of course). All notifications haven't been mapped out but what is known is that they all have a `name` and `message` (separate arguments to the `data` event), where `message` is an object that includes a field `type`.
+     * 🔐 This is one of the only true streams, using web sockets to connect to ROBLOX's notification system. The logged in user must have relevant notifications enabled in their settings in order to receive notifications through this (of course). All notifications haven't been mapped out but what is known is that they all have a `name` and `message` (separate arguments to the `data` event), where `message` is an object that includes a field `type`.
      */
     function onNotification(jar?: CookieJar): OnNotificationEventEmitter;
 
@@ -1981,17 +2232,17 @@ declare module "noblox.js" {
     /// Badges
 
     /**
-     * Gets information about a badge.
+     * ✅ Gets information about a badge.
      */
     function getBadgeInfo(badgeId: number): Promise<BadgeInfo>
 
     /**
-     * Gets user award date for a badge.
+     * ✅ Gets user award date for a badge.
      */
     function getAwardedTimestamps(userId: number, badgeId: number[]): Promise<UserBadgeStats>
 
     /**
-     * Updates badge information.
+     * 🔐 Updates badge information.
      */
     function updateBadgeInfo(badgeId: number, name?: string, description?: string, enabled?: boolean, jar?: CookieJar): Promise<void>
 }
