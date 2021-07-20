@@ -70,9 +70,6 @@ expect.extend({
 })
 
 describe('User Methods', () => {
-  it('follow() follows a user on Roblox', () => {
-    return follow(55549140)
-  })
 
   it('unfollow() unfollows a user on Roblox', () => {
     return unfollow(55549140)
