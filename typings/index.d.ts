@@ -1686,15 +1686,9 @@ declare module "noblox.js" {
 
     /**
      * 🔐 Follows the user with `userId`.
+     * @deprecated Function is now under CAPTCHA, will be removed in a future version.
      */
     function follow(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔑 Logs into the user account with a provided `username` and `password`. On success -, stores the account cookie in `jar`.
-     *
-     * NOTE: Usage of this function is deprecated as of v4.6.0 and calling requires passing the robot test.
-     */
-    function login(username: string, password: string, jar?: CookieJar): Promise<UserLoginApiData>;
 
     /**
      * 🔐 Sends a message with `body` and `subject` to the user with id `recipient`.
