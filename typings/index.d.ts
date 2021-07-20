@@ -528,6 +528,7 @@ declare module "noblox.js" {
         type: "User" | "System";
         targetId: number;
         name: string;
+        displayName: string;
     }
 
     interface ChatConversationTitle
@@ -1004,6 +1005,7 @@ declare module "noblox.js" {
         name: string;
         description: string;
         created: string;
+        displayName: string;
     }
 
     interface Friends {
@@ -1016,6 +1018,7 @@ declare module "noblox.js" {
         name: string;
         description: string;
         created: string;
+        displayName: string;
     }
 
     interface FollowingsPage {
@@ -1044,6 +1047,7 @@ declare module "noblox.js" {
     interface UserEntry {
         userId: number;
         name: string;
+        displayName: string;
     }
 
     interface PrivateMessageParent {
@@ -1781,7 +1785,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets the badges of a user.
      */
-    function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<PlayerBadges>
+    function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<Array<PlayerBadges>>
 
     /**
      * ✅ Gets a brief overview of a user.
