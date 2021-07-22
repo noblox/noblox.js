@@ -929,6 +929,14 @@ type GroupGameInfo = {
 /**
  * @typedef
  */
+type GroupAssetInfo = {
+    assetId: number;
+    name: string;
+}
+
+/**
+ * @typedef
+ */
 type IGroupPartial = {
     Name: string;
     Id: number;

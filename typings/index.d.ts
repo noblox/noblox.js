@@ -178,6 +178,11 @@ declare module "noblox.js" {
         placeVisits: number;
     }
 
+    interface GroupAssetInfo {
+        assetId: number;
+        name: string;
+    }
+
     interface ProductInfo {
         AssetId: number;
         ProductId: number;
@@ -1312,6 +1317,11 @@ declare module "noblox.js" {
     function uploadModel(data: string | stream.Stream, itemOptions?: UploadModelItemOptions, asset?: number, jar?: CookieJar): Promise<UploadModelResponse>;
 
     /**
+     * 🔐 Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will be created. The assetId is returned as a number. Note that `itemOptions` is required when creating a new asset. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
+     */
+     function uploadAnimation(data: string | stream.Stream, itemOptions?: UploadModelItemOptions, asset?: number, jar?: CookieJar): Promise<number>;
+
+    /**
      * ✅ Gets `info` of `asset` and caches according to settings.
      */
     function getProductInfo(asset: number): Promise<ProductInfo>;
@@ -1539,7 +1549,12 @@ declare module "noblox.js" {
     /**
      * ✅ Gets a list of games from the specified group.
      */
-    function getGroupGames(groupId: number, acccessFilter: "All" | "Public" | "Private", sortOrder: "Asc" | "Desc", limit: Limit, cursor: string): Promise<GroupGameInfo[]>;
+    function getGroupGames(groupId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string): Promise<GroupGameInfo[]>;
+
+    /**
+     * ✅ Gets a list of assets from the specified group.
+     */
+    function getGroupAssets(groupId: number, assetType: string, sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupAssetInfo[]>;
 
     /**
      * ✅ Gets the groups a player is in.
