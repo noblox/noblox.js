@@ -1,4 +1,4 @@
-const { buy, configureItem, deleteFromInventory, getProductInfo, getResaleData, getResellers, uploadItem, setCookie } = require('../lib')
+const { buy, configureItem, deleteFromInventory, getProductInfo, getResaleData, getResellers, uploadItem, uploadAnimation, setCookie } = require('../lib')
 const fs = require('fs')
 
 beforeAll(() => {
@@ -145,5 +145,11 @@ describe('Asset Methods', () => {
 
   it('uploadItem() uploads an image', () => {
     return uploadItem('noblox', 13, fs.createReadStream('./img/noblox-js.png'))
+  })
+
+  it('uploadAnimation() uploads an animation', () => {
+    return uploadAnimation(fs.createReadStream('./test/assets/KeyframeSequence.rbxm'), { name: "noblox", description: "A noblox test!", copyLocked: true, allowComments: false }).then((res) => {
+      return expect(res).toEqual(expect.any(Number))
+    })
   })
 })
