@@ -223,6 +223,34 @@ declare module "noblox.js" {
         price: number;
     }
 
+    interface ChartDataPointResponse {
+        value?: number;
+        date?: Date;
+    }
+
+    interface ResaleDataResponse {
+        assetStock?: number;
+        sales?: number;
+        numberRemaining?: number;
+        recentAveragePrice?: number;
+        originalPrice?: number;
+        priceDataPoints?: ChartDataPointResponse[];
+        volumeDataPoints?: ChartDataPointResponse[];
+    }
+
+    interface ResellerAgent {
+        id: number;
+        type: "User" | "Group";
+        name: string;
+    }
+
+    interface ResellerData {
+        userAssetId: number;
+        seller: ResellerAgent;
+        price: number;
+        serialNumber?: number;
+    }
+
     interface UploadItemResponse {
         id: number;
     }
@@ -1306,6 +1334,17 @@ declare module "noblox.js" {
      */
     function deleteFromInventory(assetId: number, jar?: CookieJar): Promise<void>;
 
+
+    /**
+     * ✅ Get the recent sale history (price and volume per day for 180 days) of a limited asset.
+     */
+    function getResaleData(assetId: number): Promise<ResaleDataResponse>;
+
+    /**
+     * 🔐 Gets available resale copies of a limited asset.
+     */
+    function getResellers(assetId: number, limit?: Limit, jar?: CookieJar): Promise<ResellerData[]>;
+
     /**
      * 🔐 Uploads an image stored in `file` as an `assetType` with `name`. If `groupId` is specified it will be uploaded to that group. This is for uploading shirts, pants, or decals which have the assetTypes `11`, `12`, and `13`, respectively. Returns the asset `id` of the new item.
      */
@@ -1662,15 +1701,9 @@ declare module "noblox.js" {
 
     /**
      * 🔐 Follows the user with `userId`.
+     * @deprecated Function is now under CAPTCHA, will be removed in a future version.
      */
     function follow(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔑 Logs into the user account with a provided `username` and `password`. On success -, stores the account cookie in `jar`.
-     *
-     * NOTE: Usage of this function is deprecated as of v4.6.0 and calling requires passing the robot test.
-     */
-    function login(username: string, password: string, jar?: CookieJar): Promise<UserLoginApiData>;
 
     /**
      * 🔐 Sends a message with `body` and `subject` to the user with id `recipient`.

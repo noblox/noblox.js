@@ -1,4 +1,4 @@
-const { buy, configureItem, deleteFromInventory, getProductInfo, uploadItem, setCookie } = require('../lib')
+const { buy, configureItem, deleteFromInventory, getProductInfo, getResaleData, getResellers, uploadItem, setCookie } = require('../lib')
 const fs = require('fs')
 
 beforeAll(() => {
@@ -103,6 +103,43 @@ describe('Asset Methods', () => {
         Creator: expect.any(Object),
         PriceInRobux: expect.nullOrAny(Number)
       })
+    })
+  })
+
+  it('getResaleData() successfully returns a collectible\'s resale history', () => {
+    return getResaleData(20573078).then((res) => { // Shaggy
+      return expect(res).toMatchObject({
+        assetStock: expect.nullOrAny(Number),
+        sales: expect.any(Number),
+        numberRemaining: expect.nullOrAny(Number),
+        recentAveragePrice: expect.any(Number),
+        originalPrice: expect.nullOrAny(Number),
+        priceDataPoints: expect.arrayContaining([
+          expect.objectContaining({
+            value: expect.nullOrAny(Number),
+            date: expect.nullOrAny(Date)
+          })
+        ])
+      })
+    })
+  })
+
+  it('getResellers() successfully returns a collectible\'s resellable copies', () => {
+    return getResellers(20573078).then((res) => { // Shaggy
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            userAssetId: expect.any(Number),
+            price: expect.any(Number),
+            serialNumber: expect.nullOrAny(Number),
+            seller: expect.objectContaining({
+              id: expect.any(Number),
+              type: expect.any(String),
+              name: expect.any(String)
+            })
+          })
+        ])
+      )
     })
   })
 
