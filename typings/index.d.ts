@@ -1493,6 +1493,11 @@ declare module "noblox.js" {
      */
     function getGameSocialLinks(universeId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
 
+    /**
+     * 🔐 Updates a universe's public access setting
+    */
+   function updateUniverseAccess (universeId, isPublic, jar, token): Promise<void>;
+
     /// Group
 
     /**
