@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/trade/canTradeWith.js</title>
+  <title>noblox.js lib/game/updateUniverseAccess.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/trade/canTradeWith.js</h1>
+                    <h1>lib/game/updateUniverseAccess.js</h1>
                 </header>
                 
 
@@ -144,51 +144,58 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const getGeneralToken = require('../util/getGeneralToken.js').func
 
 // Args
-exports.required = ['userId']
+exports.required = ['universeId', 'isPublic']
 exports.optional = ['jar']
 
 // Docs
 /**
- * 🔐 Check if the signed in user can trade with another user.
- * @category Trade
- * @alias canTradeWith
- * @param {number} userId - The id of the user.
- * @returns {Promise&lt;CanTradeResponse>}
+ * 🔐 Modifies a universe's public access setting
+ * @category Game
+ * @alias updateUniverseAccess
+ * @param {number} universeId - The universeId of the experience
+ * @param {boolean=} isPublic - The visibility and access of the universe; shuts down all running instances if set to false
+ * @returns {Promise&lt;void>}
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * const canTrade = await noblox.canTradeWith(1234)
+ * noblox.updateUniverseAccess(2421261122, true)
 **/
 
 // Define
-function canTradeWith (jar, userId) {
+function updateUniverseAccess (universeId, isPublic, jar, token) {
   return new Promise((resolve, reject) => {
-    http({
-      url: '//trades.roblox.com/v1/users/' + userId + '/can-trade-with',
+    return http({
+      url: `//develop.roblox.com/v1/universes/${universeId}/${isPublic ? 'activate' : 'deactivate'}`,
       options: {
-        method: 'GET',
-        resolveWithFullResponse: true,
-        jar: jar
+        method: 'POST',
+        jar,
+        headers: {
+          'X-CSRF-TOKEN': token
+        },
+        json: {
+          universeId
+        },
+        resolveWithFullResponse: true
       }
-    }).then((res) => {
-      if (res.statusCode === 200) {
-        resolve(JSON.parse(res.body))
+    }).then(({ statusCode, body }) => {
+      if (statusCode === 200) {
+        resolve()
+      } else if (body &amp;&amp; body.errors) {
+        reject(new Error(`[${statusCode}] ${body.errors[0].message} | universeId: ${universeId}, isPublic: ${isPublic} ${body.errors.field ? ` | ${body.errors.field} is incorrect` : ''}`))
       } else {
-        const body = JSON.parse(res.body) || {}
-        if (body.errors &amp;&amp; body.errors.length > 0) {
-          const errors = body.errors.map((e) => {
-            return e.message
-          })
-          reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-        }
+        reject(new Error(`An unknown error occurred with updateUniverseAccess() | [${statusCode}] universeId: ${universeId}, isPublic: ${isPublic}`))
       }
     })
   })
 }
 
-exports.func = (args) => {
-  return canTradeWith(args.jar, args.userId)
+exports.func = function ({ universeId, isPublic, jar }) {
+  return getGeneralToken({ jar })
+    .then((token) => {
+      return updateUniverseAccess(universeId, isPublic, jar, token)
+    })
 }
 </code></pre>
         </article>
