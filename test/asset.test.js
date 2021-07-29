@@ -148,7 +148,7 @@ describe('Asset Methods', () => {
   })
 
   it('uploadAnimation() uploads an animation', () => {
-    return uploadAnimation(fs.createReadStream('./test/assets/KeyframeSequence.rbxm'), { name: "noblox", description: "A noblox test!", copyLocked: true, allowComments: false }).then((res) => {
+    return uploadAnimation(fs.createReadStream('./test/assets/KeyframeSequence.rbxm'), { name: 'noblox', description: 'A noblox test!', copyLocked: true, allowComments: false }).then((res) => {
       return expect(res).toEqual(expect.any(Number))
     })
   })
