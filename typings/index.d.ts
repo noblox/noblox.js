@@ -2200,7 +2200,7 @@ declare module "noblox.js" {
     function onWallPost(group: number, view?: boolean, jar?: CookieJar): OnWallPostEventEmitter;
 
     /**
-     * 🔓 Fires when there is a shout in the group with groupId `group`. If the shout was cleared the shout body will be blank.
+     * 🔓 Fires when there is a transaction in the group with groupId `group`, of the given type. Only runs every 60 sec.
      */
     function onGroupTransaction(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", jar?: CookieJar): OnTransactionEventEmitter;
 
