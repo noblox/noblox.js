@@ -798,6 +798,17 @@ declare module "noblox.js" {
         isLocked: boolean;
     }
 
+    interface GroupSearchItem
+    {
+        id: number;
+        name: string;
+        description: string;
+        memberCount: number;
+        publicEntryAllowed: boolean;
+        created: Date
+        updated: Date
+    }
+
     interface GroupView
     {
         __VIEWSTATE: string;
@@ -1749,6 +1760,11 @@ declare module "noblox.js" {
      * ✅ Get the groups a user is in.
      */
     function getGroups(userId: number): Promise<Group[]>;
+
+    /**
+     * ✅ Returns the groups matching a given search term.
+     */
+    function searchGroups(keyword: string, prioritizeExactMatch?: boolean, limit?: number): Promise<GroupSearchItem[]>;
 
     /**
      * 🔐 Get the social link data (promotion channels) associated with a user.
