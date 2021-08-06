@@ -20,7 +20,7 @@
     "onJoinRequestHandle": 10000,
     "onShout": 10000,
     "onBlurbChange": 10000,
-    "onGroupTransaction": 45000
+    "onGroupTransaction": 60000
   },
 
   "thumbnail": {
