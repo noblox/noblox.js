@@ -267,12 +267,14 @@ describe('Group Methods', () => {
   // promote is skipped as it is an extension of changeRank
 
   it('setRank() should set a player\'s rank to the specified rank', () => {
-    return setRank(4591072, 857710783, 1).then((res) => {
-      return expect(res).toMatchObject({
-        name: expect.any(String),
-        rank: expect.any(Number),
-        memberCount: expect.any(Number),
-        ID: expect.any(Number)
+    return changeRank(4591072, 857710783, 2).then(() => {
+      return setRank(4591072, 857710783, 1).then((res) => {
+        return expect(res).toMatchObject({
+          name: expect.any(String),
+          rank: expect.any(Number),
+          memberCount: expect.any(Number),
+          ID: expect.any(Number)
+        })
       })
     })
   })
