@@ -158,7 +158,7 @@ exports.optional = ['limit', 'cursor', 'sortOrder']
  * @param {Limit=} [limit=10] - The amount of badges being returned each request.
  * @param {string=} cursor - The cursor of the previous or next page.
  * @param {SortOrder=} [sortOrder=Asc] - The order that the data will be returned in (Asc or Desc)
- * @returns {Promise&lt;PlayerBadges>}
+ * @returns {Promise&lt;Array&lt;PlayerBadges>>}
  * @example const noblox = require("noblox.js")
  * let badges = noblox.getPlayerBadges(123456, 10, "1684988462_1_29fbf93fdfb5b3f74d205ec09681c970", "Asc")
 **/
