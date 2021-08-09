@@ -23,7 +23,7 @@
     "bluebird": "^3.5.4",
     "chalk": "^4.0.0",
     "cheerio": "^1.0.0-rc.10",
-    "entities": "^2.0.0",
+    "entities": "^3.0.1",
     "figlet": "^1.4.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.4",
