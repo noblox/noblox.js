@@ -2397,6 +2397,11 @@ entities@^2.0.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.2.0.tgz#098dc90ebb83d8dffa089d55256b351d34c4da55"
   integrity sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==
 
+entities@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-3.0.0.tgz#59c1762aaa20a2482b9b0a0dd4f447c9c13cf0d5"
+  integrity sha512-BCTCcmWItCjI/bwic3Y2o4mt2P7cSHQpgkRh/jHzhE0fAgAxNjx5WvfF3ZCQ1DWACrk+VRY/YOtWu9ap962zUQ==
+
 entities@~2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.3.tgz#5c487e5742ab93c15abb5da22759b8590ec03b7f"
