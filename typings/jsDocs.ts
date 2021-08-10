@@ -961,8 +961,8 @@ type GroupSearchItem = {
     description: string;
     memberCount: number;
     publicEntryAllowed: boolean;
-    created: Date
-    updated: Date
+    created: Date;
+    updated: Date;
 }
 
 /**
