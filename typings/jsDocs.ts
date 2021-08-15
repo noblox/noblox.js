@@ -271,6 +271,17 @@ type UploadModelItemOptions = {
     groupId?: number;
 }
 
+/**
+ * @typedef
+ */
+type ConfigureItemResponse = {
+    name: string;
+    assetId: number;
+    description?: string;
+    price?: number;
+    isCopyingAllowed?: boolean;
+}
+
 /// Avatar
 
 /**
