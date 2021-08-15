@@ -610,6 +610,7 @@ type ChatParticipant = {
     type: "User" | "System";
     targetId: number;
     name: string;
+    displayName: string;
 }
 
 /**
@@ -1249,6 +1250,7 @@ type FriendEntry = {
     name: string;
     description: string;
     created: string;
+    displayName: string;
 }
 
 /**
@@ -1267,6 +1269,7 @@ type FollowEntry = {
     name: string;
     description: string;
     created: string;
+    displayName: string;
 }
 
 /**
@@ -1303,6 +1306,7 @@ type PrivateMessagesPage = {
 type UserEntry = {
     userId: number;
     name: string;
+    displayName: string;
 }
 
 /**
