@@ -205,7 +205,7 @@ function configureRobux (args) {
         'X-CSRF-TOKEN': args.token
       },
       json: {
-        saleStatus: args.sellForRobux ? 'OnSale' : 'OffSafe',
+        saleStatus: args.sellForRobux ? 'OnSale' : 'OffSale',
         priceConfiguration: {
           priceInRobux: args.sellForRobux || 0
         }
