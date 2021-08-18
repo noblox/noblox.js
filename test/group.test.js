@@ -1,4 +1,4 @@
-const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupSocialLinks, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie, searchGroups } = require('../lib')
+const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupAssets, getGroupSocialLinks, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie, searchGroups } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -143,6 +143,15 @@ describe('Group Methods', () => {
         created: expect.any(Date),
         updated: expect.any(Date),
         placeVisits: expect.any(Number)
+      })
+    })
+  })
+
+  it('getGroupAssets() returns an array of group assets', () => {
+    return getGroupAssets({ groupId: 4591072, assetType: 'Shirt', limit: 1 }).then((res) => {
+      return expect(res[0]).toMatchObject({
+        assetId: expect.any(Number),
+        name: expect.any(String)
       })
     })
   })
