@@ -533,6 +533,7 @@ declare module "noblox.js" {
         type: "User" | "System";
         targetId: number;
         name: string;
+        displayName: string;
     }
 
     interface ChatConversationTitle
@@ -803,6 +804,17 @@ declare module "noblox.js" {
         isLocked: boolean;
     }
 
+    interface GroupSearchItem
+    {
+        id: number;
+        name: string;
+        description: string;
+        memberCount: number;
+        publicEntryAllowed: boolean;
+        created: Date;
+        updated: Date;
+    }
+
     interface GroupView
     {
         __VIEWSTATE: string;
@@ -956,10 +968,10 @@ declare module "noblox.js" {
      * 2 = InGame
      * 3 = Studio
      */
-    type UserPresenceType = 0 | 1 | 2 | 3
+    type UserPresenceType = 0 | 1 | 2 | 3;
 
     // https://noblox.js.org/thumbnailSizes.png | Archived: https://i.imgur.com/UwiKqjs.png
-    type BodySizes = 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720 | "30x30" | "48x48" | "60x60" | "75x75" | "100x100" | "110x110" | "140x140" | "150x150" | "150x200" | "180x180" | "250x250" | "352x352" | "420x420" | "720x720"
+    type BodySizes = 30 | 48 | 60 | 75 | 100 | 110 | 140 | 150 | 180 | 250 | 352 | 420 | 720 | "30x30" | "48x48" | "60x60" | "75x75" | "100x100" | "110x110" | "140x140" | "150x150" | "150x200" | "180x180" | "250x250" | "352x352" | "420x420" | "720x720";
     type BustSizes = 50 | 60 | 75 | "50x50" | "60x60" | "75x75"
     type HeadshotSizes = 48 | 50 | 60 | 75 | 100 | 110 | 150 | 180 | 352 | 420 | 720 | "48x48" | "50x50" | "60x60" | "75x75" | "100x100" | "110x110" | "150x150" | "180x180" | "352x352" | "420x420" | "720x720";
 
@@ -1009,6 +1021,7 @@ declare module "noblox.js" {
         name: string;
         description: string;
         created: string;
+        displayName: string;
     }
 
     interface Friends {
@@ -1021,6 +1034,7 @@ declare module "noblox.js" {
         name: string;
         description: string;
         created: string;
+        displayName: string;
     }
 
     interface FollowingsPage {
@@ -1049,6 +1063,7 @@ declare module "noblox.js" {
     interface UserEntry {
         userId: number;
         name: string;
+        displayName: string;
     }
 
     interface PrivateMessageParent {
@@ -1766,6 +1781,11 @@ declare module "noblox.js" {
     function getGroups(userId: number): Promise<Group[]>;
 
     /**
+     * ✅ Returns the groups matching a given search term.
+     */
+    function searchGroups(keyword: string, prioritizeExactMatch?: boolean, limit?: number): Promise<GroupSearchItem[]>;
+
+    /**
      * 🔐 Get the social link data (promotion channels) associated with a user.
      */
     function getUserSocialLinks(userId: number, jar?: CookieJar): Promise<PromotionChannelsResponse>;
@@ -1795,7 +1815,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets the badges of a user.
      */
-    function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<PlayerBadges>
+    function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<Array<PlayerBadges>>
 
     /**
      * ✅ Gets a brief overview of a user.

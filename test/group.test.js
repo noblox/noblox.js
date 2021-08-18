@@ -1,4 +1,4 @@
-const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupAssets, getGroupSocialLinks, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
+const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupAssets, getGroupSocialLinks, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie, searchGroups } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -102,6 +102,21 @@ describe('Group Methods', () => {
         memberCount: expect.any(Number),
         publicEntryAllowed: expect.any(Boolean)
       })
+    })
+  })
+
+  it('searchGroups() returns groups that match the query', () => {
+    return searchGroups('noblox.js').then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([expect.objectContaining({
+          id: expect.any(Number),
+          name: expect.any(String),
+          description: expect.any(String),
+          memberCount: expect.any(Number),
+          publicEntryAllowed: expect.any(Boolean),
+          created: expect.any(Date),
+          updated: expect.any(Date)
+        })]))
     })
   })
 

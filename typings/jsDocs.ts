@@ -610,6 +610,7 @@ type ChatParticipant = {
     type: "User" | "System";
     targetId: number;
     name: string;
+    displayName: string;
 }
 
 /**
@@ -955,6 +956,19 @@ type Group = {
 /**
  * @typedef
  */
+type GroupSearchItem = {
+    id: number;
+    name: string;
+    description: string;
+    memberCount: number;
+    publicEntryAllowed: boolean;
+    created: Date;
+    updated: Date;
+}
+
+/**
+ * @typedef
+ */
 type GroupGameInfo = {
     id: number;
     name: string;
@@ -1244,6 +1258,7 @@ type FriendEntry = {
     name: string;
     description: string;
     created: string;
+    displayName: string;
 }
 
 /**
@@ -1262,6 +1277,7 @@ type FollowEntry = {
     name: string;
     description: string;
     created: string;
+    displayName: string;
 }
 
 /**
@@ -1298,6 +1314,7 @@ type PrivateMessagesPage = {
 type UserEntry = {
     userId: number;
     name: string;
+    displayName: string;
 }
 
 /**

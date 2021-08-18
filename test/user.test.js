@@ -307,7 +307,8 @@ describe('User Methods', () => {
         followerCount: expect.any(Number),
         followingCount: expect.any(Number),
         oldNames: expect.any(Array),
-        isBanned: expect.any(Boolean)
+        isBanned: expect.any(Boolean),
+        displayName: expect.any(String)
       })
     })
   })
