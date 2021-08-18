@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/game/addDeveloperProduct.js</title>
+  <title>noblox.js lib/group/searchGroups.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/game/addDeveloperProduct.js</h1>
+                    <h1>lib/group/searchGroups.js</h1>
                 </header>
                 
 
@@ -142,81 +142,37 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
-const getGeneralToken = require('../util/getGeneralToken.js').func
-const checkProductName = require('./checkDeveloperProductName.js').func
-const parser = require('cheerio')
+            <pre class="prettyprint source linenums"><code>// Includes
+const getPageResults = require('../util/getPageResults.js').func
 
-exports.required = ['universeId', 'name', 'priceInRobux']
-exports.optional = ['description', 'jar']
+// Args
+exports.required = ['keyword']
+exports.optional = ['prioritizeExactMatch', 'limit']
 
 // Docs
 /**
- * 🔐 Create a developer product.
- * @category Game
- * @alias addDeveloperProduct
- * @param {number} universeId - The id of the universe.
- * @param {string} name - The name of the developer product.
- * @param {number} priceInRobux - The price of the product.
- * @param {string=} description - The description of the developer product.
- * @returns {Promise&lt;DeveloperProductAddResult>}
+ * ✅ Searches for groups by a given search term.
+ * @category Group
+ * @alias searchGroups
+ * @param {string} keyword - The keyword or search term to search by.
+ * @param {boolean} [false] prioritizeExactMatch - Whether or not to prioritize the exact match for the keyword
+ * @param {number} [100] - The maximum number of groups to return. Supply 0 to apply no limit, returning all results.
+ * Note: This may significantly increase the time to execute and return potentially thousands of results.
+ * @returns {Promise&lt;GroupSearchItem[]>}
  * @example const noblox = require("noblox.js")
- * // Login using your cookie
- * noblox.addDeveloperProduct(1, "A Developer Product", 100, "A cool item.")
-**/
+ * const groupInfo = await noblox.searchGroups("noblox.js");
+ **/
 
-const nextFunction = (jar, token, universeId, name, priceInRobux, description) => {
-  return checkProductName({
-    universeId,
-    productName: name
-  }).then((res) => {
-    if (res.Success &amp;&amp; res.Message === 'Name available') {
-      return http({
-        url: '//www.roblox.com/places/developerproducts/add',
-        options: {
-          method: 'POST',
-          jar: jar,
-          headers: {
-            'X-CSRF-TOKEN': token
-          },
-          form: {
-            universeId,
-            name,
-            priceInRobux,
-            description
-          },
-          resolveWithFullResponse: true
-        }
-      }).then((res) => {
-        if (res.statusCode === 200) {
-          const $ = parser.load(res.body)
-          const creationStatus = $('#DeveloperProductStatus')
-
-          if (creationStatus.length > 0) {
-            return {
-              universeId,
-              name,
-              priceInRobux,
-              description,
-              productId: Number(creationStatus.text().match(/\d+/)[0])
-            }
-          }
-        } else {
-          throw new Error('Create product failed')
-        }
-      })
-    } else {
-      throw new Error('Product with this name already exists')
-    }
+// Define
+exports.func = async function (args) {
+  const results = await getPageResults({
+    url: '//groups.roblox.com/v1/groups/search',
+    query: { keyword: args.keyword, prioritizeExactMatch: args.prioritizeExactMatch || false },
+    // If limit is 0, pass undefined for infinite results. Otherwise, default to 100.
+    limit: args.limit === 0 ? undefined : (args.limit || 100)
   })
-}
-
-exports.func = (args) => {
-  const jar = args.jar
-
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
-    return nextFunction(jar, xcsrf, args.universeId, args.name, args.priceInRobux, args.description)
-  })
+  // Parse updated/created to Date objects.
+  return results.map((g) => ({ created: new Date(g.created), updated: new Date(g.updated), ...g }))
 }
 </code></pre>
         </article>
