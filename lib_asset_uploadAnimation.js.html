@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/user/getMessages.js</title>
+  <title>noblox.js lib/asset/uploadAnimation.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/user/getMessages.js</h1>
+                    <h1>lib/asset/uploadAnimation.js</h1>
                 </header>
                 
 
@@ -144,65 +144,106 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
-const Promise = require('bluebird')
+const getGeneralToken = require('../util/getGeneralToken').func
+const configureItem = require('./configureItem.js').func
 
 // Args
-exports.required = []
-exports.optional = ['pageNumber', 'pageSize', 'messageTab', 'jar']
+exports.required = ['data']
+exports.optional = ['itemOptions', 'assetId', 'jar']
 
 // Docs
 /**
- * 🔐 Get the messages of the authenticated user.
- * @category User
- * @alias getMessages
- * @param {number=} [pageNumber=0] - The number of the current page.
- * @param {number=} [pageSize=25] - The size of the current page.
- * @param {("Inbox" | "Sent" | "Archive")=} [messageTab=Inbox] - The tab of the messages being fetched (Inbox, Sent, Archive)
- * @returns {Promise&lt;PrivateMessagesPage>}
+ * 🔐 Upload an animation, either as a new asset or by overwriting an existing animation.
+ * @category Assets
+ * @alias uploadAnimation
+ * @param {string | Stream} data - The rbxm file containing the KeyframeSequence.
+ * @param {object=} itemOptions - The options for the upload. Only optional if assetId is not provided.
+ * @param {string=} itemOptions.name - The name of the animation.
+ * @param {string=} itemOptions.description - The description for the animation.
+ * @param {boolean=} itemOptions.copyLocked - If the animation is copy-locked.
+ * @param {boolean=} itemOptions.allowComments - If comments are allowed.
+ * @param {number=} itemOptions.groupId - The group to upload the animation to. This is ignored if the assetId is provided.
+ * @param {number=} assetId - An existing assetId to overwrite.
+ * @returns {Promise&lt;number>}
  * @example const noblox = require("noblox.js")
+ * const fs = require("fs")
  * // Login using your cookie
- * let messages = await noblox.getMessages(1, 10, "Inbox"))
+ * const assetId = await noblox.uploadAnimation(fs.readFileSync("./KeyframeSequence.rbxm"), {
+ *  name: "A cool animation",
+ *  description: "This is a very cool animation",
+ *  copyLocked: false, //The asset is allowed to be copied.
+ *  allowComments: false
+ * }, 7132858975)
 **/
 
 // Define
-function getMessages (jar, token, pageNumber, pageSize, messageTab) {
-  return new Promise((resolve, reject) => {
-    const httpOpt = {
-      url: `//privatemessages.roblox.com/v1/messages?pageNumber=${pageNumber}&amp;pageSize=${pageSize}&amp;messageTab=${messageTab}`,
-      options: {
-        method: 'GET',
-        jar: jar,
-        resolveWithFullResponse: true
+function upload (data, itemOptions, assetId, jar, token) {
+  const httpOpt = {
+    url: assetId ? `//www.roblox.com/ide/publish/uploadexistinganimation?assetID=${assetId}&amp;isGamesAsset=False` : '//www.roblox.com/ide/publish/uploadnewanimation?AllID=1',
+    options: {
+      resolveWithFullResponse: true,
+      method: 'POST',
+      jar: jar,
+      body: data,
+      headers: {
+        'X-CSRF-TOKEN': token,
+        'Content-Type': 'application/xml',
+        'User-Agent': 'RobloxStudio/WinInet RobloxApp/0.483.1.425021 (GlobalDist; RobloxDirectDownload)'
       }
     }
-    return http(httpOpt)
-      .then(function (res) {
-        if (res.statusCode === 200) {
-          resolve(JSON.parse(res.body))
+  }
+
+  if (!assetId &amp;&amp; itemOptions) {
+    const copyLocked = itemOptions.copyLocked
+    const allowComments = itemOptions.allowComments
+    httpOpt.url += '&amp;assetTypeName=Animation&amp;genreTypeId=1&amp;name=' +
+      itemOptions.name +
+      '&amp;description=' +
+      (itemOptions.description || '') +
+      '&amp;ispublic=' +
+      (copyLocked != null ? !copyLocked : false) +
+      '&amp;allowComments=' +
+      (allowComments != null ? allowComments : true) +
+      '&amp;groupId=' +
+      (itemOptions.groupId || '')
+  } else if (!assetId) {
+    throw new Error('ItemOptions is required for new assets.')
+  }
+
+  return http(httpOpt)
+    .then(function (res) {
+      if (res.statusCode === 200) {
+        const resultId = assetId || Number(res.body)
+
+        if (assetId &amp;&amp; itemOptions) {
+          const copyLocked = itemOptions.copyLocked
+          const allowComments = itemOptions.allowComments
+
+          return configureItem({
+            id: resultId,
+            name: itemOptions.name,
+            description: itemOptions.description,
+            enableComments: (allowComments != null ? allowComments : true),
+            sellForRobux: (copyLocked != null ? !copyLocked : false)
+          }).then(function () {
+            return resultId
+          })
         } else {
-          const body = JSON.parse(res.body) || {}
-          if (body.errors &amp;&amp; body.errors.length > 0) {
-            const errors = body.errors.map((e) => {
-              return e.message
-            })
-            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-          }
+          return resultId
         }
-      })
-  })
+      } else {
+        throw new Error('Animation upload failed, confirm that all item options, asset options, and upload data are valid.')
+      }
+    })
 }
 
 exports.func = function (args) {
   const jar = args.jar
-  const pageNumber = (args.pageNumber &amp;&amp; args.pageNumber.toString()) || '0'
-  const pageSize = (args.pageSize &amp;&amp; args.pageSize.toString()) || '25'
-  const messageTab = args.messageTab || 'Inbox'
-  if (!['Inbox', 'Sent', 'Archive'].includes(messageTab)) {
-    return new Promise((resolve, reject) => {
-      reject(new Error('messageTab must be Inbox, Sent, or Archive'))
-    })
-  }
-  return getMessages(jar, pageNumber, pageSize, messageTab)
+  return getGeneralToken({
+    jar
+  }).then(function (token) {
+    return upload(args.data, args.itemOptions, args.assetId, args.jar, token)
+  })
 }
 </code></pre>
         </article>

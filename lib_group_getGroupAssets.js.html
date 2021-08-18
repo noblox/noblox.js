@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/user/getMessages.js</title>
+  <title>noblox.js lib/group/getGroupAssets.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/user/getMessages.js</h1>
+                    <h1>lib/group/getGroupAssets.js</h1>
                 </header>
                 
 
@@ -143,66 +143,36 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
-const http = require('../util/http.js').func
-const Promise = require('bluebird')
+const getPageResults = require('../util/getPageResults.js').func
 
 // Args
-exports.required = []
-exports.optional = ['pageNumber', 'pageSize', 'messageTab', 'jar']
+exports.required = ['groupId', 'assetType']
+exports.optional = ['sortOrder', 'limit', 'jar']
 
 // Docs
 /**
- * 🔐 Get the messages of the authenticated user.
- * @category User
- * @alias getMessages
- * @param {number=} [pageNumber=0] - The number of the current page.
- * @param {number=} [pageSize=25] - The size of the current page.
- * @param {("Inbox" | "Sent" | "Archive")=} [messageTab=Inbox] - The tab of the messages being fetched (Inbox, Sent, Archive)
- * @returns {Promise&lt;PrivateMessagesPage>}
+ * 🔐 Get assets for a group.
+ * @category Group
+ * @alias getGroupAssets
+ * @param {number} groupId - The id of the group.
+ * @param {String} assetType - The type of asset being retrieved: [("Shirt", "Pants")]{@link https://developer.roblox.com/en-us/api-reference/enum/AssetType}.
+ * @param {SortOrder=} [sortOrder=Asc] - The order results are sorted in.
+ * @param {Limit=} [limit=∞] - The maximum number of assets to return
+ * @returns {Promise&lt;GroupAssetInfo[]>}
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * let messages = await noblox.getMessages(1, 10, "Inbox"))
+ * const groupModels = await noblox.getGroupAssets({groupId: 1, assetType: 'Model', sortOrder: 'Asc', limit: '100'})
 **/
 
 // Define
-function getMessages (jar, token, pageNumber, pageSize, messageTab) {
-  return new Promise((resolve, reject) => {
-    const httpOpt = {
-      url: `//privatemessages.roblox.com/v1/messages?pageNumber=${pageNumber}&amp;pageSize=${pageSize}&amp;messageTab=${messageTab}`,
-      options: {
-        method: 'GET',
-        jar: jar,
-        resolveWithFullResponse: true
-      }
-    }
-    return http(httpOpt)
-      .then(function (res) {
-        if (res.statusCode === 200) {
-          resolve(JSON.parse(res.body))
-        } else {
-          const body = JSON.parse(res.body) || {}
-          if (body.errors &amp;&amp; body.errors.length > 0) {
-            const errors = body.errors.map((e) => {
-              return e.message
-            })
-            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-          }
-        }
-      })
-  })
-}
-
 exports.func = function (args) {
-  const jar = args.jar
-  const pageNumber = (args.pageNumber &amp;&amp; args.pageNumber.toString()) || '0'
-  const pageSize = (args.pageSize &amp;&amp; args.pageSize.toString()) || '25'
-  const messageTab = args.messageTab || 'Inbox'
-  if (!['Inbox', 'Sent', 'Archive'].includes(messageTab)) {
-    return new Promise((resolve, reject) => {
-      reject(new Error('messageTab must be Inbox, Sent, or Archive'))
-    })
-  }
-  return getMessages(jar, pageNumber, pageSize, messageTab)
+  return getPageResults({
+    jar: args.jar,
+    url: '//itemconfiguration.roblox.com/v1/creations/get-assets',
+    query: { assetType: args.assetType, groupId: args.groupId },
+    sortOrder: args.sortOrder || 'Asc',
+    limit: args.limit
+  })
 }
 </code></pre>
         </article>
