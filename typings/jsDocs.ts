@@ -956,6 +956,19 @@ type Group = {
 /**
  * @typedef
  */
+type GroupSearchItem = {
+    id: number;
+    name: string;
+    description: string;
+    memberCount: number;
+    publicEntryAllowed: boolean;
+    created: Date;
+    updated: Date;
+}
+
+/**
+ * @typedef
+ */
 type GroupGameInfo = {
     id: number;
     name: string;
