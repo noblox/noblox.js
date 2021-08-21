@@ -840,6 +840,16 @@ type CheckDeveloperProductNameResult = {
     Message: string;
 }
 
+/**
+ * @typedef
+ */
+type PrivateServerPermissionsResponse = {
+    clanAllowed: boolean;
+    enemyClanId: number | null;
+    friendsAllowed: boolean;
+    users: Array<SkinnyUserResponse>
+}
+
 /// Group
 
 /**
@@ -1671,4 +1681,13 @@ type GetLatestResponse = {
     latest: number;
     data: object;
     repeat?: boolean;
+}
+
+/**
+ * @typedef
+ */
+type SkinnyUserResponse = {
+    id: number;
+    name: string;
+    displayName: string;
 }

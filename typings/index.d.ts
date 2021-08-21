@@ -714,6 +714,21 @@ declare module "noblox.js" {
         Message: string;
     }
 
+    interface PermissionsOptions
+    {
+        friendsAllowed?: boolean;
+        usersToAdd?: number | Array<number>
+        usersToRemove?: number | Array<number>
+    }
+
+    interface PrivateServerPermissionsResponse
+    {
+        clanAllowed?: boolean;
+        enemyClanId?: number | null;
+        friendsAllowed: boolean;
+        users: Array<SkinnyUserResponse>
+    }
+
     /// Group
 
     type GroupIconSize = "150x150" | "420x420"
@@ -1327,6 +1342,11 @@ declare module "noblox.js" {
         repeat?: boolean;
     }
 
+    interface SkinnyUserResponse {
+        id: number;
+        name: string;
+        displayName: string;
+    }
 
     // Functions
 
@@ -1521,7 +1541,16 @@ declare module "noblox.js" {
     /**
      * 🔐 Updates a universe's public access setting
     */
-   function updateUniverseAccess (universeId, isPublic, jar, token): Promise<void>;
+    function updateUniverseAccess(universeId: number, isPublic: boolean, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Update access settings to a private server (formerly VIP servers)
+     * @param {number} privateServerId - the id of the private server instance
+     * @param {boolean} permissionOptions.friendsAllowed - allow all friends to join the private server
+     * @param {number | Array<number>} permissionOptions.usersToAdd - the userId or array of userId to add to the private server; subject to a target's privacy settings
+     * @param {number | Array<number>} permissionOptions.usersToRemove - the userId or array of userId to remove from the private server
+    */
+    function updatePrivateServerPermissions(universeId: number, permissionOptions: PermissionsOptions ): Promise<PrivateServerPermissionsResponse>;
 
     /// Group
 
