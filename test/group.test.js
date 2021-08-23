@@ -1,4 +1,4 @@
-const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupSocialLinks, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie } = require('../lib')
+const { changeRank, getAuditLog, getGroup, getGroupFunds, getGroupGames, getGroupAssets, getGroupSocialLinks, getGroupTransactions, getJoinRequests, getLogo, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, setRank, shout, setCookie, searchGroups } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -105,6 +105,21 @@ describe('Group Methods', () => {
     })
   })
 
+  it('searchGroups() returns groups that match the query', () => {
+    return searchGroups('noblox.js').then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([expect.objectContaining({
+          id: expect.any(Number),
+          name: expect.any(String),
+          description: expect.any(String),
+          memberCount: expect.any(Number),
+          publicEntryAllowed: expect.any(Boolean),
+          created: expect.any(Date),
+          updated: expect.any(Date)
+        })]))
+    })
+  })
+
   it('getGroupFunds() returns amount of robux in group funds', () => {
     return getGroupFunds(9997719).then((res) => {
       return expect(res).toEqual(expect.any(Number))
@@ -128,6 +143,15 @@ describe('Group Methods', () => {
         created: expect.any(Date),
         updated: expect.any(Date),
         placeVisits: expect.any(Number)
+      })
+    })
+  })
+
+  it('getGroupAssets() returns an array of group assets', () => {
+    return getGroupAssets({ groupId: 4591072, assetType: 'Shirt', limit: 1 }).then((res) => {
+      return expect(res[0]).toMatchObject({
+        assetId: expect.any(Number),
+        name: expect.any(String)
       })
     })
   })
@@ -267,12 +291,14 @@ describe('Group Methods', () => {
   // promote is skipped as it is an extension of changeRank
 
   it('setRank() should set a player\'s rank to the specified rank', () => {
-    return setRank(4591072, 857710783, 1).then((res) => {
-      return expect(res).toMatchObject({
-        name: expect.any(String),
-        rank: expect.any(Number),
-        memberCount: expect.any(Number),
-        ID: expect.any(Number)
+    return changeRank(4591072, 857710783, 2).then(() => {
+      return setRank(4591072, 857710783, 1).then((res) => {
+        return expect(res).toMatchObject({
+          name: expect.any(String),
+          rank: expect.any(Number),
+          memberCount: expect.any(Number),
+          ID: expect.any(Number)
+        })
       })
     })
   })

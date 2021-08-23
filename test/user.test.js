@@ -1,4 +1,4 @@
-const { acceptFriendRequest, block, unblock, canManage, declineFriendRequest, follow, unfollow, getBlurb, getCollectibles, getFollowers, getFollowings, getFriendRequests, getFriends, getGroups, getIdFromUsername, getInventory, getInventoryById, getMessages, getOwnership, getPlayerBadges, getPlayerInfo, getPlayerThumbnail, getStatus, getUserSocialLinks, getUserTransactions, getUsernameFromId, removeFriend, sendFriendRequest, setCookie } = require('../lib')
+const { acceptFriendRequest, block, unblock, canManage, declineFriendRequest, unfollow, getBlurb, getCollectibles, getFollowers, getFollowings, getFriendRequests, getFriends, getGroups, getIdFromUsername, getInventory, getInventoryById, getMessages, getOwnership, getPlayerBadges, getPlayerInfo, getPlayerThumbnail, getPremium, getStatus, getUserSocialLinks, getUserTransactions, getUsernameFromId, getUAIDs, removeFriend, sendFriendRequest, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -70,10 +70,6 @@ expect.extend({
 })
 
 describe('User Methods', () => {
-  it('follow() follows a user on Roblox', () => {
-    return follow(55549140)
-  })
-
   it('unfollow() unfollows a user on Roblox', () => {
     return unfollow(55549140)
   })
@@ -311,7 +307,8 @@ describe('User Methods', () => {
         followerCount: expect.any(Number),
         followingCount: expect.any(Number),
         oldNames: expect.any(Array),
-        isBanned: expect.any(Boolean)
+        isBanned: expect.any(Boolean),
+        displayName: expect.any(String)
       })
     })
   })
@@ -330,6 +327,12 @@ describe('User Methods', () => {
     })
   })
 
+  it('getPremium() returns a player\'s premium state', () => {
+    return getPremium(55549140).then((res) => {
+      return expect(res).toEqual(expect.any(Boolean))
+    })
+  })
+
   it('getStatus() returns a player\'s status', () => {
     return getStatus(55549140).then((res) => {
       return expect(res).toEqual(expect.any(String))
@@ -339,6 +342,15 @@ describe('User Methods', () => {
   it('getUsernameFromId() returns a player\'s username given an ID', () => {
     return getUsernameFromId(1).then((res) => {
       return expect(res).toEqual(expect.any(String))
+    })
+  })
+
+  it('getUAIDs() returns a user specific asset IDs given an ID', () => {
+    return getUAIDs(80231025, [1974901902, 4255053867, 2705893733, 1532395]).then((res) => {
+      return expect(res).toMatchObject({
+        uaids: expect.any(Array),
+        failedIds: expect.any(Array)
+      })
     })
   })
 

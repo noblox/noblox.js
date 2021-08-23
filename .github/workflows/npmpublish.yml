@@ -1,8 +1,6 @@
 name: Test & Publish
 
-on:
-  release:
-    types: [created]
+on: [push]
 
 jobs:
   test:
@@ -25,18 +23,15 @@ jobs:
       - name: Lint lib/
         run: yarn lint
 
-#      - name: Test methods
-#        run: COOKIE=$COOKIE; COOKIE_2=$COOKIE_2; yarn test
-#        env:
-#          COOKIE: ${{secrets.COOKIE}}
-#          COOKIE_2: ${{secrets.COOKIE_2}}
-
   publish-npm:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
 
       - name: Set up node
         uses: actions/setup-node@v1
@@ -47,9 +42,19 @@ jobs:
         run: npm install -g yarn
 
       - name: Install dependencies
-        run: yarn install
-
-      - name: Publish to npm
-        uses: JS-DevTools/npm-publish@v1
+        run: yarn install --frozen-lockfile
+        
+      - name: Cache node modules
+        uses: actions/cache@v1
         with:
-          token: ${{ secrets.NPM_AUTH_TOKEN }}
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+            
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: |
+          npx auto shipit
