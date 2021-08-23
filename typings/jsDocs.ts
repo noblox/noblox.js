@@ -840,6 +840,17 @@ type CheckDeveloperProductNameResult = {
     Message: string;
 }
 
+/**
+ * @typedef
+ */
+type GamePassData = {
+    id: number;
+    name: string;
+    displayName: string;
+    productId?: number;
+    price?: number;
+}
+
 /// Group
 
 /**
