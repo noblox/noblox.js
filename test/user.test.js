@@ -70,7 +70,6 @@ expect.extend({
 })
 
 describe('User Methods', () => {
-
   it('unfollow() unfollows a user on Roblox', () => {
     return unfollow(55549140)
   })
@@ -308,7 +307,8 @@ describe('User Methods', () => {
         followerCount: expect.any(Number),
         followingCount: expect.any(Number),
         oldNames: expect.any(Array),
-        isBanned: expect.any(Boolean)
+        isBanned: expect.any(Boolean),
+        displayName: expect.any(String)
       })
     })
   })
@@ -353,7 +353,7 @@ describe('User Methods', () => {
       })
     })
   })
-  
+
   it('getUserSocialLinks() returns a player\'s promotion channel links', () => {
     return getUserSocialLinks(2416399685).then((res) => {
       return expect(res).toMatchObject({

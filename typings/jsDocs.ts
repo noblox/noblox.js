@@ -273,6 +273,17 @@ type UploadModelItemOptions = {
     groupId?: number;
 }
 
+/**
+ * @typedef
+ */
+type ConfigureItemResponse = {
+    name: string;
+    assetId: number;
+    description?: string;
+    price?: number;
+    isCopyingAllowed?: boolean;
+}
+
 /// Avatar
 
 /**
@@ -612,6 +623,7 @@ type ChatParticipant = {
     type: "User" | "System";
     targetId: number;
     name: string;
+    displayName: string;
 }
 
 /**
@@ -957,6 +969,19 @@ type Group = {
 /**
  * @typedef
  */
+type GroupSearchItem = {
+    id: number;
+    name: string;
+    description: string;
+    memberCount: number;
+    publicEntryAllowed: boolean;
+    created: Date;
+    updated: Date;
+}
+
+/**
+ * @typedef
+ */
 type GroupGameInfo = {
     id: number;
     name: string;
@@ -966,6 +991,14 @@ type GroupGameInfo = {
     created: Date;
     updated: Date;
     placeVisits: number;
+}
+
+/**
+ * @typedef
+ */
+type GroupAssetInfo = {
+    assetId: number;
+    name: string;
 }
 
 /**
@@ -1238,6 +1271,7 @@ type FriendEntry = {
     name: string;
     description: string;
     created: string;
+    displayName: string;
 }
 
 /**
@@ -1256,6 +1290,7 @@ type FollowEntry = {
     name: string;
     description: string;
     created: string;
+    displayName: string;
 }
 
 /**
@@ -1292,6 +1327,7 @@ type PrivateMessagesPage = {
 type UserEntry = {
     userId: number;
     name: string;
+    displayName: string;
 }
 
 /**
