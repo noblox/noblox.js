@@ -268,6 +268,14 @@ declare module "noblox.js" {
         groupId?: number;
     }
 
+    interface ConfigureItemResponse {
+        name: string;
+        assetId: number;
+        description?: string;
+        price?: number;
+        isCopyingAllowed?: boolean;
+    }
+
     /// Avatar
 
     interface AssetTypeRulesModel
@@ -1342,7 +1350,7 @@ declare module "noblox.js" {
      *
      * NOTE: Use `configureGamePass()` for Game Passes.
      */
-    function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<void>;
+    function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<ConfigureItemResponse>;
 
     /**
      * 🔐 Deletes an item from the logged in user's inventory
