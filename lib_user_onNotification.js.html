@@ -171,6 +171,9 @@ exports.func = function (args) {
   const max = settings.event.maxRetries
   const notifications = new events.EventEmitter()
   function connect (retries) {
+    if (typeof args.jar === 'string') {
+      args.jar = { session: args.jar }
+    }
     const session = getSession({ jar: args.jar })
     const client = new SignalR('wss://realtime.roblox.com/notifications', ['usernotificationhub'], 3, true) // wss for https
     client.headers.Cookie = '.ROBLOSECURITY=' + session + ';'
