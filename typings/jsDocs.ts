@@ -40,6 +40,8 @@ type NobloxOptions = {
         onShout: number;
         /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
         onBlurbChange: number;
+        /** The poll time in milliseconds to check for new transaction log entries. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. This endpoint has a low rate limit. (Default: 30000) */
+        onGroupTransaction: number;
     }
 
     thumbnail: {

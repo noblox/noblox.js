@@ -44,6 +44,8 @@ declare module "noblox.js" {
             onShout: number;
             /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
             onBlurbChange: number;
+            /** The poll time in milliseconds to check for new transaction log entries. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. This endpoint has a low rate limit. (Default: 30000) */
+            onGroupTransaction: number;
         }
 
         thumbnail: {
@@ -2087,6 +2089,14 @@ declare module "noblox.js" {
         on(event: 'data', listener: (auditLog: AuditItem) => void): this;
     }
 
+    interface OnTransactionEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (transaction: TransactionItem) => void): this;
+    }
+
     /// Party
 
     interface OnPartyNotificationEventEmitter extends events.EventEmitter
@@ -2188,6 +2198,11 @@ declare module "noblox.js" {
      * 🔓 Fires when there is a new wall post in the group with groupId `group`. If `view` is enabled the wall posts viewstate will be returned in `view`, otherwise it will not be present.
      */
     function onWallPost(group: number, view?: boolean, jar?: CookieJar): OnWallPostEventEmitter;
+
+    /**
+     * 🔓 Fires when there is a transaction in the group with groupId `group`, of the given type. Only runs every 60 sec.
+     */
+     function onGroupTransaction(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", jar?: CookieJar): OnTransactionEventEmitter;
 
     /// Party
 
