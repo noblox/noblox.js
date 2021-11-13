@@ -19,7 +19,8 @@
     "onWallPost": 10000,
     "onJoinRequestHandle": 10000,
     "onShout": 10000,
-    "onBlurbChange": 10000
+    "onBlurbChange": 10000,
+    "onGroupTransaction": 60000
   },
 
   "thumbnail": {
