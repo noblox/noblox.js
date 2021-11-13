@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/game/getGameBadges.js</title>
+  <title>noblox.js lib/group/onGroupTransaction.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/game/getGameBadges.js</h1>
+                    <h1>lib/group/onGroupTransaction.js</h1>
                 </header>
                 
 
@@ -143,61 +143,66 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
-const http = require('../util/http').func
+const shortPoll = require('../util/shortPoll.js').func
+const getGroupTransactions = require('./getGroupTransactions.js').func
 
 // Args
-exports.required = ['universeId']
-exports.optional = ['limit', 'cursor', 'sortOrder']
+exports.required = ['groupId', 'transactionType']
+exports.optional = ['jar']
 
 // Docs
 /**
- * ✅ Get the badges in a specific game.
- * @category Game
- * @alias getGameBadges
- * @param {number} universeId - The id of the universe.
- * @param {Limit=} limit - The max number of badges to return.
- * @param {string=} cursor - The page cursor.
- * @param {SortOrder=} sortOrder - The order to sort badges in. (Asc/Desc)
- * @returns {Promise&lt;BadgeInfo>}
+ * 🔐 An event for when a group transaction is made, for example a purchase. This event has a rate of one request per 60
+ * sec, which is more than the typical 10 seconds. This is due to the unusually low rate limit on the transactions
+ * endpoint.
+ * @category Group
+ * @alias onGroupTransaction
+ * @param {number} groupId - The id of the group.
+ * @param {("Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout")} transactionType - The transaction type.
+ * @returns An EventEmitter that emits when a transaction is made.
  * @example const noblox = require("noblox.js")
- * const badges = await noblox.getGameBadges(1)
-**/
+ * // Login using your cookie
+ * noblox.onGroupTransaction(1).on("data", function(data) {
+ *  console.log("New Transaction!", data)
+ * })
+ **/
 
 // Define
-const gameBadges = async (id, limit, cursor, order) => {
-  return http({
-    url: `https://badges.roblox.com/v1/universes/${id}/badges?limit=${limit}&amp;cursor=${cursor}&amp;sortOrder=${order}`,
-    options: {
-      resolveWithFullResponse: true,
-      method: 'GET'
-    }
-  }).then(res => {
-    if (res.statusCode === 200) {
-      const json = JSON.parse(res.body)
-      return json.data
-    } else {
-      throw new Error('The game is invalid or does not exist.')
-    }
+exports.func = function (args) {
+  let empty = true
+  return shortPoll({
+    getLatest: function (latest) {
+      return getGroupTransactions({ group: args.groupId, jar: args.jar, transactionType: args.transactionType })
+        .then(function (transactions) {
+          const given = []
+          // This method works much in the same way as onAuditLog. We remove some of the precision from transaction dates
+          // Because Roblox has a habit of being imprecise and varying the milliseconds of a given transaction/log item
+          // across different requests - and this causes duplicate fires.
+          if (transactions.data) {
+            for (const key in transactions.data) {
+              if (Object.prototype.hasOwnProperty.call(transactions.data, key)) {
+                const date = new Date(transactions.data[key].created.slice(0, transactions.data[key].created.lastIndexOf('.')))
+                if (date > latest) {
+                  latest = date
+                  given.push(transactions.data[key])
+                }
+                empty = false
+              } else if (!empty) {
+                const date = new Date()
+                given.push({ date: date })
+                latest = date
+                empty = true
+              }
+            }
+            return {
+              latest: latest,
+              data: given
+            }
+          }
+        })
+    },
+    delay: 'onGroupTransaction'
   })
-}
-exports.func = async (args) => {
-  if (isNaN(args.universeId)) {
-    throw new Error('The provided Universe ID is not a number.')
-  };
-  if (args.limit) {
-    if (![10, 25, 50, 100].includes(args.limit)) {
-      throw new Error('The allowed values are: 10, 25, 50 and 100.')
-    };
-  };
-  if (args.sortOrder) {
-    if (args.sortOrder.toLowerCase() !== 'asc' &amp;&amp; args.sortOrder.toLowerCase() !== 'desc') {
-      throw new Error('Invalid sort order type.')
-    }
-  }
-  const limit = args.limit || 10
-  const sortOrder = args.sortOrder || 'Asc'
-  const cursor = args.cursor || ''
-  return gameBadges(args.universeId, limit, cursor, sortOrder)
 }
 </code></pre>
         </article>
