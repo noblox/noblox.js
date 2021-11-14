@@ -41,21 +41,20 @@
   "homepage": "https://github.com/noblox/noblox.js",
   "devDependencies": {
     "@auto-it/conventional-commits": "^10.30.0",
-    "JSONStream": "^1.3.1",
     "auto": "^10.30.0",
     "better-docs": "^2.3.2",
     "dotenv": "^10.0.0",
     "eslint": "^7.28.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jest": "^25.0.5",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.2.4",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-standard": "^5.0.0",
-    "jest": "^27.0.4",
+    "jest": "^27.3.1",
     "jsdoc": "^3.6.6",
+    "JSONStream": "^1.3.1",
     "progress": "^2.0.0",
-    "standard": "^16.0.0"
+    "standard": "^16.0.4"
   },
   "jest": {
     "setupFiles": [
