@@ -40,8 +40,6 @@ type NobloxOptions = {
         onShout: number;
         /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
         onBlurbChange: number;
-        /** The poll time in milliseconds to check for new transaction log entries. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. This endpoint has a low rate limit. (Default: 30000) */
-        onGroupTransaction: number;
     }
 
     thumbnail: {
@@ -271,17 +269,6 @@ type UploadModelItemOptions = {
     copyLocked?: boolean;
     allowComments?: boolean;
     groupId?: number;
-}
-
-/**
- * @typedef
- */
-type ConfigureItemResponse = {
-    name: string;
-    assetId: number;
-    description?: string;
-    price?: number;
-    isCopyingAllowed?: boolean;
 }
 
 /// Avatar
@@ -851,6 +838,17 @@ type CheckDeveloperProductNameResult = {
      * When success is false, you can get: "Product name already exists"
      */
     Message: string;
+}
+
+/**
+ * @typedef
+ */
+type GamePassData = {
+    id: number;
+    name: string;
+    displayName: string;
+    productId?: number;
+    price?: number;
 }
 
 /// Group

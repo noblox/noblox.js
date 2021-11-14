@@ -44,8 +44,6 @@ declare module "noblox.js" {
             onShout: number;
             /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
             onBlurbChange: number;
-            /** The poll time in milliseconds to check for new transaction log entries. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. This endpoint has a low rate limit. (Default: 30000) */
-            onGroupTransaction: number;
         }
 
         thumbnail: {
@@ -268,14 +266,6 @@ declare module "noblox.js" {
         copyLocked?: boolean;
         allowComments?: boolean;
         groupId?: number;
-    }
-
-    interface ConfigureItemResponse {
-        name: string;
-        assetId: number;
-        description?: string;
-        price?: number;
-        isCopyingAllowed?: boolean;
     }
 
     /// Avatar
@@ -722,6 +712,15 @@ declare module "noblox.js" {
          * When success is false, you can get: "Product name already exists"
          */
         Message: string;
+    }
+
+    interface GamePassData
+    {
+        id: number;
+        name: string;
+        displayName: string;
+        productId?: number;
+        price?: number;
     }
 
     /// Group
@@ -1352,7 +1351,7 @@ declare module "noblox.js" {
      *
      * NOTE: Use `configureGamePass()` for Game Passes.
      */
-    function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<ConfigureItemResponse>;
+    function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Deletes an item from the logged in user's inventory
@@ -1484,8 +1483,16 @@ declare module "noblox.js" {
      * @param startIndex The index to start from in regards to server list.
      */
     function getGameInstances(placeId: number, startIndex: number): Promise<GameInstances>;
-
+    
+    /**
+     * ✅ Get the badges in a specific game.
+     */
     function getGameBadges(universeId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<BadgeInfo>
+
+    /**
+     * ✅ Gets a game's game passes.
+     */
+    function getGamePasses(universeId: number, limit?: Limit): Promise<GamePassData[]>
 
     /**
      * 🔓 Returns information about the place in question, such as description, name etc; varies based on whether or not you're logged in.
@@ -2132,14 +2139,6 @@ declare module "noblox.js" {
         on(event: 'data', listener: (auditLog: AuditItem) => void): this;
     }
 
-    interface OnTransactionEventEmitter extends events.EventEmitter
-    {
-        on(event: 'connect', listener: () => void): this;
-        on(event: 'close', listener: (err: any) => void): this;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'data', listener: (transaction: TransactionItem) => void): this;
-    }
-
     /// Party
 
     interface OnPartyNotificationEventEmitter extends events.EventEmitter
@@ -2241,11 +2240,6 @@ declare module "noblox.js" {
      * 🔓 Fires when there is a new wall post in the group with groupId `group`. If `view` is enabled the wall posts viewstate will be returned in `view`, otherwise it will not be present.
      */
     function onWallPost(group: number, view?: boolean, jar?: CookieJar): OnWallPostEventEmitter;
-
-    /**
-     * 🔓 Fires when there is a transaction in the group with groupId `group`, of the given type. Only runs every 60 sec.
-     */
-     function onGroupTransaction(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", jar?: CookieJar): OnTransactionEventEmitter;
 
     /// Party
 
