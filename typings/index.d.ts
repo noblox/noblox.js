@@ -1035,7 +1035,7 @@ declare module "noblox.js" {
     }
 
     interface Friends {
-        friends: FriendEntry[];
+        data: FriendEntry[];
     }
 
     interface FollowEntry {
