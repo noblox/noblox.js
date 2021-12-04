@@ -1531,7 +1531,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Updates a universe's public access setting
     */
-   function updateUniverseAccess (universeId, isPublic, jar, token): Promise<void>;
+    function updateUniverseAccess (universeId: number, isPublic: boolean, jar: CookieJar, token: string): Promise<void>;
 
     /// Group
 
