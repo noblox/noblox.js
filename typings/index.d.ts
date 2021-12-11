@@ -1531,7 +1531,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Updates a universe's public access setting
     */
-   function updateUniverseAccess (universeId, isPublic, jar, token): Promise<void>;
+    function updateUniverseAccess (universeId: number, isPublic: boolean, jar: CookieJar, token: string): Promise<void>;
 
     /// Group
 
@@ -1909,6 +1909,13 @@ declare module "noblox.js" {
      * 🔐 Counter an active incoming trade..
      */
     function counterTrade(tradeId: number, targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
+
+    /// Economy
+
+    /**
+     * 🔐 Purchase a product.
+     */
+    function purchaseProduct(productId: number, expectedPrice: number, expectedSellerId: number, expectedCurrency?: number, jar?: CookieJar): Promise<void>;
 
 
     /// Utility
