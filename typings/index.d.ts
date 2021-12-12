@@ -169,7 +169,7 @@ declare module "noblox.js" {
         IsPrimary: boolean,
     }
 
-    interface GroupGameInfo {
+    interface GameInfo {
         id: number;
         name: string;
         description?: string;
@@ -1533,6 +1533,11 @@ declare module "noblox.js" {
     */
     function updateUniverseAccess (universeId: number, isPublic: boolean, jar: CookieJar, token: string): Promise<void>;
 
+    /**
+     * ✅ Gets a list of games from the specified user.
+     */
+     function getUserGames(userId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string): Promise<GameInfo[]>;
+
     /// Group
 
     /**
@@ -1618,7 +1623,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets a list of games from the specified group.
      */
-    function getGroupGames(groupId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string): Promise<GroupGameInfo[]>;
+    function getGroupGames(groupId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string): Promise<GameInfo[]>;
 
     /**
      * ✅ Gets a list of assets from the specified group.
