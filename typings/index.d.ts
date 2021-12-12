@@ -1536,7 +1536,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets a list of games from the specified user.
      */
-     function getUserGames(userId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string): Promise<GameInfo[]>;
+     function getUserGames(args: {userId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string}): Promise<GameInfo[]>;
 
     /// Group
 
