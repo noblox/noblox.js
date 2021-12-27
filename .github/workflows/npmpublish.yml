@@ -29,7 +29,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+        with:
+           token: ${{ secrets.ADMIN_TOKEN }}
+
       - name: Prepare repository
         run: git fetch --unshallow --tags
 
