@@ -29813,7 +29813,7 @@ noblox.renameGroupConversation(1, "A cool group.")</code></pre>
         
         <span class="code-name">
             
-                searchGroups<span class="signature">(keyword, false<span class="signature-attributes">opt</span>, 100<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="global.html#GroupSearchItem">GroupSearchItem</a>>>}</span>
+                searchGroups<span class="signature">(keyword, prioritizeExactMatch<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="global.html#GroupSearchItem">GroupSearchItem</a>>>}</span>
             
         </span>
     </h4>
@@ -29851,6 +29851,8 @@ noblox.renameGroupConversation(1, "A cool group.")</code></pre>
             
 
             
+            <th>Default</th>
+            
 
             <th class="last">Description</th>
         </tr>
@@ -29885,6 +29887,10 @@ noblox.renameGroupConversation(1, "A cool group.")</code></pre>
   
 
   
+      <td class="default">
+      
+      </td>
+  
 
   <td class="description last"><p>The keyword or search term to search by.</p></td>
 </tr>
@@ -29895,7 +29901,7 @@ noblox.renameGroupConversation(1, "A cool group.")</code></pre>
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>false</code></td>
+      <td class="name"><code>prioritizeExactMatch</code></td>
   
 
   <td class="type">
@@ -29920,8 +29926,14 @@ noblox.renameGroupConversation(1, "A cool group.")</code></pre>
   
 
   
+      <td class="default">
+      
+          false
+      
+      </td>
+  
 
-  <td class="description last"><p>prioritizeExactMatch - Whether or not to prioritize the exact match for the keyword</p></td>
+  <td class="description last"><p>Whether or not to prioritize the exact match for the keyword</p></td>
 </tr>
 
 
@@ -29930,7 +29942,7 @@ noblox.renameGroupConversation(1, "A cool group.")</code></pre>
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>100</code></td>
+      <td class="name"><code>limit</code></td>
   
 
   <td class="type">
@@ -29954,6 +29966,12 @@ noblox.renameGroupConversation(1, "A cool group.")</code></pre>
       </td>
   
 
+  
+      <td class="default">
+      
+          100
+      
+      </td>
   
 
   <td class="description last"><p>The maximum number of groups to return. Supply 0 to apply no limit, returning all results.
