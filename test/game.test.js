@@ -1,4 +1,4 @@
-const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGameSocialLinks, getPlaceInfo, updateDeveloperProduct, setCookie } = require('../lib')
+const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getPlaceInfo, updateDeveloperProduct, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -78,6 +78,22 @@ describe('Game Methods', () => {
         Collection: expect.any(Array),
         TotalCollectionSize: expect.any(Number)
       })
+    })
+  })
+
+  it('getGamePasses() should return an array of game passes, given universeId', () => {
+    return getGamePasses(2615802125).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(Number),
+            name: expect.any(String),
+            displayName: expect.any(String),
+            productId: expect.any(Number),
+            price: expect.any(Number)
+          })
+        ])
+      )
     })
   })
 

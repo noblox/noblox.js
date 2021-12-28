@@ -853,6 +853,17 @@ type CheckDeveloperProductNameResult = {
     Message: string;
 }
 
+/**
+ * @typedef
+ */
+type GamePassData = {
+    id: number;
+    name: string;
+    displayName: string;
+    productId?: number;
+    price?: number;
+}
+
 /// Group
 
 /**
@@ -1102,20 +1113,13 @@ type TransactionCurrency = {
  * @typedef
 */
 type TransactionItem = {
+    id: number;
+    transactionType?: string;
     created: Date;
     isPending: boolean;
     agent: TransactionAgent;
     details?: TransactionDetails;
     currency: TransactionCurrency;
-}
-
-/**
- * @typedef
-*/
-type TransactionPage = {
-    data: Array<TransactionItem>;
-    nextPageCursor?: string;
-    previousPageCursor?: string;
 }
 
 /**

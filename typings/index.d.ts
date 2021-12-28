@@ -724,6 +724,15 @@ declare module "noblox.js" {
         Message: string;
     }
 
+    interface GamePassData
+    {
+        id: number;
+        name: string;
+        displayName: string;
+        productId?: number;
+        price?: number;
+    }
+
     /// Group
 
     type GroupIconSize = "150x150" | "420x420"
@@ -893,19 +902,12 @@ declare module "noblox.js" {
     interface TransactionItem
     {
         id: number;
-        transactionType: string;
+        transactionType?: string;
         created: Date;
         isPending: boolean;
         agent: TransactionAgent;
         details?: TransactionDetails;
         currency: TransactionCurrency;
-    }
-
-    interface TransactionPage
-    {
-        data: TransactionItem[];
-        nextPageCursor?: string;
-        previousPageCursor?: string;
     }
 
     interface GroupJoinRequester
@@ -1484,8 +1486,16 @@ declare module "noblox.js" {
      * @param startIndex The index to start from in regards to server list.
      */
     function getGameInstances(placeId: number, startIndex: number): Promise<GameInstances>;
-
+    
+    /**
+     * ✅ Get the badges in a specific game.
+     */
     function getGameBadges(universeId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<BadgeInfo>
+
+    /**
+     * ✅ Gets a game's game passes.
+     */
+    function getGamePasses(universeId: number, limit?: Limit): Promise<GamePassData[]>
 
     /**
      * 🔓 Returns information about the place in question, such as description, name etc; varies based on whether or not you're logged in.
@@ -1608,7 +1618,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Gets the transaction history of the specified group.
      */
-    function getGroupTransactions(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<TransactionPage>;
+    function getGroupTransactions(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
 
     /**
      * ✅ Gets a brief overview of the specified group.
@@ -1803,7 +1813,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Gets the transaction history of the logged in user or of the user specified by the jar.
      */
-    function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<TransactionPage>;
+    function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
 
 
     /**
