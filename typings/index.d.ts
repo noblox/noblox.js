@@ -724,6 +724,15 @@ declare module "noblox.js" {
         Message: string;
     }
 
+    interface GamePassData
+    {
+        id: number;
+        name: string;
+        displayName: string;
+        productId?: number;
+        price?: number;
+    }
+
     /// Group
 
     type GroupIconSize = "150x150" | "420x420"
@@ -1035,7 +1044,7 @@ declare module "noblox.js" {
     }
 
     interface Friends {
-        friends: FriendEntry[];
+        data: FriendEntry[];
     }
 
     interface FollowEntry {
@@ -1484,8 +1493,16 @@ declare module "noblox.js" {
      * @param startIndex The index to start from in regards to server list.
      */
     function getGameInstances(placeId: number, startIndex: number): Promise<GameInstances>;
-
+    
+    /**
+     * ✅ Get the badges in a specific game.
+     */
     function getGameBadges(universeId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<BadgeInfo>
+
+    /**
+     * ✅ Gets a game's game passes.
+     */
+    function getGamePasses(universeId: number, limit?: Limit): Promise<GamePassData[]>
 
     /**
      * 🔓 Returns information about the place in question, such as description, name etc; varies based on whether or not you're logged in.
