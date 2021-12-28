@@ -902,19 +902,12 @@ declare module "noblox.js" {
     interface TransactionItem
     {
         id: number;
-        transactionType: string;
+        transactionType?: string;
         created: Date;
         isPending: boolean;
         agent: TransactionAgent;
         details?: TransactionDetails;
         currency: TransactionCurrency;
-    }
-
-    interface TransactionPage
-    {
-        data: TransactionItem[];
-        nextPageCursor?: string;
-        previousPageCursor?: string;
     }
 
     interface GroupJoinRequester
@@ -1625,7 +1618,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Gets the transaction history of the specified group.
      */
-    function getGroupTransactions(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<TransactionPage>;
+    function getGroupTransactions(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
 
     /**
      * ✅ Gets a brief overview of the specified group.
@@ -1820,7 +1813,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Gets the transaction history of the logged in user or of the user specified by the jar.
      */
-    function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<TransactionPage>;
+    function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
 
 
     /**
