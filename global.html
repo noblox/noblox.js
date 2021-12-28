@@ -12687,7 +12687,7 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
         
         <span class="code-name">
             
-                getGroupTransactions<span class="signature">(group, transactionType, limit<span class="signature-attributes">opt</span>, cursor<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#TransactionPage">TransactionPage</a>>}</span>
+                getGroupTransactions<span class="signature">(group, transactionType<span class="signature-attributes">opt</span>, limit, sortOrder<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="global.html#TransactionItem">TransactionItem</a>>>}</span>
             
         </span>
     </h4>
@@ -12725,6 +12725,8 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
             
 
             
+            <th>Default</th>
+            
 
             <th class="last">Description</th>
         </tr>
@@ -12758,6 +12760,10 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
       </td>
   
 
+  
+      <td class="default">
+      
+      </td>
   
 
   <td class="description last"><p>The id of the group.</p></td>
@@ -12799,6 +12805,8 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
   
       <td class="attributes">
       
+          &lt;optional><br>
+      
 
       
 
@@ -12806,6 +12814,12 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
       </td>
   
 
+  
+      <td class="default">
+      
+          Sale
+      
+      </td>
   
 
   <td class="description last"><p>The transaction type.</p></td>
@@ -12823,7 +12837,7 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
   <td class="type">
   
       
-<span class="param-type">Limit</span>
+<span class="param-type">number</span>
 
 
   
@@ -12831,8 +12845,6 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
 
   
       <td class="attributes">
-      
-          &lt;optional><br>
       
 
       
@@ -12842,8 +12854,12 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
   
 
   
+      <td class="default">
+      
+      </td>
+  
 
-  <td class="description last"><p>The maximum results per a page.</p></td>
+  <td class="description last"><p>The number of transactions being fetched in total.</p></td>
 </tr>
 
 
@@ -12852,13 +12868,13 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>cursor</code></td>
+      <td class="name"><code>sortOrder</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">string</span>
+<span class="param-type">SortOrder</span>
 
 
   
@@ -12876,6 +12892,12 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
       </td>
   
 
+  
+      <td class="default">
+      
+          Asc
+      
+      </td>
   
 
   <td class="description last"><p>The cursor for the next page.</p></td>
@@ -12961,7 +12983,7 @@ const groupSocialLinks = await noblox.getGroupSocialLinks(9997719)</code></pre>
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">Promise.&lt;<a href="global.html#TransactionPage">TransactionPage</a>></span>
+<span class="param-type">Promise.&lt;Array.&lt;<a href="global.html#TransactionItem">TransactionItem</a>>></span>
 
 
     </div>
@@ -22021,7 +22043,7 @@ const userSocialLinks = await noblox.getUserSocialLinks(2416399685)</code></pre>
         
         <span class="code-name">
             
-                getUserTransactions<span class="signature">(transactionType<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>, cursor<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#TransactionPage">TransactionPage</a>>}</span>
+                getUserTransactions<span class="signature">(transactionType<span class="signature-attributes">opt</span>, limit, sortOrder<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="global.html#TransactionItem">TransactionItem</a>>>}</span>
             
         </span>
     </h4>
@@ -22134,7 +22156,7 @@ const userSocialLinks = await noblox.getUserSocialLinks(2416399685)</code></pre>
   <td class="type">
   
       
-<span class="param-type">Limit</span>
+<span class="param-type">number</span>
 
 
   
@@ -22142,8 +22164,6 @@ const userSocialLinks = await noblox.getUserSocialLinks(2416399685)</code></pre>
 
   
       <td class="attributes">
-      
-          &lt;optional><br>
       
 
       
@@ -22155,12 +22175,10 @@ const userSocialLinks = await noblox.getUserSocialLinks(2416399685)</code></pre>
   
       <td class="default">
       
-          100
-      
       </td>
   
 
-  <td class="description last"><p>The number of transactions being fetched each request. | [10, 25, 50, 100]</p></td>
+  <td class="description last"><p>The number of transactions being fetched in total.</p></td>
 </tr>
 
 
@@ -22169,13 +22187,13 @@ const userSocialLinks = await noblox.getUserSocialLinks(2416399685)</code></pre>
             
 <tr class="deep-level-0">
   
-      <td class="name"><code>cursor</code></td>
+      <td class="name"><code>sortOrder</code></td>
   
 
   <td class="type">
   
       
-<span class="param-type">string</span>
+<span class="param-type">SortOrder</span>
 
 
   
@@ -22196,10 +22214,12 @@ const userSocialLinks = await noblox.getUserSocialLinks(2416399685)</code></pre>
   
       <td class="default">
       
+          Asc
+      
       </td>
   
 
-  <td class="description last"><p>The previous or next page cursor.</p></td>
+  <td class="description last"><p>The cursor for the next page.</p></td>
 </tr>
 
 
@@ -22282,7 +22302,7 @@ const userSocialLinks = await noblox.getUserSocialLinks(2416399685)</code></pre>
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">Promise.&lt;<a href="global.html#TransactionPage">TransactionPage</a>></span>
+<span class="param-type">Promise.&lt;Array.&lt;<a href="global.html#TransactionItem">TransactionItem</a>>></span>
 
 
     </div>
@@ -36634,7 +36654,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1129">line 1129</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1124">line 1124</a>
             </span>
         </p>
     
@@ -38448,7 +38468,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line909">line 909</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line904">line 904</a>
             </span>
         </p>
     
@@ -39967,7 +39987,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1071">line 1071</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1066">line 1066</a>
             </span>
         </p>
     
@@ -40423,7 +40443,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1113">line 1113</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1108">line 1108</a>
             </span>
         </p>
     
@@ -40594,7 +40614,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1083">line 1083</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1078">line 1078</a>
             </span>
         </p>
     
@@ -40765,7 +40785,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1090">line 1090</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1085">line 1085</a>
             </span>
         </p>
     
@@ -41451,7 +41471,7 @@ noblox.wearAssetId(1117747196)</code></pre>
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1176">line 1176</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1171">line 1171</a>
             </span>
         </p>
     
@@ -44418,7 +44438,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1136">line 1136</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1131">line 1131</a>
             </span>
         </p>
     
@@ -44543,7 +44563,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1148">line 1148</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1143">line 1143</a>
             </span>
         </p>
     
@@ -45926,7 +45946,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1199">line 1199</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1194">line 1194</a>
             </span>
         </p>
     
@@ -46097,7 +46117,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1211">line 1211</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1206">line 1206</a>
             </span>
         </p>
     
@@ -47319,7 +47339,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line954">line 954</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line949">line 949</a>
             </span>
         </p>
     
@@ -47514,7 +47534,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line971">line 971</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line966">line 966</a>
             </span>
         </p>
     
@@ -47709,7 +47729,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line964">line 964</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line959">line 959</a>
             </span>
         </p>
     
@@ -48018,7 +48038,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line938">line 938</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line933">line 933</a>
             </span>
         </p>
     
@@ -48143,7 +48163,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1019">line 1019</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1014">line 1014</a>
             </span>
         </p>
     
@@ -48383,7 +48403,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line921">line 921</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line916">line 916</a>
             </span>
         </p>
     
@@ -48578,7 +48598,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line931">line 931</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line926">line 926</a>
             </span>
         </p>
     
@@ -48703,7 +48723,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line949">line 949</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line944">line 944</a>
             </span>
         </p>
     
@@ -50566,7 +50586,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1265">line 1265</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1260">line 1260</a>
             </span>
         </p>
     
@@ -51157,7 +51177,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1252">line 1252</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1247">line 1247</a>
             </span>
         </p>
     
@@ -52407,7 +52427,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line845">line 845</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line840">line 840</a>
             </span>
         </p>
     
@@ -52578,7 +52598,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line838">line 838</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line833">line 833</a>
             </span>
         </p>
     
@@ -52773,7 +52793,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line851">line 851</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line846">line 846</a>
             </span>
         </p>
     
@@ -54355,7 +54375,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1259">line 1259</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1254">line 1254</a>
             </span>
         </p>
     
@@ -54766,7 +54786,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1247">line 1247</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1242">line 1242</a>
             </span>
         </p>
     
@@ -54891,7 +54911,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1165">line 1165</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1160">line 1160</a>
             </span>
         </p>
     
@@ -55235,7 +55255,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1153">line 1153</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1148">line 1148</a>
             </span>
         </p>
     
@@ -55498,7 +55518,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line893">line 893</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line888">line 888</a>
             </span>
         </p>
     
@@ -56960,7 +56980,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1013">line 1013</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1008">line 1008</a>
             </span>
         </p>
     
@@ -57279,7 +57299,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line885">line 885</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line880">line 880</a>
             </span>
         </p>
     
@@ -58598,7 +58618,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1097">line 1097</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1092">line 1092</a>
             </span>
         </p>
     
@@ -59033,7 +59053,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1036">line 1036</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1031">line 1031</a>
             </span>
         </p>
     
@@ -59204,7 +59224,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1056">line 1056</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1051">line 1051</a>
             </span>
         </p>
     
@@ -59329,7 +59349,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1051">line 1051</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1046">line 1046</a>
             </span>
         </p>
     
@@ -59832,7 +59852,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line998">line 998</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line993">line 993</a>
             </span>
         </p>
     
@@ -59957,7 +59977,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line993">line 993</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line988">line 988</a>
             </span>
         </p>
     
@@ -60151,7 +60171,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line978">line 978</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line973">line 973</a>
             </span>
         </p>
     
@@ -61217,7 +61237,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1063">line 1063</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1058">line 1058</a>
             </span>
         </p>
     
@@ -62472,7 +62492,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line858">line 858</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line853">line 853</a>
             </span>
         </p>
     
@@ -63438,7 +63458,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1240">line 1240</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1235">line 1235</a>
             </span>
         </p>
     
@@ -63842,7 +63862,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1235">line 1235</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1230">line 1230</a>
             </span>
         </p>
     
@@ -64531,7 +64551,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1189">line 1189</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1184">line 1184</a>
             </span>
         </p>
     
@@ -64840,7 +64860,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1224">line 1224</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1219">line 1219</a>
             </span>
         </p>
     
@@ -64988,7 +65008,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1218">line 1218</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1213">line 1213</a>
             </span>
         </p>
     
@@ -65159,7 +65179,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1182">line 1182</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1177">line 1177</a>
             </span>
         </p>
     
@@ -65715,6 +65735,66 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
             
 <tr class="deep-level-0">
     
+        <td class="name"><code>id</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>transactionType</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
         <td class="name"><code>created</code></td>
     
 
@@ -65922,201 +66002,6 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
 
     </span>
 
-<h4 class="name" id="TransactionPage">
-    <a class="href-link" href="#TransactionPage">#</a>
-    
-    <span class="code-name">
-        TransactionPage
-    </span>
-    
-</h4>
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-<div class="table-container">
-    <table class="props table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-            <th>Attributes</th>
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>data</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">Array.&lt;<a href="global.html#TransactionItem">TransactionItem</a>></span>
-
-
-    
-    </td>
-
-    
-        <td class="attributes">
-        
-
-        
-        </td>
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>nextPageCursor</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">string</span>
-
-
-    
-    </td>
-
-    
-        <td class="attributes">
-        
-            &lt;optional><br>
-        
-
-        
-        </td>
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>previousPageCursor</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">string</span>
-
-
-    
-    </td>
-
-    
-        <td class="attributes">
-        
-            &lt;optional><br>
-        
-
-        
-        </td>
-    
-
-    
-
-    <td class="description last"></td>
-</tr>
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="typings_jsDocs.ts.html" class="button">View Source</a>
-            <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line831">line 831</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">object</span>
-
-
-    </span>
-
 <h4 class="name" id="UAIDResponse">
     <a class="href-link" href="#UAIDResponse">#</a>
     
@@ -66243,7 +66128,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1170">line 1170</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1165">line 1165</a>
             </span>
         </p>
     
@@ -67046,7 +66931,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1077">line 1077</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1072">line 1072</a>
             </span>
         </p>
     
@@ -67217,7 +67102,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line986">line 986</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line981">line 981</a>
             </span>
         </p>
     
@@ -67342,7 +67227,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line904">line 904</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line899">line 899</a>
             </span>
         </p>
     
@@ -67694,7 +67579,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1024">line 1024</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line1019">line 1019</a>
             </span>
         </p>
     
@@ -67842,7 +67727,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line915">line 915</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line910">line 910</a>
             </span>
         </p>
     
@@ -68059,7 +67944,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line869">line 869</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line864">line 864</a>
             </span>
         </p>
     
@@ -68254,7 +68139,7 @@ When success is false, you can get: &quot;Product name already exists&quot;</p><
         <p class="tag-source">
             <a href="typings_jsDocs.ts.html" class="button">View Source</a>
             <span>
-                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line878">line 878</a>
+                <a href="typings_jsDocs.ts.html">typings/jsDocs.ts</a>, <a href="typings_jsDocs.ts.html#line873">line 873</a>
             </span>
         </p>
     
