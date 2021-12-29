@@ -1028,6 +1028,7 @@ declare module "noblox.js" {
 
     interface FriendEntry {
         isOnline?: boolean;
+        presenceType: UserPresenceType;
         isDeleted: boolean;
         id: number;
         name: string;
