@@ -99,7 +99,7 @@ noblox.setCookie(cookie)
       group: options.group,
       limit: 100,
       sortOrder: options.sortOrder,
-      roleset: options.roleset
+      rolesetId: options.roleset
     }
 
     const groupPlayers = await noblox.getPlayers(getPlayersOptions)
