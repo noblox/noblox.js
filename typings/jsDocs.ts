@@ -1056,6 +1056,14 @@ type GroupShout = {
     updated: string;
 }
 
+type GroupDescriptionResult = {
+    newDescription: string
+}
+
+type GroupNameResult = {
+    newDescription: string
+}
+
 /**
  * @typedef
 */
