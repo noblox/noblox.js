@@ -733,13 +733,28 @@ declare module "noblox.js" {
         price?: number;
     }
 
+    
+    type AvatarType = "MorphToR6" | "MorphToR15" | "PlayerChoice"
+    type AnimationType = "Standard" | "PlayerChoice"
+    type CollisionType = "InnerBox" | "OuterBox"
+    type JointType = "Standard" | "ArtistIntent"
+
+    type Genre = "All" | "Tutorial" | "Scary" | "TownAndCity" | "War" | "Funny" | "Fantasy" | "Adventure" | "SciFi" | "Pirate" | "FPS" | "RPG" | "Sports" | "Ninja" | "WildWest"
     type PlayableDevices = "Computer" | "Phone" | "Tablet" | "Console"
     type Regions = "Unknown" | "China"
 
-    type UniverseAsset = {
+    interface UniverseAsset 
+    {
         assetID: number,
         assetTypeID: number,
         isPlayerChoice: boolean
+    }
+
+    interface UniversePermissions
+    {
+        IsThirdPartyTeleportAllowed?: boolean;
+        IsThirdPartyAssetAllowed?: boolean;
+        IsThirdPartyPurchaseAllowed?: boolean;
     }
 
     interface UniverseSettings
@@ -750,15 +765,15 @@ declare module "noblox.js" {
         name?: string;
         description?: string;
 
-        universeAvatarType?: "MorphToR6" | "MorphToR15" | "PlayerChoice";
-        universeAnimationType?: "Standard" | "PlayerChoice";
-        universeCollisionType?: "InnerBox" | "OuterBox";
-        universeJointPositioningType?: "Standard" | "ArtistIntent";
+        universeAvatarType?: AvatarType;
+        universeAnimationType?: AnimationType;
+        universeCollisionType?: CollisionType;
+        universeJointPositioningType?: JointType;
         
         isArchived?: boolean;
         isFriendsOnly?: boolean;
 
-        genre?: "All" | "Tutorial" | "Scary" | "TownAndCity" | "War" | "Funny" | "Fantasy" | "Adventure" | "SciFi" | "Pirate" | "FPS" | "RPG" | "Sports" | "Ninja" | "WildWest";
+        genre?: Genre;
 
         playableDevices?: Array<PlayableDevices>;
         universeAvatarAssetOverrides?: Array<UniverseAsset>;
@@ -766,32 +781,48 @@ declare module "noblox.js" {
         isForSale?: boolean;
         price?: number;
         
-        universeAvatarMinScales?: {
-            height?: number,
-            width?: number,
-            head?: number,
-            depth?: number,
-            proportion?: number,
-            bodyType?: number
-        };
-        universeAvatarMaxScales?: {
-            height?: number,
-            width?: number,
-            head?: number,
-            depth?: number,
-            proportion?: number,
-            bodyType?: number
-        };
+        universeAvatarMinScales?: AvatarScale
+        universeAvatarMaxScales?: AvatarScale
 
         studioAccessToApisAllowed?: boolean;
-        permissions?: {
-            IsThirdPartyTeleportAllowed?: boolean;
-            IsThirdPartyAssetAllowed?: boolean;
-            IsThirdPartyPurchaseAllowed?: boolean;
-        };
+        permissions?: UniversePermissions;
 
         optInRegions?: Array<Regions>;
         optOutRegions?: Array<Regions>;
+    }
+
+    interface UpdateUniverseResponse
+    {
+        allowPrivateServers?: boolean;
+        privateServerPrice?: number;
+
+        id: number;
+        name?: string;
+        description?: string;
+
+        universeAvatarType?: AvatarType;
+        universeAnimationType?: AnimationType;
+        universeCollisionType?: CollisionType;
+        universeJointPositioningType?: JointType;
+        
+        isArchived?: boolean;
+        isFriendsOnly?: boolean;
+
+        genre?: Genre;
+
+        playableDevices?: Array<PlayableDevices>;
+        universeAvatarAssetOverrides?: Array<UniverseAsset>;
+
+        isForSale?: boolean;
+        price?: number;
+        
+        universeAvatarMinScales?: AvatarScale
+        universeAvatarMaxScales?: AvatarScale
+
+        studioAccessToApisAllowed?: boolean;
+        permissions?: UniversePermissions;
+
+        optInRegions?: Array<Regions>;
     }
 
     /// Group
@@ -1608,7 +1639,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Modifies a universe's settings
     */
-    function updateUniverseSettings(universeId: number, settings: UniverseSettings, jar?: CookieJar): Promise<UniverseSettings>;
+    function updateUniverse(universeId: number, settings: UniverseSettings, jar?: CookieJar): Promise<UpdateUniverseResponse>;
 
     /// Group
 
