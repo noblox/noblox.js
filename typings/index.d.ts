@@ -733,6 +733,67 @@ declare module "noblox.js" {
         price?: number;
     }
 
+    type PlayableDevices = "Computer" | "Phone" | "Tablet" | "Console"
+    type Regions = "Unknown" | "China"
+
+    type UniverseAsset = {
+        assetID: number,
+        assetTypeID: number,
+        isPlayerChoice: boolean
+    }
+
+    interface UniverseSettings
+    {
+        allowPrivateServers?: boolean;
+        privateServerPrice?: number;
+
+        name?: string;
+        description?: string;
+
+        universeAvatarType?: "MorphToR6" | "MorphToR15" | "PlayerChoice";
+        universeAnimationType?: "Standard" | "PlayerChoice";
+        universeCollisionType?: "InnerBox" | "OuterBox";
+        universeJointPositioningType?: "Standard" | "ArtistIntent";
+        
+        isArchived?: boolean;
+        isFriendsOnly?: boolean;
+
+        genre?: "All" | "Tutorial" | "Scary" | "TownAndCity" | "War" | "Funny" | "Fantasy" | "Adventure" | "SciFi" | "Pirate" | "FPS" | "RPG" | "Sports" | "Ninja" | "WildWest";
+
+        playableDevices?: Array<PlayableDevices>;
+        universeAvatarAssetOverrides?: Array<UniverseAsset>;
+
+        isForSale?: boolean;
+        price?: number;
+        
+        universeAvatarMinScales?: {
+            height?: number,
+            width?: number,
+            head?: number,
+            depth?: number,
+            proportion?: number,
+            bodyType?: number
+        };
+        universeAvatarMaxScales?: {
+            height?: number,
+            width?: number,
+            head?: number,
+            depth?: number,
+            proportion?: number,
+            bodyType?: number
+        };
+
+        studioAccessToApisAllowed?: boolean;
+        permissions?: {
+            IsThirdPartyTeleportAllowed?: boolean;
+            IsThirdPartyAssetAllowed?: boolean;
+            IsThirdPartyPurchaseAllowed?: boolean;
+        };
+
+        optInRegions?: Array<Regions>;
+        optOutRegions?: Array<Regions>;
+    }
+
     /// Group
 
     type GroupIconSize = "150x150" | "420x420"
@@ -1542,7 +1603,12 @@ declare module "noblox.js" {
     /**
      * 🔐 Updates a universe's public access setting
     */
-   function updateUniverseAccess (universeId, isPublic, jar, token): Promise<void>;
+   function updateUniverseAccess(universeId: number, isPublic?: boolean, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Modifies a universe's settings
+    */
+    function updateUniverseSettings(universeId: number, settings: UniverseSettings, jar?: CookieJar): Promise<UniverseSettings>;
 
     /// Group
 
