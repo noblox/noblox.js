@@ -7515,7 +7515,7 @@ const messages = await noblox.getChatMessages(1, 25)</code></pre>
         
         <span class="code-name">
             
-                getCollectibles<span class="signature">(userId, sortOrder<span class="signature-attributes">opt</span>, assetType<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>, cursor<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#Collectibles">Collectibles</a>>}</span>
+                getCollectibles<span class="signature">(userId, sortOrder<span class="signature-attributes">opt</span>, assetType<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="global.html#Collectibles">Collectibles</a>>}</span>
             
         </span>
     </h4>
@@ -7689,7 +7689,7 @@ const messages = await noblox.getChatMessages(1, 25)</code></pre>
   <td class="type">
   
       
-<span class="param-type">Limit</span>
+<span class="param-type">number</span>
 
 
   
@@ -7716,45 +7716,6 @@ const messages = await noblox.getChatMessages(1, 25)</code></pre>
   
 
   <td class="description last"><p>The amount of results per request.</p></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>cursor</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>The cursor for the previous or next page.</p></td>
 </tr>
 
 
@@ -7802,7 +7763,7 @@ const messages = await noblox.getChatMessages(1, 25)</code></pre>
         <p class="tag-source">
             <a href="lib_user_getCollectibles.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_getCollectibles.js.html">lib/user/getCollectibles.js</a>, <a href="lib_user_getCollectibles.js.html#line24">line 24</a>
+                <a href="lib_user_getCollectibles.js.html">lib/user/getCollectibles.js</a>, <a href="lib_user_getCollectibles.js.html#line23">line 23</a>
             </span>
         </p>
     
@@ -16128,7 +16089,7 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
         
         <span class="code-name">
             
-                getPlayerBadges<span class="signature">(userId, limit<span class="signature-attributes">opt</span>, cursor<span class="signature-attributes">opt</span>, sortOrder<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="global.html#PlayerBadges">PlayerBadges</a>>>}</span>
+                getPlayerBadges<span class="signature">(userId, limit<span class="signature-attributes">opt</span>, sortOrder<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="global.html#PlayerBadges">PlayerBadges</a>>>}</span>
             
         </span>
     </h4>
@@ -16222,7 +16183,7 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
   <td class="type">
   
       
-<span class="param-type">Limit</span>
+<span class="param-type">number</span>
 
 
   
@@ -16249,45 +16210,6 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
   
 
   <td class="description last"><p>The amount of badges being returned each request.</p></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>cursor</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-      </td>
-  
-
-  <td class="description last"><p>The cursor of the previous or next page.</p></td>
 </tr>
 
 
@@ -16376,7 +16298,7 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
         <p class="tag-source">
             <a href="lib_user_getPlayerBadges.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_getPlayerBadges.js.html">lib/user/getPlayerBadges.js</a>, <a href="lib_user_getPlayerBadges.js.html#line23">line 23</a>
+                <a href="lib_user_getPlayerBadges.js.html">lib/user/getPlayerBadges.js</a>, <a href="lib_user_getPlayerBadges.js.html#line21">line 21</a>
             </span>
         </p>
     
@@ -16428,7 +16350,7 @@ const placeInfo = await noblox.getPlaceInfo(8765432)</code></pre>
     <h5>Example</h5>
     
     
-        <pre class="prettyprint"><code>const noblox = require("noblox.js")let badges = noblox.getPlayerBadges(123456, 10, "1684988462_1_29fbf93fdfb5b3f74d205ec09681c970", "Asc")</code></pre>
+        <pre class="prettyprint"><code>const noblox = require("noblox.js")let badges = noblox.getPlayerBadges(123456, 10, "Asc")</code></pre>
     
 
 
