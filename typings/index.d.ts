@@ -1487,7 +1487,7 @@ declare module "noblox.js" {
      * @param startIndex The index to start from in regards to server list.
      */
     function getGameInstances(placeId: number, startIndex: number): Promise<GameInstances>;
-    
+
     /**
      * ✅ Get the badges in a specific game.
      */
@@ -1836,7 +1836,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets the badges of a user.
      */
-    function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<Array<PlayerBadges>>
+    function getPlayerBadges(userId: number, limit?: number, sortOrder?: SortOrder): Promise<Array<PlayerBadges>>
 
     /**
      * ✅ Gets a brief overview of a user.
