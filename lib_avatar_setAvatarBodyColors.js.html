@@ -162,7 +162,7 @@ exports.optional = ['jar']
  * @returns {Promise&lt;void>}
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.setAvatarBodyColours(125, 125, 125, 125, 125, 125)
+ * noblox.setAvatarBodyColors(125, 125, 125, 125, 125, 125)
 **/
 
 const nextFunction = (jar, token, headColorId, torsoColorId, rightArmColorId, leftArmColorId, rightLegColorId, leftLegColorId) => {
@@ -190,7 +190,7 @@ const nextFunction = (jar, token, headColorId, torsoColorId, rightArmColorId, le
         throw new Error(res.body)
       }
     } else {
-      throw new Error('Set body colours failed')
+      throw new Error('Set body colors failed')
     }
   })
 }
