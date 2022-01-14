@@ -1270,6 +1270,7 @@ type FriendRequestsPage = {
 */
 type FriendEntry = {
     isOnline?: boolean;
+    presenceType: UserPresenceType;
     isDeleted: boolean;
     id: number;
     name: string;
