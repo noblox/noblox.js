@@ -931,11 +931,6 @@ type UniverseSettings = {
      * Unknown, China
     */
     optInRegions?: Array<Regions>;
-
-    /**
-     * Unknown, China
-    */
-    optOutRegions?: Array<Regions>;
 }
 
 /**
@@ -978,11 +973,6 @@ type UniverseSettings = {
      * Unknown, China
     */
      optInRegions?: Array<Regions>;
-
-     /**
-      * Unknown, China
-     */
-     optOutRegions?: Array<Regions>;
 }
 
 /// Group

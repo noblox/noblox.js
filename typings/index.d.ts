@@ -788,41 +788,11 @@ declare module "noblox.js" {
         permissions?: UniversePermissions;
 
         optInRegions?: Array<Regions>;
-        optOutRegions?: Array<Regions>;
     }
 
-    interface UpdateUniverseResponse
+    interface UpdateUniverseResponse extends UniverseSettings
     {
-        allowPrivateServers?: boolean;
-        privateServerPrice?: number;
-
         id: number;
-        name?: string;
-        description?: string;
-
-        universeAvatarType?: AvatarType;
-        universeAnimationType?: AnimationType;
-        universeCollisionType?: CollisionType;
-        universeJointPositioningType?: JointType;
-        
-        isArchived?: boolean;
-        isFriendsOnly?: boolean;
-
-        genre?: Genre;
-
-        playableDevices?: Array<PlayableDevices>;
-        universeAvatarAssetOverrides?: Array<UniverseAsset>;
-
-        isForSale?: boolean;
-        price?: number;
-        
-        universeAvatarMinScales?: AvatarScale
-        universeAvatarMaxScales?: AvatarScale
-
-        studioAccessToApisAllowed?: boolean;
-        permissions?: UniversePermissions;
-
-        optInRegions?: Array<Regions>;
     }
 
     /// Group
