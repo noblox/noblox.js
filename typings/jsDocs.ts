@@ -751,38 +751,39 @@ type GamePassResponse = {
 /**
  * @typedef
 */
-type PlaceInformation = {
-    AssetId: number;
-    Name: string;
-    Description: string;
-    Created: Date;
-    Updated: Date;
-    FavoritedCount: number;
-    Url: string;
-    ReportAbuseAbsoluteUrl: string;
-    IsFavoritedByUser: boolean;
-    IsFavoritesUnavailable: boolean;
-    UserCanManagePlace: boolean;
-    VisitedCount: number,
-    MaxPlayers: number,
-    Builder: string,
-    BuilderId: number,
-    BuilderAbsoluteUrl: string
-    IsPlayable: boolean,
-    ReasonProhibited: string,
-    ReasonProhibitedMessage: string,
-    IsCopyingAllowed: boolean,
-    PlayButtonType: string,
-    AssetGenre: string,
-    AssetGenreViewModel: { DisplayName: string, Id: number },
-    OnlineCount: number,
-    UniverseId: number,
-    UniverseRootPlaceId: number,
-    TotalUpVotes: number,
-    TotalDownVotes: number,
-    OverridesDefaultAvatar: boolean,
-    UsePortraitMode: boolean,
-    Price: number
+type UniverseCreator = {
+    id: number;
+    name: string;
+    type: string;
+    isRNVAccount: boolean;
+}
+
+/**
+ * @typedef
+*/
+type UniverseInformation = {
+    id: number;
+    rootPlaceId: number;
+    name: string;
+    description: string;
+    creator: UniverseCreator;
+    price: number;
+    allowedGearGenres: Array<string>;
+    allowedGearCategories: Array<string>;
+    isGenreEnforced: boolean;
+    copyingAllowed: boolean;
+    playing: number;
+    visits: number;
+    maxPlayers: number;
+    created: Date;
+    updated: Date;
+    studioAccessToApisAllowed: boolean;
+    createVipServersAllowed: boolean;
+    universeAvatarType: "MorphToR6" | "PlayerChoice" | "MorphToR15";
+    genre: "All" | "Tutorial" | "Scary" | "TownAndCity" | "War" | "Funny" | "Fantasy" | "Adventure" | "SciFi" | "Pirate" | "FPS" | "RPG" | "Sports" | "Ninja" | "WildWest";
+    isAllGenre: boolean;
+    isFavoritedByUser: boolean;
+    favoritedCount: number;
 }
 
 /**

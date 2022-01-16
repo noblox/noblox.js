@@ -1,4 +1,4 @@
-const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getPlaceInfo, updateDeveloperProduct, setCookie } = require('../lib')
+const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getUniverseInfo, updateDeveloperProduct, updateUniverse, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -112,18 +112,61 @@ describe('Game Methods', () => {
     })
   })
 
-  it('getPlaceInfo() should return information about a game', () => {
-    return getPlaceInfo(142823291).then((res) => {
-      return expect(res).toMatchObject({
-        AssetId: expect.any(Number),
-        Name: expect.any(String),
-        Description: expect.any(String),
-        FavoritedCount: expect.any(Number),
-        Builder: expect.any(String),
-        BuilderId: expect.any(Number),
-        Created: expect.any(Date),
-        Updated: expect.any(Date)
-      })
+  it('getUniverseInfo() should return information about universes', () => {
+    return getUniverseInfo([ 2152417643 ]).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(Number),
+            rootPlaceId: expect.any(Number),
+            name: expect.any(String),
+            description: expect.any(String),
+            creator: expect.objectContaining({
+              id: expect.any(Number),
+              name: expect.any(String),
+              type: expect.any(String),
+              isRNVAccount: expect.any(Boolean)
+            }),
+            allowedGearGenres: expect.any(Array),
+            allowedGearCategories: expect.any(Array),
+            isGenreEnforced: expect.any(Boolean),
+            copyingAllowed: expect.any(Boolean),
+            playing: expect.any(Number),
+            visits: expect.any(Number),
+            maxPlayers: expect.any(Number),
+            created: expect.any(Date),
+            updated: expect.any(Date),
+            studioAccessToApisAllowed: expect.any(Boolean),
+            createVipServersAllowed: expect.any(Boolean),
+            universeAvatarType: expect.any(String),
+            genre: expect.any(String),
+            isAllGenre: expect.any(Boolean),
+            isFavoritedByUser: expect.any(Boolean),
+            favoritedCount: expect.any(Number)
+          })
+        ])
+      )
+    })
+  })
+
+  it('updateUniverse() should update a universe with the provided settings', () => {
+    return updateUniverse(2954334954, { description: "Testing 1234" }).then((res) => {
+      return expect(res).toEqual(
+        expect.objectContaining({
+          genre: expect.any(String),
+          id: expect.any(Number),
+          isArchived: expect.any(Boolean),
+          isForSale: expect.any(Boolean),
+          isFriendsOnly: expect.any(Boolean),
+          name: expect.any(String),
+          playableDevices: expect.any(Array),
+          price: expect.any(Number),
+          universeAnimationType: expect.any(String),
+          universeAvatarType: expect.any(String),
+          universeCollisionType: expect.any(String),
+          universeJointPositioningType: expect.any(String),
+        })
+      )
     })
   })
 
