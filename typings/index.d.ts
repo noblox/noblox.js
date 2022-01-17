@@ -1838,7 +1838,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets the badges of a user.
      */
-    function getPlayerBadges(userId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<Array<PlayerBadges>>
+    function getPlayerBadges(userId: number, limit?: number, sortOrder?: SortOrder): Promise<Array<PlayerBadges>>
 
     /**
      * ✅ Gets a brief overview of a user.
