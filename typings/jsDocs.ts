@@ -1067,7 +1067,7 @@ type GroupDescriptionResult = {
  * @typedef
  */
 type GroupNameResult = {
-    newDescription: string
+    newName: string
 }
 
 /**
