@@ -113,7 +113,7 @@ describe('Game Methods', () => {
   })
 
   it('getUniverseInfo() should return information about universes', () => {
-    return getUniverseInfo([ 2152417643 ]).then((res) => {
+    return getUniverseInfo(2152417643).then((res) => {
       return expect(res).toEqual(
         expect.arrayContaining([
           expect.objectContaining({

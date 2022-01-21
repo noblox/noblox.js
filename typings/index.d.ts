@@ -1558,10 +1558,10 @@ declare module "noblox.js" {
     function getGamePasses(universeId: number, limit?: Limit): Promise<GamePassData[]>
 
     /**
-     * 🔓 Returns information about the universes in question, such as description, name etc; varies based on whether or not you're logged in.
-     * @param universeIds The universes whose information are being fetched.
+     * 🔓 Returns information about the universe(s) in question, such as description, name etc; varies based on whether or not you're logged in.
+     * @param universeId The universe(s) whose information are being fetched.
      */
-    function getUniverseInfo(universeIds: number[], jar?: CookieJar): Promise<UniverseInformation>;
+    function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation>;
 
     // You can create a developer product, but the productId returned does not match the actual developer product id needed by the endpoints.
     // It's strange, but the edit link on the product page has the id that Roblox wants so you can edit dev products.
