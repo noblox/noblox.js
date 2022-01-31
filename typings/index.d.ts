@@ -40,6 +40,8 @@ declare module "noblox.js" {
             onWallPost: number;
             /** The poll time in milliseconds to check for new join requests. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
             onJoinRequestHandle: number;
+            /** The poll time in milliseconds to check for new join requests. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+            onJoinRequest: number;
             /** The poll time in milliseconds to check for a new shout message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
             onShout: number;
             /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
@@ -2127,6 +2129,14 @@ declare module "noblox.js" {
         emit(event: 'handle', joinRequest: GroupJoinRequest, accept: boolean, callback?: () => void): boolean;
     }
 
+    interface OnJoinRequestEventEmitter extends events.EventEmitter
+    {
+        on(event: 'connect', listener: () => void): this;
+        on(event: 'close', listener: (err: any) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'data', listener: (joinRequest: GroupJoinRequest) => void): this;
+    }
+
     interface OnShoutEventEmitter extends events.EventEmitter
     {
         on(event: 'connect', listener: () => void): this;
@@ -2240,6 +2250,8 @@ declare module "noblox.js" {
      * ```
      */
     function onJoinRequestHandle(group: number, jar?: CookieJar): OnJoinRequestHandleEventEmitter;
+
+    function onJoinRequest(group: number, jar?: CookieJar): OnJoinRequestEventEmitter;
 
     /**
      * 🔓 Fires when there is a shout in the group with groupId `group`. If the shout was cleared the shout body will be blank.
