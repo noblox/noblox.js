@@ -36,6 +36,8 @@ type NobloxOptions = {
         onWallPost: number;
         /** The poll time in milliseconds to check for new join requests. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
         onJoinRequestHandle: number;
+        /** The poll time in milliseconds to check for new join requests. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
+        onJoinRequest: number;
         /** The poll time in milliseconds to check for a new shout message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */
         onShout: number;
         /** The poll time in milliseconds to check for a new blurb message. A lower number will detect changes much quicker but will stress the network, a higher one does the opposite. (Default: 10000) */

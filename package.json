@@ -20,7 +20,6 @@
     "clans"
   ],
   "dependencies": {
-    "bluebird": "^3.5.4",
     "chalk": "^4.0.0",
     "cheerio": "^1.0.0-rc.10",
     "entities": "^3.0.1",
@@ -41,18 +40,18 @@
   "homepage": "https://github.com/noblox/noblox.js",
   "devDependencies": {
     "@auto-it/conventional-commits": "^10.30.0",
+    "JSONStream": "^1.3.1",
     "auto": "^10.30.0",
-    "better-docs": "^2.3.2",
-    "dotenv": "^11.0.0",
+    "better-docs": "2.7.1",
+    "dotenv": "15.0.0",
     "eslint": "^7.28.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-jest": "^25.2.4",
+    "eslint-plugin-jest": "26.0.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^5.1.0",
     "jest": "^27.3.1",
-    "jsdoc": "^3.6.6",
-    "JSONStream": "^1.3.1",
+    "jsdoc": "3.6.10",
     "progress": "^2.0.0",
     "standard": "^16.0.4"
   },
@@ -77,5 +76,8 @@
       "conventional-commits"
     ],
     "onlyPublishWithReleaseLabel": true
+  },
+  "engines": {
+    "node": ">=14.14.0"
   }
 }
