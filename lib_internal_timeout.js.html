@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/group/leaveGroup.js</title>
+  <title>noblox.js lib/internal/timeout.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/group/leaveGroup.js</h1>
+                    <h1>lib/internal/timeout.js</h1>
                 </header>
                 
 
@@ -142,66 +142,36 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Includes
-const http = require('../util/http.js').func
-const getCurrentUser = require('../util/getCurrentUser').func
-const getGeneralToken = require('../util/getGeneralToken.js').func
-
-// Args
-exports.required = ['group']
-exports.optional = []
-
-// Docs
-/**
- * 🔐 Leave a group.
- * @category Group
- * @alias leaveGroup
- * @param {number} group - The id of the group.
- * @returns {Promise&lt;void>}
- * @example const noblox = require("noblox.js")
- * // Login using your cookie
- * noblox.leaveGroup(1)
-**/
-
-// Define
-function leaveGroup (group, jar, xcsrf, userId) {
-  return new Promise((resolve, reject) => {
-    const httpOpt = {
-      url: `https://groups.roblox.com/v1/groups/${group}/users/${userId}`,
-      options: {
-        method: 'DELETE',
-        resolveWithFullResponse: true,
-        jar: jar,
-        headers: {
-          'X-CSRF-TOKEN': xcsrf
-        }
-      }
-    }
-
-    return http(httpOpt)
-      .then(function (res) {
-        const responseData = JSON.parse(res.body)
-        if (res.statusCode !== 200) {
-          let error = 'An unknown error has occurred.'
-          if (responseData &amp;&amp; responseData.errors) {
-            error = responseData.errors.map((e) => e.message).join('\n')
-          }
-          reject(new Error(error))
-        } else {
-          resolve()
-        }
-      }).catch(error => reject(error))
-  })
+            <pre class="prettyprint source linenums"><code>class TimeoutError extends Error {
 }
 
-exports.func = function (args) {
-  const jar = args.jar
-  return getGeneralToken({ jar: jar })
-    .then(async function (xcsrf) {
-      const currentUser = await getCurrentUser({ jar: jar })
-      return leaveGroup(args.group, args.jar, xcsrf, currentUser.UserID)
+/**
+ * A basic replacement for the Bluebird 'timeout' method. Returns a Promise which will resolve or reject with the result of the given
+ * promise once it resolves, or reject if the promise should fail to resolve within the supplied timeout. An optional reason
+ * can also be supplied.
+ * @param promise - The Promise to apply a timeout to.
+ * @param timeoutTime - The timeout to apply to the Promise.
+ * @param reason - Optional String reason for the timeout.
+ * @returns {Promise&lt;unknown>}
+ */
+function timeout (promise, timeoutTime, reason = 'operation timed out') {
+  let timer
+
+  const timeoutPromise = new Promise(function (resolve, reject) {
+    timer = setTimeout(function () {
+      return reject(new TimeoutError(reason))
+    }, timeoutTime)
+  })
+
+  // We return the first promise to complete. If it resolves normally, the normal promise completed - so we cancel the timer
+  // to prevent any unnecessary hanging waiting for timeout timers.
+  return Promise.race([promise, timeoutPromise])
+    .finally(function () {
+      clearTimeout(timer)
     })
 }
+
+module.exports = timeout
 </code></pre>
         </article>
     </section>
