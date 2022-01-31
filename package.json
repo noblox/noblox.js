@@ -77,5 +77,8 @@
       "conventional-commits"
     ],
     "onlyPublishWithReleaseLabel": true
+  },
+  "engines": {
+    "node": ">=14.14.0"
   }
 }
