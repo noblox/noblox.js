@@ -25637,6 +25637,8 @@ noblox.onFriendRequest().on("data", function(data) {
         <p>🔐 An event for when a group transaction is made, for example a purchase. This event has a rate of one request per 60
 sec, which is more than the typical 10 seconds. This is due to the unusually low rate limit on the transactions
 endpoint.</p>
+<p>Note: The <code>created</code> field returned by this event will always have 0 milliseconds. This is due to a quirk on Roblox's side:
+These millisecond values fluctuate, meaning the event can misfire. Removing them avoids this problem.</p>
     </div>
     
 
@@ -25778,7 +25780,7 @@ endpoint.</p>
         <p class="tag-source">
             <a href="lib_group_onGroupTransaction.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_group_onGroupTransaction.js.html">lib/group/onGroupTransaction.js</a>, <a href="lib_group_onGroupTransaction.js.html#line27">line 27</a>
+                <a href="lib_group_onGroupTransaction.js.html">lib/group/onGroupTransaction.js</a>, <a href="lib_group_onGroupTransaction.js.html#line30">line 30</a>
             </span>
         </p>
     
