@@ -639,40 +639,6 @@ declare module "noblox.js" {
         iconChanged?: boolean
     }
 
-    interface PlaceInformation {
-        AssetId: number;
-        Name: string;
-        Description: string;
-        Created: Date;
-        Updated: Date;
-        FavoritedCount: number;
-        Url: string;
-        ReportAbuseAbsoluteUrl: string;
-        IsFavoritedByUser: boolean;
-        IsFavoritesUnavailable: boolean;
-        UserCanManagePlace: boolean;
-        VisitedCount: number,
-        MaxPlayers: number,
-        Builder: string,
-        BuilderId: number,
-        BuilderAbsoluteUrl: string
-        IsPlayable: boolean,
-        ReasonProhibited: string,
-        ReasonProhibitedMessage: string,
-        IsCopyingAllowed: boolean,
-        PlayButtonType: string,
-        AssetGenre: string,
-        AssetGenreViewModel: { DisplayName: string, Id: number },
-        OnlineCount: number,
-        UniverseId: number,
-        UniverseRootPlaceId: number,
-        TotalUpVotes: number,
-        TotalDownVotes: number,
-        OverridesDefaultAvatar: boolean,
-        UsePortraitMode: boolean,
-        Price: number
-    }
-
     type SocialLinkResponse = {
         id: number;
         type: 'Facebook' | 'Twitter' | 'YouTube' | 'Twitch' | 'GooglePlus' | 'Discord' | 'RobloxGroup' | 'Amazon';
@@ -733,6 +699,99 @@ declare module "noblox.js" {
         displayName: string;
         productId?: number;
         price?: number;
+    }
+
+    type AvatarType = "MorphToR6" | "MorphToR15" | "PlayerChoice"
+    type AnimationType = "Standard" | "PlayerChoice"
+    type CollisionType = "InnerBox" | "OuterBox"
+    type JointType = "Standard" | "ArtistIntent"
+
+    type Genre = "All" | "Tutorial" | "Scary" | "TownAndCity" | "War" | "Funny" | "Fantasy" | "Adventure" | "SciFi" | "Pirate" | "FPS" | "RPG" | "Sports" | "Ninja" | "WildWest"
+    type PlayableDevices = "Computer" | "Phone" | "Tablet" | "Console"
+    type Regions = "Unknown" | "China"
+
+    interface UniverseAsset 
+    {
+        assetID: number,
+        assetTypeID: number,
+        isPlayerChoice: boolean
+    }
+
+    interface UniversePermissions
+    {
+        IsThirdPartyTeleportAllowed?: boolean;
+        IsThirdPartyAssetAllowed?: boolean;
+        IsThirdPartyPurchaseAllowed?: boolean;
+    }
+
+    interface UniverseSettings
+    {
+        allowPrivateServers?: boolean;
+        privateServerPrice?: number;
+
+        name?: string;
+        description?: string;
+
+        universeAvatarType?: AvatarType;
+        universeAnimationType?: AnimationType;
+        universeCollisionType?: CollisionType;
+        universeJointPositioningType?: JointType;
+        
+        isArchived?: boolean;
+        isFriendsOnly?: boolean;
+
+        genre?: Genre;
+
+        playableDevices?: Array<PlayableDevices>;
+        universeAvatarAssetOverrides?: Array<UniverseAsset>;
+
+        isForSale?: boolean;
+        price?: number;
+        
+        universeAvatarMinScales?: AvatarScale
+        universeAvatarMaxScales?: AvatarScale
+
+        studioAccessToApisAllowed?: boolean;
+        permissions?: UniversePermissions;
+
+        optInRegions?: Array<Regions>;
+    }
+
+    interface UpdateUniverseResponse extends UniverseSettings
+    {
+        id: number;
+    }
+
+    interface UniverseCreator {
+        id: number;
+        name: string;
+        type: string;
+        isRNVAccount: boolean;
+    }
+
+    interface UniverseInformation {
+        id: number;
+        rootPlaceId: number;
+        name: string;
+        description: string;
+        creator: UniverseCreator;
+        price: number;
+        allowedGearGenres: string[];
+        allowedGearCategories: string[];
+        isGenreEnforced: boolean;
+        copyingAllowed: boolean;
+        playing: number;
+        visits: number;
+        maxPlayers: number;
+        created: Date;
+        updated: Date;
+        studioAccessToApisAllowed: boolean;
+        createVipServersAllowed: boolean;
+        universeAvatarType: AvatarType;
+        genre: Genre;
+        isAllGenre: boolean;
+        isFavoritedByUser: boolean;
+        favoritedCount: number;
     }
 
     /// Group
@@ -1511,10 +1570,10 @@ declare module "noblox.js" {
     function getGamePasses(universeId: number, limit?: Limit): Promise<GamePassData[]>
 
     /**
-     * 🔓 Returns information about the place in question, such as description, name etc; varies based on whether or not you're logged in.
-     * @param placeId The place whose information is being fetched.
+     * 🔓 Returns information about the universe(s) in question, such as description, name etc; varies based on whether or not you're logged in.
+     * @param universeId The universe(s) whose information are being fetched.
      */
-    function getPlaceInfo(placeId: number, jar?: CookieJar): Promise<PlaceInformation>;
+    function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation>;
 
     // You can create a developer product, but the productId returned does not match the actual developer product id needed by the endpoints.
     // It's strange, but the edit link on the product page has the id that Roblox wants so you can edit dev products.
@@ -1554,7 +1613,12 @@ declare module "noblox.js" {
     /**
      * 🔐 Updates a universe's public access setting
     */
-   function updateUniverseAccess (universeId, isPublic, jar, token): Promise<void>;
+   function updateUniverseAccess(universeId: number, isPublic?: boolean, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Modifies a universe's settings
+    */
+    function updateUniverse(universeId: number, settings: UniverseSettings, jar?: CookieJar): Promise<UpdateUniverseResponse>;
 
     /// Group
 

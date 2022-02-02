@@ -753,38 +753,39 @@ type GamePassResponse = {
 /**
  * @typedef
 */
-type PlaceInformation = {
-    AssetId: number;
-    Name: string;
-    Description: string;
-    Created: Date;
-    Updated: Date;
-    FavoritedCount: number;
-    Url: string;
-    ReportAbuseAbsoluteUrl: string;
-    IsFavoritedByUser: boolean;
-    IsFavoritesUnavailable: boolean;
-    UserCanManagePlace: boolean;
-    VisitedCount: number,
-    MaxPlayers: number,
-    Builder: string,
-    BuilderId: number,
-    BuilderAbsoluteUrl: string
-    IsPlayable: boolean,
-    ReasonProhibited: string,
-    ReasonProhibitedMessage: string,
-    IsCopyingAllowed: boolean,
-    PlayButtonType: string,
-    AssetGenre: string,
-    AssetGenreViewModel: { DisplayName: string, Id: number },
-    OnlineCount: number,
-    UniverseId: number,
-    UniverseRootPlaceId: number,
-    TotalUpVotes: number,
-    TotalDownVotes: number,
-    OverridesDefaultAvatar: boolean,
-    UsePortraitMode: boolean,
-    Price: number
+type UniverseCreator = {
+    id: number;
+    name: string;
+    type: string;
+    isRNVAccount: boolean;
+}
+
+/**
+ * @typedef
+*/
+type UniverseInformation = {
+    id: number;
+    rootPlaceId: number;
+    name: string;
+    description: string;
+    creator: UniverseCreator;
+    price: number;
+    allowedGearGenres: Array<string>;
+    allowedGearCategories: Array<string>;
+    isGenreEnforced: boolean;
+    copyingAllowed: boolean;
+    playing: number;
+    visits: number;
+    maxPlayers: number;
+    created: Date;
+    updated: Date;
+    studioAccessToApisAllowed: boolean;
+    createVipServersAllowed: boolean;
+    universeAvatarType: "MorphToR6" | "PlayerChoice" | "MorphToR15";
+    genre: "All" | "Tutorial" | "Scary" | "TownAndCity" | "War" | "Funny" | "Fantasy" | "Adventure" | "SciFi" | "Pirate" | "FPS" | "RPG" | "Sports" | "Ninja" | "WildWest";
+    isAllGenre: boolean;
+    isFavoritedByUser: boolean;
+    favoritedCount: number;
 }
 
 /**
@@ -864,6 +865,117 @@ type GamePassData = {
     displayName: string;
     productId?: number;
     price?: number;
+}
+
+/**
+ * @typedef
+ */
+type UniversePermissions = {
+    IsThirdPartyTeleportAllowed?: boolean;
+    IsThirdPartyAssetAllowed?: boolean;
+    IsThirdPartyPurchaseAllowed?: boolean;
+}
+
+/**
+ * @typedef
+ */
+type UniverseAsset = {
+    assetID: number,
+    assetTypeID: number,
+    isPlayerChoice: boolean
+}
+
+/**
+ * @typedef
+ */
+type PlayableDevices = "Computer" | "Phone" | "Tablet" | "Console"
+
+/**
+ * @typedef
+ */
+type Regions = "Unknown" | "China"
+
+/**
+ * @typedef
+ */
+type UniverseSettings = {
+    allowPrivateServers?: boolean;
+    privateServerPrice?: number;
+
+    name?: string;
+    description?: string;
+
+    universeAvatarType?: "MorphToR6" | "MorphToR15" | "PlayerChoice";
+    universeAnimationType?: "Standard" | "PlayerChoice";
+    universeCollisionType?: "InnerBox" | "OuterBox";
+    universeJointPositioningType?: "Standard" | "ArtistIntent";
+    
+    isArchived?: boolean;
+    isFriendsOnly?: boolean;
+
+    genre?: "All" | "Tutorial" | "Scary" | "TownAndCity" | "War" | "Funny" | "Fantasy" | "Adventure" | "SciFi" | "Pirate" | "FPS" | "RPG" | "Sports" | "Ninja" | "WildWest";
+
+    /**
+     * Computer, Phone, Tablet, Console
+    */
+    playableDevices?: Array<PlayableDevices>;
+    universeAvatarAssetOverrides?: Array<UniverseAsset>;
+
+    isForSale?: boolean;
+    price?: number;
+    
+    universeAvatarMinScales?: AvatarScale;
+    universeAvatarMaxScales?: AvatarScale;
+
+    studioAccessToApisAllowed?: boolean;
+    permissions?: UniversePermissions;
+
+    /**
+     * Unknown, China
+    */
+    optInRegions?: Array<Regions>;
+}
+
+/**
+ * @typedef
+ */
+ type UpdateUniverseResponse = {
+    allowPrivateServers?: boolean;
+    privateServerPrice?: number;
+
+    id: number;
+    name?: string;
+    description?: string;
+
+    universeAvatarType?: "MorphToR6" | "MorphToR15" | "PlayerChoice";
+    universeAnimationType?: "Standard" | "PlayerChoice";
+    universeCollisionType?: "InnerBox" | "OuterBox";
+    universeJointPositioningType?: "Standard" | "ArtistIntent";
+    
+    isArchived?: boolean;
+    isFriendsOnly?: boolean;
+
+    genre?: "All" | "Tutorial" | "Scary" | "TownAndCity" | "War" | "Funny" | "Fantasy" | "Adventure" | "SciFi" | "Pirate" | "FPS" | "RPG" | "Sports" | "Ninja" | "WildWest";
+
+    /**
+     * Computer, Phone, Tablet, Console
+    */
+    playableDevices?: Array<PlayableDevices>;
+    universeAvatarAssetOverrides?: Array<UniverseAsset>;
+
+    isForSale?: boolean;
+    price?: number;
+    
+    universeAvatarMinScales?: AvatarScale;
+    universeAvatarMaxScales?: AvatarScale;
+
+    studioAccessToApisAllowed?: boolean;
+    permissions?: UniversePermissions;
+
+    /**
+     * Unknown, China
+    */
+     optInRegions?: Array<Regions>;
 }
 
 /// Group
