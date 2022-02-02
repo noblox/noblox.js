@@ -1060,6 +1060,20 @@ type GroupShout = {
 
 /**
  * @typedef
+ */
+type GroupDescriptionResult = {
+    newDescription: string
+}
+
+/**
+ * @typedef
+ */
+type GroupNameResult = {
+    newName: string
+}
+
+/**
+ * @typedef
 */
 type AuditItemActor = {
     user: GroupUser;
