@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/chat/removeFromGroupConversation.js</title>
+  <title>noblox.js lib/game/updateUniverse.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/chat/removeFromGroupConversation.js</h1>
+                    <h1>lib/game/updateUniverse.js</h1>
                 </header>
                 
 
@@ -142,67 +142,58 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
 
-exports.required = ['conversationId', 'userId']
+// Args
+exports.required = ['universeId', 'settings']
 exports.optional = ['jar']
 
 // Docs
 /**
- * 🔐 Remove a user from the group conversation.
- * @category Chat
- * @alias removeFromGroupConversation
- * @param {number} conversationId - The id of the conversation.
- * @param {number} userId - The id of the user.
- * @returns {Promise&lt;ConversationRemoveResponse>}
+ * 🔐 Modifies a universe's settings
+ * @category Game
+ * @alias updateUniverse
+ * @param {number} universeId - The universeId of the experience
+ * @param {UniverseSettings} settings - The settings to update
+ * @returns {Promise&lt;UpdateUniverseResponse>}
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.removeFromGroupConversation(1, 2)
+ * noblox.updateUniverse(2421261122, { name: "The best game ever!" })
 **/
 
-function removeFromGroupConversation (conversationId, userId, jar, token) {
+// Define
+function updateUniverse (universeId, settings, jar, token) {
   return new Promise((resolve, reject) => {
-    const httpOpt = {
-      url: '//chat.roblox.com/v2/remove-from-conversation',
+    return http({
+      url: `//develop.roblox.com/v1/universes/${universeId}/configuration`,
       options: {
-        method: 'POST',
-        jar: jar,
+        method: 'PATCH',
+        jar,
         headers: {
           'X-CSRF-TOKEN': token
         },
-        json: {
-          conversationId: conversationId,
-          participantUserId: userId
-        },
+        json: settings,
         resolveWithFullResponse: true
       }
-    }
-
-    return http(httpOpt).then((res) => {
-      if (res.statusCode === 200) {
-        if (!res.body.resultType === 'Success') {
-          reject(new Error(res.body.statusMessage))
-        } else {
-          resolve(res.body)
-        }
+    }).then(({ statusCode, body }) => {
+      if (statusCode === 200) {
+        resolve(body)
+      } else if (body &amp;&amp; body.errors) {
+        reject(new Error(`[${statusCode}] ${body.errors[0].message} | universeId: ${universeId}, settings: ${JSON.stringify(settings)} ${body.errors.field ? ` | ${body.errors.field} is incorrect` : ''}`))
       } else {
-        let error = 'An unknown error has occurred.'
-        if (res.body &amp;&amp; res.body.errors) {
-          error = res.body.errors.map((e) => e.message).join('\n')
-        }
-        reject(new Error(error))
+        reject(new Error(`An unknown error occurred with updateUniverse() | [${statusCode}] universeId: ${universeId}, settings: ${JSON.stringify(settings)}`))
       }
-    }).catch(error => reject(error))
+    }).catch(reject)
   })
 }
 
-exports.func = (args) => {
-  const jar = args.jar
-
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
-    return removeFromGroupConversation(args.conversationId, args.userId, jar, xcsrf)
-  })
+exports.func = function ({ universeId, settings, jar }) {
+  return getGeneralToken({ jar })
+    .then((token) => {
+      return updateUniverse(universeId, settings, jar, token)
+    })
 }
 </code></pre>
         </article>

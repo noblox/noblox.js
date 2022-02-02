@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/chat/removeFromGroupConversation.js</title>
+  <title>noblox.js lib/game/getUniverseInfo.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/chat/removeFromGroupConversation.js</h1>
+                    <h1>lib/game/getUniverseInfo.js</h1>
                 </header>
                 
 
@@ -143,66 +143,55 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
-const getGeneralToken = require('../util/getGeneralToken.js').func
 
-exports.required = ['conversationId', 'userId']
+exports.required = ['universeId']
 exports.optional = ['jar']
 
 // Docs
 /**
- * 🔐 Remove a user from the group conversation.
- * @category Chat
- * @alias removeFromGroupConversation
- * @param {number} conversationId - The id of the conversation.
- * @param {number} userId - The id of the user.
- * @returns {Promise&lt;ConversationRemoveResponse>}
+ * 🔓 Get the info for a universe.
+ * @category Game
+ * @alias getUniverseInfo
+ * @param {number | Array&lt;number>} universeId - The id(s) of the universe(s).
+ * @returns {Promise&lt;UniverseInformation>}
  * @example const noblox = require("noblox.js")
- * // Login using your cookie
- * noblox.removeFromGroupConversation(1, 2)
+ * const universeInfo = await noblox.getUniverseInfo([ 2152417643 ])
 **/
 
-function removeFromGroupConversation (conversationId, userId, jar, token) {
+function getUniverseInfo (universeIds, jar) {
   return new Promise((resolve, reject) => {
+    if (typeof (universeIds) === 'number') universeIds = [universeIds]
+
     const httpOpt = {
-      url: '//chat.roblox.com/v2/remove-from-conversation',
+      url: `//games.roblox.com/v1/games?universeIds=${universeIds.join(',')}`,
       options: {
-        method: 'POST',
+        json: true,
+        resolveWithFullResponse: true,
         jar: jar,
-        headers: {
-          'X-CSRF-TOKEN': token
-        },
-        json: {
-          conversationId: conversationId,
-          participantUserId: userId
-        },
-        resolveWithFullResponse: true
+        method: 'GET'
       }
     }
 
-    return http(httpOpt).then((res) => {
-      if (res.statusCode === 200) {
-        if (!res.body.resultType === 'Success') {
-          reject(new Error(res.body.statusMessage))
+    return http(httpOpt)
+      .then(function ({ statusCode, body }) {
+        if (statusCode === 200) {
+          resolve(body.data.map((universe) => {
+            universe.created = new Date(universe.created)
+            universe.updated = new Date(universe.updated)
+
+            return universe
+          }))
+        } else if (body &amp;&amp; body.errors) {
+          reject(new Error(`[${statusCode}] ${body.errors[0].message} | universeIds: ${universeIds.join(',')} ${body.errors.field ? ` | ${body.errors.field} is incorrect` : ''}`))
         } else {
-          resolve(res.body)
+          reject(new Error(`An unknown error occurred with getUniverseInfo() | [${statusCode}] universeIds: ${universeIds.join(',')}`))
         }
-      } else {
-        let error = 'An unknown error has occurred.'
-        if (res.body &amp;&amp; res.body.errors) {
-          error = res.body.errors.map((e) => e.message).join('\n')
-        }
-        reject(new Error(error))
-      }
-    }).catch(error => reject(error))
+      }).catch(reject)
   })
 }
 
-exports.func = (args) => {
-  const jar = args.jar
-
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
-    return removeFromGroupConversation(args.conversationId, args.userId, jar, xcsrf)
-  })
+exports.func = function (args) {
+  return getUniverseInfo(args.universeId, args.jar)
 }
 </code></pre>
         </article>
