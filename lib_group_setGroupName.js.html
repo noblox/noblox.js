@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/group/getGroup.js</title>
+  <title>noblox.js lib/group/setGroupName.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -133,7 +133,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/group/getGroup.js</h1>
+                    <h1>lib/group/setGroupName.js</h1>
                 </header>
                 
 
@@ -144,38 +144,49 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const getGeneralToken = require('../util/getGeneralToken.js').func
 
 // Args
-exports.required = ['groupId']
-exports.optional = []
+exports.required = ['group', 'name']
+exports.optional = ['jar']
 
 // Docs
 /**
- * ✅ Get a group's info.
+ * 🔐 Update a group name. This method will trigger a Robux charge to your account, and can only be performed by the group
+ * owner.
  * @category Group
- * @alias getGroup
- * @param {number} groupId - The id of the group.
- * @returns {Promise&lt;Group>}
+ * @alias setGroupName
+ * @param {number} group - The id of the group.
+ * @param {string=} name - The new name for the group
+ * @returns {Promise&lt;GroupNameResult>}
  * @example const noblox = require("noblox.js")
- * const groupInfo = await noblox.getGroup(1)
-**/
+ * // Login using your cookie
+ * noblox.setGroupName(1, "Cool group")
+ **/
 
-// Define
-function getGroup (groupId) {
+function changeGroupName (group, name, jar, xcsrf) {
   return new Promise((resolve, reject) => {
     const httpOpt = {
-      url: `//groups.roblox.com/v1/groups/${groupId}`,
+      url: `https://groups.roblox.com/v1/groups/${group}/name`,
       options: {
-        method: 'GET',
-        resolveWithFullResponse: true
+        method: 'PATCH',
+        resolveWithFullResponse: true,
+        json: {
+          name
+        },
+        jar: jar,
+        headers: {
+          'X-CSRF-TOKEN': xcsrf
+        }
       }
     }
+
     return http(httpOpt)
       .then(function (res) {
         if (res.statusCode === 200) {
-          resolve(JSON.parse(res.body))
+          resolve(res.body)
         } else {
-          const body = JSON.parse(res.body) || {}
+          const body = res.body || {}
           if (body.errors &amp;&amp; body.errors.length > 0) {
             const errors = body.errors.map((e) => {
               return e.message
@@ -185,12 +196,17 @@ function getGroup (groupId) {
             reject(new Error(`${res.statusCode} ${res.body}`))
           }
         }
-      }).catch(error => reject(error))
+      })
   })
 }
 
+// Define
 exports.func = function (args) {
-  return getGroup(args.groupId)
+  const jar = args.jar
+  return getGeneralToken({ jar: jar })
+    .then(function (xcsrf) {
+      return changeGroupName(args.group, args.name, args.jar, xcsrf)
+    })
 }
 </code></pre>
         </article>
