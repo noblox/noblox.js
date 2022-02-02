@@ -919,6 +919,16 @@ declare module "noblox.js" {
         updated: string;
     }
 
+    interface GroupDescriptionResult
+    {
+        newDescription: string
+    }
+
+    interface GroupNameResult
+    {
+        newName: string
+    }
+
     interface AuditItemActor
     {
         user: GroupUser;
@@ -1671,6 +1681,16 @@ declare module "noblox.js" {
      * 🔐 Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
      */
     function shout(group: number, message: string, jar?: CookieJar): Promise<GroupShout>;
+
+    /**
+     * 🔐 Sets the group description for group with id `group` to `description`.
+     */
+    function setGroupDescription(group: number, description: string, jar?: CookieJar): Promise<GroupDescriptionResult>;
+
+    /**
+     * 🔐 Sets the group name for group with id `group` to `name`.
+     */
+    function setGroupName(group: number, name: string, jar?: CookieJar): Promise<GroupNameResult>;
 
     /**
      * 🔐 Gets the audit logs of the specified group.
