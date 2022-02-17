@@ -1192,7 +1192,6 @@ declare module "noblox.js" {
     interface PlayerInfo {
         username: string;
         displayName: string;
-        status?: string;
         blurb: string;
         joinDate: Date;
         age?: number;
