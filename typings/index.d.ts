@@ -1112,6 +1112,95 @@ declare module "noblox.js" {
         data: FriendEntry[];
     }
 
+    interface DevForumUserBadges {
+        id: number;
+        granted_at: string;
+        created_at: string;
+        count: number;
+        post_id?: number;
+        post_number?: number;
+        badge_id: number;
+        user_id: number;
+        granted_by_id: number;
+        topic_id?: number;
+    }
+
+    interface DevForumBadges {
+        id: number;
+        name: string;
+        description: string;
+        grant_count: number;
+        allow_title: boolean;
+        multiple_grant: boolean;
+        icon: string;
+        image_url: null; // Might not be the correct type
+        listable: boolean;
+        enabeld: boolean;
+        badge_grouping_id: number;
+        system: boolean;
+        slug: string;
+        manually_grantable: boolean;
+        badge_type_id: number; // This may require a badge ID set, but I'm not sure what types there are.
+    }
+
+    interface DevForumBadgeTypes {
+        id: number;
+        name: string;
+        sort_order: number;
+    }
+
+    interface DevForumUser {
+        id: number;
+        username: string;
+        name: string;
+        avatar_template: string;
+        flair_name: null | string;
+        trust_level: number // This may need a trust level thing. Not sure how it is practically implemented though.
+        admin?: boolean;
+        moderator?: boolean; 
+
+        // Everything below here is specific to the primary user
+        last_posted_at?: string;
+        last_seen_at?: string;
+        created_at?: string;
+        ignored?: boolean;
+        muted?: boolean;
+        can_ignore_user?: boolean;
+        can_mute_user?: boolean;
+        can_send_private_messages?: boolean;
+        can_send_private_messages_to_user?: boolean;
+        title?: string;
+        badge_count?: number;
+        custom_fields?: object;
+        time_read?: number;
+        recent_time_read?: number;
+        primary_group_id?: null | number;
+        primary_group_name?: null | string;
+        flair_group_id?: null | number;
+        flair_url?: null | string;
+        flair_bg_color?: null | string;
+        flair_color?: null | string;
+        
+        // Ends at featured topic.. trying to decide how to implement that
+    }
+
+    interface DevForumTopic {
+        id: number;
+        title: string;
+        fancy_title: string;
+        slug: string;
+        posts_count: number
+    }
+
+    interface DevForumInfo {
+        user_badges: DevForumUserBadges[];
+        badges: DevForumBadges[];
+        badge_types: DevForumBadgeTypes[];
+        users: DevForumUser[];
+        topics: DevForumTopic[];
+        user: DevForumUser;
+    }
+
     interface FollowEntry {
         isDeleted: false;
         id: number;
@@ -1860,6 +1949,11 @@ declare module "noblox.js" {
      * ✅ Gets the `blurb` of the user with the ID `userId`.
      */
     function getBlurb(userId: number): Promise<string>;
+
+    /**
+     * ✅ Get a user's DevForum information from their id.
+     */
+    function getDevForumInfo(userId: number): Promise<DevForumInfo>;
 
     /**
      * 🔐 Gets the pending friend requests of the logged in user.
