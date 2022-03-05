@@ -1149,6 +1149,84 @@ declare module "noblox.js" {
         sort_order: number;
     }
 
+    interface DevForumGroups {
+        id: number;
+        automatic: boolean;
+        name: string;
+        user_count: number;
+        mentionable_level: number;
+        messageable_level: number;
+        visibility_level: number;
+        primary_group: boolean;
+        title: string;
+        grant_trust_level: null;
+        flair_url: string;
+        flair_bg_color: string;
+        flair_color: string;
+        bio_cooked: string;
+        bio_excerpt: string;
+        public_admission: boolean;
+        public_exit: boolean;
+        allow_membership_requests: boolean;
+        full_name: string;
+        default_notification_level: number;
+        membership_request_template: string;
+        members_visibility_level: number;
+        can_see_members: boolean;
+        public_read_state: boolean;
+    }
+
+    interface DevForumTopic {
+        id: number;
+        title: string;
+        fancy_title: string;
+        slug: string;
+        posts_count: number
+
+        // The following is apart of the "featured topic"
+        last_posted_at?: string;
+        created_at?: string;
+        updated_at?: string;
+        views?: number;
+        user_id?: number;
+        last_post_user_id?: number;
+        reply_count?: number;
+        featured_user1_id?: null | number;
+        featured_user2_id?: null | number;
+        featured_user3_id?: null | number;
+        featured_user4_id?: null | number;
+        deleted_at?: null | string;
+        highest_post_number?: number;
+        like_count?: number;
+        incoming_link_count?: number;
+        category_id?: number;
+        visibile?: boolean;
+        moderator_post_count?: number;
+        closed?: boolean;
+        archived?: boolean;
+        bumped_at?: string;
+        has_summary?: boolean;
+        archetype?: string;
+        notify_moderators_count?: number;
+        spam_count?: number;
+        pinned_at?: null | string | number;
+        score?: number;
+        percent_rank?: number;
+        subtype?: null | string;
+        deleted_by_id?: null | number;
+        participant_count?: number;
+        word_count?: number;
+        excerpt?: string;
+        pinned_globally?: boolean;
+        highest_staff_post_number?: number;
+        featured_link?: null | string;
+        reviewable_score?: number;
+        image_upload_id?: number;
+        slow_mode_seconds?: number;
+        bannered_until?: null | string;
+        current_user_voted?: null | number;
+    }
+
     interface DevForumUser {
         id: number;
         username: string;
@@ -1180,16 +1258,53 @@ declare module "noblox.js" {
         flair_url?: null | string;
         flair_bg_color?: null | string;
         flair_color?: null | string;
-        
-        // Ends at featured topic.. trying to decide how to implement that
-    }
-
-    interface DevForumTopic {
-        id: number;
-        title: string;
-        fancy_title: string;
-        slug: string;
-        posts_count: number
+        featured_topic?: DevForumTopic;
+        bio_excerpt?: string;
+        website?: string;
+        website_name?: string;
+        location?: string;
+        bio_raw?: string;
+        bio_cooked?: string;
+        can_edit?: boolean;
+        can_edit_username?: boolean;
+        can_edit_email?: boolean;
+        can_edit_name?: boolean;
+        uploaded_avatar_id?: number;
+        pending_count?: number;
+        profile_view_count?: number;
+        can_upload_profile_header?: boolean;
+        can_upload_user_card_background?: boolean;
+        custom_avatar_upload_id?: number;
+        custom_avatar_template?: string;
+        user_notification_schedule?: {
+            enabled: boolean;
+            day_0_start_time: number;
+            day_0_end_time: number;
+            day_1_start_time: number;
+            day_1_end_time: number;
+            day_2_start_time: number;
+            day_2_end_time: number;
+            day_3_start_time: number;
+            day_3_end_time: number;
+            day_4_start_time: number;
+            day_4_end_time: number;
+            day_5_start_time: number;
+            day_5_end_time: number;
+            day_6_start_time: number;
+            day_6_end_time: number;
+        };
+        total_followers?: number;
+        total_following?: number;
+        can_see_following?: null | boolean;
+        can_see_followers?: boolean;
+        can_see_follow?: boolean;
+        notify_followed_user_when_followed?: boolean;
+        notify_me_when_followed_replies?: boolean;
+        notify_me_when_followed_posts?: boolean;
+        accepted_answers?: boolean;
+        featured_user_badge_ids?: number[];
+        invited_by?: null | number;
+        groups?: DevForumGroups[];
     }
 
     interface DevForumInfo {
