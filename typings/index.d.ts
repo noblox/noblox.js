@@ -1934,7 +1934,7 @@ declare module "noblox.js" {
     function getPlayerThumbnail(userIds: number | number[], size: BodySizes | BustSizes | HeadshotSizes, format?: "png" | "jpeg", isCircular?: boolean, cropType?: "body" | "bust" | "headshot"): Promise<PlayerThumbnailData[]>;
 
     /**
-     * 🔐 Gets the presence statuses of the specified users
+     * 🔓 Get the presence status of users; game data visibility is dependent on the privacy settings of the target user
      */
     function getPresences(userIds: number[]): Promise<Presences>;
 
