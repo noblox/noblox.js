@@ -710,7 +710,7 @@ declare module "noblox.js" {
     type PlayableDevices = "Computer" | "Phone" | "Tablet" | "Console"
     type Regions = "Unknown" | "China"
 
-    interface UniverseAsset 
+    interface UniverseAsset
     {
         assetID: number,
         assetTypeID: number,
@@ -736,7 +736,7 @@ declare module "noblox.js" {
         universeAnimationType?: AnimationType;
         universeCollisionType?: CollisionType;
         universeJointPositioningType?: JointType;
-        
+
         isArchived?: boolean;
         isFriendsOnly?: boolean;
 
@@ -747,7 +747,7 @@ declare module "noblox.js" {
 
         isForSale?: boolean;
         price?: number;
-        
+
         universeAvatarMinScales?: AvatarScale
         universeAvatarMaxScales?: AvatarScale
 
@@ -1201,9 +1201,7 @@ declare module "noblox.js" {
         oldNames?: string[];
         isBanned: boolean;
     }
-    interface Presences {
-        userPresences: UserPresence[]
-    }
+
 
     interface PlayerThumbnailData {
         targetId: number;
@@ -1936,7 +1934,7 @@ declare module "noblox.js" {
     /**
      * 🔓 Get the presence status of users; game data visibility is dependent on the privacy settings of the target user
      */
-    function getPresences(userIds: number[]): Promise<Presences>;
+    function getPresences(userIds: number[]): Promise<UserPresence[]>;
 
     /**
      * ✅ Gets the `status` message of the user with the ID `userId`.

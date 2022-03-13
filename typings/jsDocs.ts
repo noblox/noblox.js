@@ -909,7 +909,7 @@ type UniverseSettings = {
     universeAnimationType?: "Standard" | "PlayerChoice";
     universeCollisionType?: "InnerBox" | "OuterBox";
     universeJointPositioningType?: "Standard" | "ArtistIntent";
-    
+
     isArchived?: boolean;
     isFriendsOnly?: boolean;
 
@@ -923,7 +923,7 @@ type UniverseSettings = {
 
     isForSale?: boolean;
     price?: number;
-    
+
     universeAvatarMinScales?: AvatarScale;
     universeAvatarMaxScales?: AvatarScale;
 
@@ -951,7 +951,7 @@ type UniverseSettings = {
     universeAnimationType?: "Standard" | "PlayerChoice";
     universeCollisionType?: "InnerBox" | "OuterBox";
     universeJointPositioningType?: "Standard" | "ArtistIntent";
-    
+
     isArchived?: boolean;
     isFriendsOnly?: boolean;
 
@@ -965,7 +965,7 @@ type UniverseSettings = {
 
     isForSale?: boolean;
     price?: number;
-    
+
     universeAvatarMinScales?: AvatarScale;
     universeAvatarMaxScales?: AvatarScale;
 
@@ -1535,9 +1535,6 @@ type PlayerInfo = {
 /**
  * @typedef
 */
-type Presences = {
-    userPresences: Array<UserPresence>;
-}
 
 /**
  * @typedef
