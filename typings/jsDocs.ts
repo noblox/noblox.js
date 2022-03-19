@@ -1601,6 +1601,15 @@ type DevForumTopic = {
 }
 
 /**
+ * 0 Visitor
+ * 1 Member
+ * 2 Regular
+ * 3 Editor
+ * 4 Leader (Roblox Staff)
+ */
+type DevForumTrustLevelType = 0 | 1 | 2 | 3 | 4;
+
+/**
  * @typedef
 */
 type DevForumUser = {
@@ -1609,7 +1618,7 @@ type DevForumUser = {
     name: string;
     avatar_template: string;
     flair_name: null | string;
-    trust_level: number // This may need a trust level thing. Not sure how it is practically implemented though.
+    trust_level: DevForumTrustLevelType;
     admin?: boolean;
     moderator?: boolean; 
 
