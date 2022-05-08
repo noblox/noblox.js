@@ -689,53 +689,16 @@ type OnUserTypingChatEvent = {
 }
 
 /// Game
-
-/**
- * @typedef
-*/
-type GameInstancePlayerThumbnail = {
-    AssetId: number;
-    AssetTypeId: number;
-    Url: string;
-    IsFinal: boolean;
-}
-
-/**
- * @typedef
-*/
-type GameInstancePlayer = {
-    Id: number;
-    Username: string;
-    Thumbnail: GameInstancePlayerThumbnail;
-}
-
 /**
  * @typedef
 */
 type GameInstance = {
-    Capacity: number;
-    Ping: number;
-    Fps: number;
-    ShowSlowGameMessage: boolean;
-    Guid: string;
-    PlaceId: number;
-    CurrentPlayers: Array<GameInstancePlayer>;
-    UserCanJoin: boolean;
-    ShowShutdownButton: boolean;
-    JoinScript: string;
-    FriendsDescription: string;
-    FriendsMouseover: string;
-    PlayersCapacity: string;
-}
-
-/**
- * @typedef
-*/
-type GameInstances = {
-    PlaceId: number;
-    ShowShutdownAllButton: boolean;
-    Collection: Array<GameInstance>;
-    TotalCollectionSize: number;
+    id: string;
+    maxPlayers: number;
+    playing: number;
+    playerTokens: Array<string>;
+    fps: number;
+    ping: number;
 }
 
 /**

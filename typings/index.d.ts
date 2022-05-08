@@ -592,41 +592,13 @@ declare module "noblox.js" {
     }
 
     /// Game
-
-    interface GameInstancePlayerThumbnail {
-        AssetId: number;
-        AssetTypeId: number;
-        Url: string;
-        IsFinal: boolean;
-    }
-
-    interface GameInstancePlayer {
-        Id: number;
-        Username: string;
-        Thumbnail: GameInstancePlayerThumbnail;
-    }
-
     interface GameInstance {
-        Capacity: number;
-        Ping: number;
-        Fps: number;
-        ShowSlowGameMessage: boolean;
-        Guid: string;
-        PlaceId: number;
-        CurrentPlayers: GameInstancePlayer[];
-        UserCanJoin: boolean;
-        ShowShutdownButton: boolean;
-        JoinScript: string;
-        FriendsDescription: string;
-        FriendsMouseover: string;
-        PlayersCapacity: string;
-    }
-
-    interface GameInstances {
-        PlaceId: number;
-        ShowShutdownAllButton: boolean;
-        Collection: GameInstance[];
-        TotalCollectionSize: number;
+        id: string;
+        maxPlayers: number;
+        playing: number;
+        playerTokens: string[];
+        fps: number;
+        ping: number;
     }
 
     interface GamePassResponse
@@ -1554,9 +1526,11 @@ declare module "noblox.js" {
     /**
      * 🔐 Returns data about the existing game instances (servers) of the specified place. You must have permission to view the game's server list to use this. (Must be logged in)
      * @param placeId The place whose game instances are being fetched.
-     * @param startIndex The index to start from in regards to server list.
+     * @param serverType The type of game instances to get
+     * @param sortOrder The order that the game instances will be sorted by (Asc or Desc)
+     * @param limit The maximum number of results.
      */
-    function getGameInstances(placeId: number, startIndex: number): Promise<GameInstances>;
+    function getGameInstances(placeId: number, serverType?: "Public" | "Friend" | "VIP", sortOrder?: SortOrder, limit?: number): Promise<GameInstance[]>;
 
     /**
      * ✅ Get the badges in a specific game.
@@ -1714,12 +1688,12 @@ declare module "noblox.js" {
     /**
      * ✅ Gets a list of games from the specified group.
      */
-    function getGroupGames(groupId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string): Promise<GroupGameInfo[]>;
+    function getGroupGames(groupId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: SortOrder, limit?: Limit, cursor?: string): Promise<GroupGameInfo[]>;
 
     /**
      * ✅ Gets a list of assets from the specified group.
      */
-    function getGroupAssets(groupId: number, assetType: string, sortOrder?: "Asc" | "Desc", limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupAssetInfo[]>;
+    function getGroupAssets(groupId: number, assetType: string, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupAssetInfo[]>;
 
     /**
      * ✅ Gets the groups a player is in.

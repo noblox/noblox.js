@@ -72,12 +72,21 @@ describe('Game Methods', () => {
   })
 
   it('getGameInstances() should return instances of a game, given placeId', () => {
-    return getGameInstances(142823291).then((res) => {
-      return expect(res).toMatchObject({
-        PlaceId: 142823291,
-        Collection: expect.any(Array),
-        TotalCollectionSize: expect.any(Number)
-      })
+    return getGameInstances(142823291, "Public", "Asc", 100).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(String),
+            maxPlayers: expect.any(Number),
+            playing: expect.any(Number),
+            playerTokens: expect.arrayContaining([
+              expect.any(String)
+            ]),
+            fps: expect.any(Number),
+            ping: expect.any(Number),
+          })
+        ])
+      )
     })
   })
 
