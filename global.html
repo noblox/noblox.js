@@ -36557,7 +36557,7 @@ const assetId = await noblox.uploadAnimation(fs.readFileSync("./KeyframeSequence
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 const fs = require("fs")
 // Login using your cookie
-noblox.uploadItem("A cool decal.", 13, fs.createReadStream("./Image.png"))</code></pre>
+await noblox.uploadItem("A cool decal.", 13, fs.createReadStream("./Image.png"))</code></pre>
     
 
 
