@@ -146,9 +146,9 @@ describe('Asset Methods', () => {
   it('getThumbnails() returns player/asset thumbnails', () => {
     return getThumbnails([
       {
-        "type": "AvatarHeadShot",
-        "token": "4C32C300ABC60ABD344ABCFB3841E778",
-        "size": "150x150"
+        type: 'AvatarHeadShot',
+        token: '4C32C300ABC60ABD344ABCFB3841E778',
+        size: '150x150'
       }
     ]).then((res) => {
       return expect(res).toEqual(

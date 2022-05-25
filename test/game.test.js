@@ -72,7 +72,7 @@ describe('Game Methods', () => {
   })
 
   it('getGameInstances() should return instances of a game, given placeId', () => {
-    return getGameInstances(142823291, "Public", "Asc", 100).then((res) => {
+    return getGameInstances(142823291, 'Public', 'Asc', 100).then((res) => {
       return expect(res).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
@@ -83,7 +83,7 @@ describe('Game Methods', () => {
               expect.any(String)
             ]),
             fps: expect.any(Number),
-            ping: expect.any(Number),
+            ping: expect.any(Number)
           })
         ])
       )
@@ -159,7 +159,7 @@ describe('Game Methods', () => {
   })
 
   it('updateUniverse() should update a universe with the provided settings', () => {
-    return updateUniverse(2954334954, { description: "Testing 1234" }).then((res) => {
+    return updateUniverse(2954334954, { description: 'Testing 1234' }).then((res) => {
       return expect(res).toEqual(
         expect.objectContaining({
           genre: expect.any(String),
@@ -173,7 +173,7 @@ describe('Game Methods', () => {
           universeAnimationType: expect.any(String),
           universeAvatarType: expect.any(String),
           universeCollisionType: expect.any(String),
-          universeJointPositioningType: expect.any(String),
+          universeJointPositioningType: expect.any(String)
         })
       )
     })

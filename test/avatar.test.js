@@ -97,6 +97,7 @@ describe('Avatar Methods', () => {
 
   it('redrawAvatar() redraws logged in user\'s avatar or gets flood checked', () => {
     return redrawAvatar().catch((err) => {
+      // eslint-disable-next-line jest/no-conditional-expect
       expect(() => { throw new Error(err) }).toThrowError('Redraw avatar floodchecked')
     })
   })
