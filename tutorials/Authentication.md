@@ -7,6 +7,8 @@ A cookie (not the ones you eat) is a small quantity of data containing data sent
 ### How do I obtain my cookie?
 There are many different ways to obtain your cookie depending on your browser. First of all, open an [Incognito window](https://support.google.com/chrome/answer/95464?co=GENIE.Platform%3DDesktop&hl=en) on your browser and sign into your bot account.
 
+> [Are you hosting your bot remotely? Due to recent security improvements, cookies are now locked by IP region. Learn connect to your VPS and generate the cookie remotely here.](https://noblox.js.org/tutorial-VPS%20Authentication.html)
+
 #### **Chrome**
     1. Click the arrow icon on the right-hand side of the toolbar. 
     2. Go to More Tools. 
