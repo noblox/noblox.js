@@ -154,14 +154,22 @@ exports.optional = ['jar']
 
 // Docs
 /**
- * 🔐 An event for when someone messages you.
+ * 🔐 An event for when someone messages you via. chat. This event will only emit for messages sent via. chat windows on
+ * the website - those in the pop-up/overlay window. To handle messages sent via. the older email-like
+ * message function, see onMessage.
+ * @see [onMessage()](global.html#onMessage)
  * @category Chat
  * @alias onNewMessage
  * @returns An EventEmitter that emits when someone messages you.
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.onNewMessage().on("data", function(data) {
- *  console.log("New message!", data)
+ * const messageEvent = noblox.onNewMessage()
+ * messageEvent.on("data", function(data) {
+ *  console.log("New chat message! ", data)
+ * })
+ * messageEvent.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 

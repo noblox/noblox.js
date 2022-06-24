@@ -163,8 +163,13 @@ exports.optional = ['jar']
  * @returns An EventEmitter that emits when someone shouts.
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.onShout(1).on("data", function(data) {
- *  console.log("New shout!", data)
+ * const shoutEvent = noblox.onShout(1)
+ * shoutEvent.on("data", function(data) {
+ *  console.log("New Shout!", data)
+ * })
+ * shoutEvent.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 

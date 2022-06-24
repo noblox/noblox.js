@@ -160,8 +160,13 @@ exports.optional = ['jar']
  * @returns An EventEmitter that emits when a party joins a game.
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.onPartyJoinedGame().on("data", function(data) {
- *  console.log("Party joined game!", data)
+ * const partyJoinedGame = noblox.onPartyJoinedGame()
+ * partyJoinedGame.on("data", function(data) {
+ *  console.log("Party joined game! ", data)
+ * })
+ * partyJoinedGame.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 

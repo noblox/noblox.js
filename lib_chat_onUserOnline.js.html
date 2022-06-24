@@ -160,8 +160,13 @@ exports.optional = ['jar']
  * @returns An EventEmitter that emits when someone comes online.
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.onUserOnline().on("data", function(data) {
- *  console.log("User online!", data)
+ * const userOnlineEvent = noblox.onUserOnline()
+ * userOnlineEvent.on("data", function(data) {
+ *  console.log("User online! ", data)
+ * })
+ * userOnlineEvent.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 

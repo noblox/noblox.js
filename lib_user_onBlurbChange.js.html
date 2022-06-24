@@ -161,8 +161,13 @@ exports.required = ['userId']
  * @param {number} userId - The id of the user.
  * @returns An EventEmitter that emits when a user's blurb changes.
  * @example const noblox = require("noblox.js")
- * noblox.onBlurbChange().on("data", function(data) {
+ * const blurbEvent = noblox.onBlurbChange(1)
+ * blurbEvent.on("data", function(data) {
  *  console.log("User's blurb changed!", data)
+ * })
+ * blurbEvent.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 

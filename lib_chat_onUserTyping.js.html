@@ -160,8 +160,13 @@ exports.optional = ['jar']
  * @returns An EventEmitter that emits when someone starts typing in a chat.
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.onUserTyping().on("data", function(data) {
- *  console.log("User typing!", data)
+ * const userTyping = noblox.onUserTyping()
+ * userTyping.on("data", function(data) {
+ *  console.log("User typing! ", data)
+ * })
+ * userTyping.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 

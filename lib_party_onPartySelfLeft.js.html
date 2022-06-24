@@ -160,8 +160,13 @@ exports.optional = ['jar']
  * @returns An EventEmitter that emits when you leave a party.
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.onPartySelfLeft().on("data", function(data) {
- *  console.log("You left a party!", data)
+ * const leftParty = noblox.onPartySelfLeft()
+ * leftParty.on("data", function(data) {
+ *  console.log("You left a party! ", data)
+ * })
+ * leftParty.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 

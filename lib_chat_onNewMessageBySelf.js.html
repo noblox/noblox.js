@@ -160,8 +160,13 @@ exports.optional = ['jar']
  * @returns An EventEmitter that emits when you send a new message.
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.onNewMessageBySelf().on("data", function(data) {
- *  console.log("Sent message!", data)
+ * const messageSent = noblox.onNewMessageBySelf()
+ * messageSent.on("data", function(data) {
+ *  console.log("Sent chat message! ", data)
+ * })
+ * messageSent.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 

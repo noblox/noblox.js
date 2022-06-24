@@ -25358,7 +25358,7 @@ const recentMessages = await noblox.multiGetLatestMessages([1, 2, 3])</code></pr
         <p class="tag-source">
             <a href="lib_group_onAuditLog.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_group_onAuditLog.js.html">lib/group/onAuditLog.js</a>, <a href="lib_group_onAuditLog.js.html#line24">line 24</a>
+                <a href="lib_group_onAuditLog.js.html">lib/group/onAuditLog.js</a>, <a href="lib_group_onAuditLog.js.html#line29">line 29</a>
             </span>
         </p>
     
@@ -25406,8 +25406,13 @@ const recentMessages = await noblox.multiGetLatestMessages([1, 2, 3])</code></pr
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onAuditLog().on("data", function(data) {
+const auditEvent = noblox.onAuditLog(1)
+auditEvent.on("data", function(data) {
  console.log("New action!", data)
+})
+auditEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -25534,7 +25539,7 @@ noblox.onAuditLog().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_user_onBlurbChange.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_onBlurbChange.js.html">lib/user/onBlurbChange.js</a>, <a href="lib_user_onBlurbChange.js.html#line22">line 22</a>
+                <a href="lib_user_onBlurbChange.js.html">lib/user/onBlurbChange.js</a>, <a href="lib_user_onBlurbChange.js.html#line27">line 27</a>
             </span>
         </p>
     
@@ -25580,7 +25585,7 @@ noblox.onAuditLog().on("data", function(data) {
     <h5>Example</h5>
     
     
-        <pre class="prettyprint"><code>const noblox = require("noblox.js")noblox.onBlurbChange().on("data", function(data) { console.log("User's blurb changed!", data)})</code></pre>
+        <pre class="prettyprint"><code>const noblox = require("noblox.js")const blurbEvent = noblox.onBlurbChange(1)blurbEvent.on("data", function(data) { console.log("User's blurb changed!", data)})blurbEvent.on("error", function(err) { console.error("Something went wrong: ", err) // Handle error as needed})</code></pre>
     
 
 
@@ -25655,7 +25660,7 @@ noblox.onAuditLog().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_user_onFriendRequest.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_onFriendRequest.js.html">lib/user/onFriendRequest.js</a>, <a href="lib_user_onFriendRequest.js.html#line24">line 24</a>
+                <a href="lib_user_onFriendRequest.js.html">lib/user/onFriendRequest.js</a>, <a href="lib_user_onFriendRequest.js.html#line30">line 30</a>
             </span>
         </p>
     
@@ -25703,8 +25708,14 @@ noblox.onAuditLog().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onFriendRequest().on("data", function(data) {
- console.log("New friend request!", data)
+
+const friendRequestEvent = noblox.onFriendRequest()
+friendRequestEvent.on("data", function(data) {
+ console.log("New friend request! ", data)
+})
+friendRequestEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -25875,7 +25886,7 @@ These millisecond values fluctuate, meaning the event can misfire. Removing them
         <p class="tag-source">
             <a href="lib_group_onGroupTransaction.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_group_onGroupTransaction.js.html">lib/group/onGroupTransaction.js</a>, <a href="lib_group_onGroupTransaction.js.html#line30">line 30</a>
+                <a href="lib_group_onGroupTransaction.js.html">lib/group/onGroupTransaction.js</a>, <a href="lib_group_onGroupTransaction.js.html#line35">line 35</a>
             </span>
         </p>
     
@@ -25923,8 +25934,13 @@ These millisecond values fluctuate, meaning the event can misfire. Removing them
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onGroupTransaction(1).on("data", function(data) {
+const transactionEvent = noblox.onGroupTransaction(1)
+transactionEvent.on("data", function(data) {
  console.log("New Transaction!", data)
+})
+transactionEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -26333,7 +26349,8 @@ for (var i = 0; i &lt; blacklist.length; i++) {
     
     
     <div class="description">
-        <p>🔐 An event for when a user sends you a message.</p>
+        <p>🔐 An event for when a user sends you a message via. the older 'email-like' message system. To receive chat messages,
+see the <code>onNewMessage</code> method.</p>
     </div>
     
 
@@ -26377,6 +26394,13 @@ for (var i = 0; i &lt; blacklist.length; i++) {
     
 
     
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="global.html#onNewMessage">onNewMessage()</a>.</p></li>
+        </ul>
+    </dd>
+    
 
     
 
@@ -26384,7 +26408,7 @@ for (var i = 0; i &lt; blacklist.length; i++) {
         <p class="tag-source">
             <a href="lib_user_onMessage.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_onMessage.js.html">lib/user/onMessage.js</a>, <a href="lib_user_onMessage.js.html#line25">line 25</a>
+                <a href="lib_user_onMessage.js.html">lib/user/onMessage.js</a>, <a href="lib_user_onMessage.js.html#line32">line 32</a>
             </span>
         </p>
     
@@ -26432,8 +26456,13 @@ for (var i = 0; i &lt; blacklist.length; i++) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onMessage().on("data", function(data) {
- console.log("New message!", data)
+const messageEvent = noblox.onMessage()
+messageEvent.on("data", function(data) {
+ console.log("New message! ", data)
+})
+messageEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -26509,7 +26538,7 @@ noblox.onMessage().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_chat_onNewConversation.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_chat_onNewConversation.js.html">lib/chat/onNewConversation.js</a>, <a href="lib_chat_onNewConversation.js.html#line20">line 20</a>
+                <a href="lib_chat_onNewConversation.js.html">lib/chat/onNewConversation.js</a>, <a href="lib_chat_onNewConversation.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -26557,8 +26586,13 @@ noblox.onMessage().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onNewConversation().on("data", function(data) {
- console.log("New conversation!", data)
+const conversationEvent = noblox.onNewConversation()
+conversationEvent.on("data", function(data) {
+ console.log("New conversation! ", data)
+})
+conversationEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -26583,7 +26617,9 @@ noblox.onNewConversation().on("data", function(data) {
     
     
     <div class="description">
-        <p>🔐 An event for when someone messages you.</p>
+        <p>🔐 An event for when someone messages you via. chat. This event will only emit for messages sent via. chat windows on
+the website - those in the pop-up/overlay window. To handle messages sent via. the older email-like
+message function, see onMessage.</p>
     </div>
     
 
@@ -26627,6 +26663,13 @@ noblox.onNewConversation().on("data", function(data) {
     
 
     
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="global.html#onMessage">onMessage()</a></p></li>
+        </ul>
+    </dd>
+    
 
     
 
@@ -26634,7 +26677,7 @@ noblox.onNewConversation().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_chat_onNewMessage.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_chat_onNewMessage.js.html">lib/chat/onNewMessage.js</a>, <a href="lib_chat_onNewMessage.js.html#line20">line 20</a>
+                <a href="lib_chat_onNewMessage.js.html">lib/chat/onNewMessage.js</a>, <a href="lib_chat_onNewMessage.js.html#line28">line 28</a>
             </span>
         </p>
     
@@ -26682,8 +26725,13 @@ noblox.onNewConversation().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onNewMessage().on("data", function(data) {
- console.log("New message!", data)
+const messageEvent = noblox.onNewMessage()
+messageEvent.on("data", function(data) {
+ console.log("New chat message! ", data)
+})
+messageEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -26759,7 +26807,7 @@ noblox.onNewMessage().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_chat_onNewMessageBySelf.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_chat_onNewMessageBySelf.js.html">lib/chat/onNewMessageBySelf.js</a>, <a href="lib_chat_onNewMessageBySelf.js.html#line20">line 20</a>
+                <a href="lib_chat_onNewMessageBySelf.js.html">lib/chat/onNewMessageBySelf.js</a>, <a href="lib_chat_onNewMessageBySelf.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -26807,8 +26855,13 @@ noblox.onNewMessage().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onNewMessageBySelf().on("data", function(data) {
- console.log("Sent message!", data)
+const messageSent = noblox.onNewMessageBySelf()
+messageSent.on("data", function(data) {
+ console.log("Sent chat message! ", data)
+})
+messageSent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -26884,7 +26937,7 @@ noblox.onNewMessageBySelf().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_user_onNotification.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_user_onNotification.js.html">lib/user/onNotification.js</a>, <a href="lib_user_onNotification.js.html#line26">line 26</a>
+                <a href="lib_user_onNotification.js.html">lib/user/onNotification.js</a>, <a href="lib_user_onNotification.js.html#line31">line 31</a>
             </span>
         </p>
     
@@ -26932,8 +26985,13 @@ noblox.onNewMessageBySelf().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onNotification().on("data", function(data) {
- console.log("New notification!", data)
+const notification = noblox.onNotification()
+notification.on("data", function(data) {
+ console.log("New notification! ", data)
+})
+notification.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -27009,7 +27067,7 @@ noblox.onNotification().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_party_onPartyDeleted.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_party_onPartyDeleted.js.html">lib/party/onPartyDeleted.js</a>, <a href="lib_party_onPartyDeleted.js.html#line20">line 20</a>
+                <a href="lib_party_onPartyDeleted.js.html">lib/party/onPartyDeleted.js</a>, <a href="lib_party_onPartyDeleted.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -27057,8 +27115,13 @@ noblox.onNotification().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onPartyDeleted().on("data", function(data) {
- console.log("Party deleted!", data)
+const partyDeleted = noblox.onPartyDeleted()
+partyDeleted.on("data", function(data) {
+ console.log("Party deleted! ", data)
+})
+partyDeleted.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -27134,7 +27197,7 @@ noblox.onPartyDeleted().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_party_onPartyInvite.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_party_onPartyInvite.js.html">lib/party/onPartyInvite.js</a>, <a href="lib_party_onPartyInvite.js.html#line20">line 20</a>
+                <a href="lib_party_onPartyInvite.js.html">lib/party/onPartyInvite.js</a>, <a href="lib_party_onPartyInvite.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -27182,8 +27245,13 @@ noblox.onPartyDeleted().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onPartyInvite().on("data", function(data) {
- console.log("Invited to party!", data)
+const partyInvite = noblox.onPartyInvite()
+partyInvite.on("data", function(data) {
+ console.log("Invited to party! ", data)
+})
+partyInvite.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -27259,7 +27327,7 @@ noblox.onPartyInvite().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_party_onPartyJoinedGame.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_party_onPartyJoinedGame.js.html">lib/party/onPartyJoinedGame.js</a>, <a href="lib_party_onPartyJoinedGame.js.html#line20">line 20</a>
+                <a href="lib_party_onPartyJoinedGame.js.html">lib/party/onPartyJoinedGame.js</a>, <a href="lib_party_onPartyJoinedGame.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -27307,8 +27375,13 @@ noblox.onPartyInvite().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onPartyJoinedGame().on("data", function(data) {
- console.log("Party joined game!", data)
+const partyJoinedGame = noblox.onPartyJoinedGame()
+partyJoinedGame.on("data", function(data) {
+ console.log("Party joined game! ", data)
+})
+partyJoinedGame.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -27384,7 +27457,7 @@ noblox.onPartyJoinedGame().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_party_onPartyLeftGame.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_party_onPartyLeftGame.js.html">lib/party/onPartyLeftGame.js</a>, <a href="lib_party_onPartyLeftGame.js.html#line20">line 20</a>
+                <a href="lib_party_onPartyLeftGame.js.html">lib/party/onPartyLeftGame.js</a>, <a href="lib_party_onPartyLeftGame.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -27432,8 +27505,13 @@ noblox.onPartyJoinedGame().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onPartyLeftGame().on("data", function(data) {
- console.log("Party left game!", data)
+const partyLeftGame = noblox.onPartyLeftGame()
+partyLeftGame.on("data", function(data) {
+ console.log("Party left game! ", data)
+})
+partyLeftGame.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -27509,7 +27587,7 @@ noblox.onPartyLeftGame().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_party_onPartySelfJoined.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_party_onPartySelfJoined.js.html">lib/party/onPartySelfJoined.js</a>, <a href="lib_party_onPartySelfJoined.js.html#line20">line 20</a>
+                <a href="lib_party_onPartySelfJoined.js.html">lib/party/onPartySelfJoined.js</a>, <a href="lib_party_onPartySelfJoined.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -27557,8 +27635,13 @@ noblox.onPartyLeftGame().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onPartySelfJoined().on("data", function(data) {
- console.log("You joined a party!", data)
+const joinedParty = noblox.onPartySelfJoined()
+joinedParty.on("data", function(data) {
+ console.log("You joined a party! ", data)
+})
+joinedParty.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -27634,7 +27717,7 @@ noblox.onPartySelfJoined().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_party_onPartySelfLeft.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_party_onPartySelfLeft.js.html">lib/party/onPartySelfLeft.js</a>, <a href="lib_party_onPartySelfLeft.js.html#line20">line 20</a>
+                <a href="lib_party_onPartySelfLeft.js.html">lib/party/onPartySelfLeft.js</a>, <a href="lib_party_onPartySelfLeft.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -27682,8 +27765,13 @@ noblox.onPartySelfJoined().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onPartySelfLeft().on("data", function(data) {
- console.log("You left a party!", data)
+const leftParty = noblox.onPartySelfLeft()
+leftParty.on("data", function(data) {
+ console.log("You left a party! ", data)
+})
+leftParty.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -27759,7 +27847,7 @@ noblox.onPartySelfLeft().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_party_onPartyUserJoined.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_party_onPartyUserJoined.js.html">lib/party/onPartyUserJoined.js</a>, <a href="lib_party_onPartyUserJoined.js.html#line20">line 20</a>
+                <a href="lib_party_onPartyUserJoined.js.html">lib/party/onPartyUserJoined.js</a>, <a href="lib_party_onPartyUserJoined.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -27807,8 +27895,13 @@ noblox.onPartySelfLeft().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onPartyUserJoined().on("data", function(data) {
- console.log("Someone joined a party!", data)
+const partyJoined = noblox.onPartyUserJoined()
+partyJoined.on("data", function(data) {
+ console.log("Someone joined a party! ", data)
+})
+partyJoined.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -27884,7 +27977,7 @@ noblox.onPartyUserJoined().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_party_onPartyUserLeft.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_party_onPartyUserLeft.js.html">lib/party/onPartyUserLeft.js</a>, <a href="lib_party_onPartyUserLeft.js.html#line20">line 20</a>
+                <a href="lib_party_onPartyUserLeft.js.html">lib/party/onPartyUserLeft.js</a>, <a href="lib_party_onPartyUserLeft.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -27932,8 +28025,13 @@ noblox.onPartyUserJoined().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onPartyUserLeft().on("data", function(data) {
- console.log("User left party!", data)
+const partyLeft = noblox.onPartyUserLeft()
+partyLeft.on("data", function(data) {
+ console.log("Someone left party! ", data)
+})
+partyLeft.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -28060,7 +28158,7 @@ noblox.onPartyUserLeft().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_group_onShout.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_group_onShout.js.html">lib/group/onShout.js</a>, <a href="lib_group_onShout.js.html#line24">line 24</a>
+                <a href="lib_group_onShout.js.html">lib/group/onShout.js</a>, <a href="lib_group_onShout.js.html#line29">line 29</a>
             </span>
         </p>
     
@@ -28108,8 +28206,13 @@ noblox.onPartyUserLeft().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onShout(1).on("data", function(data) {
- console.log("New shout!", data)
+const shoutEvent = noblox.onShout(1)
+shoutEvent.on("data", function(data) {
+ console.log("New Shout!", data)
+})
+shoutEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -28185,7 +28288,7 @@ noblox.onShout(1).on("data", function(data) {
         <p class="tag-source">
             <a href="lib_chat_onUserOnline.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_chat_onUserOnline.js.html">lib/chat/onUserOnline.js</a>, <a href="lib_chat_onUserOnline.js.html#line20">line 20</a>
+                <a href="lib_chat_onUserOnline.js.html">lib/chat/onUserOnline.js</a>, <a href="lib_chat_onUserOnline.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -28233,8 +28336,13 @@ noblox.onShout(1).on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onUserOnline().on("data", function(data) {
- console.log("User online!", data)
+const userOnlineEvent = noblox.onUserOnline()
+userOnlineEvent.on("data", function(data) {
+ console.log("User online! ", data)
+})
+userOnlineEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -28310,7 +28418,7 @@ noblox.onUserOnline().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_chat_onUserTyping.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_chat_onUserTyping.js.html">lib/chat/onUserTyping.js</a>, <a href="lib_chat_onUserTyping.js.html#line20">line 20</a>
+                <a href="lib_chat_onUserTyping.js.html">lib/chat/onUserTyping.js</a>, <a href="lib_chat_onUserTyping.js.html#line25">line 25</a>
             </span>
         </p>
     
@@ -28358,8 +28466,13 @@ noblox.onUserOnline().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onUserTyping().on("data", function(data) {
- console.log("User typing!", data)
+const userTyping = noblox.onUserTyping()
+userTyping.on("data", function(data) {
+ console.log("User typing! ", data)
+})
+userTyping.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 
@@ -28486,7 +28599,7 @@ noblox.onUserTyping().on("data", function(data) {
         <p class="tag-source">
             <a href="lib_group_onWallPost.js.html" class="button">View Source</a>
             <span>
-                <a href="lib_group_onWallPost.js.html">lib/group/onWallPost.js</a>, <a href="lib_group_onWallPost.js.html#line24">line 24</a>
+                <a href="lib_group_onWallPost.js.html">lib/group/onWallPost.js</a>, <a href="lib_group_onWallPost.js.html#line29">line 29</a>
             </span>
         </p>
     
@@ -28534,8 +28647,13 @@ noblox.onUserTyping().on("data", function(data) {
     
         <pre class="prettyprint"><code>const noblox = require("noblox.js")
 // Login using your cookie
-noblox.onWallPost().on("data", function(data) {
+const wallpostEvent = noblox.onWallPost(1)
+wallpostEvent.on("data", function(data) {
  console.log("New post!", data)
+})
+wallpostEvent.on("error", function(err) {
+ console.error("Something went wrong: ", err)
+ // Handle error as needed
 })</code></pre>
     
 

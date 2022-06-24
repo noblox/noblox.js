@@ -165,8 +165,13 @@ exports.optional = ['jar']
  * @returns An EventEmitter that emits when you get a notification.
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * noblox.onNotification().on("data", function(data) {
- *  console.log("New notification!", data)
+ * const notification = noblox.onNotification()
+ * notification.on("data", function(data) {
+ *  console.log("New notification! ", data)
+ * })
+ * notification.on("error", function(err) {
+ *  console.error("Something went wrong: ", err)
+ *  // Handle error as needed
  * })
 **/
 
