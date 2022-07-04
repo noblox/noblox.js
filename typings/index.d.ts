@@ -188,6 +188,8 @@ declare module "noblox.js" {
     }
 
     interface ProductInfo {
+        TargetId: number;
+        ProductType?: string;
         AssetId: number;
         ProductId: number;
         Name: string
@@ -901,6 +903,7 @@ declare module "noblox.js" {
         username: string;
         displayName: string;
         buildersClubMembershipType: "None" | "BC" | "TBC" | "OBC" | "RobloxPremium";
+        hasVerifiedBadge?: boolean;
     }
 
     interface GroupShout
@@ -1002,6 +1005,9 @@ declare module "noblox.js" {
         pendingRobux?: number;
         groupPayoutRobux?: number;
         individualToGroupRobux?: number;
+        premiumPayouts?: number;
+        groupPremiumPayouts?: number;
+        adjustmentRobux?: number;
     }
 
     interface WallPost
@@ -1208,6 +1214,7 @@ declare module "noblox.js" {
         twitter?: string;
         youtube?: string;
         twitch?: string;
+        guilded?: string;
     }
 
     /// Badges
@@ -1825,12 +1832,6 @@ declare module "noblox.js" {
     function declineAllFriendRequest(jar?: CookieJar): Promise<void>;
 
     /**
-     * 🔐 Follows the user with `userId`.
-     * @deprecated Function is now under CAPTCHA, will be removed in a future version.
-     */
-    function follow(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
      * 🔐 Sends a message with `body` and `subject` to the user with id `recipient`.
      */
     function message(recipient: number, subject: string, body: string, replyMessageId?: number, includePreviousMessage?: boolean, jar?: CookieJar): Promise<void>;
@@ -2069,7 +2070,7 @@ declare module "noblox.js" {
     function getDate(time: string, timezone: string): Date;
 
     /**
-     * 🔐 Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This uses the https://api.roblox.com/sign-out/v1 API to get tokens.
+     * 🔐 Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This uses the https://auth.roblox.com/v2/logout API to get tokens.
      */
     function getGeneralToken(jar?: CookieJar): Promise<string>;
 

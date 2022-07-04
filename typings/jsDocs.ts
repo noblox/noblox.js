@@ -161,6 +161,8 @@ type ProductInfoCreator = {
  * @typedef
 */
 type ProductInfo = {
+    TargetId: number;
+    ProductType?: string;
     AssetId: number;
     ProductId: number;
     Name: string
@@ -1145,6 +1147,7 @@ type GroupView = {
 type GroupUser = {
     userId: number;
     username: string;
+    hasVerifiedBadge?: boolean;
     displayName: string;
     buildersClubMembershipType: "None" | "BC" | "TBC" | "OBC" | "RobloxPremium";
 }
@@ -1276,6 +1279,9 @@ type RevenueSummaryResponse = {
     pendingRobux?: number;
     groupPayoutRobux?: number;
     individualToGroupRobux?: number;
+    premiumPayouts?: number;
+    groupPremiumPayouts?: number;
+    adjustmentRobux?: number;
 }
 
 /**
@@ -1545,6 +1551,7 @@ type PromotionChannelsResponse = {
     twitter?: string;
     youtube?: string;
     twitch?: string;
+    guilded?: string;
 }
 
 /// Badges
