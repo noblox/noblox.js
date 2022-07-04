@@ -642,7 +642,7 @@ type ChatConversation = {
     participants: Array<ChatParticipant>;
     conversationType: "OneToOneConversation" | "MultiUserConversation" | "CloudEditConversation";
     conversationTitle: ChatConversationTitle;
-    lastUpdated: string;
+    lastUpdated: Date;
     conversationUniverse: ChatConversationUniverse;
 }
 
@@ -1291,8 +1291,8 @@ type WallPost = {
     id: number;
     poster: GroupUser;
     body: string;
-    created: string;
-    updated: string;
+    created: Date;
+    updated: Date;
 }
 
 /**
@@ -1372,7 +1372,7 @@ type UserStatus = {
 */
 type FriendRequestEntry = {
     description: string;
-    created: string;
+    created: Date;
     isBanned: boolean;
     id: number;
     name: string;
@@ -1398,7 +1398,7 @@ type FriendEntry = {
     id: number;
     name: string;
     description: string;
-    created: string;
+    created: Date;
     displayName: string;
 }
 
@@ -1417,7 +1417,7 @@ type FollowEntry = {
     id: number;
     name: string;
     description: string;
-    created: string;
+    created: Date;
     displayName: string;
 }
 

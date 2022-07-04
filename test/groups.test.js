@@ -238,15 +238,15 @@ describe('Groups Methods', () => {
   it('getWall() returns the latest messages on the group wall', () => {
     return getWall(4591072).then((res) => {
       return expect(res).toMatchObject({
-        previousPageCursor: expect.nullOrAny(String),
-        nextPageCursor: expect.nullOrAny(String),
+        previousPageCursor: expect.toBeOneOf([expect.any(String), null]),
+        nextPageCursor: expect.toBeOneOf([expect.any(String), null]),
         data: expect.arrayContaining([
           expect.objectContaining({
             id: expect.any(Number),
-            poster: expect.nullOrAny(Object),
+            poster: expect.toBeOneOf([expect.any(Object), null]),
             body: expect.any(String),
-            created: expect.any(String),
-            updated: expect.any(String)
+            created: expect.any(Date),
+            updated: expect.any(Date)
           })
         ])
       })

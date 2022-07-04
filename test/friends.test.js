@@ -39,7 +39,7 @@ describe('Friends Methods', () => {
         nextPageCursor: expect.toBeOneOf([expect.any(String), null]),
         data: expect.arrayContaining([
           expect.objectContaining({
-            created: expect.any(String),
+            created: expect.any(Date),
             id: expect.any(Number),
             name: expect.any(String)
           })
@@ -55,7 +55,7 @@ describe('Friends Methods', () => {
         nextPageCursor: expect.toBeOneOf([expect.any(String), null]),
         data: expect.arrayContaining([
           expect.objectContaining({
-            created: expect.any(String),
+            created: expect.any(Date),
             id: expect.any(Number),
             name: expect.any(String)
           })
@@ -66,14 +66,13 @@ describe('Friends Methods', () => {
 
   it('getFriendRequests() returns the logged in user\'s incoming friend requests', () => {
     return getFriendRequests().then((res) => {
-      console.log(res)
       return expect(res).toMatchObject({
         previousPageCursor: expect.toBeOneOf([expect.any(String), null]),
         nextPageCursor: expect.toBeOneOf([expect.any(String), null]),
         data: expect.toBeOneOf([
           expect.arrayContaining([
             expect.objectContaining({
-              created: expect.any(String),
+              created: expect.any(Date),
               id: expect.any(Number),
               name: expect.any(String)
             })

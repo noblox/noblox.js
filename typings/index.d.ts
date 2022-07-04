@@ -558,7 +558,7 @@ declare module "noblox.js" {
         participants: ChatParticipant[];
         conversationType: "OneToOneConversation" | "MultiUserConversation" | "CloudEditConversation";
         conversationTitle: ChatConversationTitle;
-        lastUpdated: string;
+        lastUpdated: Date;
         conversationUniverse: ChatConversationUniverse;
     }
 
@@ -1015,8 +1015,8 @@ declare module "noblox.js" {
         id: number;
         poster: GroupUser;
         body: string;
-        created: string;
-        updated: string;
+        created: Date;
+        updated: Date;
     }
 
     interface WallPostPage
@@ -1082,7 +1082,7 @@ declare module "noblox.js" {
 
     interface FriendRequestEntry {
         description: string;
-        created: string;
+        created: Date;
         isBanned: boolean;
         id: number;
         name: string;
@@ -1102,7 +1102,7 @@ declare module "noblox.js" {
         id: number;
         name: string;
         description: string;
-        created: string;
+        created: Date;
         displayName: string;
     }
 
@@ -1115,7 +1115,7 @@ declare module "noblox.js" {
         id: number;
         name: string;
         description: string;
-        created: string;
+        created: Date;
         displayName: string;
     }
 
