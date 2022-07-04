@@ -1,4 +1,4 @@
-const { buy, configureItem, deleteFromInventory, getProductInfo, getResaleData, getResellers, getThumbnails, uploadItem, uploadAnimation, setCookie } = require('../lib')
+const { buy, deleteFromInventory, getProductInfo, uploadAnimation, uploadItem, uploadModel, setCookie } = require('../lib')
 const fs = require('fs')
 
 beforeAll(() => {
@@ -9,169 +9,56 @@ beforeAll(() => {
   })
 })
 
-expect.extend({
-  nullOrAny (received, expected) {
-    if (received === null) {
-      return {
-        pass: true,
-        message: () => `expected null or instance of ${this.utils.printExpected(expected)}, but received ${this.utils.printReceived(received)}`
-      }
-    }
-
-    if (expected === String) {
-      return {
-        pass: typeof received === 'string' || received instanceof String,
-        message: () => `expected null or instance of ${this.utils.printExpected(expected)}, but received ${this.utils.printReceived(received)}`
-      }
-    }
-
-    if (expected === Number) {
-      return {
-        pass: typeof received === 'number' || received instanceof Number,
-        message: () => `expected null or instance of ${this.utils.printExpected(expected)}, but received ${this.utils.printReceived(received)}`
-      }
-    }
-
-    if (expected === Function) {
-      return {
-        pass: typeof received === 'function' || received instanceof Function,
-        message: () => `expected null or instance of ${this.utils.printExpected(expected)}, but received ${this.utils.printReceived(received)}`
-      }
-    }
-
-    if (expected === Object) {
-      return {
-        pass: received !== null && typeof received === 'object',
-        message: () => `expected null or instance of ${this.utils.printExpected(expected)}, but received ${this.utils.printReceived(received)}`
-      }
-    }
-
-    if (expected === Boolean) {
-      return {
-        pass: typeof received === 'boolean',
-        message: () => `expected null or instance of ${this.utils.printExpected(expected)}, but received ${this.utils.printReceived(received)}`
-      }
-    }
-
-    /* jshint -W122 */
-    /* global Symbol */
-    if (typeof Symbol !== 'undefined' && this.expectedObject === Symbol) {
-      return {
-        pass: typeof received === 'symbol',
-        message: () => `expected null or instance of ${this.utils.printExpected(expected)}, but received ${this.utils.printReceived(received)}`
-      }
-    }
-    /* jshint +W122 */
-
-    return {
-      pass: received instanceof expected,
-      message: () => `expected null or instance of ${this.utils.printExpected(expected)}, but received ${this.utils.printReceived(received)}`
-    }
-  }
-})
-
 describe('Asset Methods', () => {
-  it('buy() successfully purchases an item', () => {
-    return buy(1778181).then(res => {
-      return expect(res).toEqual({
-        productId: expect.any(Number),
-        price: expect.any(Number)
-      })
-    })
+  it('deleteFromInventory() successfully deletes an item from user\'s inventory', async () => {
+    await buy(1778181)
+    return await expect(deleteFromInventory(1778181)).resolves.not.toThrow()
   })
 
-  it('deleteFromInventory() successfully deletes an item from user\'s inventory', () => {
-    return deleteFromInventory(1778181)
-  })
-
-  it('configureItem() successfully configures an item user owns', () => {
-    return configureItem(1989194006, 'Main t-shirt', 'Uploaded by me').then(() => {
-      return getProductInfo(1989194006).then((res) => {
-        return expect(res).toMatchObject({
-          Name: 'Main t-shirt',
-          Description: 'Uploaded by me'
-        })
-      })
-    })
+  it('deleteFromInventory() errors when it tries to delete an item from user\'s inventory that isn\'t there', async () => {
+    return await expect(deleteFromInventory(1778181)).rejects.toThrow()
   })
 
   it('getProductInfo() successfully returns a product\'s information', () => {
     return getProductInfo(1989194006).then((res) => {
       return expect(res).toMatchObject({
+        AssetId: expect.any(Number),
+        ProductId: expect.any(Number),
         Name: expect.any(String),
         Description: expect.any(String),
         Creator: expect.any(Object),
-        PriceInRobux: expect.nullOrAny(Number)
+        PriceInRobux: expect.toBeOneOf([expect.any(Number), null])
       })
     })
   })
 
-  it('getResaleData() successfully returns a collectible\'s resale history', () => {
-    return getResaleData(20573078).then((res) => { // Shaggy
-      return expect(res).toMatchObject({
-        assetStock: expect.nullOrAny(Number),
-        sales: expect.any(Number),
-        numberRemaining: expect.nullOrAny(Number),
-        recentAveragePrice: expect.any(Number),
-        originalPrice: expect.nullOrAny(Number),
-        priceDataPoints: expect.arrayContaining([
-          expect.objectContaining({
-            value: expect.nullOrAny(Number),
-            date: expect.nullOrAny(Date)
-          })
-        ])
-      })
-    })
-  })
-
-  it('getResellers() successfully returns a collectible\'s resellable copies', () => {
-    return getResellers(20573078).then((res) => { // Shaggy
-      return expect(res).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            userAssetId: expect.any(Number),
-            price: expect.any(Number),
-            serialNumber: expect.nullOrAny(Number),
-            seller: expect.objectContaining({
-              id: expect.any(Number),
-              type: expect.any(String),
-              name: expect.any(String)
-            })
-          })
-        ])
-      )
-    })
-  })
-
-  it('getThumbnails() returns player/asset thumbnails', () => {
-    return getThumbnails([
-      {
-        type: 'AvatarHeadShot',
-        token: '4C32C300ABC60ABD344ABCFB3841E778',
-        size: '150x150'
-      }
-    ]).then((res) => {
-      return expect(res).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            errorCode: expect.any(Number),
-            errorMessage: expect.any(String),
-            targetId: expect.any(Number),
-            state: expect.any(String),
-            imageUrl: expect.any(String)
-          })
-        ])
-      )
-    })
-  })
-
-  it('uploadItem() uploads an image', () => {
-    return uploadItem('noblox', 13, fs.createReadStream('./img/noblox-js.png'))
+  it('getProductInfo() errors when returning a product\'s information that does not exist', async () => {
+    return await expect(getProductInfo(3)).rejects.toThrow()
   })
 
   it('uploadAnimation() uploads an animation', () => {
     return uploadAnimation(fs.createReadStream('./test/assets/KeyframeSequence.rbxm'), { name: 'noblox', description: 'A noblox test!', copyLocked: true, allowComments: false }).then((res) => {
       return expect(res).toEqual(expect.any(Number))
     })
+  })
+
+  it('uploadAnimation() errors when no options are provided', async () => {
+    await expect(uploadAnimation(fs.createReadStream('./test/assets/KeyframeSequence.rbxm'))).rejects.toThrow()
+  })
+
+  it('uploadItem() uploads an image', async () => {
+    await expect(uploadItem('noblox', 13, fs.createReadStream('./img/noblox-js.png'))).resolves.not.toThrow()
+  })
+
+  it('uploadModel() uploads a model', async () => {
+    await expect(uploadModel(fs.createReadStream('./test/assets/Great-White-Shark-Fin.rbxm'), {
+      name: 'Shark Fin',
+      description: 'Uploaded via noblox',
+      copyLocked: true
+    })).resolves.not.toThrow()
+  })
+
+  it('uploadModel() errors when no options are provided', async () => {
+    await expect(uploadModel(fs.createReadStream('./test/assets/Great-White-Shark-Fin.rbxm'))).rejects.toThrow()
   })
 })

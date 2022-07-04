@@ -910,8 +910,8 @@ declare module "noblox.js" {
     {
         body: string;
         poster: GroupUser;
-        created: string;
-        updated: string;
+        created: Date;
+        updated: Date;
     }
 
     interface GroupDescriptionResult
@@ -935,7 +935,7 @@ declare module "noblox.js" {
         actor: AuditItemActor;
         actionType: string;
         description: object;
-        created: string;
+        created: Date;
     }
 
     interface AuditPage
@@ -1906,7 +1906,7 @@ declare module "noblox.js" {
      * ✅ Gets the `id` of user with `username` and caches according to settings.
      * Username is not case-sensitive.
      */
-    function getIdFromUsername(username: string): Promise<number>;
+    function getIdFromUsername<T extends string | string[]>(username: T): T extends string ? Promise<number> : Promise<number[]>;
 
     /**
      * 🔐 Gets the messages of the logged in user or of the user specified by the jar. Returns by newest to oldest messages.
@@ -1937,11 +1937,6 @@ declare module "noblox.js" {
      * 🔐 Gets the presence statuses of the specified users
      */
     function getPresences(userIds: number[]): Promise<Presences>;
-
-    /**
-     * ✅ Gets the `status` message of the user with the ID `userId`.
-     */
-    function getStatus(userId: number): Promise<string>;
 
     /**
      * ✅ Gets `username` of user with `id` and caches according to settings.

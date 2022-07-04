@@ -1158,8 +1158,8 @@ type GroupUser = {
 type GroupShout = {
     body: string;
     poster: GroupUser;
-    created: string;
-    updated: string;
+    created: Date;
+    updated: Date;
 }
 
 /**
@@ -1191,7 +1191,7 @@ type AuditItem = {
     actor: AuditItemActor;
     actionType: string;
     description: object;
-    created: string;
+    created: Date;
 }
 
 /**

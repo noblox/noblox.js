@@ -102,8 +102,8 @@ describe('Avatar Methods', () => {
     })
   })
 
-  it('removeAssetId() takes off a worn asset on logged in user\'s avatar', () => {
-    return removeAssetId(1989194006)
+  it('removeAssetId() takes off a worn asset on logged in user\'s avatar', async () => {
+    await expect(removeAssetId(1989194006)).resolves.not.toThrow()
   })
 
   it('setAvatarBodyColors() sets body colors to selected colors', () => {
@@ -144,8 +144,8 @@ describe('Avatar Methods', () => {
     })
   })
 
-  it('setWearingAssets() sets the player worn asset ID list to whatever is provided', () => {
-    return setWearingAssets([63690008,
+  it('setWearingAssets() sets the player worn asset ID list to whatever is provided', async () => {
+    await expect(setWearingAssets([63690008,
       86498048,
       86500008,
       86500036,
@@ -155,10 +155,10 @@ describe('Avatar Methods', () => {
       144075659,
       144076358,
       144076760
-    ])
+    ])).resolves.not.toThrow()
   })
 
-  it('wearAssetId() wears the asset ID provided on the currently logged in user\'s avatar', () => {
-    return wearAssetId(1989194006)
+  it('wearAssetId() wears the asset ID provided on the currently logged in user\'s avatar', async () => {
+    await expect(wearAssetId(1989194006)).resolves.not.toThrow()
   })
 })

@@ -12,7 +12,7 @@ describe('Chat Methods', () => {
   let newConversationId
 
   it('addUsersToConversation() adds additional user(s) to form a group chat', () => {
-    return addUsersToConversation(8212952828, [66592931]).then((res) => {
+    return addUsersToConversation(8212952828, [3187412077]).then((res) => {
       if (res && res.conversationId) newConversationId = res.conversationId
 
       expect(res).toEqual(
@@ -32,16 +32,16 @@ describe('Chat Methods', () => {
     })
   })
 
-  it('getChatMessages() returns chat messages', () => {
-    return getChatMessages(8212952828)
+  it('getChatMessages() returns chat messages', async () => {
+    await expect(getChatMessages(8212952828)).resolves.not.toThrow()
   })
 
-  it('getConversations() returns chat conversations that fit the provided IDs', () => {
-    return getConversations([8212952828])
+  it('getConversations() returns chat conversations that fit the provided IDs', async () => {
+    await expect(getConversations([8212952828])).resolves.not.toThrow()
   })
 
-  it('getRolloutSettings() returns rollout settings for chat features', () => {
-    return getRolloutSettings(['LuaChat', 'Party'])
+  it('getRolloutSettings() returns rollout settings for chat features', async () => {
+    await expect(getRolloutSettings(['LuaChat', 'Party'])).resolves.not.toThrow()
   })
 
   it('getUnreadConversationCount() returns number of unread conversations', () => {
@@ -52,36 +52,36 @@ describe('Chat Methods', () => {
     })
   })
 
-  it('getUnreadMessages() returns unread messages in a given conversation', () => {
-    return getUnreadMessages([8212952828])
+  it('getUnreadMessages() returns unread messages in a given conversation', async () => {
+    await expect(getUnreadMessages([8212952828])).resolves.not.toThrow()
   })
 
-  it('getUserConversations() returns all conversations the logged in user is in', () => {
-    return getUserConversations()
+  it('getUserConversations() returns all conversations the logged in user is in', async () => {
+    await expect(getUserConversations()).resolves.not.toThrow()
   })
 
-  it('markChatAsRead() marks a conversation\'s messages as read to the specified message', () => {
-    return markChatAsRead(8212952828, 'e775e103-876f-4332-84ab-1ea14f326d39')
+  it('markChatAsRead() marks a conversation\'s messages as read to the specified message', async () => {
+    await expect(markChatAsRead(8212952828, 'e775e103-876f-4332-84ab-1ea14f326d39')).resolves.not.toThrow()
   })
 
-  it('markChatAsSeen() marks the conversations provided as seen', () => {
-    return markChatAsSeen([8212952828])
+  it('markChatAsSeen() marks the conversations provided as seen', async () => {
+    await expect(markChatAsSeen([8212952828])).resolves.not.toThrow()
   })
 
-  it('multiGetLatestMessages() returns the latest messages corresponding to the given list of conversation IDs', () => {
-    return multiGetLatestMessages([8212952828])
+  it('multiGetLatestMessages() returns the latest messages corresponding to the given list of conversation IDs', async () => {
+    await expect(multiGetLatestMessages([8212952828])).resolves.not.toThrow()
   })
 
-  it('removeFromGroupConversation() removes a user from a given conversation', () => {
-    return removeFromGroupConversation(newConversationId, 66592931)
+  it('removeFromGroupConversation() removes a user from a given conversation', async () => {
+    await expect(removeFromGroupConversation(newConversationId, 3187412077)).resolves.not.toThrow()
   })
 
-  it('renameGroupConversation() renames a group conversation', () => {
-    return renameGroupConversation(newConversationId, 'noblox testing')
+  it('renameGroupConversation() renames a group conversation', async () => {
+    await expect(renameGroupConversation(newConversationId, 'noblox testing')).resolves.not.toThrow()
   })
 
-  it('sendChatMessage() sends a chat message with provided content', () => {
-    return sendChatMessage(newConversationId, 'This is a test.')
+  it('sendChatMessage() sends a chat message with provided content', async () => {
+    await expect(sendChatMessage(newConversationId, 'This is a test.')).resolves.not.toThrow()
   })
 
   it('setChatUserTyping() toggles typing status', async () => {
@@ -90,14 +90,14 @@ describe('Chat Methods', () => {
     })
   })
 
-  it('start121Conversation() starts a conversation with another user', () => {
-    return start121Conversation(55549140)
+  it('start121Conversation() starts a conversation with another user', async () => {
+    await expect(start121Conversation(3187412077)).resolves.not.toThrow()
   })
 
   // TODO: startCloudEditConversation
 
   it('startGroupConversation() opens a conversation with multiple people in it', () => {
-    return startGroupConversation([55549140, 66592931], 'noblox test 2').then((res) => {
+    return startGroupConversation([55549140, 3187412077], 'noblox test 2').then((res) => {
       expect(res).toMatchObject({ resultType: 'Success' })
     })
   })
