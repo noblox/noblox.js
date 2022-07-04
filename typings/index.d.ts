@@ -1409,6 +1409,56 @@ declare module "noblox.js" {
         repeat?: boolean;
     }
 
+    interface Datastore { 
+        name: string;
+        createdTime: Date;
+    }
+
+    interface DatastoresResult { 
+        datastores: Datastore[];
+        nextPageCursor?: string;
+    }
+
+    interface EntryKey { 
+        scope: string;
+        key: string;
+    }
+
+    interface DatastoreKeysResult {
+        keys: EntryKey[];
+        nextPageCursor?: string;
+    }
+
+    interface DatastoreEntry {
+        data: any;
+        metadata: {
+            /**  (ISO datetime, UTC): the time at which the entry was created */
+            robloxEntryCreatedTime: Date;
+            /**  (ISO datetime, UTC): the time at which the entry was updated */
+            lastModified: Date;
+            /** version of the entry being read */
+            robloxEntryVersion: string;
+            robloxEntryAttributes?: string;
+            robloxEntryUserIDs?: string;
+            /** the base-64 encoded MD5 checksum of the content */
+            contentMD5: string;
+            /** the content length in bytes */
+            contentLength: number;
+        }
+    }
+
+    interface EntryVersion {
+        version: string;
+        deleted: boolean;
+        contentLength: number;
+        createdTime: Date;
+        objectCreatedTime: Date;
+    }
+
+    interface EntryVersionsResult {
+        versions: EntryVersion[];
+        nextPageCursor: string;
+    }
 
     // Functions
 
@@ -1820,6 +1870,12 @@ declare module "noblox.js" {
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */
     function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
+
+    /**
+     * 🔐 Sets the API key for the user to enable use of open cloud functions.
+     * This is not the same as a .ROBLOSECURITY cookie.
+     */
+    function setAPIKey(apiKey: string): Promise<void>
 
     /**
      * 🔐 Declines friend requests from `userId`.
@@ -2403,4 +2459,42 @@ declare module "noblox.js" {
      * 🔐 Updates badge information.
      */
     function updateBadgeInfo(badgeId: number, name?: string, description?: string, enabled?: boolean, jar?: CookieJar): Promise<void>
+
+    /// Data Stores
+
+    /** 
+     * ☁️ Marks the entry as deleted by creating a tombstone version. Entries are deleted permanently after 30 days. 
+     */
+    function deleteDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, scope?: string, jar?: CookieJar): Promise<void>
+    
+    /** 
+     * ☁️ Returns the latest value and metadata associated with an entry, or a specific version if versionId is provided.
+     */
+    function getDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, scope?: string, versionId?: string, jar?: CookieJar): Promise<DatastoreEntry>
+
+    /**
+     * ☁️ Returns a list of entry versions of an entry.
+     */
+    function getDatastoreEntryVersion(universeId: number, datastoreName: string, entryKey: string, scope?: string | boolean, startTime?: Date, endTime?: Date, sortOrder?: "Ascending" | "Descending", limit?: number, cursor?: string, jar?: CookieJar): Promise<EntryVersionsResult>
+
+    /**
+     * ☁️ Returns a list of entry keys within a data store.
+     */
+    function getDatastoreKeys(universeId: number, datastoreName: string, scope?: string | boolean, prefix?: string, limit?: number, cursor?: string, jar?: CookieJar): Promise<DatastoreKeysResult>
+
+    /**
+     * ☁️ Returns a list of data stores belonging to a universe.
+     */
+    function getDatastores(universeId: number, prefix?: string, limit?: number, string?: string, jar?: CookieJar): Promise<DatastoresResult>
+
+    /**
+     * ☁️ Increments the value for an entry by a given amount, or create a new entry with that amount.
+     */
+    function incrementDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, incrementBy: number, scope?: string, robloxEntryUserIDs?: number[], robloxEntryAttributes?: object, jar?: CookieJar): Promise<DatastoreEntry>
+
+    /**
+     * ☁️ Sets the value, metadata and user IDs associated with an entry.
+     */
+    function setDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, body: any, scope?: string, matchVersion?: string, exclusiveCreate?: boolean, robloxEntryUserIDs?: number[], robloxEntryAttributes?: object, jar?: CookieJar): Promise<EntryVersion>
+
 }

@@ -1813,3 +1813,77 @@ type GetLatestResponse = {
     data: object;
     repeat?: boolean;
 }
+
+/// Datastores
+
+/**
+ * @typedef
+*/
+type Datastore = { 
+    name: string;
+    createdTime: Date;
+}
+
+/**
+ * @typedef
+*/
+type DatastoresResult = { 
+    datastores: Datastore[];
+    nextPageCursor?: string;
+}
+
+/**
+ * @typedef
+*/
+type EntryKey = { 
+    scope: string;
+    key: string;
+}
+
+/**
+ * @typedef
+*/
+type DatastoreKeysResult = {
+    keys: EntryKey[];
+    nextPageCursor?: string;
+}
+
+/**
+ * @typedef
+*/
+type DatastoreEntry = {
+    data: any;
+    metadata: {
+        /**  (ISO datetime, UTC): the time at which the entry was created */
+        robloxEntryCreatedTime: Date;
+        /**  (ISO datetime, UTC): the time at which the entry was updated */
+        lastModified: Date;
+        /** version of the entry being read */
+        robloxEntryVersion: string;
+        robloxEntryAttributes?: string;
+        robloxEntryUserIDs?: string;
+        /** the base-64 encoded MD5 checksum of the content */
+        contentMD5: string;
+        /** the content length in bytes */
+        contentLength: number;
+    }
+}
+
+/**
+ * @typedef
+*/
+type EntryVersion = {
+    version: string;
+    deleted: boolean;
+    contentLength: number;
+    createdTime: Date;
+    objectCreatedTime: Date;
+}
+
+/**
+ * @typedef
+*/
+type EntryVersionsResult = {
+    versions: EntryVersion[];
+    nextPageCursor: string;
+}
