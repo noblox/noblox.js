@@ -1,4 +1,4 @@
-const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getUniverseInfo, updateDeveloperProduct, updateUniverse, setCookie } = require('../lib')
+const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getUniverseInfo, updateDeveloperProduct, updateUniverse, setCookie, getUniverseContainingPlace } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -191,6 +191,12 @@ describe('Game Methods', () => {
           developerProductId: developerProduct.DeveloperProductId
         })
       })
+    })
+  })
+
+  it("getUniverseContainingPlace() should return a universe id", () => {
+    return getUniverseContainingPlace(41324860).then((res) => {
+      return expect(res).toEqual(18836269);
     })
   })
 })

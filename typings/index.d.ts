@@ -1618,6 +1618,11 @@ declare module "noblox.js" {
     */
     function updateUniverse(universeId: number, settings: UniverseSettings, jar?: CookieJar): Promise<UpdateUniverseResponse>;
 
+    /**
+     * Get universe id of place
+    */
+    function getUniverseContainingPlace(placeId: number): Promise<number>;
+
     /// Group
 
     /**
