@@ -1,4 +1,4 @@
-const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getUniverseInfo, updateDeveloperProduct, updateUniverse, setCookie } = require('../lib')
+const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getGameRevenue, getUniverseInfo, updateDeveloperProduct, updateUniverse, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
