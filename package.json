@@ -20,7 +20,7 @@
     "clans"
   ],
   "dependencies": {
-    "chalk": "^4.0.0",
+    "chalk": "^5.1.1",
     "cheerio": "^1.0.0-rc.10",
     "entities": "^4.3.0",
     "figlet": "^1.4.0",
