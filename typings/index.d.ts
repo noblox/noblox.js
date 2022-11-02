@@ -1628,6 +1628,11 @@ declare module "noblox.js" {
     function deleteWallPost(group: number, post: number | WallPost, page?: number, jar?: CookieJar): Promise<void>;
 
     /**
+     * 🔐 Deletes all wall posts sent by the provided user id.
+     */
+    function deleteWallPostsByUser(group: number, userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
      * 🔐 Alias of `changeRank(group, target, -1)`.
      */
     function demote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
