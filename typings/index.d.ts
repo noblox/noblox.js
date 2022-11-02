@@ -1165,10 +1165,7 @@ declare module "noblox.js" {
         [key: string]: any;
     }
 
-    interface FriendRequest
-    {
-        userId: number;
-    }
+    type FriendRequest = number;
 
     interface UserPresence {
         userPresenceType?: UserPresenceType;
@@ -1629,6 +1626,11 @@ declare module "noblox.js" {
      * 🔐 Deletes the wall post with `id` in `group`. If `page` is known it can be inserted to speed up finding the post, otherwise it will search for the post. Alternatively `post` can be passed in, which only has to contain `view` and `parent.index` to work properly. Using `post` will be much faster because it will not have to search for the post first.
      */
     function deleteWallPost(group: number, post: number | WallPost, page?: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Deletes all wall posts sent by the provided user id.
+     */
+    function deleteWallPostsByUser(group: number, userId: number, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Alias of `changeRank(group, target, -1)`.
