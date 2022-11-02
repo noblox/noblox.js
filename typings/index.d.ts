@@ -1165,10 +1165,7 @@ declare module "noblox.js" {
         [key: string]: any;
     }
 
-    interface FriendRequest
-    {
-        userId: number;
-    }
+    type FriendRequest = number;
 
     interface UserPresence {
         userPresenceType?: UserPresenceType;
