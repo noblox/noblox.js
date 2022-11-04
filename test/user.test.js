@@ -421,9 +421,7 @@ describe('User Methods', () => {
     })
   })
 
-    it('setDescription() sets a description', async () => {
-        return setDescription("Hello!").then(res => {
-            return expect(res.description).toEqual(expect.any(String));
-        });
-    })
+  it('setDescription() sets a description', async () => {
+      return setDescription("Hello!");
+  })
 })
