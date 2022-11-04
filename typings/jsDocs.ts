@@ -1683,6 +1683,13 @@ type UAIDResponse = {
 /**
  * @typedef
 */
+type SetDescriptionResponse = {
+    description: string
+}
+
+/**
+ * @typedef
+*/
 type CanTradeResponse = {
     canTrade: boolean,
     status: string

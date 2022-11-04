@@ -1165,6 +1165,10 @@ declare module "noblox.js" {
         [key: string]: any;
     }
 
+    interface SetDescriptionResponse {
+        description: string;
+    }
+
     type FriendRequest = number;
 
     interface UserPresence {
@@ -1815,6 +1819,11 @@ declare module "noblox.js" {
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */
     function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
+
+    /**
+     * 🔐 Sets the authenticated users' description.
+     */
+    function setDescription(description: string, jar?: CookieJar) : Promise<SetDescriptionResponse>
 
     /**
      * 🔐 Declines friend requests from `userId`.
