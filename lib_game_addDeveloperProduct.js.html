@@ -149,7 +149,6 @@
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
 const checkProductName = require('./checkDeveloperProductName.js').func
-const parser = require('cheerio')
 
 exports.required = ['universeId', 'name', 'priceInRobux']
 exports.optional = ['description', 'jar']
@@ -176,37 +175,26 @@ const nextFunction = (jar, token, universeId, name, priceInRobux, description) =
   }).then((res) => {
     if (res.Success &amp;&amp; res.Message === 'Name available') {
       return http({
-        url: '//www.roblox.com/places/developerproducts/add',
+        url: `//develop.roblox.com/v1/universes/${universeId}/developerproducts?name=${name}&amp;description=${description}&amp;priceInRobux=${priceInRobux}`,
         options: {
           method: 'POST',
           jar: jar,
           headers: {
             'X-CSRF-TOKEN': token
           },
-          form: {
-            universeId,
-            name,
-            priceInRobux,
-            description
-          },
           resolveWithFullResponse: true
         }
       }).then((res) => {
         if (res.statusCode === 200) {
-          const $ = parser.load(res.body)
-          const creationStatus = $('#DeveloperProductStatus')
-
-          if (creationStatus.length > 0) {
-            return {
-              universeId,
-              name,
-              priceInRobux,
-              description,
-              productId: Number(creationStatus.text().match(/\d+/)[0])
-            }
+          return {
+            universeId,
+            name,
+            priceInRobux,
+            description,
+            productId: typeof res.body === 'object' ? res.body.id : JSON.parse(res.body).id
           }
         } else {
-          throw new Error('Create product failed')
+          throw new Error(`Create product failed, ${res.statusCode} ${res.statusMessage}`)
         }
       })
     } else {
