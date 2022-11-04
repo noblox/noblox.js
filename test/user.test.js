@@ -1,4 +1,4 @@
-const { acceptFriendRequest, block, unblock, canManage, declineFriendRequest, unfollow, getBlurb, getCollectibles, getFollowers, getFollowings, getFriendRequests, getFriends, getGroups, getIdFromUsername, getInventory, getInventoryById, getMessages, getOwnership, getPlayerBadges, getPlayerInfo, getPlayerThumbnail, getPremium, getStatus, getUserSocialLinks, getUserTransactions, getUsernameFromId, getUAIDs, removeFriend, sendFriendRequest, setCookie } = require('../lib')
+const { acceptFriendRequest, block, unblock, canManage, declineFriendRequest, unfollow, getBlurb, getCollectibles, getFollowers, getFollowings, getFriendRequests, getFriends, getGroups, getIdFromUsername, getInventory, getInventoryById, getMessages, getOwnership, getPlayerBadges, getPlayerInfo, getPlayerThumbnail, getPremium, getStatus, getUserSocialLinks, getUserTransactions, getUsernameFromId, getUAIDs, removeFriend, sendFriendRequest, setCookie, setDescription } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -420,4 +420,10 @@ describe('User Methods', () => {
       return declineFriendRequest(64679301)
     })
   })
+
+    it('setDescription() sets a description', async () => {
+        return setDescription("Hello!").then(res => {
+            return expect(res.description).toEqual(expect.any(String));
+        });
+    })
 })
