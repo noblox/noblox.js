@@ -786,6 +786,19 @@ declare module "noblox.js" {
         favoritedCount: number;
     }
 
+    interface GameRevenueData {
+        Total: object;
+    }
+
+    interface GameRevenueResponse {
+        placeId: number;
+        dataType: number;
+        dataGranularity: number;
+        startTime: Date;
+        endTime: Date;
+        data: GameRevenueData;
+    }
+
     /// Group
 
     type GroupIconSize = "150x150" | "420x420"
@@ -1614,6 +1627,11 @@ declare module "noblox.js" {
      * 🔐 Modifies a universe's settings
     */
     function updateUniverse(universeId: number, settings: UniverseSettings, jar?: CookieJar): Promise<UpdateUniverseResponse>;
+
+    /**
+     * 🔐 Get the game revenue data associated with a game.
+    */
+    function getGameRevenue(placeId: number, type: string, granularity: string, jar?: CookieJar): Promise<GameRevenueResponse>;
 
     /// Group
 
