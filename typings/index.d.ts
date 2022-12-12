@@ -638,6 +638,101 @@ declare module "noblox.js" {
         title: string;
     }
 
+    interface GameSorts {
+        sorts: Array<{
+            token: string
+            name: string
+            displayName: string
+            gameSetTypeId: number
+            gameSetTargetId: number
+            timeOptionsAvailable: boolean
+            genreOptionsAvailable: boolean
+            numberOfRows: number
+            numberOfGames: number
+            isDefaultSort: boolean
+            contextUniverseId: number
+            contextCountryRegionId: number
+            tokenExpiryInSeconds: number
+        }>
+        timeFilters: Array<{
+            token: string
+            name: string
+            tokenExpiryInSeconds: number
+        }>
+        genreFilters: Array<{
+            token: string
+            name: string
+            tokenExpiryInSeconds: number
+        }>
+        gameFilters: Array<{
+            token: string
+            name: string
+            tokenExpiryInSeconds: number
+        }>
+        pageContext: {
+            pageId: string
+            isSeeAllPage: boolean
+        }
+        gameSortStyle: string
+    }
+
+    interface GameList {
+        games: Array<{
+            creatorId: number
+            creatorName: string
+            creatorType: string
+            creatorHasVerifiedBadge: boolean
+            totalUpVotes: number
+            totalDownVotes: number
+            universeId: number
+            name: string
+            placeId: number
+            playerCount: number
+            imageToken: string
+            isSponsored: boolean
+            nativeAdData: string
+            isShowSponsoredLabel: boolean
+            price: number
+            analyticsIdentifier: string
+            gameDescription: string
+            genre: string
+          }>
+          suggestedKeyword: string
+          correctedKeyword: string
+          filteredKeyword: string
+          hasMoreRows: boolean
+          nextPageExclusiveStartId: number
+          featuredSearchUniverseId: number
+          emphasis: boolean
+          cutOffIndex: number
+          algorithm: string
+          algorithmQueryType: string
+          suggestionAlgorithm: string
+          relatedGames: Array<{
+            creatorId: number
+            creatorName: string
+            creatorType: string
+            creatorHasVerifiedBadge: boolean
+            totalUpVotes: number
+            totalDownVotes: number
+            universeId: number
+            name: string
+            placeId: number
+            playerCount: number
+            imageToken: string
+            isSponsored: boolean
+            nativeAdData: string
+            isShowSponsoredLabel: boolean
+            price: number
+            analyticsIdentifier: string
+            gameDescription: string
+            genre: string
+          }>
+          esDebugInfo: {
+            esQuery: string
+          }
+    }
+
     interface DeveloperProduct {
         ProductId: number,
         DeveloperProductId: number,
@@ -1604,6 +1699,16 @@ declare module "noblox.js" {
      * 🔐 Get the social link data associated with a game.
      */
     function getGameSocialLinks(universeId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
+
+    /**
+     * 🔓 Get the sort info for a game context.
+     */
+    function getGameSorts(gameSortsContext: number, jar?: CookieJar): Promise<GameSorts>;
+
+    /**
+     * 🔓 Get a list of games based on a sort info.
+     */
+    function getGameList(token: string, maxRows?: number, jar?: CookieJar): Promise<GameList>;
 
     /**
      * 🔐 Updates a universe's public access setting
