@@ -1,4 +1,4 @@
-const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getUniverseInfo, updateDeveloperProduct, updateUniverse, setCookie } = require('../lib')
+const { addDeveloperProduct, checkDeveloperProductName, configureGamePass, getDeveloperProducts, getGameBadges, getGameInstances, getGamePasses, getGameSocialLinks, getUniverseInfo, updateDeveloperProduct, updateUniverse, setCookie, getGameSorts, getGameList } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -118,6 +118,28 @@ describe('Game Methods', () => {
           })
         ])
       )
+    })
+  })
+
+  it('getGameSorts() should return the sorts of a game context', () => {
+    return getGameSorts('GamesDefaultSorts').then((res) => {
+      return expect(res).toEqual(
+        expect.objectContaining({
+          sorts: expect.any(Array)
+        })
+      )
+    })
+  })
+
+  it('getGameList() should return the list of games in a sort', () => {
+    return getGameSorts('GamesDefaultSorts').then(data => {
+      getGameList(data.sorts[0].token).then((res) => {
+        return expect(res).toEqual(
+          expect.objectContaining({
+            games: expect.any(Array)
+          })
+        )
+      })
     })
   })
 

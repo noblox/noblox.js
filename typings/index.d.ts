@@ -1701,14 +1701,14 @@ declare module "noblox.js" {
     function getGameSocialLinks(universeId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
 
     /**
-     * 🔓 Get the sort info for a game context.
+     * ✅ Get the sort info for a game context.
      */
-    function getGameSorts(gameSortsContext: number, jar?: CookieJar): Promise<GameSorts>;
+    function getGameSorts(gameSortsContext: number): Promise<GameSorts>;
 
     /**
-     * 🔓 Get a list of games based on a sort info.
+     * ✅ Get a list of games based on a sort info.
      */
-    function getGameList(token: string, maxRows?: number, jar?: CookieJar): Promise<GameList>;
+    function getGameList(token: string, maxRows?: number): Promise<GameList>;
 
     /**
      * 🔐 Updates a universe's public access setting

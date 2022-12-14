@@ -65,3 +65,5 @@ docs/*
 
 .idea/
 
+package-lock.json
+yarn.lock
