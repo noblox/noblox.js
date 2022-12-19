@@ -74,6 +74,12 @@
       "desc": "Disabled by default for security (price checks). If you are only working with ROBLOX assets, however, you can set this to something high (since ROBLOX product info rarely changes)."
      },
 
+    "GamePassProduct": {
+      "expire": 86400,
+      "refresh": false,
+      "desc": "This should normally be fine unless the information of GamePasses you are working with changes frequently."
+    },
+
     "NameFromID": {
       "expire": false,
       "refresh": false,
