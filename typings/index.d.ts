@@ -210,6 +210,8 @@ declare module "noblox.js" {
         ContentRatingTypeId: number;
     }
 
+    type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId">;
+
     interface BuyProductInfo {
         ProductId: number;
         Creator: { Id: number };
@@ -1456,6 +1458,11 @@ declare module "noblox.js" {
      * ✅ Gets `info` of `asset` and caches according to settings.
      */
     function getProductInfo(asset: number): Promise<ProductInfo>;
+
+    /**
+     * ✅ Gets `info` of `gamepass` and caches according to settings.
+     */
+    function getGamePassProductInfo(gamepass: number): Promise<GamePassProductInfo>;
 
     /// Avatar
 
