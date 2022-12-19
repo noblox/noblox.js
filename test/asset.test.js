@@ -1,4 +1,4 @@
-const { buy, configureItem, deleteFromInventory, getProductInfo, getResaleData, getResellers, getThumbnails, uploadItem, uploadAnimation, setCookie } = require('../lib')
+const { buy, configureItem, deleteFromInventory, getGamePassProductInfo, getProductInfo, getResaleData, getResellers, getThumbnails, uploadItem, uploadAnimation, setCookie } = require('../lib')
 const fs = require('fs')
 
 beforeAll(() => {
@@ -91,6 +91,17 @@ describe('Asset Methods', () => {
           Name: 'Main t-shirt',
           Description: 'Uploaded by me'
         })
+      })
+    })
+  })
+
+  it('getGamePassProductInfo() successfully returns a gamepass\'s information', () => {
+    return getGamePassProductInfo(2919875).then((res) => {
+      return expect(res).toMatchObject({
+        Name: expect.any(String),
+        Description: expect.any(String),
+        Creator: expect.any(Object),
+        PriceInRobux: expect.nullOrAny(Number)
       })
     })
   })
