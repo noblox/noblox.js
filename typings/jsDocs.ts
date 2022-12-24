@@ -186,6 +186,11 @@ type ProductInfo = {
 /**
  * @typedef
 */
+type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId">;
+
+/**
+ * @typedef
+*/
 type BuyProductInfo = {
     ProductId: number;
     Creator: { Id: number };
