@@ -1104,6 +1104,219 @@ declare module "noblox.js" {
         data: FriendEntry[];
     }
 
+    interface DevForumUserBadges {
+        id: number;
+        granted_at: string;
+        created_at: string;
+        count: number;
+        post_id?: number;
+        post_number?: number;
+        badge_id: number;
+        user_id: number;
+        granted_by_id: number;
+        topic_id?: number;
+    }
+
+    interface DevForumBadges {
+        id: number;
+        name: string;
+        description: string;
+        grant_count: number;
+        allow_title: boolean;
+        multiple_grant: boolean;
+        icon: string;
+        image_url: null; // Might not be the correct type
+        listable: boolean;
+        enabeld: boolean;
+        badge_grouping_id: number;
+        system: boolean;
+        slug: string;
+        manually_grantable: boolean;
+        badge_type_id: number; // This may require a badge ID set, but I'm not sure what types there are.
+    }
+
+    interface DevForumBadgeTypes {
+        id: number;
+        name: string;
+        sort_order: number;
+    }
+
+    interface DevForumGroups {
+        id: number;
+        automatic: boolean;
+        name: string;
+        user_count: number;
+        mentionable_level: number;
+        messageable_level: number;
+        visibility_level: number;
+        primary_group: boolean;
+        title: string;
+        grant_trust_level: null;
+        flair_url: string;
+        flair_bg_color: string;
+        flair_color: string;
+        bio_cooked: string;
+        bio_excerpt: string;
+        public_admission: boolean;
+        public_exit: boolean;
+        allow_membership_requests: boolean;
+        full_name: string;
+        default_notification_level: number;
+        membership_request_template: string;
+        members_visibility_level: number;
+        can_see_members: boolean;
+        public_read_state: boolean;
+    }
+
+    interface DevForumTopic {
+        id: number;
+        title: string;
+        fancy_title: string;
+        slug: string;
+        posts_count: number
+
+        // The following is apart of the "featured topic"
+        last_posted_at?: string;
+        created_at?: string;
+        updated_at?: string;
+        views?: number;
+        user_id?: number;
+        last_post_user_id?: number;
+        reply_count?: number;
+        featured_user1_id?: null | number;
+        featured_user2_id?: null | number;
+        featured_user3_id?: null | number;
+        featured_user4_id?: null | number;
+        deleted_at?: null | string;
+        highest_post_number?: number;
+        like_count?: number;
+        incoming_link_count?: number;
+        category_id?: number;
+        visibile?: boolean;
+        moderator_post_count?: number;
+        closed?: boolean;
+        archived?: boolean;
+        bumped_at?: string;
+        has_summary?: boolean;
+        archetype?: string;
+        notify_moderators_count?: number;
+        spam_count?: number;
+        pinned_at?: null | string | number;
+        score?: number;
+        percent_rank?: number;
+        subtype?: null | string;
+        deleted_by_id?: null | number;
+        participant_count?: number;
+        word_count?: number;
+        excerpt?: string;
+        pinned_globally?: boolean;
+        highest_staff_post_number?: number;
+        featured_link?: null | string;
+        reviewable_score?: number;
+        image_upload_id?: number;
+        slow_mode_seconds?: number;
+        bannered_until?: null | string;
+        current_user_voted?: null | number;
+    }
+
+    /**
+     * 0 Visitor
+     * 1 Member
+     * 2 Regular
+     * 3 Editor
+     * 4 Leader (Roblox Staff)
+     */
+    type DevForumTrustLevelType = 0 | 1 | 2 | 3 | 4;
+
+    interface DevForumUser {
+        id: number;
+        username: string;
+        name: string;
+        avatar_template: string;
+        flair_name: null | string;
+        trust_level: DevForumTrustLevelType;
+        admin?: boolean;
+        moderator?: boolean; 
+
+        // Everything below here is specific to the primary user
+        last_posted_at?: string;
+        last_seen_at?: string;
+        created_at?: string;
+        ignored?: boolean;
+        muted?: boolean;
+        can_ignore_user?: boolean;
+        can_mute_user?: boolean;
+        can_send_private_messages?: boolean;
+        can_send_private_messages_to_user?: boolean;
+        title?: string;
+        badge_count?: number;
+        custom_fields?: object;
+        time_read?: number;
+        recent_time_read?: number;
+        primary_group_id?: null | number;
+        primary_group_name?: null | string;
+        flair_group_id?: null | number;
+        flair_url?: null | string;
+        flair_bg_color?: null | string;
+        flair_color?: null | string;
+        featured_topic?: DevForumTopic;
+        bio_excerpt?: string;
+        website?: string;
+        website_name?: string;
+        location?: string;
+        bio_raw?: string;
+        bio_cooked?: string;
+        can_edit?: boolean;
+        can_edit_username?: boolean;
+        can_edit_email?: boolean;
+        can_edit_name?: boolean;
+        uploaded_avatar_id?: number;
+        pending_count?: number;
+        profile_view_count?: number;
+        can_upload_profile_header?: boolean;
+        can_upload_user_card_background?: boolean;
+        custom_avatar_upload_id?: number;
+        custom_avatar_template?: string;
+        user_notification_schedule?: {
+            enabled: boolean;
+            day_0_start_time: number;
+            day_0_end_time: number;
+            day_1_start_time: number;
+            day_1_end_time: number;
+            day_2_start_time: number;
+            day_2_end_time: number;
+            day_3_start_time: number;
+            day_3_end_time: number;
+            day_4_start_time: number;
+            day_4_end_time: number;
+            day_5_start_time: number;
+            day_5_end_time: number;
+            day_6_start_time: number;
+            day_6_end_time: number;
+        };
+        total_followers?: number;
+        total_following?: number;
+        can_see_following?: null | boolean;
+        can_see_followers?: boolean;
+        can_see_follow?: boolean;
+        notify_followed_user_when_followed?: boolean;
+        notify_me_when_followed_replies?: boolean;
+        notify_me_when_followed_posts?: boolean;
+        accepted_answers?: boolean;
+        featured_user_badge_ids?: number[];
+        invited_by?: null | number;
+        groups?: DevForumGroups[];
+    }
+
+    interface DevForumInfo {
+        user_badges: DevForumUserBadges[];
+        badges: DevForumBadges[];
+        badge_types: DevForumBadgeTypes[];
+        users: DevForumUser[];
+        topics: DevForumTopic[];
+        user: DevForumUser;
+    }
+
     interface FollowEntry {
         isDeleted: false;
         id: number;
@@ -1861,6 +2074,11 @@ declare module "noblox.js" {
      * ✅ Gets the `blurb` of the user with the ID `userId`.
      */
     function getBlurb(userId: number): Promise<string>;
+
+    /**
+     * ✅ Get a user's DevForum information from their id.
+     */
+    function getDevForumInfo(userId: number): Promise<DevForumInfo>;
 
     /**
      * 🔐 Gets the pending friend requests of the logged in user.
