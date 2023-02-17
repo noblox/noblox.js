@@ -51,7 +51,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^5.1.0",
     "jest": "^28.1.0",
-    "jsdoc": "3.6.10",
+    "jsdoc": "4.0.1",
     "progress": "^2.0.0",
     "standard": "^17.0.0"
   },
