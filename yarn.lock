@@ -15,17 +15,17 @@
   resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.37.1.tgz#027dcce6276aa6817ea756db460a06d927921795"
   integrity sha512-yleOXcK9ecto2TX/H8qWj4VP7HBdvb54H82kbk+wdBuRpFqR0SkWiSr+8hI0O0XtNTL20aCdVIbGMJpLSbQwPw==
 
-"@auto-it/bot-list@10.37.6":
-  version "10.37.6"
-  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.37.6.tgz#3ca9380a44b9c8d33b2088b8fed2c2ffc79c91ed"
-  integrity sha512-ltcLZEzXOOWh24qgNE4mPYJR25Dh9mQy2QwyD8uOE01Vy0yu89RGLi0TahUlUNZUSPBjLYUCxNOcp9WHKBJ7Sg==
+"@auto-it/bot-list@10.42.1":
+  version "10.42.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/bot-list/-/bot-list-10.42.1.tgz#ca7ee51b8a2175a5320205e126f9399c811b244c"
+  integrity sha512-yMvKYnjY/9ihMywPXvy01+7uWmdKdBuw6F4DP9T/CV4AjvUxn64pgUw0IUq35ptWTVut0wIrz57pMe35bLaR7w==
 
 "@auto-it/conventional-commits@^10.30.0":
-  version "10.37.6"
-  resolved "https://registry.yarnpkg.com/@auto-it/conventional-commits/-/conventional-commits-10.37.6.tgz#e30a3130bbd6b5cdb4185b55956c73cc20589b9d"
-  integrity sha512-IJvKrEST7iOlKsohTPgSDkKLTRBF+5RD8arAXc7ZV9QMI9A/BmyoaMhj8uh9wt5QuSpNmw2C3EJWldbvmu695Q==
+  version "10.42.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/conventional-commits/-/conventional-commits-10.42.1.tgz#e640c308b491618cf3cb4ee8d8d96d061a397408"
+  integrity sha512-JUm4srqRBydn9f0BoUWKYP2Z0qdbjL/VTfc2dEgRpxbut1eruKdija+itw705VDkfvFe6hY7ZAWecVJ/6uBbyw==
   dependencies:
-    "@auto-it/core" "10.37.6"
+    "@auto-it/core" "10.42.1"
     array.prototype.flatmap "^1.2.2"
     conventional-changelog-core "^4.2.0"
     conventional-changelog-preset-loader "^2.3.4"
@@ -80,12 +80,12 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
-"@auto-it/core@10.37.6":
-  version "10.37.6"
-  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.37.6.tgz#04e5f47dbd89a4ab253f9562cd214ff8b7408b7c"
-  integrity sha512-XfQq+DmUAg7hXSwq0KxOCGyPLlri8hJoEAp3QDaAa42CSnM5A5oZ67VaL7D/mFcSPDYK8o3w69mQfwcmOENjBA==
+"@auto-it/core@10.42.1":
+  version "10.42.1"
+  resolved "https://registry.yarnpkg.com/@auto-it/core/-/core-10.42.1.tgz#a414be1e76509bc300785007efafb34a3e56c329"
+  integrity sha512-/XPjYNGM0etgo+ggZFVGHMaa+wuSt1G4BZH96PAVVJh0Ruz8DxznSNeJn8JY+wMRtpxuE6urImvsHbjxc7VNzg==
   dependencies:
-    "@auto-it/bot-list" "10.37.6"
+    "@auto-it/bot-list" "10.42.1"
     "@endemolshinegroup/cosmiconfig-typescript-loader" "^3.0.2"
     "@octokit/core" "^3.5.1"
     "@octokit/plugin-enterprise-compatibility" "1.3.0"
