@@ -158,6 +158,7 @@ declare module "noblox.js" {
     interface ProductInfoCreator {
         Id: number;
         Name: string;
+        HasVerifiedBadge: boolean;
     }
 
     interface IGroupPartial {
@@ -208,6 +209,9 @@ declare module "noblox.js" {
         Remaining?: number;
         MinimumMembershipLevel: number;
         ContentRatingTypeId: number;
+        SaleAvailabilityLocations?: string[];
+        SaleLocation?: string;
+        CollectibleItemId?: number;
     }
 
     interface BuyProductInfo {

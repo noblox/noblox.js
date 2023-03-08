@@ -155,6 +155,7 @@ type UploadItemAssetType = 11 | 12 | 13;
 type ProductInfoCreator = {
     Id: number;
     Name: string;
+    HasVerifiedBadge: boolean;
 }
 
 /**
@@ -181,6 +182,9 @@ type ProductInfo = {
     Remaining?: number;
     MinimumMembershipLevel: number;
     ContentRatingTypeId: number;
+    SaleAvailabilityLocations?: string[];
+    SaleLocation?: string;
+    CollectibleItemId?: number;
 }
 
 /**
