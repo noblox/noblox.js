@@ -186,7 +186,7 @@ type ProductInfo = {
 /**
  * @typedef
 */
-type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId">;
+type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId" | "SaleAvailabilityLocations" | "SaleLocation" | "CollectibleItemId">;
 
 /**
  * @typedef

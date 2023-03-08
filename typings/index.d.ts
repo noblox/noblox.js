@@ -210,7 +210,7 @@ declare module "noblox.js" {
         ContentRatingTypeId: number;
     }
 
-    type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId">;
+    type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId" | "SaleAvailabilityLocations" | "SaleLocation" | "CollectibleItemId">;
 
     interface BuyProductInfo {
         ProductId: number;
