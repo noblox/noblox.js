@@ -1493,9 +1493,7 @@ type NotificationMessage = {
 /**
  * @typedef
 */
-type FriendRequest = {
-    userId: number;
-}
+type FriendRequest = number;
 
 /**
  * @typedef
