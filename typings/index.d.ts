@@ -158,6 +158,7 @@ declare module "noblox.js" {
     interface ProductInfoCreator {
         Id: number;
         Name: string;
+        HasVerifiedBadge: boolean;
     }
 
     interface IGroupPartial {
@@ -210,6 +211,9 @@ declare module "noblox.js" {
         Remaining?: number;
         MinimumMembershipLevel: number;
         ContentRatingTypeId: number;
+        SaleAvailabilityLocations?: string[];
+        SaleLocation?: string;
+        CollectibleItemId?: number;
     }
 
     interface BuyProductInfo {
@@ -667,15 +671,6 @@ declare module "noblox.js" {
         productId: string
     }
 
-    interface DeveloperProductUpdateResult
-    {
-        universeId: number,
-        name: string,
-        priceInRobux: number,
-        description?: string,
-        productId: number
-    }
-
     interface CheckDeveloperProductNameResult
     {
         Success: boolean;
@@ -902,7 +897,6 @@ declare module "noblox.js" {
         userId: number;
         username: string;
         displayName: string;
-        buildersClubMembershipType: "None" | "BC" | "TBC" | "OBC" | "RobloxPremium";
         hasVerifiedBadge?: boolean;
     }
 
@@ -1096,14 +1090,18 @@ declare module "noblox.js" {
     }
 
     interface FriendEntry {
-        isOnline?: boolean;
-        presenceType: UserPresenceType;
-        isDeleted: boolean;
-        id: number;
-        name: string;
-        description: string;
         created: Date;
+        id: number;
+        isBanned: boolean;
+        isDeleted: boolean;
+        isOnline?: boolean;
+        name: string;
+        description?: string;
         displayName: string;
+        externalAppDisplayName?: string;
+        friendFrequentRank: number;
+        friendFrequentScore: number;
+        presenceType: UserPresenceType;
     }
 
     interface Friends {
@@ -1646,7 +1644,16 @@ declare module "noblox.js" {
      */
     function getDeveloperProducts(placeId: number, page: number, jar?: CookieJar): Promise<DeveloperProductsResult>;
 
-    function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
+    /**
+     * 🔐 Update a developer product.
+     * @param universeId The id of the universe.
+     * @param productId The id of the product.
+     * @param priceInRobux The new price of the product.
+     * @param name The new name of the product.
+     * @param description The new description of the product.
+     * @param iconImageAssetId The new icon image asset ID for the product.
+     */
+    function updateDeveloperProduct(universeId: number, productId: number, priceInRobux: number, name?: string, description?: string, iconImageAssetId?: number, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the game pass off-sale.

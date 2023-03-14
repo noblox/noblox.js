@@ -155,6 +155,7 @@ type UploadItemAssetType = 11 | 12 | 13;
 type ProductInfoCreator = {
     Id: number;
     Name: string;
+    HasVerifiedBadge: boolean;
 }
 
 /**
@@ -183,6 +184,9 @@ type ProductInfo = {
     Remaining?: number;
     MinimumMembershipLevel: number;
     ContentRatingTypeId: number;
+    SaleAvailabilityLocations?: string[];
+    SaleLocation?: string;
+    CollectibleItemId?: number;
 }
 
 /**
@@ -827,17 +831,6 @@ type DeveloperProductAddResult = {
 /**
  * @typedef
 */
-type DeveloperProductUpdateResult = {
-    universeId: number,
-    name: string,
-    priceInRobux: number,
-    description?: string,
-    productId: number
-}
-
-/**
- * @typedef
-*/
 type CheckDeveloperProductNameResult = {
     Success: boolean;
     /**
@@ -1147,9 +1140,8 @@ type GroupView = {
 type GroupUser = {
     userId: number;
     username: string;
-    hasVerifiedBadge?: boolean;
     displayName: string;
-    buildersClubMembershipType: "None" | "BC" | "TBC" | "OBC" | "RobloxPremium";
+    hasVerifiedBadge?: boolean;
 }
 
 /**
@@ -1392,14 +1384,18 @@ type FriendRequestsPage = {
  * @typedef
 */
 type FriendEntry = {
-    isOnline?: boolean;
-    presenceType: UserPresenceType;
-    isDeleted: boolean;
-    id: number;
-    name: string;
-    description: string;
     created: Date;
+    id: number;
+    isBanned: boolean;
+    isDeleted: boolean;
+    isOnline?: boolean;
+    name: string;
+    description?: string;
     displayName: string;
+    externalAppDisplayName?: string;
+    friendFrequentRank: number;
+    friendFrequentScore: number;
+    presenceType: UserPresenceType;
 }
 
 /**

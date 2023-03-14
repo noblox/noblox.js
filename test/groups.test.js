@@ -64,7 +64,6 @@ describe('Groups Methods', () => {
           expect.objectContaining({
             actor: expect.objectContaining({
               user: expect.objectContaining({
-                buildersClubMembershipType: expect.any(String),
                 hasVerifiedBadge: expect.any(Boolean),
                 userId: expect.any(Number),
                 username: expect.any(String),
@@ -93,12 +92,13 @@ describe('Groups Methods', () => {
         description: expect.any(String),
         owner: {
           userId: expect.any(Number),
-          username: expect.any(String)
+          username: expect.any(String),
+          hasVerifiedBadge: expect.any(Boolean),
+          displayName: expect.any(String)
         },
         shout: expect.objectContaining({
           body: expect.any(String),
           poster: expect.objectContaining({
-            buildersClubMembershipType: expect.any(String),
             hasVerifiedBadge: expect.any(Boolean),
             userId: expect.any(Number),
             username: expect.any(String),
@@ -108,6 +108,7 @@ describe('Groups Methods', () => {
           updated: expect.any(Date)
         }),
         memberCount: expect.any(Number),
+        isBuildersClubOnly: expect.any(Boolean),
         publicEntryAllowed: expect.any(Boolean),
         hasVerifiedBadge: expect.any(Boolean)
       })

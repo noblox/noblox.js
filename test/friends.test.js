@@ -74,7 +74,17 @@ describe('Friends Methods', () => {
             expect.objectContaining({
               created: expect.any(Date),
               id: expect.any(Number),
-              name: expect.any(String)
+              isBanned: expect.any(Boolean),
+              isDeleted: expect.any(Boolean),
+              isOnline: expect.any(Boolean),
+              name: expect.any(String),
+              description: expect.toBeOneOf([expect.any(String), null]),
+              externalAppDisplayName: expect.toBeOneOf([expect.any(String), null]),
+              friendFrequentRank: expect.any(Number),
+              friendFrequentScore: expect.any(Number),
+              hasVerifiedBadge: expect.any(Boolean),
+              presenceType: expect.any(Number),
+              displayName: expect.any(String)
             })
           ]),
           expect.not.arrayContaining([expect.any(Object)])
@@ -88,11 +98,19 @@ describe('Friends Methods', () => {
       return expect(res).toMatchObject({
         data: expect.arrayContaining([
           expect.objectContaining({
-            created: expect.any(String),
+            created: expect.any(Date),
             id: expect.any(Number),
-            name: expect.any(String),
+            isBanned: expect.any(Boolean),
             isDeleted: expect.any(Boolean),
-            isOnline: expect.any(Boolean)
+            isOnline: expect.any(Boolean),
+            name: expect.any(String),
+            description: expect.toBeOneOf([expect.any(String), null]),
+            externalAppDisplayName: expect.toBeOneOf([expect.any(String), null]),
+            friendFrequentRank: expect.any(Number),
+            friendFrequentScore: expect.any(Number),
+            hasVerifiedBadge: expect.any(Boolean),
+            presenceType: expect.any(Number),
+            displayName: expect.any(String)
           })
         ])
       })
