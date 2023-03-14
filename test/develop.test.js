@@ -1,5 +1,4 @@
-const { updateUniverseAccess } = require('noblox.js')
-const { canManage, configureItem, getProductInfo, updateUniverse, setCookie } = require('../lib')
+const { canManage, configureItem, getProductInfo, updateUniverse, updateUniverseAccess, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
