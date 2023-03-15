@@ -1068,7 +1068,7 @@ type Group = {
     name: string;
     description: string;
     owner: GroupUser;
-    shout: GroupShout;
+    shout: GroupShout | null;
     memberCount: number;
     isBuildersClubOnly: boolean;
     publicEntryAllowed: boolean;
