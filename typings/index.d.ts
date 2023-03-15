@@ -9,8 +9,7 @@ declare module "noblox.js" {
     /**
      * request
      */
-    interface CookieJar
-    {
+    interface CookieJar {
         session?: string;
     }
 
@@ -158,6 +157,7 @@ declare module "noblox.js" {
     interface ProductInfoCreator {
         Id: number;
         Name: string;
+        HasVerifiedBadge: boolean;
     }
 
     interface IGroupPartial {
@@ -188,6 +188,8 @@ declare module "noblox.js" {
     }
 
     interface ProductInfo {
+        TargetId: number;
+        ProductType?: string;
         AssetId: number;
         ProductId: number;
         Name: string
@@ -208,6 +210,9 @@ declare module "noblox.js" {
         Remaining?: number;
         MinimumMembershipLevel: number;
         ContentRatingTypeId: number;
+        SaleAvailabilityLocations?: string[];
+        SaleLocation?: string;
+        CollectibleItemId?: number;
     }
 
     interface BuyProductInfo {
@@ -281,7 +286,7 @@ declare module "noblox.js" {
 
     interface UploadModelResponse {
         AssetId: number;
-        AssetVersionId : number;
+        AssetVersionId: number;
     }
 
     interface UploadModelItemOptions {
@@ -302,40 +307,34 @@ declare module "noblox.js" {
 
     /// Avatar
 
-    interface AssetTypeRulesModel
-    {
+    interface AssetTypeRulesModel {
         min: number;
         max: number;
         increment: number;
     }
 
-    interface AvatarRulesScales
-    {
+    interface AvatarRulesScales {
         [scalename: string]: AssetTypeRulesModel;
     }
 
-    interface WearableAssetType
-    {
+    interface WearableAssetType {
         maxNumber: number;
         id: number;
         name: string;
     }
 
-    interface BodyColorModel
-    {
+    interface BodyColorModel {
         brickColorId: number;
         hexColor: string;
         name: string;
     }
 
-    interface DefaultClothingAssetLists
-    {
+    interface DefaultClothingAssetLists {
         defaultShirtAssetIds: number[];
         defaultPantAssetIds: number[];
     }
 
-    interface AvatarRules
-    {
+    interface AvatarRules {
         playerAvatarTypes: string[];
         scales: AvatarRulesScales;
         wearableAssetTypes: WearableAssetType[];
@@ -348,13 +347,11 @@ declare module "noblox.js" {
         emotesEnabledForUser: boolean;
     }
 
-    interface AssetIdList
-    {
+    interface AssetIdList {
         assetIds: number[];
     }
 
-    interface AvatarScale
-    {
+    interface AvatarScale {
         height: number;
         width: number;
         head: number;
@@ -363,8 +360,7 @@ declare module "noblox.js" {
         bodyType: number;
     }
 
-    interface AvatarBodyColors
-    {
+    interface AvatarBodyColors {
         headColorId: number;
         torsoColorId: number;
         rightArmColorId: number;
@@ -373,14 +369,12 @@ declare module "noblox.js" {
         leftLegColorId: number;
     }
 
-    interface AvatarAssetType
-    {
+    interface AvatarAssetType {
         id: number;
         name: string;
     }
 
-    interface AvatarAsset
-    {
+    interface AvatarAsset {
         id: number;
         name: string;
         assetType: AvatarAssetType;
@@ -388,8 +382,7 @@ declare module "noblox.js" {
 
     type PlayerAvatarType = "R6" | "R15";
 
-    interface AvatarInfo
-    {
+    interface AvatarInfo {
         scales: AvatarScale;
         playerAvatarType: PlayerAvatarType;
         bodyColors: AvatarBodyColors;
@@ -401,8 +394,7 @@ declare module "noblox.js" {
     type RecentItemListType = "All" | "Clothing" | "BodyParts" | "AvatarAnimations" | "Accessories" | "Outfits" | "Gear";
     type RecentItemType = "Asset" | "Outfit";
 
-    interface AssetRecentItem
-    {
+    interface AssetRecentItem {
         id: number;
         name: string;
         type: RecentItemType;
@@ -410,14 +402,12 @@ declare module "noblox.js" {
         isEditable?: boolean;
     }
 
-    interface AssetRecentItemsResult
-    {
+    interface AssetRecentItemsResult {
         data: AssetRecentItem[];
         total: number;
     }
 
-    interface AvatarOutfitDetails
-    {
+    interface AvatarOutfitDetails {
         id: number;
         name: string;
         assets: AvatarAsset[];
@@ -427,23 +417,20 @@ declare module "noblox.js" {
         isEditable: boolean;
     }
 
-    interface AvatarOutfit
-    {
+    interface AvatarOutfit {
         id: number;
         name: string;
         isEditable: boolean;
     }
 
-    interface GetOutfitsResult
-    {
+    interface GetOutfitsResult {
         data: AvatarOutfit[];
         total: number;
     }
 
     /// Chat
 
-    interface RejectedParticipant
-    {
+    interface RejectedParticipant {
         rejectedReason: string;
         type: string;
         targetId: number;
@@ -451,31 +438,27 @@ declare module "noblox.js" {
         displayName: string;
     }
 
-    interface ConversationAddResponse
-    {
+    interface ConversationAddResponse {
         conversationId: number;
         rejectedParticipants: RejectedParticipant[];
         resultType: string;
         statusMessage: string;
     }
 
-    interface ConversationRemoveResponse
-    {
+    interface ConversationRemoveResponse {
         conversationId: number;
         resultType: string;
         statusMessage: string;
     }
 
-    interface ConversationRenameResponse
-    {
+    interface ConversationRenameResponse {
         conversationTitle: string;
         resultType: string;
         title: ChatConversationTitle;
         statusMessage: string;
     }
 
-    interface SendChatResponse
-    {
+    interface SendChatResponse {
         content: string;
         filteredForRecievers: boolean;
         messageId: string;
@@ -485,21 +468,18 @@ declare module "noblox.js" {
         statusMessage: string;
     }
 
-    interface UpdateTypingResponse
-    {
+    interface UpdateTypingResponse {
         statusMessage: string;
     }
 
-    interface StartGroupConversationResponse
-    {
+    interface StartGroupConversationResponse {
         conversation: ChatConversation;
         rejectedParticipants: RejectedParticipant[];
         resultType: string;
         statusMessage: string;
     }
 
-    interface ChatSettings
-    {
+    interface ChatSettings {
         /**
          * Is chat enabled for the user.
          */
@@ -510,8 +490,7 @@ declare module "noblox.js" {
         isActiveChatUser: boolean;
     }
 
-    interface ChatMessage
-    {
+    interface ChatMessage {
         id: string;
         senderType: "User" | "System";
         sent: string;
@@ -524,31 +503,26 @@ declare module "noblox.js" {
         eventBased: ChatMessageEventBased;
     }
 
-    interface ChatMessageLink
-    {
+    interface ChatMessageLink {
         type: "Game";
         game: ChatMessageGameLink;
     }
 
-    interface ChatMessageGameLink
-    {
+    interface ChatMessageGameLink {
         universeId: number;
     }
 
-    interface ChatMessageEventBased
-    {
+    interface ChatMessageEventBased {
         type: "SetConversationUniverse";
         setConversationUniverse: ChatMessageSetConversationUniverseEventBased;
     }
 
-    interface ChatMessageSetConversationUniverseEventBased
-    {
+    interface ChatMessageSetConversationUniverseEventBased {
         actorUserId: number;
         universeId: number;
     }
 
-    interface ChatConversation
-    {
+    interface ChatConversation {
         id: number;
         title: string;
         initiator: ChatParticipant;
@@ -556,56 +530,48 @@ declare module "noblox.js" {
         participants: ChatParticipant[];
         conversationType: "OneToOneConversation" | "MultiUserConversation" | "CloudEditConversation";
         conversationTitle: ChatConversationTitle;
-        lastUpdated: string;
+        lastUpdated: Date;
         conversationUniverse: ChatConversationUniverse;
     }
 
-    interface ChatParticipant
-    {
+    interface ChatParticipant {
         type: "User" | "System";
         targetId: number;
         name: string;
         displayName: string;
     }
 
-    interface ChatConversationTitle
-    {
+    interface ChatConversationTitle {
         titleForViewer: string;
         isDefaultTitle: boolean;
     }
 
-    interface ChatConversationUniverse
-    {
+    interface ChatConversationUniverse {
         universeId: number;
         rootPlaceId: number;
     }
 
     type ChatFeatureNames = "LuaChat" | "ConversationUniverse" | "PlayTogether" | "Party" | "GameLink" | "OldPlayTogether";
 
-    interface GetRolloutSettingsResult
-    {
+    interface GetRolloutSettingsResult {
         rolloutFeatures: ChatRolloutFeature[];
     }
 
-    interface ChatRolloutFeature
-    {
+    interface ChatRolloutFeature {
         featureName: ChatFeatureNames;
         isRolloutEnabled: boolean;
     }
 
-    interface GetUnreadConversationCountResult
-    {
+    interface GetUnreadConversationCountResult {
         count: number;
     }
 
-    interface ChatConversationWithMessages
-    {
+    interface ChatConversationWithMessages {
         conversationId: number;
         chatMessages: ChatMessage[];
     }
 
-    interface OnUserTypingChatEvent
-    {
+    interface OnUserTypingChatEvent {
         UserId: number;
         ConversationId: number;
         IsTyping: boolean;
@@ -621,8 +587,7 @@ declare module "noblox.js" {
         ping: number;
     }
 
-    interface GamePassResponse
-    {
+    interface GamePassResponse {
         gamePassId: number,
         name?: string,
         description?: string,
@@ -656,8 +621,7 @@ declare module "noblox.js" {
         PageSize: number
     }
 
-    interface DeveloperProductAddResult
-    {
+    interface DeveloperProductAddResult {
         universeId: number,
         name: string,
         priceInRobux: number,
@@ -665,17 +629,7 @@ declare module "noblox.js" {
         productId: string
     }
 
-    interface DeveloperProductUpdateResult
-    {
-        universeId: number,
-        name: string,
-        priceInRobux: number,
-        description?: string,
-        productId: number
-    }
-
-    interface CheckDeveloperProductNameResult
-    {
+    interface CheckDeveloperProductNameResult {
         Success: boolean;
         /**
          * When success is true: "Name available"
@@ -684,8 +638,7 @@ declare module "noblox.js" {
         Message: string;
     }
 
-    interface GamePassData
-    {
+    interface GamePassData {
         id: number;
         name: string;
         displayName: string;
@@ -702,22 +655,19 @@ declare module "noblox.js" {
     type PlayableDevices = "Computer" | "Phone" | "Tablet" | "Console"
     type Regions = "Unknown" | "China"
 
-    interface UniverseAsset 
-    {
+    interface UniverseAsset {
         assetID: number,
         assetTypeID: number,
         isPlayerChoice: boolean
     }
 
-    interface UniversePermissions
-    {
+    interface UniversePermissions {
         IsThirdPartyTeleportAllowed?: boolean;
         IsThirdPartyAssetAllowed?: boolean;
         IsThirdPartyPurchaseAllowed?: boolean;
     }
 
-    interface UniverseSettings
-    {
+    interface UniverseSettings {
         allowPrivateServers?: boolean;
         privateServerPrice?: number;
 
@@ -728,7 +678,7 @@ declare module "noblox.js" {
         universeAnimationType?: AnimationType;
         universeCollisionType?: CollisionType;
         universeJointPositioningType?: JointType;
-        
+
         isArchived?: boolean;
         isFriendsOnly?: boolean;
 
@@ -739,7 +689,7 @@ declare module "noblox.js" {
 
         isForSale?: boolean;
         price?: number;
-        
+
         universeAvatarMinScales?: AvatarScale
         universeAvatarMaxScales?: AvatarScale
 
@@ -749,8 +699,7 @@ declare module "noblox.js" {
         optInRegions?: Array<Regions>;
     }
 
-    interface UpdateUniverseResponse extends UniverseSettings
-    {
+    interface UpdateUniverseResponse extends UniverseSettings {
         id: number;
     }
 
@@ -791,16 +740,14 @@ declare module "noblox.js" {
     type GroupIconSize = "150x150" | "420x420"
     type GroupIconFormat = "Png"
 
-    interface Role
-    {
+    interface Role {
         name: string;
         memberCount?: number;
         rank: number;
         id: number;
     }
 
-    interface RoleWithDescription
-    {
+    interface RoleWithDescription {
         name: string;
         memberCount?: number;
         rank: number;
@@ -808,8 +755,7 @@ declare module "noblox.js" {
         description: string;
     }
 
-    interface GroupPostsPermissions
-    {
+    interface GroupPostsPermissions {
         viewWall: boolean;
         postToWall: boolean;
         deleteFromWall: boolean;
@@ -817,22 +763,19 @@ declare module "noblox.js" {
         postToStatus: boolean;
     }
 
-    interface GroupMembershipPermissions
-    {
+    interface GroupMembershipPermissions {
         changeRank: boolean;
         inviteMembers: boolean;
         removeMembers: boolean;
     }
 
-    interface GroupManagementPermissions
-    {
+    interface GroupManagementPermissions {
         manageRelationships: boolean;
         manageClan: boolean;
         viewAuditLogs: boolean;
     }
 
-    interface GroupEconomyPermissions
-    {
+    interface GroupEconomyPermissions {
         spendGroupFunds: boolean;
         advertiseGroup: boolean;
         createItems: boolean;
@@ -842,29 +785,25 @@ declare module "noblox.js" {
         viewGroupPayouts: boolean;
     }
 
-    interface RolePermissionsBody
-    {
+    interface RolePermissionsBody {
         groupPostsPermissions: GroupPostsPermissions;
         groupMembershipPermissions: GroupMembershipPermissions;
         groupManagementPermissions: GroupManagementPermissions;
         groupEconomyPermissions: GroupEconomyPermissions;
     }
 
-    interface RolePermissions
-    {
+    interface RolePermissions {
         groupId: number;
         role: RoleWithDescription;
         permissions: RolePermissionsBody
     }
 
-    interface ChangeRankResult
-    {
+    interface ChangeRankResult {
         newRole: Role;
         oldRole: Role;
     }
 
-    interface Group
-    {
+    interface Group {
         id: number;
         name: string;
         description: string;
@@ -876,8 +815,7 @@ declare module "noblox.js" {
         isLocked: boolean;
     }
 
-    interface GroupSearchItem
-    {
+    interface GroupSearchItem {
         id: number;
         name: string;
         description: string;
@@ -887,83 +825,71 @@ declare module "noblox.js" {
         updated: Date;
     }
 
-    interface GroupView
-    {
+    interface GroupView {
         __VIEWSTATE: string;
         __VIEWSTATEGENERATOR: string;
         __EVENTVALIDATION: string;
         __RequestVerificationToken: string;
     }
 
-    interface GroupUser
-    {
+    interface GroupUser {
         userId: number;
         username: string;
         displayName: string;
-        buildersClubMembershipType: "None" | "BC" | "TBC" | "OBC" | "RobloxPremium";
+        hasVerifiedBadge?: boolean;
     }
 
-    interface GroupShout
-    {
+    interface GroupShout {
         body: string;
         poster: GroupUser;
-        created: string;
-        updated: string;
+        created: Date;
+        updated: Date;
     }
 
-    interface GroupDescriptionResult
-    {
+    interface GroupDescriptionResult {
         newDescription: string
     }
 
-    interface GroupNameResult
-    {
+    interface GroupNameResult {
         newName: string
     }
 
-    interface AuditItemActor
-    {
+    interface AuditItemActor {
         user: GroupUser;
         role: Role;
     }
 
-    interface AuditItem
-    {
+    interface AuditItem {
         actor: AuditItemActor;
         actionType: string;
         description: object;
-        created: string;
+        created: Date;
     }
 
-    interface AuditPage
-    {
+    interface AuditPage {
         data: AuditItem[];
         nextPageCursor?: string;
         previousPageCursor?: string;
     }
 
-    interface TransactionAgent
-    {
+    interface TransactionAgent {
         id: number;
         type: string;
         name: string;
     }
 
-    interface TransactionDetails
-    {
+    interface TransactionDetails {
         id: number;
         name: string;
         type: string;
     }
 
-    interface TransactionCurrency
-    {
+    interface TransactionCurrency {
         amount: number;
         type: string;
     }
 
-    interface TransactionItem
-    {
+    interface TransactionItem {
         id: number;
         transactionType?: string;
         created: Date;
@@ -973,28 +899,24 @@ declare module "noblox.js" {
         currency: TransactionCurrency;
     }
 
-    interface GroupJoinRequester
-    {
+    interface GroupJoinRequester {
         userId: number;
         username: string;
         displayName: string;
     }
 
-    interface GroupJoinRequest
-    {
+    interface GroupJoinRequest {
         requester: GroupJoinRequester;
         created: Date;
     }
 
-    interface GroupJoinRequestsPage
-    {
+    interface GroupJoinRequestsPage {
         previousPageCursor?: string;
         nextPageCursor?: string;
         data: GroupJoinRequest[];
     }
 
-    interface RevenueSummaryResponse
-    {
+    interface RevenueSummaryResponse {
         recurringRobuxStipend?: number;
         itemSaleRobux?: number;
         purchasedRobux?: number;
@@ -1002,19 +924,20 @@ declare module "noblox.js" {
         pendingRobux?: number;
         groupPayoutRobux?: number;
         individualToGroupRobux?: number;
+        premiumPayouts?: number;
+        groupPremiumPayouts?: number;
+        adjustmentRobux?: number;
     }
 
-    interface WallPost
-    {
+    interface WallPost {
         id: number;
         poster: GroupUser;
         body: string;
-        created: string;
-        updated: string;
+        created: Date;
+        updated: Date;
     }
 
-    interface WallPostPage
-    {
+    interface WallPostPage {
         previousPageCursor?: string;
         nextPageCursor?: string;
         data: WallPost[];
@@ -1022,8 +945,7 @@ declare module "noblox.js" {
 
     /// Party
 
-    interface PartyData
-    {
+    interface PartyData {
         PartyId: number;
         PartyType: string;
     }
@@ -1076,7 +998,7 @@ declare module "noblox.js" {
 
     interface FriendRequestEntry {
         description: string;
-        created: string;
+        created: Date;
         isBanned: boolean;
         id: number;
         name: string;
@@ -1090,14 +1012,18 @@ declare module "noblox.js" {
     }
 
     interface FriendEntry {
-        isOnline?: boolean;
-        presenceType: UserPresenceType;
-        isDeleted: boolean;
+        created: Date;
         id: number;
+        isBanned: boolean;
+        isDeleted: boolean;
+        isOnline?: boolean;
         name: string;
-        description: string;
-        created: string;
+        description?: string;
         displayName: string;
+        externalAppDisplayName?: string;
+        friendFrequentRank: number;
+        friendFrequentScore: number;
+        presenceType?: UserPresenceType;
     }
 
     interface Friends {
@@ -1109,7 +1035,7 @@ declare module "noblox.js" {
         id: number;
         name: string;
         description: string;
-        created: string;
+        created: Date;
         displayName: string;
     }
 
@@ -1205,6 +1131,7 @@ declare module "noblox.js" {
         twitter?: string;
         youtube?: string;
         twitch?: string;
+        guilded?: string;
     }
 
     /// Badges
@@ -1265,8 +1192,7 @@ declare module "noblox.js" {
 
     //Inventory
 
-    interface AssetOwner
-    {
+    interface AssetOwner {
         userId: number;
         username: string;
         buildersClubMembershipType: number;
@@ -1360,82 +1286,128 @@ declare module "noblox.js" {
 
     /// Utility
 
-    type SelectorFunction = (selector: string) => {val(): any};
+    type SelectorFunction = (selector: string) => { val(): any };
     type SortOrder = 'Asc' | 'Desc';
     type Limit = 10 | 25 | 50 | 100;
 
-    interface Inputs
-    {
+    interface Inputs {
         /**
          * With a provided name, this returns the input's value.
          */
         [name: string]: string;
     }
 
-    interface GetVerificationResponse
-    {
+    interface GetVerificationResponse {
         body?: string;
         inputs: Inputs;
         header: string;
     }
 
-    interface HttpOptions
-    {
+    interface HttpOptions {
         verification?: string;
         jar?: CookieJar;
     }
 
-    interface ThreadedPromise extends Promise<void>
-    {
+    interface ThreadedPromise extends Promise<void> {
         getStatus(): number;
         getCompleted(): number;
         getExpected(): number;
     }
 
-    interface GetLatestResponse
-    {
+    interface GetLatestResponse {
         latest: number;
         data: object;
         repeat?: boolean;
     }
 
+    interface Datastore {
+        name: string;
+        createdTime: Date;
+    }
+
+    interface DatastoresResult {
+        datastores: Datastore[];
+        nextPageCursor?: string;
+    }
+
+    interface EntryKey {
+        scope: string;
+        key: string;
+    }
+
+    interface DatastoreKeysResult {
+        keys: EntryKey[];
+        nextPageCursor?: string;
+    }
+
+    interface DatastoreEntry {
+        data: any;
+        metadata: {
+            /**  (ISO datetime, UTC): the time at which the entry was created */
+            robloxEntryCreatedTime: Date;
+            /**  (ISO datetime, UTC): the time at which the entry was updated */
+            lastModified: Date;
+            /** version of the entry being read */
+            robloxEntryVersion: string;
+            robloxEntryAttributes?: string;
+            robloxEntryUserIDs?: string;
+            /** the base-64 encoded MD5 checksum of the content */
+            contentMD5: string;
+            /** the content length in bytes */
+            contentLength: number;
+        }
+    }
+
+    interface EntryVersion {
+        version: string;
+        deleted: boolean;
+        contentLength: number;
+        createdTime: Date;
+        objectCreatedTime: Date;
+    }
+
+    interface EntryVersionsResult {
+        versions: EntryVersion[];
+        nextPageCursor: string;
+    }
 
     // Functions
 
+    /// AccountInformation
+
+    /**
+     * 🔐 Get the social link data (promotion channels) associated with a user.
+     */
+    function getUserSocialLinks(userId: number, jar?: CookieJar): Promise<PromotionChannelsResponse>;
+
+    /// AccountSettings
+
+    /**
+     * 🔐 Blocks the user with `userId`.
+     */
+    function block(userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Unblocks the user with `userId`.
+     */
+    function unblock(userId: number, jar?: CookieJar): Promise<void>;
+
     /// Asset
-
-    /**
-     * 🔐 Buys asset `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets). You are able to use product instead of asset, the options in `product` are collected automatically if not provided.
-     */
-    function buy(asset: number | ProductInfo | BuyProductInfo, price?: number | PriceRange, jar?: CookieJar): Promise<BuyAssetResponse>;
-
-    /**
-     * 🔐 Configures an item (shirt, pants, decal, etc.) with the id `id` to have `name` and `description`. If `enableComments` is true comments will be allowed and if `sellForRobux` is set it will be put on sale for that amount of robux.
-     *
-     * NOTE: Use `configureGamePass()` for Game Passes.
-     */
-    function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<ConfigureItemResponse>;
 
     /**
      * 🔐 Deletes an item from the logged in user's inventory
      */
     function deleteFromInventory(assetId: number, jar?: CookieJar): Promise<void>;
 
+    /**
+     * ✅ Gets `info` of `asset` and caches according to settings.
+     */
+    function getProductInfo(asset: number): Promise<ProductInfo>;
 
     /**
-     * ✅ Get the recent sale history (price and volume per day for 180 days) of a limited asset.
+     * 🔐 Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will be created. The assetId is returned as a number. Note that `itemOptions` is required when creating a new asset. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
      */
-    function getResaleData(assetId: number): Promise<ResaleDataResponse>;
-
-    /**
-     * 🔐 Gets available resale copies of a limited asset.
-     */
-    function getResellers(assetId: number, limit?: Limit, jar?: CookieJar): Promise<ResellerData[]>;
-
-    /**
-     * ✅ Gets the thumbnail of asset/users.
-     */
-     function getThumbnails(thumbnailRequests: ThumbnailRequest[]): Promise<ThumbnailData[]>;
+    function uploadAnimation(data: string | stream.Stream, itemOptions?: UploadModelItemOptions, asset?: number, jar?: CookieJar): Promise<number>;
 
     /**
      * 🔐 Uploads an image stored in `file` as an `assetType` with `name`. If `groupId` is specified it will be uploaded to that group. This is for uploading shirts, pants, or decals which have the assetTypes `11`, `12`, and `13`, respectively. Returns the asset `id` of the new item.
@@ -1447,18 +1419,11 @@ declare module "noblox.js" {
      */
     function uploadModel(data: string | stream.Stream, itemOptions?: UploadModelItemOptions, asset?: number, jar?: CookieJar): Promise<UploadModelResponse>;
 
-    /**
-     * 🔐 Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will be created. The assetId is returned as a number. Note that `itemOptions` is required when creating a new asset. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
-     */
-     function uploadAnimation(data: string | stream.Stream, itemOptions?: UploadModelItemOptions, asset?: number, jar?: CookieJar): Promise<number>;
-
-    /**
-     * ✅ Gets `info` of `asset` and caches according to settings.
-     */
-    function getProductInfo(asset: number): Promise<ProductInfo>;
-
     /// Avatar
 
+    /**
+     * ✅ Get the avatar rules.
+     */
     function avatarRules(option?: "playerAvatarTypes" | "scales" | "wearableAssetTypes" | "bodyColorsPalette" | "basicBodyColorsPalette" | "minimumDeltaEBodyColorDifference" | "proportionsAndBodyTypeEnabledForUser" | "defaultClothingAssetLists" | "bundlesEnabledForUser" | "emotesEnabledForUser" | undefined, jar?: CookieJar): Promise<AvatarRules>;
 
     function avatarRules(option: "playerAvatarTypes", jar?: CookieJar): Promise<string[]>;
@@ -1472,10 +1437,19 @@ declare module "noblox.js" {
     function avatarRules(option: "bundlesEnabledForUser", jar?: CookieJar): Promise<boolean>;
     function avatarRules(option: "emotesEnabledForUser", jar?: CookieJar): Promise<boolean>;
 
+    /**
+     * ✅ Get the assets a given user is wearing.
+     */
     function currentlyWearing(userId: number): Promise<AssetIdList>;
 
+    /**
+     * ✅ Get a user's avatar.
+     */
     function getAvatar(userId: number): Promise<AvatarInfo>;
 
+    /**
+     * 🔐 Get the current avatar of the logged in user.
+     */
     function getCurrentAvatar(option?: "scales" | "playerAvatarType" | "bodyColors" | "assets" | "defaultShirtApplied" | "defaultPantsApplied" | undefined, jar?: CookieJar): Promise<AvatarInfo>;
 
     function getCurrentAvatar(option: "scales", jar?: CookieJar): Promise<AvatarScale>;
@@ -1485,74 +1459,67 @@ declare module "noblox.js" {
     function getCurrentAvatar(option: "defaultShirtApplied", jar?: CookieJar): Promise<boolean>;
     function getCurrentAvatar(option: "defaultPantsApplied", jar?: CookieJar): Promise<boolean>;
 
+    /**
+     * 🔐 Get assets recently worn by the logged in user.
+     */
     function getRecentItems(listType?: RecentItemListType, jar?: CookieJar): Promise<AssetRecentItemsResult>;
 
+    /**
+     * ✅ Get the details of an outfit.
+     */
     function outfitDetails(outfitId: number): Promise<AvatarOutfitDetails>;
 
+    /**
+     * ✅ Get the outfits of a user.
+     */
     function outfits(userId: number, page?: number, itemsPerPage?: number): Promise<GetOutfitsResult>;
 
+    /**
+     * 🔐 Redraws the avatar of the logged in user.
+     */
     function redrawAvatar(jar?: CookieJar): Promise<void>;
 
+    /**
+     * 🔐 Removes the asset with `assetId` from the logged in user's avatar.
+     */
     function removeAssetId(assetId: number, jar?: CookieJar): Promise<void>;
 
-    function setAvatarBodyColors(args: AvatarBodyColors & {jar?: CookieJar}): Promise<void>;
-
-    function setAvatarScales(args: AvatarScale & {jar?: CookieJar}): Promise<void>;
-
-    function setPlayerAvatarType(avatarType: PlayerAvatarType, jar?: CookieJar): Promise<void>;
-
-    function setWearingAssets(assetIds: number[], jar?: CookieJar): Promise<void>;
-
-    function wearAssetId(assetId: number, jar?: CookieJar): Promise<void>;
-
-    /// Chat
-
-    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<ConversationAddResponse>;
-
-    function chatSettings(jar?: CookieJar): Promise<ChatSettings>;
-
-    function getChatMessages(conversationId: number, pageSize?: number, exclusiveStartMessageId?: string, jar?: CookieJar): Promise<ChatMessage[]>;
-
-    function getConversations(conversationIds: number[], jar?: CookieJar): Promise<ChatConversation[]>;
-
-    function getRolloutSettings(featureNames?: ChatFeatureNames[], jar?: CookieJar): Promise<GetRolloutSettingsResult>;
-
-    function getUnreadConversationCount(jar?: CookieJar): Promise<GetUnreadConversationCountResult>;
-
-    function getUnreadMessages(conversationIds: number[], pageSize?: number, jar?: CookieJar): Promise<ChatConversationWithMessages[]>;
-
-    function getUserConversations(pageNumber?: number, pageSize?: number, jar?: CookieJar): Promise<ChatConversation[]>;
-
-    function markChatAsRead(conversationId: number, endMessageId: string): Promise<void>;
-
-    function markChatAsSeen(conversationIds: number[], jar?: CookieJar): Promise<void>;
-
-    function multiGetLatestMessages(conversationIds: number[], pageSize?: number, jar?: CookieJar): Promise<ChatConversationWithMessages[]>;
-
-    function removeFromGroupConversation(conversationId: number, userId: number, jar?: CookieJar): Promise<ConversationRemoveResponse>;
-
-    function renameGroupConversation(conversationId: number, title: string, jar?: CookieJar): Promise<ConversationRenameResponse>;
-
-    function sendChatMessage(conversationId: number, message: string, jar?: CookieJar): Promise<SendChatResponse>;
-
-    function setChatUserTyping(conversationId: number, isTyping: boolean, jar?: CookieJar): Promise<UpdateTypingResponse>;
-
-    function start121Conversation(userId: number, jar?: CookieJar): Promise<void>;
-
-    function startCloudEditConversation(placeId: number, jar?: CookieJar): Promise<void>;
-
-    function startGroupConversation(userIds: number[], title: string, jar?: CookieJar): Promise<StartGroupConversationResponse>;
-
-    /// Game
+    /**
+     * 🔐 Sets the body colors of the logged in user's avatar.
+     */
+    function setAvatarBodyColors(args: AvatarBodyColors & { jar?: CookieJar }): Promise<void>;
 
     /**
-     * 🔐 Returns data about the existing game instances (servers) of the specified place. You must have permission to view the game's server list to use this. (Must be logged in)
-     * @param placeId The place whose game instances are being fetched.
-     * @param serverType The type of game instances to get
-     * @param sortOrder The order that the game instances will be sorted by (Asc or Desc)
-     * @param limit The maximum number of results.
+     * 🔐 Sets the scales of the logged in user's avatar.
      */
-    function getGameInstances(placeId: number, serverType?: "Public" | "Friend" | "VIP", sortOrder?: SortOrder, limit?: number): Promise<GameInstance[]>;
+    function setAvatarScales(args: AvatarScale & { jar?: CookieJar }): Promise<void>;
+
+    /**
+     * 🔐 Sets the player avatar type of the logged in user's avatar. (R6/R15)
+     */
+    function setPlayerAvatarType(avatarType: PlayerAvatarType, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Sets the assets the logged in user is wearing.
+     */
+    function setWearingAssets(assetIds: number[], jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Wears a specific asset on the logged in user's avatar.
+     */
+    function wearAssetId(assetId: number, jar?: CookieJar): Promise<void>;
+
+    /// Badges
+
+    /**
+     * ✅ Gets user award date for a badge.
+     */
+    function getAwardedTimestamps(userId: number, badgeId: number[]): Promise<UserBadgeStats>
+
+    /**
+     * ✅ Gets information about a badge.
+     */
+    function getBadgeInfo(badgeId: number): Promise<BadgeInfo>
 
     /**
      * ✅ Get the badges in a specific game.
@@ -1560,19 +1527,276 @@ declare module "noblox.js" {
     function getGameBadges(universeId: number, limit?: Limit, cursor?: string, sortOrder?: SortOrder): Promise<BadgeInfo>
 
     /**
-     * ✅ Gets a game's game passes.
+     * ✅ Gets the badges of a user.
      */
-    function getGamePasses(universeId: number, limit?: Limit): Promise<GamePassData[]>
+    function getPlayerBadges(userId: number, limit?: number, sortOrder?: SortOrder): Promise<Array<PlayerBadges>>
 
     /**
-     * 🔓 Returns information about the universe(s) in question, such as description, name etc; varies based on whether or not you're logged in.
-     * @param universeId The universe(s) whose information are being fetched.
+     * 🔐 Updates badge information.
      */
-    function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation>;
+    function updateBadgeInfo(badgeId: number, name?: string, description?: string, enabled?: boolean, jar?: CookieJar): Promise<void>
 
-    // You can create a developer product, but the productId returned does not match the actual developer product id needed by the endpoints.
-    // It's strange, but the edit link on the product page has the id that Roblox wants so you can edit dev products.
+    /// Chat
 
+    /**
+     * 🔐 Adds a user to a group conversation.
+     */
+    function addUsersToConversation(conversationId: number, userIds: number[], jar?: CookieJar): Promise<ConversationAddResponse>;
+
+    /**
+     * 🔐 Get chat settings.
+     */
+    function chatSettings(jar?: CookieJar): Promise<ChatSettings>;
+
+    /**
+     * 🔐 Get the chat messages of a conversation.
+     */
+    function getChatMessages(conversationId: number, pageSize?: number, exclusiveStartMessageId?: string, jar?: CookieJar): Promise<ChatMessage[]>;
+
+    /**
+     * 🔐 Get conversation details for the conversationIds specified in the parameters
+     */
+    function getConversations(conversationIds: number[], jar?: CookieJar): Promise<ChatConversation[]>;
+
+    /**
+     * 🔐 Get the rollout settings for the logged in user.
+     */
+    function getRolloutSettings(featureNames?: ChatFeatureNames[], jar?: CookieJar): Promise<GetRolloutSettingsResult>;
+
+    /**
+     * 🔐 Get the unread conversation count for the logged in user.
+     */
+    function getUnreadConversationCount(jar?: CookieJar): Promise<GetUnreadConversationCountResult>;
+
+    /**
+     * 🔐 Get the unread messages for the logged in user in the conversations specified in the parameters.
+     */
+    function getUnreadMessages(conversationIds: number[], pageSize?: number, jar?: CookieJar): Promise<ChatConversationWithMessages[]>;
+
+    /**
+     * 🔐 Get conversations for the logged in user.
+     */
+    function getUserConversations(pageNumber?: number, pageSize?: number, jar?: CookieJar): Promise<ChatConversation[]>;
+
+    /**
+     * 🔐 Mark a conversation as read.
+     */
+    function markChatAsRead(conversationId: number, endMessageId: string): Promise<void>;
+
+    /**
+     * 🔐 Mark a conversation as seen.
+     */
+    function markChatAsSeen(conversationIds: number[], jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Get the latest messages for the conversations specified in the parameters.
+     */
+    function multiGetLatestMessages(conversationIds: number[], pageSize?: number, jar?: CookieJar): Promise<ChatConversationWithMessages[]>;
+
+    /**
+     * 🔐 Removes a user from a group conversation.
+     */
+    function removeFromGroupConversation(conversationId: number, userId: number, jar?: CookieJar): Promise<ConversationRemoveResponse>;
+
+    /**
+     * 🔐 Renames a group conversation.
+     */
+    function renameGroupConversation(conversationId: number, title: string, jar?: CookieJar): Promise<ConversationRenameResponse>;
+
+    /**
+     * 🔐 Sends a chat message to a conversation.
+     */
+    function sendChatMessage(conversationId: number, message: string, jar?: CookieJar): Promise<SendChatResponse>;
+
+    /**
+     * 🔐 Sets the typing status of the logged in user in a conversation.
+     */
+    function setChatUserTyping(conversationId: number, isTyping: boolean, jar?: CookieJar): Promise<UpdateTypingResponse>;
+
+    /**
+     * 🔐 Starts a conversation with a user.
+     */
+    function start121Conversation(userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Starts a cloud edit/team create conversation.
+     */
+    function startCloudEditConversation(placeId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Starts a group conversation.
+     */
+    function startGroupConversation(userIds: number[], title: string, jar?: CookieJar): Promise<StartGroupConversationResponse>;
+
+    /// Client
+    /**
+     * 🔐 Sets the API key for the user to enable use of open cloud functions.
+     * This is not the same as a .ROBLOSECURITY cookie.
+     */
+    function setAPIKey(apiKey: string): Promise<void>
+
+    /**
+     * 🔐 Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
+     * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
+     */
+    function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
+
+    /// DataStores
+
+    /** 
+     * ☁️ Marks the entry as deleted by creating a tombstone version. Entries are deleted permanently after 30 days. 
+     */
+    function deleteDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, scope?: string, jar?: CookieJar): Promise<void>
+
+    /** 
+     * ☁️ Returns the latest value and metadata associated with an entry, or a specific version if versionId is provided.
+     */
+    function getDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, scope?: string, versionId?: string, jar?: CookieJar): Promise<DatastoreEntry>
+
+    /**
+     * ☁️ Returns a list of entry versions of an entry.
+     */
+    function getDatastoreEntryVersion(universeId: number, datastoreName: string, entryKey: string, scope?: string | boolean, startTime?: Date, endTime?: Date, sortOrder?: "Ascending" | "Descending", limit?: number, cursor?: string, jar?: CookieJar): Promise<EntryVersionsResult>
+
+    /**
+     * ☁️ Returns a list of entry keys within a data store.
+     */
+    function getDatastoreKeys(universeId: number, datastoreName: string, scope?: string | boolean, prefix?: string, limit?: number, cursor?: string, jar?: CookieJar): Promise<DatastoreKeysResult>
+
+    /**
+     * ☁️ Returns a list of data stores belonging to a universe.
+     */
+    function getDatastores(universeId: number, prefix?: string, limit?: number, string?: string, jar?: CookieJar): Promise<DatastoresResult>
+
+    /**
+     * ☁️ Increments the value for an entry by a given amount, or create a new entry with that amount.
+     */
+    function incrementDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, incrementBy: number, scope?: string, robloxEntryUserIDs?: number[], robloxEntryAttributes?: object, jar?: CookieJar): Promise<DatastoreEntry>
+
+    /**
+     * ☁️ Sets the value, metadata and user IDs associated with an entry.
+     */
+    function setDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, body: any, scope?: string, matchVersion?: string, exclusiveCreate?: boolean, robloxEntryUserIDs?: number[], robloxEntryAttributes?: object, jar?: CookieJar): Promise<EntryVersion>
+
+    /// Develop
+
+    /**
+     * ✅ Returns whether the user can manage a given asset.
+     */
+    function canManage(userId: number, assetId: number): Promise<boolean>;
+
+    /**
+     * 🔐 Configures an item (shirt, pants, decal, etc.) with the id `id` to have `name` and `description`. If `enableComments` is true comments will be allowed and if `sellForRobux` is set it will be put on sale for that amount of robux.
+     *
+     * NOTE: Use `configureGamePass()` for Game Passes.
+     */
+    function configureItem(id: number, name: string, description: string, enableComments?: boolean, sellForRobux?: boolean, genreSelection?: number, jar?: CookieJar): Promise<ConfigureItemResponse>;
+
+    /**
+     * 🔐 Modifies a universe's settings
+     */
+    function updateUniverse(universeId: number, settings: UniverseSettings, jar?: CookieJar): Promise<UpdateUniverseResponse>;
+
+    /**
+     * 🔐 Updates a universe's public access setting
+     */
+    function updateUniverseAccess(universeId: number, isPublic?: boolean, jar?: CookieJar): Promise<void>;
+
+    /// Economy
+
+    /**
+     * 🔐 Buys asset `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets). You are able to use product instead of asset, the options in `product` are collected automatically if not provided.
+     */
+    function buy(asset: number | ProductInfo | BuyProductInfo, price?: number | PriceRange, jar?: CookieJar): Promise<BuyAssetResponse>;
+
+    /**
+     * 🔓 Gets the amount of Robux in a group.
+     */
+    function getGroupFunds(group: number): Promise<number>;
+
+    /**
+     * 🔐 Gets recent Robux revenue summary for a group; shows pending Robux. | Requires "Spend group funds" permissions.
+     */
+    function getGroupRevenueSummary(group: number, timeFrame?: "Day" | "Week" | "Month" | "Year"): Promise<RevenueSummaryResponse>;
+
+    /**
+     * 🔐 Gets the transaction history of the specified group.
+     */
+    function getGroupTransactions(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
+
+    /**
+     * ✅ Get the recent sale history (price and volume per day for 180 days) of a limited asset.
+     */
+    function getResaleData(assetId: number): Promise<ResaleDataResponse>;
+
+    /**
+     * 🔐 Gets available resale copies of a limited asset.
+     */
+    function getResellers(assetId: number, limit?: Limit, jar?: CookieJar): Promise<ResellerData[]>;
+
+    /**
+     * 🔐 Gets the transaction history of the logged in user or of the user specified by the jar.
+     */
+    function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
+
+    /// Friends
+
+    /**
+     * 🔐 Accepts friend requests from `userId`.
+     */
+    function acceptFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Declines all friend requests.
+     */
+    function declineAllFriendRequest(jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Declines friend requests from `userId`.
+     */
+    function declineFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * ✅ Get the followers of a user (users who follow the specified person)
+     */
+    function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
+
+    /**
+     * ✅ Get the followings of a user (users who have been followed by the specified person)
+     */
+    function getFollowings(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowingsPage>;
+
+    /**
+     * 🔐 Gets the pending friend requests of the logged in user.
+     */
+    function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestsPage>;
+
+    /**
+     * ✅ Gets the friends list of the specified user.
+     */
+    function getFriends(userId: number, jar?: CookieJar): Promise<Friends>;
+
+    /**
+     * 🔐 Removes friendship with `userId`.
+     */
+    function removeFriend(userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Sends a friend request to `userId`.
+     */
+    function sendFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * 🔐 Unfollows the user with `userId`.
+     */
+    function unfollow(userId: number, jar?: CookieJar): Promise<void>;
+
+    /// Games
+
+    /**
+     * 🔐 Adds a developer product to the specified universe. 
+     * Warning: The `productId` returned by this function does not match the `productId` used by other endpoints.
+     */
     function addDeveloperProduct(universeId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductAddResult>;
 
     /**
@@ -1583,22 +1807,27 @@ declare module "noblox.js" {
     function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<CheckDeveloperProductNameResult>;
 
     /**
-     * 🔐 Returns the existing developer products in a specified game.
-     * @param placeId The place whose developer products are being fetched.
-     * @param page Which page of developer products to return (pageSize is 50)
-     */
-    function getDeveloperProducts(placeId: number, page: number, jar?: CookieJar): Promise<DeveloperProductsResult>;
-
-    function updateDeveloperProduct(universeId: number, productId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductUpdateResult>;
-
-    /**
      * 🔐 Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the game pass off-sale.
      * Returns a `GamePassResponse` with the changed attributes.
      *
      * NOTE: Updating `name` will affect `description`: you must repeat `description` with each `name` update, or `description` will be cleared.
      */
-
     function configureGamePass(gamePassId: number, name: string, description?: string, price?: number | boolean, icon?: string | stream.Stream, jar?: CookieJar): Promise<GamePassResponse>;
+
+    /**
+     * 🔐 Returns the existing developer products in a specified game.
+     */
+    function getDeveloperProducts(placeId: number, page: number, jar?: CookieJar): Promise<DeveloperProductsResult>;
+
+    /**
+     * 🔐 Returns data about the existing game instances (servers) of the specified place. You must have permission to view the game's server list to use this. (Must be logged in)
+     */
+    function getGameInstances(placeId: number, serverType?: "Public" | "Friend" | "VIP", sortOrder?: SortOrder, limit?: number): Promise<GameInstance[]>;
+
+    /**
+     * ✅ Gets a game's game passes.
+     */
+    function getGamePasses(universeId: number, limit?: Limit): Promise<GamePassData[]>
 
     /**
      * 🔐 Get the social link data associated with a game.
@@ -1606,17 +1835,21 @@ declare module "noblox.js" {
     function getGameSocialLinks(universeId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
 
     /**
-     * 🔐 Updates a universe's public access setting
-    */
-   function updateUniverseAccess(universeId: number, isPublic?: boolean, jar?: CookieJar): Promise<void>;
+     * ✅ Gets a list of games from the specified group.
+     */
+    function getGroupGames(groupId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: SortOrder, limit?: Limit, cursor?: string): Promise<GroupGameInfo[]>;
 
     /**
-     * 🔐 Modifies a universe's settings
-    */
-    function updateUniverse(universeId: number, settings: UniverseSettings, jar?: CookieJar): Promise<UpdateUniverseResponse>;
+     * 🔓 Returns information about the universe(s) in question, such as description, name etc; varies based on whether or not you're logged in.
+     */
+    function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation>;
 
-    /// Group
+    /**
+     * 🔐 Update a developer product.
+     */
+    function updateDeveloperProduct(universeId: number, productId: number, priceInRobux: number, name?: string, description?: string, iconImageAssetId?: number, jar?: CookieJar): Promise<void>;
 
+    /// Groups
     /**
      * 🔐 Moves the user with userId `target` up or down the list of ranks in `group` by `change`. For example `changeRank(group, target, 1)` would promote the user 1 rank and `changeRank(group, target, -1)` would demote them down 1. Note that this simply follows the list, ignoring ambiguous ranks. The full `newRole` as well as the user's original `oldRole` is returned.
      */
@@ -1643,69 +1876,9 @@ declare module "noblox.js" {
     function exile(group: number, target: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * 🔐 Performs a payout in group with the groupId `group`. If `recurring` is true this will configure the recurring options for the group's payout replacing all old values, otherwise a one-time-payout is made. To clear the recurring payouts, pass in empty arrays to both member and amount. Argument `member` can either be a single userId or an array of userIds. If it is a single value `amount` must be as well, otherwise `amount` has to be a parallel array of equal length. If `usePercentage` is true `amount` percentage of the total group funds is paid to the members, otherwise it pays `amount` ROBUX. Note that recurring payouts are always percentages, and when `recurring` is true `usePercentage` is ignored.
-     */
-    function groupPayout(group: number, member: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔓 Gets the amount of robux in a group.
-     */
-    function getGroupFunds(group: number): Promise<number>;
-
-    /**
-     * 🔐 Gets recent Robux revenue summary for a group; shows pending Robux. | Requires "Spend group funds" permissions.
-     */
-    function getGroupRevenueSummary(group: number, timeFrame?: "Day" | "Week" | "Month" | "Year"): Promise<RevenueSummaryResponse>;
-
-    /**
-     * 🔐 Accepts user with `username` into `group`. Note that `username` is case-sensitive.
-     */
-    function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
-     */
-    function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Alias of `changeRank(group, target, 1)`.
-     */
-    function promote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
-
-    /**
-     * 🔐 Changes the rank of the player with the `target` userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
-     */
-    function setRank(group: number, target: number, rank: number | string | Role, jar?: CookieJar): Promise<Role>;
-
-    /**
-     * 🔐 Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
-     */
-    function shout(group: number, message: string, jar?: CookieJar): Promise<GroupShout>;
-
-    /**
-     * 🔐 Sets the group description for group with id `group` to `description`.
-     */
-    function setGroupDescription(group: number, description: string, jar?: CookieJar): Promise<GroupDescriptionResult>;
-
-    /**
-     * 🔐 Sets the group name for group with id `group` to `name`.
-     */
-    function setGroupName(group: number, name: string, jar?: CookieJar): Promise<GroupNameResult>;
-
-    /**
      * 🔐 Gets the audit logs of the specified group.
      */
-    function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar ): Promise<AuditPage>;
-
-    /**
-     * 🔐 Get the social link data associated with a group.
-     */
-    function getGroupSocialLinks(groupId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
-
-    /**
-     * 🔐 Gets the transaction history of the specified group.
-     */
-    function getGroupTransactions(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
+    function getAuditLog(group: number, actionType?: "" | "DeletePost" | "RemoveMember" | "AcceptJoinRequest" | "DeclineJoinRequest" | "PostStatus" | "ChangeRank" | "BuyAd" | "SendAllyRequest" | "CreateEnemy" | "AcceptAllyRequest" | "DeclineAllyRequest" | "DeleteAlly" | "DeleteEnemy" | "AddGroupPlace" | "RemoveGroupPlace" | "CreateItems" | "ConfigureItems" | "SpendGroupFunds" | "ChangeOwner" | "Delete" | "AdjustCurrencyAmounts" | "Abandon" | "Claim" | "Rename" | "ChangeDescription" | "InviteToClan" | "KickFromClan" | "CancelClanInvite" | "BuyClan" | "CreateGroupAsset" | "UpdateGroupAsset" | "ConfigureGroupAsset" | "RevertGroupAsset" | "CreateGroupDeveloperProduct" | "ConfigureGroupGame" | "Lock" | "Unlock" | "CreateGamePass" | "CreateBadge" | "ConfigureBadge" | "SavePlace" | "PublishPlace", userId?: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<AuditPage>;
 
     /**
      * ✅ Gets a brief overview of the specified group.
@@ -1713,29 +1886,19 @@ declare module "noblox.js" {
     function getGroup(groupId: number): Promise<Group>;
 
     /**
-     * ✅ Gets a list of games from the specified group.
-     */
-    function getGroupGames(groupId: number, accessFilter?: "All" | "Public" | "Private", sortOrder?: SortOrder, limit?: Limit, cursor?: string): Promise<GroupGameInfo[]>;
-
-    /**
-     * ✅ Gets a list of assets from the specified group.
-     */
-    function getGroupAssets(groupId: number, assetType: string, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupAssetInfo[]>;
-
-    /**
      * ✅ Gets the groups a player is in.
      */
     function getGroups(userId: number): Promise<IGroupPartial[]>
 
     /**
-     * ✅ Gets the logo of the specified group.
+     * 🔐 Get the social link data associated with a group.
      */
-    function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
+    function getGroupSocialLinks(groupId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
 
     /**
      * 🔐 Gets a specific group join request, if it exists.
      */
-     function getJoinRequest(group: number, userId: number, jar?: CookieJar): Promise<GroupJoinRequest>;
+    function getJoinRequest(group: number, userId: number, jar?: CookieJar): Promise<GroupJoinRequest>;
 
     /**
      * 🔐 Gets the first page of join requests from `group`.
@@ -1748,13 +1911,8 @@ declare module "noblox.js" {
     function getPlayers(group: number, rolesetId: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
     /**
-     * 🔐 Gets whether or not a user has premium.
-     */
-    function getPremium(userId: number, jar?: CookieJar): Promise<boolean>;
-
-    /**
-     * ✅ Gets `rank` of user with `userId` in `group` and caches according to settings.
-     */
+         * ✅ Gets `rank` of user with `userId` in `group` and caches according to settings.
+         */
     function getRankInGroup(group: number, userId: number): Promise<number>;
 
     /**
@@ -1791,101 +1949,25 @@ declare module "noblox.js" {
      */
     function getWall(group: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<WallPostPage>;
 
-    /// Party
-
-    /// User
+    /**
+     * 🔐 Performs a payout in group with the groupId `group`. If `recurring` is true this will configure the recurring options for the group's payout replacing all old values, otherwise a one-time-payout is made. To clear the recurring payouts, pass in empty arrays to both member and amount. Argument `member` can either be a single userId or an array of userIds. If it is a single value `amount` must be as well, otherwise `amount` has to be a parallel array of equal length. If `usePercentage` is true `amount` percentage of the total group funds is paid to the members, otherwise it pays `amount` ROBUX. Note that recurring payouts are always percentages, and when `recurring` is true `usePercentage` is ignored.
+     */
+    function groupPayout(group: number, member: number | number[], amount: number | number[], recurring?: boolean, usePercentage?: boolean, jar?: CookieJar): Promise<void>;
 
     /**
-     * 🔐 Accepts friend requests from `userId`.
+     * 🔐 Accepts user with `username` into `group`. Note that `username` is case-sensitive.
      */
-    function acceptFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
+    function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
 
     /**
-     * 🔐 Blocks the user with `userId`.
+     * 🔐 Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
      */
-    function block(userId: number, jar?: CookieJar): Promise<void>;
+    function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
 
     /**
-     * ✅ Returns whether the user can manage a given asset.
+     * 🔐 Alias of `changeRank(group, target, 1)`.
      */
-    function canManage(userId: number, assetId: number): Promise<boolean>;
-
-    /**
-     * 🔐 Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
-     * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
-     */
-    function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
-
-    /**
-     * 🔐 Declines friend requests from `userId`.
-     */
-    function declineFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Declines all friend requests.
-     */
-    function declineAllFriendRequest(jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Follows the user with `userId`.
-     * @deprecated Function is now under CAPTCHA, will be removed in a future version.
-     */
-    function follow(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Sends a message with `body` and `subject` to the user with id `recipient`.
-     */
-    function message(recipient: number, subject: string, body: string, replyMessageId?: number, includePreviousMessage?: boolean, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Removes friendship with `userId`.
-     */
-    function removeFriend(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Sends a friend request to `userId`.
-     */
-    function sendFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Unblocks the user with `userId`.
-     */
-    function unblock(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Unfollows the user with `userId`.
-     */
-    function unfollow(userId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * ✅ Gets the `blurb` of the user with the ID `userId`.
-     */
-    function getBlurb(userId: number): Promise<string>;
-
-    /**
-     * 🔐 Gets the pending friend requests of the logged in user.
-     */
-    function getFriendRequests(sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FriendRequestsPage>;
-
-    /**
-     * ✅ Gets the friends list of the specified user.
-     */
-    function getFriends(userId: number, jar?: CookieJar): Promise<Friends>;
-
-    /**
-     * ✅ Get the followings of a user (users who have been followed by the specified person)
-     */
-    function getFollowings(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowingsPage>;
-
-    /**
-     * ✅ Get the followers of a user (users who follow the specified person)
-     */
-    function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
-
-    /**
-     * ✅ Get the groups a user is in.
-     */
-    function getGroups(userId: number): Promise<Group[]>;
+    function promote(group: number, target: number, jar?: CookieJar): Promise<ChangeRankResult>;
 
     /**
      * ✅ Returns the groups matching a given search term.
@@ -1893,72 +1975,31 @@ declare module "noblox.js" {
     function searchGroups(keyword: string, prioritizeExactMatch?: boolean, limit?: number): Promise<GroupSearchItem[]>;
 
     /**
-     * 🔐 Get the social link data (promotion channels) associated with a user.
+     * 🔐 Sets the group description for group with id `group` to `description`.
      */
-    function getUserSocialLinks(userId: number, jar?: CookieJar): Promise<PromotionChannelsResponse>;
+    function setGroupDescription(group: number, description: string, jar?: CookieJar): Promise<GroupDescriptionResult>;
 
     /**
-     * 🔐 Gets the transaction history of the logged in user or of the user specified by the jar.
+     * 🔐 Sets the group name for group with id `group` to `name`.
      */
-    function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
-
+    function setGroupName(group: number, name: string, jar?: CookieJar): Promise<GroupNameResult>;
 
     /**
-     * ✅ Gets the `id` of user with `username` and caches according to settings.
-     * Username is not case-sensitive.
+     * 🔐 Changes the rank of the player with the `target` userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
      */
-    function getIdFromUsername(username: string): Promise<number>;
+    function setRank(group: number, target: number, rank: number | string | Role, jar?: CookieJar): Promise<Role>;
 
     /**
-     * 🔐 Gets the messages of the logged in user or of the user specified by the jar. Returns by newest to oldest messages.
+     * 🔐 Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
      */
-    function getMessages(pageNumber?: number, pageSize?: number, messageTab?: "Archive" | "Inbox" | "Sent", jar?: CookieJar): Promise<PrivateMessagesPage>;
+    function shout(group: number, message: string, jar?: CookieJar): Promise<GroupShout>;
+
+    /// Inventory
 
     /**
-     * ✅ Returns whether a user owns an asset or not
-     */
-    function getOwnership(userId: number, itemTargetId: number, itemType?: "Asset" | "GamePass" | "Badge" | "Bundle"): Promise<boolean>;
-
-    /**
-     * ✅ Gets the badges of a user.
-     */
-    function getPlayerBadges(userId: number, limit?: number, sortOrder?: SortOrder): Promise<Array<PlayerBadges>>
-
-    /**
-     * ✅ Gets a brief overview of a user.
-     */
-    function getPlayerInfo(userId: number): Promise<PlayerInfo>;
-
-    /**
-     * ✅ Gets the thumbnail of an array of users.
-     */
-    function getPlayerThumbnail(userIds: number | number[], size: BodySizes | BustSizes | HeadshotSizes, format?: "png" | "jpeg", isCircular?: boolean, cropType?: "body" | "bust" | "headshot"): Promise<PlayerThumbnailData[]>;
-
-    /**
-     * 🔐 Gets the presence statuses of the specified users
-     */
-    function getPresences(userIds: number[]): Promise<Presences>;
-
-    /**
-     * ✅ Gets the `status` message of the user with the ID `userId`.
-     */
-    function getStatus(userId: number): Promise<string>;
-
-    /**
-     * ✅ Gets `username` of user with `id` and caches according to settings.
-     */
-    function getUsernameFromId(id: number): Promise<string>;
-
-
-    /**
-     * 🔓 Get the collectibles of a user.
+     * 🔐 Get the collectibles of a user.
      */
     function getCollectibles(userId: number, assetType?: string, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<CollectibleEntry[]>;
-
-    /**
-     * ✅ Get the UserAssetIDs for assets a user owns.
-     */
-    function getUAIDs(userId: number, assetIds: number[], exclusionList?: number[], jar?: CookieJar): Promise<UAIDResponse>;
 
     /**
      * 🔓 Get the inventory of a user.
@@ -1970,7 +2011,69 @@ declare module "noblox.js" {
      */
     function getInventoryById(userId: number, assetTypeId: number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<InventoryEntry[]>;
 
+    /**
+     * ✅ Returns whether a user owns an asset or not
+     */
+    function getOwnership(userId: number, itemTargetId: number, itemType?: "Asset" | "GamePass" | "Badge" | "Bundle"): Promise<boolean>;
+
+    /**
+     * 🔓 Get the UserAssetIDs for assets a user owns.
+     */
+    function getUAIDs(userId: number, assetIds: number[], exclusionList?: number[], jar?: CookieJar): Promise<UAIDResponse>;
+
+    /// ItemConfiguration
+    /**
+     * ✅ Gets a list of assets from the specified group.
+     */
+    function getGroupAssets(groupId: number, assetType: string, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<GroupAssetInfo[]>;
+
+    /// PremiumFeatures
+    /**
+     * 🔐 Gets whether or not a user has premium.
+     */
+    function getPremium(userId: number, jar?: CookieJar): Promise<boolean>;
+
+    /// Presence
+    /**
+     * 🔐 Gets the presence statuses of the specified users
+     */
+    function getPresences(userIds: number[]): Promise<Presences>;
+
+    /// PrivateMessages
+
+    /**
+     * 🔐 Gets the messages of the logged in user or of the user specified by the jar. Returns by newest to oldest messages.
+     */
+    function getMessages(pageNumber?: number, pageSize?: number, messageTab?: "Archive" | "Inbox" | "Sent", jar?: CookieJar): Promise<PrivateMessagesPage>;
+
+    /**
+     * 🔐 Sends a message with `body` and `subject` to the user with id `recipient`.
+     */
+    function message(recipient: number, subject: string, body: string, replyMessageId?: number, includePreviousMessage?: boolean, jar?: CookieJar): Promise<void>;
+
+    /// Thumbnails
+
+    /**
+     * ✅ Gets the logo of the specified group.
+     */
+    function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
+
+    /**
+     * ✅ Gets the thumbnail of an array of users.
+     */
+    function getPlayerThumbnail(userIds: number | number[], size: BodySizes | BustSizes | HeadshotSizes, format?: "png" | "jpeg", isCircular?: boolean, cropType?: "body" | "bust" | "headshot"): Promise<PlayerThumbnailData[]>;
+
+    /**
+     * ✅ Gets the thumbnail of asset/users.
+     */
+    function getThumbnails(thumbnailRequests: ThumbnailRequest[]): Promise<ThumbnailData[]>;
+
     /// Trades
+
+    /**
+     * 🔐 Accept an active trade.
+     */
+    function acceptTrade(tradeId: number, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Check if the current user can trade with another user.
@@ -1978,14 +2081,14 @@ declare module "noblox.js" {
     function canTradeWith(userId: number, jar?: CookieJar): Promise<CanTradeResponse>;
 
     /**
+     * 🔐 Counter an active incoming trade..
+     */
+    function counterTrade(tradeId: number, targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
+
+    /**
      * 🔐 Decline an active trade.
      */
     function declineTrade(tradeId: number, jar?: CookieJar): Promise<void>;
-
-    /**
-     * 🔐 Accept an active trade.
-     */
-    function acceptTrade(tradeId: number, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Get detailed info about a trade.
@@ -2002,11 +2105,28 @@ declare module "noblox.js" {
      */
     function sendTrade(targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
 
-    /**
-     * 🔐 Counter an active incoming trade..
-     */
-    function counterTrade(tradeId: number, targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
+    /// Users
 
+    /**
+     * ✅ Gets the `blurb` of the user with the ID `userId`.
+     */
+    function getBlurb(userId: number): Promise<string>;
+
+    /**
+     * ✅ Gets the `id` of user with `username` and caches according to settings.
+     * Username is not case-sensitive.
+     */
+    function getIdFromUsername<T extends string | string[]>(username: T): T extends string ? Promise<number> : Promise<number[]>;
+
+    /**
+     * ✅ Gets a brief overview of a user.
+     */
+    function getPlayerInfo(userId: number): Promise<PlayerInfo>;
+
+    /**
+     * ✅ Gets `username` of user with `id` and caches according to settings.
+     */
+    function getUsernameFromId(id: number): Promise<string>;
 
     /// Utility
 
@@ -2028,7 +2148,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
-    function getCurrentUser(option?: "UserID" | "UserName" | "RobuxBalance" | "TicketsBalance" | "ThumbnailUrl" | "IsAnyBuildersClubMember" | "IsPremium" | undefined, jar?: CookieJar): Promise<LoggedInUserData>;
+    function getCurrentUser(option?: "UserID" | "UserName" | "RobuxBalance" | "ThumbnailUrl" | "IsAnyBuildersClubMember" | "IsPremium" | undefined, jar?: CookieJar): Promise<LoggedInUserData>;
 
     /**
      * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
@@ -2044,11 +2164,6 @@ declare module "noblox.js" {
      * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option: "RobuxBalance", jar?: CookieJar): Promise<number>;
-
-    /**
-     * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
-     */
-    function getCurrentUser(option: "TicketsBalance", jar?: CookieJar): Promise<number>;
 
     /**
      * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
@@ -2071,7 +2186,7 @@ declare module "noblox.js" {
     function getDate(time: string, timezone: string): Date;
 
     /**
-     * 🔐 Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This uses the https://api.roblox.com/sign-out/v1 API to get tokens.
+     * 🔐 Gets a general X-CSRF-TOKEN for APIs that don't return it after failure. This uses the https://auth.roblox.com/v2/logout API to get tokens.
      */
     function getGeneralToken(jar?: CookieJar): Promise<string>;
 
@@ -2150,7 +2265,6 @@ declare module "noblox.js" {
      */
     function setOptions(newOptions: NobloxOptions): void
 
-
     // Events
 
     /// Asset
@@ -2159,40 +2273,35 @@ declare module "noblox.js" {
 
     /// Chat
 
-    interface OnNewConversationEventEmitter extends events.EventEmitter
-    {
+    interface OnNewConversationEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (conversationId: number) => void): this;
     }
 
-    interface OnNewMessageEventEmitter extends events.EventEmitter
-    {
+    interface OnNewMessageEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (conversationId: number) => void): this;
     }
 
-    interface OnNewMessageBySelfEventEmitter extends events.EventEmitter
-    {
+    interface OnNewMessageBySelfEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (conversationId: number) => void): this;
     }
 
-    interface OnUserOnlineEventEmitter extends events.EventEmitter
-    {
+    interface OnUserOnlineEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (userId: number) => void): this;
     }
 
-    interface OnUserTypingEventEmitter extends events.EventEmitter
-    {
+    interface OnUserTypingEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
@@ -2203,8 +2312,7 @@ declare module "noblox.js" {
 
     /// Group
 
-    interface OnJoinRequestHandleEventEmitter extends events.EventEmitter
-    {
+    interface OnJoinRequestHandleEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
@@ -2213,32 +2321,28 @@ declare module "noblox.js" {
         emit(event: 'handle', joinRequest: GroupJoinRequest, accept: boolean, callback?: () => void): boolean;
     }
 
-    interface OnJoinRequestEventEmitter extends events.EventEmitter
-    {
+    interface OnJoinRequestEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (joinRequest: GroupJoinRequest) => void): this;
     }
 
-    interface OnShoutEventEmitter extends events.EventEmitter
-    {
+    interface OnShoutEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (shout: GroupShout) => void): this;
     }
 
-    interface OnAuditLogEventEmitter extends events.EventEmitter
-    {
+    interface OnAuditLogEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (auditLog: AuditItem) => void): this;
     }
 
-    interface OnTransactionEventEmitter extends events.EventEmitter
-    {
+    interface OnTransactionEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
@@ -2247,8 +2351,7 @@ declare module "noblox.js" {
 
     /// Party
 
-    interface OnPartyNotificationEventEmitter extends events.EventEmitter
-    {
+    interface OnPartyNotificationEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
@@ -2257,32 +2360,28 @@ declare module "noblox.js" {
 
     /// User
 
-    interface OnFriendRequestEventEmitter extends events.EventEmitter
-    {
+    interface OnFriendRequestEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (message: FriendRequest) => void): this;
     }
 
-    interface OnMessageEventEmitter extends events.EventEmitter
-    {
+    interface OnMessageEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (message: PrivateMessage) => void): this;
     }
 
-    interface OnNotificationEventEmitter extends events.EventEmitter
-    {
+    interface OnNotificationEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (name: string, message: NotificationMessage) => void): this;
     }
 
-    interface OnWallPostEventEmitter extends events.EventEmitter
-    {
+    interface OnWallPostEventEmitter extends events.EventEmitter {
         on(event: 'connect', listener: () => void): this;
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
@@ -2352,7 +2451,7 @@ declare module "noblox.js" {
     /**
      * 🔓 Fires when there is a transaction in the group with groupId `group`, of the given type. Only runs every 60 sec.
      */
-     function onGroupTransaction(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", jar?: CookieJar): OnTransactionEventEmitter;
+    function onGroupTransaction(group: number, transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", jar?: CookieJar): OnTransactionEventEmitter;
 
     /// Party
 
@@ -2387,26 +2486,8 @@ declare module "noblox.js" {
      */
     function onMessage(jar?: CookieJar): OnMessageEventEmitter;
 
-    /**
-     * 🔐 This is one of the only true streams, using web sockets to connect to ROBLOX's notification system. The logged in user must have relevant notifications enabled in their settings in order to receive notifications through this (of course). All notifications haven't been mapped out but what is known is that they all have a `name` and `message` (separate arguments to the `data` event), where `message` is an object that includes a field `type`.
-     */
-    function onNotification(jar?: CookieJar): OnNotificationEventEmitter;
 
 
-    /// Badges
+    /// Data Stores
 
-    /**
-     * ✅ Gets information about a badge.
-     */
-    function getBadgeInfo(badgeId: number): Promise<BadgeInfo>
-
-    /**
-     * ✅ Gets user award date for a badge.
-     */
-    function getAwardedTimestamps(userId: number, badgeId: number[]): Promise<UserBadgeStats>
-
-    /**
-     * 🔐 Updates badge information.
-     */
-    function updateBadgeInfo(badgeId: number, name?: string, description?: string, enabled?: boolean, jar?: CookieJar): Promise<void>
 }
