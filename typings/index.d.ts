@@ -1023,7 +1023,7 @@ declare module "noblox.js" {
         externalAppDisplayName?: string;
         friendFrequentRank: number;
         friendFrequentScore: number;
-        presenceType: UserPresenceType;
+        presenceType?: UserPresenceType;
     }
 
     interface Friends {

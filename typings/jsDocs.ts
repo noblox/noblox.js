@@ -1395,7 +1395,7 @@ type FriendEntry = {
     externalAppDisplayName?: string;
     friendFrequentRank: number;
     friendFrequentScore: number;
-    presenceType: UserPresenceType;
+    presenceType?: UserPresenceType;
 }
 
 /**

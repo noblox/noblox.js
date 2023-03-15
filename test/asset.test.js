@@ -1,4 +1,4 @@
-const { buy, deleteFromInventory, getProductInfo, uploadAnimation, uploadItem, uploadModel, setCookie } = require('../lib')
+const { buy, deleteFromInventory, getProductInfo, uploadAnimation, uploadItem, uploadModel, setCookie, getOwnership, getCurrentUser } = require('../lib')
 const fs = require('fs')
 
 beforeAll(() => {
@@ -11,7 +11,9 @@ beforeAll(() => {
 
 describe('Asset Methods', () => {
   it('deleteFromInventory() successfully deletes an item from user\'s inventory', async () => {
-    await buy(1778181)
+    await getOwnership(await getCurrentUser('UserId'), 1778181).then((res) => {
+      if (!res) return buy(1778181)
+    })
     return await expect(deleteFromInventory(1778181)).resolves.not.toThrow()
   })
 

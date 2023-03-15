@@ -109,7 +109,6 @@ describe('Friends Methods', () => {
             friendFrequentRank: expect.any(Number),
             friendFrequentScore: expect.any(Number),
             hasVerifiedBadge: expect.any(Boolean),
-            presenceType: expect.any(Number),
             displayName: expect.any(String)
           })
         ])
