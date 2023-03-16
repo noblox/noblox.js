@@ -1957,7 +1957,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Accepts user with `username` into `group`. Note that `username` is case-sensitive.
      */
-    function handleJoinRequest(group: number, userId: string, accept: boolean, jar?: CookieJar): Promise<void>;
+    function handleJoinRequest(group: number, userId: number, accept: boolean, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
