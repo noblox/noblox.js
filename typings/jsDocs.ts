@@ -193,9 +193,20 @@ type ProductInfo = {
  * @typedef
 */
 type UserFavoriteGames = {
-    previousPageCursor: string,
-    nextPageCursor: string,
-    data: object
+    id: number;
+    name: string;
+    description: object;
+    creator: {
+        id: number;
+        type: string;
+    };
+    rootPlace: {
+        id: number;
+        type: string
+    };
+    created: string;
+    updated: string;
+    placeVisits: number;
 }
 
 /**

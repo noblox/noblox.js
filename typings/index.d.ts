@@ -216,9 +216,20 @@ declare module "noblox.js" {
     }
 
     type UserFavoriteGames = {
-        previousPageCursor: string,
-        nextPageCursor: string,
-        data: object
+        id: number;
+        name: string;
+        description: object;
+        creator: {
+            id: number;
+            type: string;
+        };
+        rootPlace: {
+            id: number;
+            type: string
+        };
+        created: string;
+        updated: string;
+        placeVisits: number;
     }
 
     interface BuyProductInfo {
@@ -1384,7 +1395,7 @@ declare module "noblox.js" {
     /**
      * ✅ Get the favorite games data.
      */
-    function getUserFavoriteGames(userId: number, accessFilter: number, limit: number, cursor: string, sortOrder: string): Promise<UserFavoriteGames>;
+    function getUserFavoriteGames(userId: number, limit: number): Promise<UserFavoriteGames>;
 
     /**
      * 🔐 Get the social link data (promotion channels) associated with a user.
