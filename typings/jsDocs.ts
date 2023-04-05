@@ -192,6 +192,15 @@ type ProductInfo = {
 /**
  * @typedef
 */
+type UserFavoriteGames = {
+    previousPageCursor: string,
+    nextPageCursor: string,
+    data: object
+}
+
+/**
+ * @typedef
+*/
 type BuyProductInfo = {
     ProductId: number;
     Creator: { Id: number };
