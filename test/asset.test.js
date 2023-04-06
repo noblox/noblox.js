@@ -1,4 +1,4 @@
-const { buy, deleteFromInventory, getGamepassProductInfo, getProductInfo, uploadAnimation, uploadItem, uploadModel, setCookie, getOwnership, getCurrentUser } = require('../lib')
+const { buy, deleteFromInventory, getGamePassProductInfo, getProductInfo, uploadAnimation, uploadItem, uploadModel, setCookie, getOwnership, getCurrentUser } = require('../lib')
 const fs = require('fs')
 
 beforeAll(() => {
