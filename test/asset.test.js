@@ -27,7 +27,7 @@ describe('Asset Methods', () => {
         Name: expect.any(String),
         Description: expect.any(String),
         Creator: expect.any(Object),
-        PriceInRobux: expect.nullOrAny(Number)
+        PriceInRobux: expect.toBeOneOf([expect.any(Number), null])
       })
     })
   })
