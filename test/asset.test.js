@@ -32,6 +32,10 @@ describe('Asset Methods', () => {
     })
   })
 
+  it('getGamePassProductInfo() errors when returning a product\'s information that does not exist', async () => {
+    return await expect(getGamePassProductInfo(0)).rejects.toThrow()
+  })
+
   it('getProductInfo() successfully returns a product\'s information', () => {
     return getProductInfo(1989194006).then((res) => {
       return expect(res).toMatchObject({
