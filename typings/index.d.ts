@@ -808,7 +808,7 @@ declare module "noblox.js" {
         name: string;
         description: string;
         owner: GroupUser;
-        shout: GroupShout;
+        shout?: GroupShout;
         memberCount: number;
         isBuildersClubOnly: boolean;
         publicEntryAllowed: boolean;
