@@ -1216,7 +1216,7 @@ type Group = {
     name: string;
     description: string;
     owner: GroupUser;
-    shout: GroupShout;
+    shout?: GroupShout;
     memberCount: number;
     isBuildersClubOnly: boolean;
     publicEntryAllowed: boolean;
@@ -2028,7 +2028,8 @@ type EntryVersion = {
 type EntryVersionsResult = {
     versions: EntryVersion[];
     nextPageCursor: string;
-}</code></pre>
+}
+</code></pre>
         </article>
     </section>
 
