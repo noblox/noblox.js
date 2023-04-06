@@ -155,12 +155,15 @@ type UploadItemAssetType = 11 | 12 | 13;
 type ProductInfoCreator = {
     Id: number;
     Name: string;
+    HasVerifiedBadge: boolean;
 }
 
 /**
  * @typedef
 */
 type ProductInfo = {
+    TargetId: number;
+    ProductType?: string;
     AssetId: number;
     ProductId: number;
     Name: string
@@ -181,6 +184,9 @@ type ProductInfo = {
     Remaining?: number;
     MinimumMembershipLevel: number;
     ContentRatingTypeId: number;
+    SaleAvailabilityLocations?: string[];
+    SaleLocation?: string;
+    CollectibleItemId?: number;
 }
 
 /**
@@ -645,7 +651,7 @@ type ChatConversation = {
     participants: Array<ChatParticipant>;
     conversationType: "OneToOneConversation" | "MultiUserConversation" | "CloudEditConversation";
     conversationTitle: ChatConversationTitle;
-    lastUpdated: string;
+    lastUpdated: Date;
     conversationUniverse: ChatConversationUniverse;
 }
 
@@ -825,17 +831,6 @@ type DeveloperProductAddResult = {
     priceInRobux: number,
     description?: string,
     productId: string
-}
-
-/**
- * @typedef
-*/
-type DeveloperProductUpdateResult = {
-    universeId: number,
-    name: string,
-    priceInRobux: number,
-    description?: string,
-    productId: number
 }
 
 /**
@@ -1078,7 +1073,7 @@ type Group = {
     name: string;
     description: string;
     owner: GroupUser;
-    shout: GroupShout;
+    shout?: GroupShout;
     memberCount: number;
     isBuildersClubOnly: boolean;
     publicEntryAllowed: boolean;
@@ -1151,7 +1146,7 @@ type GroupUser = {
     userId: number;
     username: string;
     displayName: string;
-    buildersClubMembershipType: "None" | "BC" | "TBC" | "OBC" | "RobloxPremium";
+    hasVerifiedBadge?: boolean;
 }
 
 /**
@@ -1160,8 +1155,8 @@ type GroupUser = {
 type GroupShout = {
     body: string;
     poster: GroupUser;
-    created: string;
-    updated: string;
+    created: Date;
+    updated: Date;
 }
 
 /**
@@ -1193,7 +1188,7 @@ type AuditItem = {
     actor: AuditItemActor;
     actionType: string;
     description: object;
-    created: string;
+    created: Date;
 }
 
 /**
@@ -1281,6 +1276,9 @@ type RevenueSummaryResponse = {
     pendingRobux?: number;
     groupPayoutRobux?: number;
     individualToGroupRobux?: number;
+    premiumPayouts?: number;
+    groupPremiumPayouts?: number;
+    adjustmentRobux?: number;
 }
 
 /**
@@ -1290,8 +1288,8 @@ type WallPost = {
     id: number;
     poster: GroupUser;
     body: string;
-    created: string;
-    updated: string;
+    created: Date;
+    updated: Date;
 }
 
 /**
@@ -1371,7 +1369,7 @@ type UserStatus = {
 */
 type FriendRequestEntry = {
     description: string;
-    created: string;
+    created: Date;
     isBanned: boolean;
     id: number;
     name: string;
@@ -1391,14 +1389,18 @@ type FriendRequestsPage = {
  * @typedef
 */
 type FriendEntry = {
-    isOnline?: boolean;
-    presenceType: UserPresenceType;
-    isDeleted: boolean;
+    created: Date;
     id: number;
+    isBanned: boolean;
+    isDeleted: boolean;
+    isOnline?: boolean;
     name: string;
-    description: string;
-    created: string;
+    description?: string;
     displayName: string;
+    externalAppDisplayName?: string;
+    friendFrequentRank: number;
+    friendFrequentScore: number;
+    presenceType?: UserPresenceType;
 }
 
 /**
@@ -1416,7 +1418,7 @@ type FollowEntry = {
     id: number;
     name: string;
     description: string;
-    created: string;
+    created: Date;
     displayName: string;
 }
 
@@ -1548,6 +1550,7 @@ type PromotionChannelsResponse = {
     twitter?: string;
     youtube?: string;
     twitch?: string;
+    guilded?: string;
 }
 
 /// Badges
@@ -1808,4 +1811,78 @@ type GetLatestResponse = {
     latest: number;
     data: object;
     repeat?: boolean;
+}
+
+/// Datastores
+
+/**
+ * @typedef
+*/
+type Datastore = { 
+    name: string;
+    createdTime: Date;
+}
+
+/**
+ * @typedef
+*/
+type DatastoresResult = { 
+    datastores: Datastore[];
+    nextPageCursor?: string;
+}
+
+/**
+ * @typedef
+*/
+type EntryKey = { 
+    scope: string;
+    key: string;
+}
+
+/**
+ * @typedef
+*/
+type DatastoreKeysResult = {
+    keys: EntryKey[];
+    nextPageCursor?: string;
+}
+
+/**
+ * @typedef
+*/
+type DatastoreEntry = {
+    data: any;
+    metadata: {
+        /**  (ISO datetime, UTC): the time at which the entry was created */
+        robloxEntryCreatedTime: Date;
+        /**  (ISO datetime, UTC): the time at which the entry was updated */
+        lastModified: Date;
+        /** version of the entry being read */
+        robloxEntryVersion: string;
+        robloxEntryAttributes?: string;
+        robloxEntryUserIDs?: string;
+        /** the base-64 encoded MD5 checksum of the content */
+        contentMD5: string;
+        /** the content length in bytes */
+        contentLength: number;
+    }
+}
+
+/**
+ * @typedef
+*/
+type EntryVersion = {
+    version: string;
+    deleted: boolean;
+    contentLength: number;
+    createdTime: Date;
+    objectCreatedTime: Date;
+}
+
+/**
+ * @typedef
+*/
+type EntryVersionsResult = {
+    versions: EntryVersion[];
+    nextPageCursor: string;
 }
