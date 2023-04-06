@@ -10,6 +10,18 @@ beforeAll(() => {
 
 describe('Game Methods', () => {
   // let newProductId
+  it('getUserFavoriteGame() return a player\'s favorite games', () => {
+    return getUserFavoriteGames(172694510).then((res) => {
+      return expect(res).toMatchObject({
+        previousPageCursor: expect.any(String),
+        nextPageCursor: expect.any(String),
+        data: expect.any(Object),
+      })
+    })
+  })
+  it('getUserFavoriteGame() doesn\'t return a player\'s favorite games and errors when user is invalid', async () => {
+    return await expect(getUserFavoriteGames(0)).rejects.toThrow()
+  })
 
   it('addDeveloperProduct() adds a developer product to a universe', () => {
     return addDeveloperProduct(79354837, `${parseInt(Date.now().toString().slice(-6))} Coins`, 5, 'A hefty sum of cash for you and a successful test for me.').then((res) => {

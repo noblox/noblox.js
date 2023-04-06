@@ -193,20 +193,9 @@ type ProductInfo = {
  * @typedef
 */
 type UserFavoriteGames = {
-    id: number;
-    name: string;
-    description: object;
-    creator: {
-        id: number;
-        type: string;
-    };
-    rootPlace: {
-        id: number;
-        type: string
-    };
-    created: string;
-    updated: string;
-    placeVisits: number;
+    previousPageCursor: string;
+    nextPageCursor: string,
+    data: object
 }
 
 /**
