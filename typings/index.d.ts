@@ -1423,6 +1423,15 @@ declare module "noblox.js" {
      */
     function deleteFromInventory(assetId: number, jar?: CookieJar): Promise<void>;
 
+    /**
+     * ✅ Gets `info` of `gamepass` and caches according to settings.
+     */
+    function getGamePassProductInfo(gamepass: number): Promise<GamePassProductInfo>;
+
+    /**
+     * ✅ Gets `info` of `asset` and caches according to settings.
+     */
+    function getProductInfo(asset: number): Promise<ProductInfo>;
 
     /**
      * ✅ Get the recent sale history (price and volume per day for 180 days) of a limited asset.
@@ -1453,16 +1462,6 @@ declare module "noblox.js" {
      * 🔐 Uploads `data` to `asset` with `itemOptions`. If asset is empty a new asset will be created. The assetId is returned as a number. Note that `itemOptions` is required when creating a new asset. It is only optional when updating an old asset, which ignores `itemOptions` and only updates `data`.
      */
      function uploadAnimation(data: string | stream.Stream, itemOptions?: UploadModelItemOptions, asset?: number, jar?: CookieJar): Promise<number>;
-
-    /**
-     * ✅ Gets `info` of `asset` and caches according to settings.
-     */
-    function getProductInfo(asset: number): Promise<ProductInfo>;
-
-    /**
-     * ✅ Gets `info` of `gamepass` and caches according to settings.
-     */
-    function getGamePassProductInfo(gamepass: number): Promise<GamePassProductInfo>;
 
     /// Avatar
 
