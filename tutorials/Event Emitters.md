@@ -5,7 +5,7 @@ An Event Emitter is a way in JavaScript to recieve data in real time until the e
 You can use an EventEmitter created by noblox by calling a function that returns an EventEmitter, and calling **.on(event, callback)**. 3 events used by noblox are "data", "connect", and "close". Data is when noblox detects a change on Roblox and informs you of the change, which it will provide as a parameter in the callback function. Connect is when noblox connects to Roblox successfully and starts the emitter. Finally, close is when noblox disconnects from Roblox and stops the emitter.
 
 ### Example:
-```
+```javascript
 const noblox = require("noblox.js");
 const Emitter = noblox.onShout(1);
 
