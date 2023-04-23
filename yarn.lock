@@ -3102,9 +3102,9 @@ fb-watchman@^2.0.0:
     bser "2.1.1"
 
 figlet@^1.4.0:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/figlet/-/figlet-1.5.2.tgz#dda34ff233c9a48e36fcff6741aeb5bafe49b634"
-  integrity sha512-WOn21V8AhyE1QqVfPIVxe3tupJacq1xGkPTB4iagT6o+P2cAgEOOwIxMftr4+ZCTI6d551ij9j61DFr0nsP2uQ==
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/figlet/-/figlet-1.6.0.tgz#812050fa9f01043b4d44ddeb11f20fb268fa4b93"
+  integrity sha512-31EQGhCEITv6+hi2ORRPyn3bulaV9Fl4xOdR169cBzH/n1UqcxsiSB/noo6SJdD7Kfb1Ljit+IgR1USvF/XbdA==
 
 figures@^2.0.0:
   version "2.0.0"
