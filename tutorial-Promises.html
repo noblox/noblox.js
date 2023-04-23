@@ -148,7 +148,7 @@
 <p>However, sometimes Promises throw errors. You will need to handle any errors from promises or else you will get an <strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#Promise_rejection_events">Unhandled Promise Rejection Error.</a></strong> These errors are fatal and should always be handled accordingly. To do this, you can use <strong>.catch</strong>, which will allow you to handle the error correctly. When using <strong>async/await</strong>, you can use .catch by attaching it after the function is called. With <strong>.then()</strong>, you can attach it after <strong>.then</strong>. Both cases are shown in the examples below.</p>
 <h3>Examples:</h3>
 <h4>async/await</h4>
-<pre class="prettyprint source lang-javascript"><code>const noblox = require(&quot;noblox.js&quot;);
+<pre class="prettyprint source"><code>const noblox = require(&quot;noblox.js&quot;);
 
 //await can only be used in async functions!
 async function DemoteUser (groupId, username) { 
@@ -164,7 +164,7 @@ async function DemoteUser (groupId, username) {
 DemoteUser(1, &quot;popeeyy&quot;);
 </code></pre>
 <h4>.then(function)</h4>
-<pre class="prettyprint source lang-javascript"><code>const noblox = require(&quot;noblox.js&quot;);
+<pre class="prettyprint source"><code>const noblox = require(&quot;noblox.js&quot;);
 
 //When the promise is resolved, the function runs with the provided variable.
 noblox.getIdFromUsername(&quot;popeeyy&quot;).then(function(userId) {
@@ -178,7 +178,7 @@ noblox.getIdFromUsername(&quot;popeeyy&quot;).then(function(userId) {
 <p>There are different ways to create a Promise, but we'll discuss two of the easiest ways. The first way is to create an <strong>async function</strong>, as explained above. The other way is to use <strong>new Promise(function)</strong>, with the function having 2 parameters. The 2 parameters are resolve and reject respectively, which will resolve the Promise or throw an error.</p>
 <p>You should always read the docs, isn't that what you're here for? There are plenty of examples showing when you use Promises and what values are returned by the function. Promises are your friend in this library and many others, so take the time to learn them first and practice using them. If you have any questions, you can always ask the community in the <a href="https://discord.gg/EDXNdAT">Roblox API Discord</a> via our designated channel &quot;nodejs_nobloxjs&quot;.</p>
 <h3>Example:</h3>
-<pre class="prettyprint source lang-javascript"><code>const isCool = false;
+<pre class="prettyprint source"><code>const isCool = false;
 
 function amICool() {
   //Create a new Promise
