@@ -898,7 +898,7 @@ type UniverseSettings = {
     universeAnimationType?: "Standard" | "PlayerChoice";
     universeCollisionType?: "InnerBox" | "OuterBox";
     universeJointPositioningType?: "Standard" | "ArtistIntent";
-    
+
     isArchived?: boolean;
     isFriendsOnly?: boolean;
 
@@ -912,7 +912,7 @@ type UniverseSettings = {
 
     isForSale?: boolean;
     price?: number;
-    
+
     universeAvatarMinScales?: AvatarScale;
     universeAvatarMaxScales?: AvatarScale;
 
@@ -940,7 +940,7 @@ type UniverseSettings = {
     universeAnimationType?: "Standard" | "PlayerChoice";
     universeCollisionType?: "InnerBox" | "OuterBox";
     universeJointPositioningType?: "Standard" | "ArtistIntent";
-    
+
     isArchived?: boolean;
     isFriendsOnly?: boolean;
 
@@ -954,7 +954,7 @@ type UniverseSettings = {
 
     isForSale?: boolean;
     price?: number;
-    
+
     universeAvatarMinScales?: AvatarScale;
     universeAvatarMaxScales?: AvatarScale;
 
@@ -1157,13 +1157,6 @@ type GroupShout = {
     poster: GroupUser;
     created: string;
     updated: string;
-}
-
-/**
- * @typedef
- */
-type GroupDescriptionResult = {
-    newDescription: string
 }
 
 /**

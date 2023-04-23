@@ -702,7 +702,7 @@ declare module "noblox.js" {
     type PlayableDevices = "Computer" | "Phone" | "Tablet" | "Console"
     type Regions = "Unknown" | "China"
 
-    interface UniverseAsset 
+    interface UniverseAsset
     {
         assetID: number,
         assetTypeID: number,
@@ -728,7 +728,7 @@ declare module "noblox.js" {
         universeAnimationType?: AnimationType;
         universeCollisionType?: CollisionType;
         universeJointPositioningType?: JointType;
-        
+
         isArchived?: boolean;
         isFriendsOnly?: boolean;
 
@@ -739,7 +739,7 @@ declare module "noblox.js" {
 
         isForSale?: boolean;
         price?: number;
-        
+
         universeAvatarMinScales?: AvatarScale
         universeAvatarMaxScales?: AvatarScale
 
@@ -910,12 +910,6 @@ declare module "noblox.js" {
         created: string;
         updated: string;
     }
-
-    interface GroupDescriptionResult
-    {
-        newDescription: string
-    }
-
     interface GroupNameResult
     {
         newName: string
@@ -1689,7 +1683,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Sets the group description for group with id `group` to `description`.
      */
-    function setGroupDescription(group: number, description: string, jar?: CookieJar): Promise<GroupDescriptionResult>;
+    function setGroupDescription(group: number, description: string, jar?: CookieJar): Promise<string>;
 
     /**
      * 🔐 Sets the group name for group with id `group` to `name`.
