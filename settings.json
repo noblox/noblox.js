@@ -2,7 +2,7 @@
   "session_only": true,
   "session_only_desc": "Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well.",
 
-  "maxThreads": 50,
+  "maxThreads": 128,
   "maxThreads_desc": "This is usually used for functions that have to receive a lot of pages at once. Only this amount will be queued up as to preserve memory, make this as high as possible for fastest responses (although it will be somewhat limited by maxSockets).",
 
   "timeout": 10000,
