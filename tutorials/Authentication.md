@@ -42,7 +42,7 @@ There are many different ways to obtain your cookie depending on your browser. F
 Once you have obtained and copied your cookie, close the incognito window without signing out. To use your cookie with noblox, you will have to use the **setCookie method**. This will use your cookie in all requests sent to Roblox to perform actions on your bot's behalf. You should store your cookie somewhere secure, such as a [**.env file**](https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786).
 
 ### Example:
-```
+```javascript
 const noblox = require("noblox.js");
 
 noblox.setCookie(process.env.COOKIE).then(function() { //Use COOKIE from our .env file.

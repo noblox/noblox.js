@@ -808,7 +808,7 @@ declare module "noblox.js" {
         name: string;
         description: string;
         owner: GroupUser;
-        shout: GroupShout;
+        shout?: GroupShout;
         memberCount: number;
         isBuildersClubOnly: boolean;
         publicEntryAllowed: boolean;
@@ -1842,7 +1842,7 @@ declare module "noblox.js" {
     /**
      * 🔓 Returns information about the universe(s) in question, such as description, name etc; varies based on whether or not you're logged in.
      */
-    function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation>;
+    function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation[]>;
 
     /**
      * 🔐 Update a developer product.
