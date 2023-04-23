@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/users/getUsernameFromId.js</title>
+  <title>noblox.js lib/games/getGameRevenue.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/users/getUsernameFromId.js</h1>
+                    <h1>lib/games/getGameRevenue.js</h1>
                 </header>
                 
 
@@ -146,49 +146,54 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Includes
-const http = require('../util/http.js').func
-const cache = require('../cache')
+            <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
+const getGeneralToken = require('../util/getGeneralToken.js').func
 
-// Args
-exports.required = ['id']
+exports.required = ['placeId', 'type', 'granularity']
+exports.optional = ['jar']
 
-// Docs
 /**
- * ✅ Get a user's username from their user id.
- * @category User
- * @alias getUsernameFromId
- * @param {number} id - The id of the user.
- * @returns {Promise&lt;string>}
+ * 🔐 Get the Game Revenue data.
+ * @category Game
+ * @alias getGameRevenue
+ * @param {number} placeId - The id of the game.
+ * @param {"Revenue" | "RevenuePerVisit" | "AverageVisitLength" | "Visits"} type - The type of revenue. Options: Revenue, RevenuePerVisit, AverageVisitLength, Visits
+ * @param {"Hourly" | "Daily" | "Monthly"} granularity - The type of revenue. Options: Hourly, Daily, Monthly
+ * @returns {Promise&lt;GameRevenueResponse>}
  * @example const noblox = require("noblox.js")
- * let username = await noblox.getUsernameFromId(123456)
+ * const gameRevenue = await noblox.getGameRevenue(936068308, "Revenue", "Hourly");
 **/
 
-// Define
-function getUsernameFromId (id) {
-  const httpOpt = {
-    url: `//users.roblox.com/v1/users/${id}`,
-    options: {
-      resolveWithFullResponse: true,
-      method: 'GET'
-    }
-  }
-  return http(httpOpt)
-    .then(function (res) {
-      if (res.statusCode === 200) {
-        const json = JSON.parse(res.body)
-        return json.name
-      } else {
-        throw new Error('User does not exist')
+function getGameRevenue (placeId, type, granularity, jar, token) {
+  return new Promise((resolve, reject) => {
+    const httpOpt = {
+      url: `//develop.roblox.com/v1/places/${placeId}/stats/${type}?granularity=${granularity}`,
+      options: {
+        method: 'GET',
+        jar: jar,
+        headers: {
+          'X-CSRF-TOKEN': token
+        },
+        resolveWithFullResponse: true
       }
-    })
+    }
+    return http(httpOpt)
+      .then(function (res) {
+        if (res.statusCode === 200) resolve(JSON.parse(res.body))
+        else if (res.statusCode === 401) reject(new Error('You are not logged in.'))
+        else if (res.statusCode === 403) reject(new Error('You do not have permission to view this game.'))
+        else reject(new Error('An unknown error occurred.'))
+      })
+      .catch(function (err) { console.error(err); reject(err) })
+  })
 }
 
 exports.func = function (args) {
-  const id = args.id
-  return cache.wrap('NameFromID', id, function () {
-    return getUsernameFromId(id)
-  })
+  const jar = args.jar
+  return getGeneralToken({ jar: jar })
+    .then(function (xcsrf) {
+      return getGameRevenue(args.placeId, args.type, args.granularity, jar, xcsrf)
+    })
 }
 </code></pre>
         </article>
