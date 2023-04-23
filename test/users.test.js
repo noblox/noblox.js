@@ -1,4 +1,4 @@
-const { getBlurb, getIdFromUsername, getPlayerInfo, getUsernameFromId, setCookie } = require('../lib')
+const { getBlurb, getIdFromUsername, getPlayerInfo, getUsernameFromId, setCookie, setDescription } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -58,6 +58,11 @@ describe('Users Methods', () => {
         displayName: expect.any(String)
       })
     })
+  })
+  it('setDescription() sets a description', async () => {
+    return setDescription("Hello!").then(res => {
+      return expect(res.description).toEqual(expect.any(String));
+    });
   })
 
   it('getUsernameFromId() returns a player\'s username given an ID', () => {

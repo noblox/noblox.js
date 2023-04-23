@@ -1643,12 +1643,12 @@ declare module "noblox.js" {
 
     /// DataStores
 
-    /** 
-     * ☁️ Marks the entry as deleted by creating a tombstone version. Entries are deleted permanently after 30 days. 
+    /**
+     * ☁️ Marks the entry as deleted by creating a tombstone version. Entries are deleted permanently after 30 days.
      */
     function deleteDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, scope?: string, jar?: CookieJar): Promise<void>
 
-    /** 
+    /**
      * ☁️ Returns the latest value and metadata associated with an entry, or a specific version if versionId is provided.
      */
     function getDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, scope?: string, versionId?: string, jar?: CookieJar): Promise<DatastoreEntry>
@@ -1794,7 +1794,7 @@ declare module "noblox.js" {
     /// Games
 
     /**
-     * 🔐 Adds a developer product to the specified universe. 
+     * 🔐 Adds a developer product to the specified universe.
      * Warning: The `productId` returned by this function does not match the `productId` used by other endpoints.
      */
     function addDeveloperProduct(universeId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductAddResult>;
@@ -2106,6 +2106,10 @@ declare module "noblox.js" {
     function sendTrade(targetUserId: number, sendingOffer: TradeOffer, receivingOffer: TradeOffer, jar?: CookieJar): Promise<SendTradeResponse>;
 
     /// Users
+    /**
+     * 🔐 Sets the authenticated users' description.
+     */
+    function setDescription(description: string, jar?: CookieJar) : Promise<string>
 
     /**
      * ✅ Gets the `blurb` of the user with the ID `userId`.
