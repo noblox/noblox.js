@@ -145,7 +145,7 @@
 <h3>How can I use an EventEmitter?</h3>
 <p>You can use an EventEmitter created by noblox by calling a function that returns an EventEmitter, and calling <strong>.on(event, callback)</strong>. 3 events used by noblox are &quot;data&quot;, &quot;connect&quot;, and &quot;close&quot;. Data is when noblox detects a change on Roblox and informs you of the change, which it will provide as a parameter in the callback function. Connect is when noblox connects to Roblox successfully and starts the emitter. Finally, close is when noblox disconnects from Roblox and stops the emitter.</p>
 <h3>Example:</h3>
-<pre class="prettyprint source"><code>const noblox = require(&quot;noblox.js&quot;);
+<pre class="prettyprint source lang-javascript"><code>const noblox = require(&quot;noblox.js&quot;);
 const Emitter = noblox.onShout(1);
 
 Emitter.on(&quot;connect&quot;, function() {
