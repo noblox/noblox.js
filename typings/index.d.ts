@@ -702,7 +702,7 @@ declare module "noblox.js" {
     type PlayableDevices = "Computer" | "Phone" | "Tablet" | "Console"
     type Regions = "Unknown" | "China"
 
-    interface UniverseAsset 
+    interface UniverseAsset
     {
         assetID: number,
         assetTypeID: number,
@@ -728,7 +728,7 @@ declare module "noblox.js" {
         universeAnimationType?: AnimationType;
         universeCollisionType?: CollisionType;
         universeJointPositioningType?: JointType;
-        
+
         isArchived?: boolean;
         isFriendsOnly?: boolean;
 
@@ -739,7 +739,7 @@ declare module "noblox.js" {
 
         isForSale?: boolean;
         price?: number;
-        
+
         universeAvatarMinScales?: AvatarScale
         universeAvatarMaxScales?: AvatarScale
 
@@ -1631,6 +1631,8 @@ declare module "noblox.js" {
     /**
      * 🔐 Get the game revenue data associated with a game.
     */
+    type GameRevenueType = "Revenue" | "RevenuePerVisit" | "AverageVisitLength" | "Visits";
+    type GameRevenueGranularity = "Hourly" | "Daily" | "Monthly";
     function getGameRevenue(placeId: number, type: string, granularity: string, jar?: CookieJar): Promise<GameRevenueResponse>;
 
     /// Group
