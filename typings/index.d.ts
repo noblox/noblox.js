@@ -742,7 +742,7 @@ declare module "noblox.js" {
         sourceDescription: string;
         url: string;
         builder: string;
-        buillderId: number;
+        builderId: number;
         hasVerifiedBadge: boolean;
         isPlayable: boolean;
         reasonProhibited: string;
