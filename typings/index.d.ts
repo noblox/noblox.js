@@ -734,6 +734,23 @@ declare module "noblox.js" {
         isFavoritedByUser: boolean;
         favoritedCount: number;
     }
+            
+    interface PlaceInformation {
+        placeId: number;
+        name: string;
+        sourceName: string;
+        sourceDescription: string;
+        url: string;
+        builder: string;
+        builderId: number;
+        hasVerifiedBadge: boolean;
+        isPlayable: boolean;
+        reasonProhibited: string;
+        universeId: number;
+        universeRootPlaceId: number;
+        price: number;
+        imageToken: string;
+    }
 
     /// Group
 
