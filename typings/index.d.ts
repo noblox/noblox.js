@@ -1861,6 +1861,11 @@ declare module "noblox.js" {
      */
     function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation[]>;
 
+    /** 
+     * 🔐 Returns information about the place(s) in question, such as name, description, etc.
+     */
+    function getPlaceInfo(placeIds: number[] | number, jar?: CookieJar): Promise<PlaceInformation[]>;
+            
     /**
      * 🔐 Update a developer product.
      */
