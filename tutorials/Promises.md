@@ -12,7 +12,7 @@ However, sometimes Promises throw errors. You will need to handle any errors fro
 ### Examples:
 
 #### async/await
-```
+```javascript
 const noblox = require("noblox.js");
 
 //await can only be used in async functions!
@@ -30,7 +30,7 @@ DemoteUser(1, "popeeyy");
 ```
 
 #### .then(function)
-```
+```javascript
 const noblox = require("noblox.js");
 
 //When the promise is resolved, the function runs with the provided variable.
@@ -51,7 +51,7 @@ You should always read the docs, isn't that what you're here for? There are plen
 
 ### Example:
 
-```
+```javascript
 const isCool = false;
 
 function amICool() {
