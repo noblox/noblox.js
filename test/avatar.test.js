@@ -109,7 +109,7 @@ describe('Avatar Methods', () => {
   it('setAvatarBodyColors() sets body colors to selected colors', () => {
     return setAvatarBodyColors(194, 37, 194, 194, 102, 102).then(() => {
       return getCurrentAvatar().then((res) => {
-        expect(res.bodyColors).toEqual({
+        expect(res.dataColors).toEqual({
           headColorId: 194,
           torsoColorId: 37,
           rightArmColorId: 194,

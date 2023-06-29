@@ -20,12 +20,11 @@
     "clans"
   ],
   "dependencies": {
+    "axios": "^1.4.0",
     "chalk": "^4.0.0",
     "cheerio": "^1.0.0-rc.10",
     "entities": "^4.3.0",
     "figlet": "^1.4.0",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.4",
     "signalr-client": "0.0.20"
   },
   "license": "MIT",
