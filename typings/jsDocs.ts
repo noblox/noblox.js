@@ -967,6 +967,25 @@ type UniverseSettings = {
      optInRegions?: Array<Regions>;
 }
 
+/**
+ * @typedef
+ */
+ type GameRevenueData = {
+    Total: object;
+}
+
+/**
+ * @typedef
+ */
+type GameRevenueResponse = {
+    placeId: number;
+    dataType: number;
+    dataGranularity: number;
+    startTime: Date;
+    endTime: Date;
+    data: GameRevenueData;
+}
+
 /// Group
 
 /**

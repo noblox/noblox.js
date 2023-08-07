@@ -1849,7 +1849,7 @@ declare module "noblox.js" {
     /**
      * 🔓 Returns information about the universe(s) in question, such as description, name etc; varies based on whether or not you're logged in.
      */
-    function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation>;
+    function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation[]>;
 
     /**
      * 🔐 Update a developer product.
