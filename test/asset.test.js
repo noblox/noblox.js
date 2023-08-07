@@ -1,4 +1,4 @@
-const { buy, deleteFromInventory, getProductInfo, uploadAnimation, uploadItem, uploadModel, setCookie, getOwnership, getCurrentUser } = require('../lib')
+const { buy, deleteFromInventory, getGamePassProductInfo, getProductInfo, uploadAnimation, uploadItem, uploadModel, setCookie, getOwnership, getCurrentUser } = require('../lib')
 const fs = require('fs')
 
 beforeAll(() => {
@@ -19,6 +19,21 @@ describe('Asset Methods', () => {
 
   it('deleteFromInventory() errors when it tries to delete an item from user\'s inventory that isn\'t there', async () => {
     return await expect(deleteFromInventory(1778181)).rejects.toThrow()
+  })
+
+  it('getGamePassProductInfo() successfully returns a gamepass\'s information', () => {
+    return getGamePassProductInfo(2919875).then((res) => {
+      return expect(res).toMatchObject({
+        Name: expect.any(String),
+        Description: expect.any(String),
+        Creator: expect.any(Object),
+        PriceInRobux: expect.toBeOneOf([expect.any(Number), null])
+      })
+    })
+  })
+
+  it('getGamePassProductInfo() errors when returning a product\'s information that does not exist', async () => {
+    return await expect(getGamePassProductInfo(0)).rejects.toThrow()
   })
 
   it('getProductInfo() successfully returns a product\'s information', () => {
