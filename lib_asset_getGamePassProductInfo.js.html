@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/datastores/getDatastores.js</title>
+  <title>noblox.js lib/asset/getGamePassProductInfo.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/datastores/getDatastores.js</h1>
+                    <h1>lib/asset/getGamePassProductInfo.js</h1>
                 </header>
                 
 
@@ -148,67 +148,42 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const cache = require('../cache')
 
 // Args
-exports.required = ['universeId']
-exports.optional = ['prefix', 'limit', 'cursor', 'jar']
+exports.required = ['gamepass']
 
 // Docs
 /**
- * &lt;p> ☁️ Returns a list of data stores belonging to a universe. &lt;/p>
- * API Key Permissions:
- * &lt;ul>
- *  &lt;li> List DataStores &lt;/li>
- * &lt;/ul>
- * @category Datastores
- * @param {number} universeId - The ID of the universe whose data stores are being retrieved.
- * @param {string=} prefix - Return only data stores with this prefix
- * @param {number=} limit - Maximum number of items to return
- * @param {string=} cursor - Provide to request the next set of data
- * @returns {Promise&lt;DatastoresResult>}
+ * ✅ Get the info of an gamepass.
+ * @category Asset
+ * @param {number} gamePassId - The id of the asset.
+ * @returns {Promise&lt;GamePassProductInfo>}
  * @example const noblox = require("noblox.js")
- * const datastores = await noblox.getDatastores(1117747196)
+ * const gamePassInfo = await noblox.getGamePassProductInfo(2919875)
 **/
 
 // Define
-function getDatastores (universeId, prefix, limit, cursor, jar) {
+function getGamePassProductInfo (gamepass) {
   return new Promise((resolve, reject) => {
     const httpOpt = {
-      url: `//apis.roblox.com/datastores/v1/universes/${universeId}/standard-datastores`,
+      url: `//apis.roblox.com/game-passes/v1/game-passes/${gamepass}/product-info`,
       options: {
         resolveWithFullResponse: true,
-        method: 'GET',
-        jar,
-        qs: {
-          prefix,
-          limit,
-          cursor
-        }
+        method: 'GET'
       }
     }
+
     return http(httpOpt)
       .then(function (res) {
+        const data = JSON.parse(res.body)
+
         if (res.statusCode === 200) {
-          const response = JSON.parse(res.body)
-          response.datastores = response.datastores.map(datastore => {
-            datastore.createdTime = new Date(datastore.createdTime)
-            return datastore
-          })
-
-          resolve(response)
+          resolve(data)
         } else {
-          // Sourced from: https://stackoverflow.com/a/32278428
-          const isAnObject = (val) => !!(val instanceof Array || val instanceof Object)
+          const errors = data.errors.map((e) => e.message)
 
-          let body
-
-          try {
-            body = isAnObject(JSON.parse(res.body)) ? JSON.parse(res.body) : {}
-          } catch (error) {
-            reject(new Error(`${res.statusCode} ${res.statusMessage}`))
-          }
-
-          reject(new Error(`${res.statusCode} ${body.error} ${body.message}`))
+          reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
         }
       })
       .catch(error => reject(error))
@@ -216,7 +191,11 @@ function getDatastores (universeId, prefix, limit, cursor, jar) {
 }
 
 exports.func = function (args) {
-  return getDatastores(args.universeId, args.prefix, args.limit, args.cursor, args.jar)
+  const gamepass = args.gamepass
+
+  return cache.wrap('GamePassProduct', gamepass, function () {
+    return getGamePassProductInfo(gamepass)
+  })
 }
 </code></pre>
         </article>
