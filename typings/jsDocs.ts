@@ -192,6 +192,11 @@ type ProductInfo = {
 /**
  * @typedef
 */
+type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId" | "SaleAvailabilityLocations" | "SaleLocation" | "CollectibleItemId">;
+
+/**
+ * @typedef
+*/
 type BuyProductInfo = {
     ProductId: number;
     Creator: { Id: number };

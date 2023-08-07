@@ -215,6 +215,8 @@ declare module "noblox.js" {
         CollectibleItemId?: number;
     }
 
+    type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId" | "SaleAvailabilityLocations" | "SaleLocation" | "CollectibleItemId">;
+
     interface BuyProductInfo {
         ProductId: number;
         Creator: { Id: number };
@@ -1415,6 +1417,11 @@ declare module "noblox.js" {
      * 🔐 Deletes an item from the logged in user's inventory
      */
     function deleteFromInventory(assetId: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * ✅ Gets `info` of `gamepass` and caches according to settings.
+     */
+    function getGamePassProductInfo(gamepass: number): Promise<GamePassProductInfo>;
 
     /**
      * ✅ Gets `info` of `asset` and caches according to settings.
