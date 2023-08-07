@@ -191,7 +191,10 @@ function getAuditLog (group, actionType, userId, sortOrder, limit, cursor, jar) 
           reject(new Error(error))
         } else {
           responseData.data = responseData.data.map((entry) => {
+            // We need to set milliseconds to 0 because Roblox does this fascinating thing
+            // Where they vary the ms value on each request, for an existing action.
             entry.created = new Date(entry.created)
+            entry.created.setMilliseconds(0)
             return entry
           })
           resolve(responseData)
