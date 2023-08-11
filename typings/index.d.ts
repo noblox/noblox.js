@@ -933,7 +933,10 @@ declare module "noblox.js" {
 
     interface WallPost {
         id: number;
-        poster: GroupUser;
+        poster: {
+            user: GroupUser;
+            role: Role;
+        };
         body: string;
         created: Date;
         updated: Date;
