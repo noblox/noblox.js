@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/games/getGameRevenue.js</title>
+  <title>noblox.js lib/games/getPlaceInfo.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/games/getGameRevenue.js</h1>
+                    <h1>lib/games/getPlaceInfo.js</h1>
                 </header>
                 
 
@@ -146,54 +146,53 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
-const getGeneralToken = require('../util/getGeneralToken.js').func
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('../util/http.js').func
 
-exports.required = ['placeId', 'type', 'granularity']
+// Args
+exports.required = ['placeId']
 exports.optional = ['jar']
 
+// Docs
 /**
- * 🔐 Get the Game Revenue data.
+ * 🔓 Get the info for a universe.
  * @category Game
- * @alias getGameRevenue
- * @param {number} placeId - The id of the game.
- * @param {"Revenue" | "RevenuePerVisit" | "AverageVisitLength" | "Visits"} type - The type of revenue. Options: Revenue, RevenuePerVisit, AverageVisitLength, Visits
- * @param {"Hourly" | "Daily" | "Monthly"} granularity - The type of revenue. Options: Hourly, Daily, Monthly
- * @returns {Promise&lt;GameRevenueResponse>}
+ * @alias getPlaceInfo
+ * @param {number | Array&lt;number>} universeId - The id(s) of the place(s).
+ * @returns {Promise&lt;PlaceInformation[]>}
  * @example const noblox = require("noblox.js")
- * const gameRevenue = await noblox.getGameRevenue(936068308, "Revenue", "Hourly");
+ * const universeInfo = await noblox.getPlaceInfo([ 10905034443 ])
 **/
 
-function getGameRevenue (placeId, type, granularity, jar, token) {
+function getPlaceInfo (placeIds, jar) {
   return new Promise((resolve, reject) => {
+    if (typeof (placeIds) === 'number') placeIds = [placeIds]
+
     const httpOpt = {
-      url: `//develop.roblox.com/v1/places/${placeId}/stats/${type}?granularity=${granularity}`,
+      url: `//games.roblox.com/v1/games/multiget-place-details?placeIds=${placeIds.join(',')}`,
       options: {
-        method: 'GET',
+        json: true,
+        resolveWithFullResponse: true,
         jar: jar,
-        headers: {
-          'X-CSRF-TOKEN': token
-        },
-        resolveWithFullResponse: true
+        method: 'GET'
       }
     }
+
     return http(httpOpt)
-      .then(function (res) {
-        if (res.statusCode === 200) resolve(JSON.parse(res.body))
-        else if (res.statusCode === 401) reject(new Error('You are not logged in.'))
-        else if (res.statusCode === 403) reject(new Error('You do not have permission to view this game.'))
-        else reject(new Error('An unknown error occurred.'))
-      })
-      .catch(function (err) { console.error(err); reject(err) })
+      .then(function ({ statusCode, body }) {
+        if (statusCode === 200) {
+          resolve(body)
+        } else if (body &amp;&amp; body.errors) {
+          reject(new Error(`[${statusCode}] ${body.errors[0].message} | placeIds: ${placeIds.join(',')} ${body.errors.field ? ` | ${body.errors.field} is incorrect` : ''}`))
+        } else {
+          reject(new Error(`An unknown error occurred with getPlaceInfo() | [${statusCode}] placeIds: ${placeIds.join(',')}`))
+        }
+      }).catch(reject)
   })
 }
 
 exports.func = function (args) {
-  const jar = args.jar
-  return getGeneralToken({ jar: jar })
-    .then(function (xcsrf) {
-      return getGameRevenue(args.placeId, args.type, args.granularity, jar, xcsrf)
-    })
+  return getPlaceInfo(args.placeId, args.jar)
 }
 </code></pre>
         </article>
