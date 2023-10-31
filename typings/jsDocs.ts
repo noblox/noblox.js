@@ -791,6 +791,26 @@ type UniverseInformation = {
 /**
  * @typedef
  */
+type PlaceInformation = {
+    placeId: number;
+    name: string;
+    sourceName: string;
+    sourceDescription: string;
+    url: string;
+    builder: string;
+    builderId: number;
+    hasVerifiedBadge: boolean;
+    isPlayable: boolean;
+    reasonProhibited: string;
+    universeId: number;
+    universeRootPlaceId: number;
+    price: number;
+    imageToken: string;
+}
+        
+/**
+ * @typedef
+ */
 type DeveloperProduct = {
     ProductId: number,
     DeveloperProductId: number,

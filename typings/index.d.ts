@@ -736,6 +736,23 @@ declare module "noblox.js" {
         isFavoritedByUser: boolean;
         favoritedCount: number;
     }
+            
+    interface PlaceInformation {
+        placeId: number;
+        name: string;
+        sourceName: string;
+        sourceDescription: string;
+        url: string;
+        builder: string;
+        builderId: number;
+        hasVerifiedBadge: boolean;
+        isPlayable: boolean;
+        reasonProhibited: string;
+        universeId: number;
+        universeRootPlaceId: number;
+        price: number;
+        imageToken: string;
+    }
 
     /// Group
 
@@ -1854,6 +1871,11 @@ declare module "noblox.js" {
      */
     function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation[]>;
 
+    /** 
+     * 🔐 Returns information about the place(s) in question, such as name, description, etc.
+     */
+    function getPlaceInfo(placeIds: number[] | number, jar?: CookieJar): Promise<PlaceInformation[]>;
+            
     /**
      * 🔐 Update a developer product.
      */

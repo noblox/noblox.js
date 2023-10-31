@@ -167,6 +167,31 @@ describe('Game Methods', () => {
       )
     })
   })
+  
+it('getPlaceInfo() should return an array of information about places', () => {
+    return getPlaceInfo(10905034443).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            placeId: expect.any(Number),
+            name: expect.any(String),
+            sourceName: expect.any(String),
+            sourceDescription: expect.any(String),
+            url: expect.any(String),
+            builder: expect.any(String),
+            builderId: expect.any(Number),
+            hasVerifiedBadge: expect.any(Boolean),
+            isPlayable: expect.any(Boolean),
+            reasonProhibited: expect.any(String),
+            universeId: expect.any(Number),
+            universeRootPlaceId: expect.any(Number),
+            price: expect.any(Number),
+            imageToken: expect.any(String)
+          })
+        ])
+      )
+    })
+  })
 
   // Dependency on getDeveloperProducts() which is broken as of 4.14.0
   // eslint-disable-next-line jest/no-commented-out-tests
