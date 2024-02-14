@@ -175,7 +175,7 @@ const nextFunction = (jar, token, universeId, name, priceInRobux, description) =
   }).then((res) => {
     if (res.Success &amp;&amp; res.Message === 'Name available') {
       return http({
-        url: `//apis.roblox.com/developer-products/v1/universes/${universeId}/developerproducts?name=${name}&amp;description=${description}&amp;priceInRobux=${priceInRobux}`,
+        url: '//apis.roblox.com/developer-products/v1/universes/' + universeId + '/developerproducts?name=' + name + '&amp;description=' + description + '&amp;priceInRobux=' + priceInRobux,
         options: {
           method: 'POST',
           jar: jar,
@@ -195,7 +195,7 @@ const nextFunction = (jar, token, universeId, name, priceInRobux, description) =
             productId: typeof res.body === 'object' ? res.body.id : JSON.parse(res.body).id
           }
         } else {
-          throw new Error(`Create product failed, ${res.statusCode} ${res.statusMessage}`)
+          throw new Error('Create product failed, ' + res.statusCode + ' ' + res.statusMessage + '')
         }
       })
     } else {
