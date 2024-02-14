@@ -1879,7 +1879,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Update a developer product.
      */
-    function updateDeveloperProduct(universeId: number, productId: number, priceInRobux: number, name?: string, description?: string, iconImageAssetId?: number, jar?: CookieJar): Promise<void>;
+    function updateDeveloperProduct(universeId: number, productId: number, priceInRobux: number, name?: string, description?: string, jar?: CookieJar): Promise<void>;
 
     /// Groups
     /**
