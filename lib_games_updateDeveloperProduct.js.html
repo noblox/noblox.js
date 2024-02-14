@@ -168,13 +168,13 @@ exports.optional = ['name', 'description', 'jar']
  * noblox.updateDeveloperProduct(1, 2, 10, "An Updated Developer Product", "My new updated product.")
 **/
 
-function updateDeveloperProduct(universeId, productId, priceInRobux, name, description, jar, token) {
+function updateDeveloperProduct (universeId, productId, priceInRobux, name, description, jar, token) {
   return new Promise((resolve, reject) => {
     return http({
       url: `//apis.roblox.com/developer-products/v1/universes/${universeId}/developerproducts/${productId}/update`,
       options: {
         method: 'POST',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': token
         },

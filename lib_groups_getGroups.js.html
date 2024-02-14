@@ -222,7 +222,7 @@ function getGroups (userId) {
 
 function constructRequest (url) {
   return http({
-    url: url,
+    url,
     options: {
       resolveWithFullResponse: true,
       followRedirect: false,

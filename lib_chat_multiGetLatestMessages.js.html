@@ -172,7 +172,7 @@ exports.func = (args) => {
     url: '//chat.roblox.com/v2/multi-get-latest-messages?pageSize=' + pageSize + '&amp;conversationIds=' + conversationIds.join('&amp;conversationIds='),
     options: {
       method: 'GET',
-      jar: jar,
+      jar,
       resolveWithFullResponse: true
     }
   }).then((res) => {

@@ -170,7 +170,7 @@ function wearAssetId (assetId, jar, xcsrf) {
       url: 'https://avatar.roblox.com/v1/avatar/assets/' + assetId + '/wear',
       options: {
         method: 'POST',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': xcsrf
         },
@@ -197,7 +197,7 @@ function wearAssetId (assetId, jar, xcsrf) {
 exports.func = (args) => {
   const jar = args.jar
 
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
+  return getGeneralToken({ jar }).then((xcsrf) => {
     return wearAssetId(args.assetId, jar, xcsrf)
   })
 }

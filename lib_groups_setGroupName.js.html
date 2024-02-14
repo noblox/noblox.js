@@ -178,7 +178,7 @@ function changeGroupName (group, name, jar, xcsrf) {
         json: {
           name
         },
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': xcsrf
         }
@@ -207,7 +207,7 @@ function changeGroupName (group, name, jar, xcsrf) {
 // Define
 exports.func = function (args) {
   const jar = args.jar
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(function (xcsrf) {
       return changeGroupName(args.group, args.name, args.jar, xcsrf)
     })

@@ -173,7 +173,7 @@ function unfollow (jar, token, userId) {
       url: `//friends.roblox.com/v1/users/${userId}/unfollow`,
       options: {
         method: 'POST',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': token
         },
@@ -199,7 +199,7 @@ function unfollow (jar, token, userId) {
 
 exports.func = function (args) {
   const jar = args.jar
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(function (xcsrf) {
       return unfollow(jar, xcsrf, args.userId)
     })

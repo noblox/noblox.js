@@ -169,7 +169,7 @@ const nextFunction = (jar, token, userId) => {
     url: '//chat.roblox.com/v2/start-one-to-one-conversation',
     options: {
       method: 'POST',
-      jar: jar,
+      jar,
       headers: {
         'X-CSRF-TOKEN': token
       },
@@ -192,7 +192,7 @@ const nextFunction = (jar, token, userId) => {
 exports.func = (args) => {
   const jar = args.jar
 
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
+  return getGeneralToken({ jar }).then((xcsrf) => {
     return nextFunction(jar, xcsrf, args.userId)
   })
 }

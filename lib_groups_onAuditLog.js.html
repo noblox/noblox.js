@@ -193,13 +193,13 @@ exports.func = function (args) {
                 empty = false
               } else if (!empty) {
                 const date = new Date()
-                given.push({ audit: '', author: { name: '', id: '-1' }, date: date })
+                given.push({ audit: '', author: { name: '', id: '-1' }, date })
                 latest = date
                 empty = true
               }
             }
             return {
-              latest: latest,
+              latest,
               data: given
             }
           }

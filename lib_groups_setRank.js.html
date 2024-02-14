@@ -177,7 +177,7 @@ function setRank (jar, xcsrf, group, target, role) {
       options: {
         resolveWithFullResponse: true,
         method: 'PATCH',
-        jar: jar,
+        jar,
         headers: {
           'Content-Type': 'application/json',
           'X-CSRF-TOKEN': xcsrf
@@ -206,7 +206,7 @@ function setRank (jar, xcsrf, group, target, role) {
 
 function runWithToken (args) {
   const jar = args.jar
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(function (xcsrf) {
       return setRank(jar, xcsrf, args.group, args.target, args.role)
     })

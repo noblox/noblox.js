@@ -178,7 +178,7 @@ function groupPayout (jar, token, group, data, recurring, usePercentage) {
       options: {
         resolveWithFullResponse: true,
         method: 'POST',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': token,
           'Content-Type': 'application/json'
@@ -244,7 +244,7 @@ exports.func = function (args) {
     })
   }
 
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(function (xcsrf) {
       return groupPayout(jar, xcsrf, args.group, data, recurring, usePercentage)
     })

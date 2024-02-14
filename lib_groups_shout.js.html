@@ -177,7 +177,7 @@ function shoutOnGroup (group, message = '', jar, xcsrf) {
         json: {
           message
         },
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': xcsrf
         }
@@ -206,7 +206,7 @@ function shoutOnGroup (group, message = '', jar, xcsrf) {
 // Define
 exports.func = function (args) {
   const jar = args.jar
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(function (xcsrf) {
       return shoutOnGroup(args.group, args.message, args.jar, xcsrf)
     })

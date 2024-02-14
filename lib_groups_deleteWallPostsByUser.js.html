@@ -174,7 +174,7 @@ function deleteWallPostsByUser (group, userId, jar, xcsrf) {
       options: {
         method: 'DELETE',
         resolveWithFullResponse: true,
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': xcsrf
         }
@@ -200,7 +200,7 @@ function deleteWallPostsByUser (group, userId, jar, xcsrf) {
 // Define
 exports.func = function (args) {
   const jar = args.jar
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(function (xcsrf) {
       return deleteWallPostsByUser(args.group, args.userId, args.jar, xcsrf)
     })

@@ -187,7 +187,7 @@ function upload (data, itemOptions, assetId, jar, token) {
     options: {
       resolveWithFullResponse: true,
       method: 'POST',
-      jar: jar,
+      jar,
       body: data,
       headers: {
         'X-CSRF-TOKEN': token,

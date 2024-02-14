@@ -170,7 +170,7 @@ function getGameSocialLinks (universeId, jar) {
   return http({
     url: `//games.roblox.com/v1/games/${universeId}/social-links/list`,
     options: {
-      jar: jar,
+      jar,
       resolveWithFullResponse: true
     }
   })

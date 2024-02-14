@@ -176,11 +176,11 @@ function uploadItem (jar, file, name, assetType, groupId) {
     return getVerification({
       url: 'https://www.roblox.com/build/upload',
       options: {
-        jar: jar
+        jar
       }
     }).then(function (ver) {
       const data = {
-        name: name,
+        name,
         assetTypeId: assetType,
         groupId: groupId || '',
         __RequestVerificationToken: ver.inputs.__RequestVerificationToken,
@@ -199,7 +199,7 @@ function uploadItem (jar, file, name, assetType, groupId) {
           verification: ver.header,
           formData: data,
           resolveWithFullResponse: true,
-          jar: jar
+          jar
         }
       }).then(function (res) {
         if (res.statusCode === 302) {

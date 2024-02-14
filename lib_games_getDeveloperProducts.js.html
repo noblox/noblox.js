@@ -169,7 +169,7 @@ function getDeveloperProducts (jar, placeId, page) {
       url: `//api.roblox.com/developerproducts/list?placeid=${placeId}&amp;page=${page}`,
       options: {
         method: 'GET',
-        jar: jar,
+        jar,
         resolveWithFullResponse: true
       }
     }

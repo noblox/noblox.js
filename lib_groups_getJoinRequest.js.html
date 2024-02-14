@@ -173,7 +173,7 @@ function getJoinRequest (jar, group, userId) {
       url: `//groups.roblox.com/v1/groups/${group}/join-requests/users/${userId}`,
       options: {
         method: 'GET',
-        jar: jar,
+        jar,
         resolveWithFullResponse: true
       }
     }

@@ -168,7 +168,7 @@ function redrawAvatar (jar, token) {
       url: '//avatar.roblox.com/v1/avatar/redraw-thumbnail',
       options: {
         method: 'POST',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': token
         },
@@ -190,7 +190,7 @@ function redrawAvatar (jar, token) {
 exports.func = (args) => {
   const jar = args.jar
 
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
+  return getGeneralToken({ jar }).then((xcsrf) => {
     return redrawAvatar(jar, xcsrf)
   })
 }

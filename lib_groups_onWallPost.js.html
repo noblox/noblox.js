@@ -180,7 +180,7 @@ exports.func = function (args) {
   const view = args.view
   return shortPoll({
     getLatest: function (latest) {
-      return getWall({ group: group, jar: jar, sortOrder: 'Desc' })
+      return getWall({ group, jar, sortOrder: 'Desc' })
         .then(function (wall) {
           const posts = wall.data
           const given = []
@@ -196,7 +196,7 @@ exports.func = function (args) {
             }
           }
           return {
-            latest: latest,
+            latest,
             data: given
           }
         })

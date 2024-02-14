@@ -170,7 +170,7 @@ function removeAssetId (assetId, jar, xcsrf) {
       url: 'https://avatar.roblox.com/v1/avatar/assets/' + assetId + '/remove',
       options: {
         method: 'POST',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': xcsrf
         },
@@ -197,7 +197,7 @@ function removeAssetId (assetId, jar, xcsrf) {
 exports.func = (args) => {
   const jar = args.jar
 
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
+  return getGeneralToken({ jar }).then((xcsrf) => {
     return removeAssetId(args.assetId, jar, xcsrf)
   })
 }

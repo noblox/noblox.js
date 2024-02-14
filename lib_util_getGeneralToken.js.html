@@ -178,7 +178,7 @@ function getGeneralToken (jar) {
     options: {
       resolveWithFullResponse: true,
       method: 'POST',
-      jar: jar
+      jar
     }
   }
   return http(httpOpt)
@@ -194,7 +194,7 @@ function getGeneralToken (jar) {
 
 exports.func = function (args) {
   const jar = args.jar
-  return cache.wrap('XCSRF', getHash({ jar: jar }), function () {
+  return cache.wrap('XCSRF', getHash({ jar }), function () {
     return getGeneralToken(jar)
   })
 }

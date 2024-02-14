@@ -174,7 +174,7 @@ exports.func = (args) => {
     url: '//www.roblox.com/places/check-developerproduct-name?universeId=' + universeId + '&amp;developerProductId=' + productId + '&amp;developerProductName=' + args.productName + '&amp;_=1515792139751',
     options: {
       method: 'GET',
-      jar: jar,
+      jar,
       resolveWithFullResponse: true
     }
   }).then((res) => {

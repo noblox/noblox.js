@@ -177,14 +177,14 @@ function configure (jar, token, id, name, description, enableComments, sellForRo
     url: '//develop.roblox.com/v1/assets/' + id,
     options: {
       method: 'PATCH',
-      jar: jar,
+      jar,
       headers: {
         'X-CSRF-TOKEN': token
       },
       json: {
-        name: name,
-        description: description,
-        enableComments: enableComments,
+        name,
+        description,
+        enableComments,
         genres: genreSelection || ['All'],
         isCopyingAllowed: typeof (sellForRobux) === 'boolean' ? sellForRobux : null
       }
@@ -270,7 +270,7 @@ function configureRobux (args) {
 function runWithToken (args) {
   const jar = args.jar
   return getGeneralToken({
-    jar: jar
+    jar
   })
     .then(function (token) {
       if (typeof (args.sellForRobux) === 'number') {

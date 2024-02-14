@@ -175,7 +175,7 @@ function getPlayersInRoleOnPage (jar, group, rolesetId, sortOrder, limit, cursor
       url: `//groups.roblox.com/v1/groups/${group}/roles/${rolesetId}/users?cursor=${cursor}&amp;limit=${limit}&amp;sortOrder=${sortOrder}`,
       options: {
         method: 'GET',
-        jar: jar,
+        jar,
         resolveWithFullResponse: true
       }
     }

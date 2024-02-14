@@ -170,7 +170,7 @@ exports.func = (args) => {
     url: '//chat.roblox.com/v2/get-rollout-settings?featureNames=' + featureNames.join('&amp;featureNames='),
     options: {
       method: 'GET',
-      jar: jar,
+      jar,
       resolveWithFullResponse: true
     }
   }).then((res) => {

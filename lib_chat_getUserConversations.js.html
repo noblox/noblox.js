@@ -172,7 +172,7 @@ exports.func = (args) => {
     url: '//chat.roblox.com/v2/get-user-conversations?pageNumber=' + pageNumber + '&amp;pageSize=' + pageSize,
     options: {
       method: 'GET',
-      jar: jar,
+      jar,
       resolveWithFullResponse: true
     }
   }).then((res) => {

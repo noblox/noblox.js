@@ -183,7 +183,7 @@ function sendTrade (targetUserId, sendingOffer, receivingOffer, jar, xcsrf, logg
       options: {
         method: 'POST',
         resolveWithFullResponse: true,
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': xcsrf,
           'Content-Type': 'application/json'
@@ -221,8 +221,8 @@ function sendTrade (targetUserId, sendingOffer, receivingOffer, jar, xcsrf, logg
 exports.func = function (args) {
   const jar = args.jar
   return Promise.all([
-    getGeneralToken({ jar: jar }),
-    getCurrentUser({ jar: jar, option: 'UserID' })
+    getGeneralToken({ jar }),
+    getCurrentUser({ jar, option: 'UserID' })
   ])
     .then(function (resolvedPromises) {
       return sendTrade(args.targetUserId, args.sendingOffer, args.receivingOffer, jar, resolvedPromises[0], resolvedPromises[1])

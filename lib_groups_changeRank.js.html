@@ -175,12 +175,12 @@ exports.func = function (args) {
   const target = args.target
   const amount = args.change
   const jar = args.jar
-  return getRankNameInGroup({ group: group, userId: target })
+  return getRankNameInGroup({ group, userId: target })
     .then(function (rank) {
       if (rank === 'Guest') {
         throw new Error('Target user is not in group')
       }
-      return getRoles({ group: group })
+      return getRoles({ group })
         .then(function (roles) {
           for (let i = 0; i &lt; roles.length; i++) {
             const role = roles[i]
@@ -196,7 +196,7 @@ exports.func = function (args) {
                 throw new Error('Group members cannot be demoted to guest.')
               }
 
-              return setRank({ group: group, target: target, rank: found.id, jar: jar })
+              return setRank({ group, target, rank: found.id, jar })
                 .then(function () {
                   return { newRole: found, oldRole: role }
                 })

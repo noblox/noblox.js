@@ -168,7 +168,7 @@ exports.optional = ['transactionType', 'limit', 'sortOrder', 'jar']
 
 exports.func = async function (args) {
   const jar = args.jar
-  const currentUser = await getCurrentUser({ jar: jar })
+  const currentUser = await getCurrentUser({ jar })
   // return getTransactions(currentUser.UserID, transactionType, limit, cursor)
   return getPageResults({
     jar: args.jar,

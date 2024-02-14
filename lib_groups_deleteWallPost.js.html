@@ -174,7 +174,7 @@ function deleteWallPost (jar, token, group, postId) {
       url: `//groups.roblox.com/v1/groups/${group}/wall/posts/${postId}`,
       options: {
         method: 'DELETE',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': token
         },
@@ -201,7 +201,7 @@ function deleteWallPost (jar, token, group, postId) {
 exports.func = function (args) {
   const group = args.group
   const jar = args.jar
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(function (xcsrf) {
       if (args.post) {
         return deleteWallPost(jar, xcsrf, group, args.post.id)

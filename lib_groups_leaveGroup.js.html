@@ -175,7 +175,7 @@ function leaveGroup (group, jar, xcsrf, userId) {
       options: {
         method: 'DELETE',
         resolveWithFullResponse: true,
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': xcsrf
         }
@@ -200,9 +200,9 @@ function leaveGroup (group, jar, xcsrf, userId) {
 
 exports.func = function (args) {
   const jar = args.jar
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(async function (xcsrf) {
-      const currentUser = await getCurrentUser({ jar: jar })
+      const currentUser = await getCurrentUser({ jar })
       return leaveGroup(args.group, args.jar, xcsrf, currentUser.UserID)
     })
 }

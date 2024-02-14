@@ -173,7 +173,7 @@ function canTradeWith (jar, userId) {
       options: {
         method: 'GET',
         resolveWithFullResponse: true,
-        jar: jar
+        jar
       }
     }).then((res) => {
       if (res.statusCode === 200) {

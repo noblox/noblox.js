@@ -172,7 +172,7 @@ function getPremium (jar, userId) {
       url: `https://premiumfeatures.roblox.com/v1/users/${userId}/validate-membership`,
       options: {
         method: 'GET',
-        jar: jar,
+        jar,
         resolveWithFullResponse: true
       }
     }

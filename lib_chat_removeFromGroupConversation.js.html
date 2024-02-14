@@ -171,12 +171,12 @@ function removeFromGroupConversation (conversationId, userId, jar, token) {
       url: '//chat.roblox.com/v2/remove-from-conversation',
       options: {
         method: 'POST',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': token
         },
         json: {
-          conversationId: conversationId,
+          conversationId,
           participantUserId: userId
         },
         resolveWithFullResponse: true
@@ -204,7 +204,7 @@ function removeFromGroupConversation (conversationId, userId, jar, token) {
 exports.func = (args) => {
   const jar = args.jar
 
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
+  return getGeneralToken({ jar }).then((xcsrf) => {
     return removeFromGroupConversation(args.conversationId, args.userId, jar, xcsrf)
   })
 }

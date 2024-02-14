@@ -173,7 +173,7 @@ function getMessages (jar, token, pageNumber, pageSize, messageTab) {
       url: `//privatemessages.roblox.com/v1/messages?pageNumber=${pageNumber}&amp;pageSize=${pageSize}&amp;messageTab=${messageTab}`,
       options: {
         method: 'GET',
-        jar: jar,
+        jar,
         resolveWithFullResponse: true
       }
     }

@@ -174,17 +174,17 @@ const nextFunction = (jar, token, headColorId, torsoColorId, rightArmColorId, le
     url: '//avatar.roblox.com/v1/avatar/set-body-colors',
     options: {
       method: 'POST',
-      jar: jar,
+      jar,
       headers: {
         'X-CSRF-TOKEN': token
       },
       json: {
-        headColorId: headColorId,
-        torsoColorId: torsoColorId,
-        rightArmColorId: rightArmColorId,
-        leftArmColorId: leftArmColorId,
-        rightLegColorId: rightLegColorId,
-        leftLegColorId: leftLegColorId
+        headColorId,
+        torsoColorId,
+        rightArmColorId,
+        leftArmColorId,
+        rightLegColorId,
+        leftLegColorId
       },
       resolveWithFullResponse: true
     }
@@ -202,7 +202,7 @@ const nextFunction = (jar, token, headColorId, torsoColorId, rightArmColorId, le
 exports.func = (args) => {
   const jar = args.jar
 
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
+  return getGeneralToken({ jar }).then((xcsrf) => {
     return nextFunction(jar, xcsrf, args.headColorId, args.torsoColorId, args.rightArmColorId, args.leftArmColorId, args.rightLegColorId, args.leftLegColorId)
   })
 }

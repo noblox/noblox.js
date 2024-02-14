@@ -175,10 +175,10 @@ exports.optional = ['ignoreCache', 'getBody', 'jar']
 // Define
 function getVerification (jar, url, getBody) {
   const httpOpt = {
-    url: url,
+    url,
     options: {
       resolveWithFullResponse: true,
-      jar: jar
+      jar
     }
   }
   return http(httpOpt)
@@ -190,7 +190,7 @@ function getVerification (jar, url, getBody) {
       }
       return {
         body: (getBody ? res.body : null),
-        inputs: inputs,
+        inputs,
         header: match &amp;&amp; match[1]
       }
     })
@@ -201,7 +201,7 @@ exports.func = function (args) {
   if (args.ignoreCache) {
     return getVerification(jar, args.url, args.getBody)
   } else {
-    return cache.wrap('Verify', new URL(args.url).pathname + getHash({ jar: jar }), function () {
+    return cache.wrap('Verify', new URL(args.url).pathname + getHash({ jar }), function () {
       return getVerification(jar, args.url, args.getBody)
     })
   }

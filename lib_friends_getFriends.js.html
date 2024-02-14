@@ -170,7 +170,7 @@ function getFriends (jar, userId) {
       url: `//friends.roblox.com/v1/users/${userId}/friends`,
       options: {
         method: 'GET',
-        jar: jar,
+        jar,
         resolveWithFullResponse: true
       }
     }

@@ -171,12 +171,12 @@ function addUsersToConversation (conversationId, userIds, jar, token) {
       url: '//chat.roblox.com/v2/add-to-conversation',
       options: {
         method: 'POST',
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': token
         },
         json: {
-          conversationId: conversationId,
+          conversationId,
           participantUserIds: userIds
         },
         resolveWithFullResponse: true
@@ -203,7 +203,7 @@ function addUsersToConversation (conversationId, userIds, jar, token) {
 exports.func = (args) => {
   const jar = args.jar
 
-  return getGeneralToken({ jar: jar }).then((xcsrf) => {
+  return getGeneralToken({ jar }).then((xcsrf) => {
     return addUsersToConversation(args.conversationId, args.userIds, jar, xcsrf)
   })
 }

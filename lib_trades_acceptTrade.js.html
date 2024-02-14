@@ -174,7 +174,7 @@ function acceptTrade (tradeId, jar, xcsrf) {
       options: {
         method: 'POST',
         resolveWithFullResponse: true,
-        jar: jar,
+        jar,
         headers: {
           'X-CSRF-TOKEN': xcsrf,
           'Content-Type': 'application/json'
@@ -199,7 +199,7 @@ function acceptTrade (tradeId, jar, xcsrf) {
 
 exports.func = function (args) {
   const jar = args.jar
-  return getGeneralToken({ jar: jar })
+  return getGeneralToken({ jar })
     .then(function (xcsrf) {
       return acceptTrade(args.tradeId, jar, xcsrf)
     })

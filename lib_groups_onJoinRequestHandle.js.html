@@ -220,7 +220,7 @@ exports.func = function (args) {
           promise = new Promise(function (resolve, reject) {
             evt.on('handle', function (request, accept, callback) {
               const id = request.requester.userId
-              handleJoinRequest({ jar: jar, group, userId: id, accept: accept })
+              handleJoinRequest({ jar, group, userId: id, accept })
                 .then(function () {
                   handled++
                   if (callback) {
@@ -246,7 +246,7 @@ exports.func = function (args) {
       })
   }
   return shortPoll({
-    getLatest: getLatest,
+    getLatest,
     delay: 'onJoinRequestHandle',
     timeout: -1
   })
