@@ -631,13 +631,12 @@ declare module "noblox.js" {
         productId: string
     }
 
-    interface CheckDeveloperProductNameResult {
-        Success: boolean;
-        /**
-         * When success is true: "Name available"
-         * When success is false, you can get: "Product name already exists"
-         */
-        Message: string;
+    interface GamepassAddResult {
+        universeId: number,
+        name: string,
+        priceInRobux: number,
+        description?: string,
+        productId: string
     }
 
     interface GamePassData {
@@ -1827,11 +1826,17 @@ declare module "noblox.js" {
     function addDeveloperProduct(universeId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductAddResult>;
 
     /**
+     * 🔐 Adds a gamepass to the specified universe. 
+     * Warning: The `gamepassId` returned by this function does not match the `gamepassId` used by other endpoints.
+     */
+    function addGamepass(universeId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<GamepassAddResult>;
+
+    /**
      * 🔐 Checks to see if the provided `produceName` is able to be used on `productId`.
      *
      * NOTE: You actually need a valid `productId` and `universeId` otherwise, the http request returns a `404 Not Found` response.
      */
-    function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<CheckDeveloperProductNameResult>;
+    function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<Boolean>;
 
     /**
      * 🔐 Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the game pass off-sale.
