@@ -1,9 +1,12 @@
-const { buy, deleteFromInventory, getGamePassProductInfo, getProductInfo, uploadAnimation, uploadItem, uploadModel, setCookie, getOwnership, getCurrentUser } = require('../lib')
+const { buy, deleteFromInventory, getGamePassProductInfo, getProductInfo, uploadItem, setCookie, getOwnership, getCurrentUser } = require('../lib')
 const fs = require('fs')
+
+let userId
 
 beforeAll(() => {
   return new Promise(resolve => {
-    setCookie(process.env.COOKIE).then(() => {
+    setCookie(process.env.COOKIE).then((user) => {
+      userId = user.UserID
       resolve()
     })
   })
@@ -53,29 +56,25 @@ describe('Asset Methods', () => {
     return await expect(getProductInfo(3)).rejects.toThrow()
   })
 
-  it('uploadAnimation() uploads an animation', () => {
-    return uploadAnimation(fs.createReadStream('./test/assets/KeyframeSequence.rbxm'), { name: 'noblox', description: 'A noblox test!', copyLocked: true, allowComments: false }).then((res) => {
-      return expect(res).toEqual(expect.any(Number))
+  it('uploadItem() uploads an animation', () => {
+    return uploadItem('Test', 'Animation', fs.readFileSync('./test/assets/KeyframeSequence.rbxm'), { userId }).then((res) => {
+      return expect(res).toHaveProperty('assetId')
     })
   })
 
-  it('uploadAnimation() errors when no options are provided', async () => {
-    await expect(uploadAnimation(fs.createReadStream('./test/assets/KeyframeSequence.rbxm'))).rejects.toThrow()
+  it('uploadItem() errors when no creator is provided', async () => {
+    await expect(uploadItem('Test', 'Animation', fs.readFileSync('./test/assets/KeyframeSequence.rbxm'), {})).rejects.toBeDefined()
   })
 
   it('uploadItem() uploads an image', async () => {
-    await expect(uploadItem('noblox', 13, fs.createReadStream('./img/noblox-js.png'))).resolves.not.toThrow()
+    return uploadItem('Test', 'Image', fs.readFileSync('./img/noblox-js.png'), { userId }).then((res) => {
+      return expect(res).toHaveProperty('assetId')
+    })
   })
 
-  it('uploadModel() uploads a model', async () => {
-    await expect(uploadModel(fs.createReadStream('./test/assets/Great-White-Shark-Fin.rbxm'), {
-      name: 'Shark Fin',
-      description: 'Uploaded via noblox',
-      copyLocked: true
-    })).resolves.not.toThrow()
-  })
-
-  it('uploadModel() errors when no options are provided', async () => {
-    await expect(uploadModel(fs.createReadStream('./test/assets/Great-White-Shark-Fin.rbxm'))).rejects.toThrow()
+  it('uploadItem() uploads a model', async () => {
+    return uploadItem('Test', 'Model', fs.readFileSync('./test/assets/Great-White-Shark-Fin.rbxm'), { userId }).then((res) => {
+      return expect(res).toHaveProperty('assetId')
+    })
   })
 })

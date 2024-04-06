@@ -147,7 +147,7 @@ type NobloxOptions = {
 /**
  * @typedef
 */
-type UploadItemAssetType = 11 | 12 | 13;
+type UploadItemAssetType = "Model" | "Decal" | "Animation";
 
 /**
  * @typedef

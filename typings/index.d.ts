@@ -152,7 +152,7 @@ declare module "noblox.js" {
      * pants = 12
      * decals = 13
      */
-    type UploadItemAssetType = 11 | 12 | 13;
+    type UploadItemAssetType = "Model" | "Decal" | "Animation";
 
     interface ProductInfoCreator {
         Id: number;
@@ -2266,6 +2266,11 @@ declare module "noblox.js" {
      * ✅ Creates a jar file based on `sessionOnly`. Normally you will not need this argument as the function will use the default from settings.json. If for some other reason you need a jar file you can collect it this way, but without changing the settings it will not work.
      */
     function jar(sessionOnly?: boolean): CookieJar;
+
+    /**
+     * 🔐 ☁️ Handle operations requiring polling.
+     */
+    function pollResult(url: string, jar?: CookieJar): Promise<Object>;
 
     /**
      * 🔐 Refreshes the internally stored cookie, or the cookie provided, stores the new cookie and returns it.
