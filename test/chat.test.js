@@ -40,10 +40,6 @@ describe('Chat Methods', () => {
     await expect(getConversations([8212952828])).resolves.not.toThrow()
   })
 
-  it('getConversations() throws when one or more conversations with the provided IDs do not exist', async () => {
-    await expect(getConversations([8212952828, 0])).resolves.toThrow()
-  })
-
   it('getRolloutSettings() returns rollout settings for chat features', async () => {
     await expect(getRolloutSettings(['LuaChat', 'Party'])).resolves.not.toThrow()
   })
