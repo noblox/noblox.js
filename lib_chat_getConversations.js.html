@@ -161,7 +161,7 @@ exports.optional = ['jar']
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
  * const conversations = await noblox.getConversations([1, 2, 3])
-**/
+ **/
 
 exports.func = (args) => {
   const jar = args.jar
@@ -176,7 +176,13 @@ exports.func = (args) => {
     }
   }).then((res) => {
     if (res.statusCode !== 200) {
-      throw new Error('You are not logged in')
+      const body = JSON.parse(res.body) || {}
+      if (body.errors &amp;&amp; body.errors.length > 0) {
+        const errors = body.errors.map((e) => {
+          return e.message
+        })
+        throw new Error(`${res.statusCode} ${errors.join(', ')}`)
+      }
     } else {
       let response = JSON.parse(res.body)
 
