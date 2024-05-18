@@ -2404,6 +2404,7 @@ declare module "noblox.js" {
         on(event: 'close', listener: (err: any) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'data', listener: (message: FriendRequest) => void): this;
+        close(): void;
     }
 
     interface OnFriendShipCreationEventEmitter extends events.EventEmitter {
