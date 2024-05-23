@@ -1,6 +1,11 @@
 name: Test & Publish
 
 on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
   push:
     branches:
       - master
