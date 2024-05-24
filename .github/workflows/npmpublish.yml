@@ -32,6 +32,7 @@ jobs:
 
   publish-npm:
     needs: test
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code with ADMIN_TOKEN
