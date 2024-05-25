@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/trades/getTrades.js</title>
+  <title>noblox.js lib/games/publishToTopic.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/trades/getTrades.js</h1>
+                    <h1>lib/games/publishToTopic.js</h1>
                 </header>
                 
 
@@ -146,42 +146,62 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Includes
-const getPageResults = require('../util/getPageResults.js').func
+            <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 
-// Args
-exports.required = ['tradeStatusType']
-exports.optional = ['sortOrder', 'limit', 'jar']
+exports.required = ['universeId', 'topic', 'data']
+exports.optional = ['jar']
 
 // Docs
 /**
- * 🔐 Get the trades for a specific category.
- * @category Trade
- * @alias getTrades
- * @param {string} tradeStatusType - The status of the trades to get [Inbound, Outbound, Complete, Inactive].
- * @param {SortOrder=} [sortOrder=Asc] - The order that the data will be returned in (Asc or Desc)
- * @param {Limit=} [limit=10] - The number of assets returned in each request (10, 25, 50, or 100)
- * @returns {Promise&lt;TradeAsset[]>}
+ * ☁️ Publish a message to a subscribed topic.
+ * @category Game
+ * @alias postToTopic
+ * @param {number} universeId - The id of the universe.
+ * @param {string} topic - The name of the topic.
+ * @param {Object | string} data - The data to post.
+ * @returns {Promise&lt;boolean>}
  * @example const noblox = require("noblox.js")
- * // Login using your cookie
- * const trades = await noblox.getTrades("Inbound")
+ * const data = { targetUser: 123456789, staffMember: 1210019099, action: "Kick" }
+ *
+ * await noblox.publishToTopic(2152417643, "ModerateUser", data)
 **/
 
-// Define
-exports.func = function (args) {
-  return getPageResults({
-    jar: args.jar,
-    url: `//trades.roblox.com/v1/trades/${args.tradeStatusType}`,
-    sortOrder: args.sortOrder,
-    limit: args.limit
-  }).then(function (results) {
-    results.forEach(result => {
-      result.created = new Date(result.created)
-      if (result.expiration) result.expiration = new Date(result.expiration)
-    })
+function publishToTopic (universeId, topic, data, jar) {
+  return new Promise((resolve, reject) => {
 
-    return results
+    const httpOpt = {
+      url: `//apis.roblox.com/messaging-service/v1/universes/${universeId}/topics/${topic}`,
+        options: {
+          json: true,
+          resolveWithFullResponse: true,
+          jar,
+          method: 'POST',
+          body: { message: JSON.stringify(data) },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+    }
+
+  return http(httpOpt)
+    .then(function (res) {
+      if (res.statusCode === 200) {
+        resolve(true)
+      } else {
+        if (typeof(res.body) === "string") {
+          reject(new Error(`[${res.statusCode}] ${res.statusMessage} ${res.body}`))
+        } else {
+          const data = Object.assign(res.body)
+          reject(new Error(`[${res.statusCode}] ${data.Error} ${data.Message}`))
+        }
+      }
+    })
+    .catch(reject)
   })
+}
+
+exports.func = function (args) {
+  return publishToTopic(args.universeId, args.topic, args.data, args.jar)
 }
 </code></pre>
         </article>
