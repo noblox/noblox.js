@@ -619,7 +619,6 @@ declare module "noblox.js" {
 
     interface DeveloperProductsResult {
         DeveloperProducts: DeveloperProduct[],
-        FinalPage: boolean,
         PageSize: number
     }
 

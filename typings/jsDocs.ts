@@ -838,7 +838,6 @@ type SocialLinkResponse = {
  */
 type DeveloperProductsResult = {
     DeveloperProducts: Array<DeveloperProduct>,
-    FinalPage: boolean,
     PageSize: number
 }
 
