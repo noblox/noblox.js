@@ -606,15 +606,11 @@ declare module "noblox.js" {
     }
 
     interface DeveloperProduct {
-        ProductId: number,
-        DeveloperProductId: number,
-        Name: string,
-        Description: string,
-        IconImageAssetId: number,
-        displayName: string,
-        displayDescription: string,
-        displayIcon: number,
-        PriceInRobux: number
+        id: number;
+        name: string;
+        Description: string;
+        shopId: number;
+        iconImageAssetId: number | null; 
     }
 
     interface DeveloperProductsResult {
