@@ -608,8 +608,7 @@ declare module "noblox.js" {
     interface DeveloperProduct {
         id: number;
         name: string;
-        Description: string;
-        shopId: number;
+        description: string;
         iconImageAssetId: number | null; 
     }
 
