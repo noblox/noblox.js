@@ -813,9 +813,9 @@ type PlaceInformation = {
  */
 type DeveloperProduct = {
     id: number;
+    productId: number;
     name: string;
-    Description: string;
-    shopId: number;
+    description: string;
     iconImageAssetId: number | null; 
 }
 
