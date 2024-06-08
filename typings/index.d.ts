@@ -995,9 +995,13 @@ declare module "noblox.js" {
     type HeadshotSizes = 48 | 50 | 60 | 75 | 100 | 110 | 150 | 180 | 352 | 420 | 720 | "48x48" | "50x50" | "60x60" | "75x75" | "100x100" | "110x110" | "150x150" | "180x180" | "352x352" | "420x420" | "720x720";
 
     interface LoggedInUserData {
-        id: number;
-        name: string;
-        displayName: string;
+        UserID: number,
+        UserName: string,
+        RobuxBalance: number,
+        TicketsBalance: number,
+        ThumbnailUrl: string,
+        IsAnyBuildersClubMember: boolean,
+        IsPremium: boolean
     }
 
     interface UserLoginApiData {

@@ -1371,9 +1371,13 @@ type UserPresenceType = 0 | 1 | 2 | 3
  * @typedef
 */
 type LoggedInUserData = {
-    id: number;
-    name: string;
-    displayName: string;
+    UserID: number,
+    UserName: string,
+    RobuxBalance: number,
+    TicketsBalance: number,
+    ThumbnailUrl: string,
+    IsAnyBuildersClubMember: boolean,
+    IsPremium: boolean
 }
 
 /**
