@@ -168,35 +168,34 @@ exports.optional = ['jar']
 
 function publishToTopic (universeId, topic, data, jar) {
   return new Promise((resolve, reject) => {
-
     const httpOpt = {
       url: `//apis.roblox.com/messaging-service/v1/universes/${universeId}/topics/${topic}`,
-        options: {
-          json: true,
-          resolveWithFullResponse: true,
-          jar,
-          method: 'POST',
-          body: { message: JSON.stringify(data) },
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-    }
-
-  return http(httpOpt)
-    .then(function (res) {
-      if (res.statusCode === 200) {
-        resolve(true)
-      } else {
-        if (typeof(res.body) === "string") {
-          reject(new Error(`[${res.statusCode}] ${res.statusMessage} ${res.body}`))
-        } else {
-          const data = Object.assign(res.body)
-          reject(new Error(`[${res.statusCode}] ${data.Error} ${data.Message}`))
+      options: {
+        json: true,
+        resolveWithFullResponse: true,
+        jar,
+        method: 'POST',
+        body: { message: JSON.stringify(data) },
+        headers: {
+          'Content-Type': 'application/json'
         }
       }
-    })
-    .catch(reject)
+    }
+
+    return http(httpOpt)
+      .then(function (res) {
+        if (res.statusCode === 200) {
+          resolve(true)
+        } else {
+          if (typeof (res.body) === 'string') {
+            reject(new Error(`[${res.statusCode}] ${res.statusMessage} ${res.body}`))
+          } else {
+            const data = Object.assign(res.body)
+            reject(new Error(`[${res.statusCode}] ${data.Error} ${data.Message}`))
+          }
+        }
+      })
+      .catch(reject)
   })
 }
 
