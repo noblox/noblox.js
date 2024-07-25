@@ -1813,12 +1813,12 @@ declare module "noblox.js" {
     /**
      * 🔐 Removes friendship with `userId`.
      */
-    function removeFriend(userId: number, jar?: CookieJar): Promise<void>;
+    function removeFriend(userId: number, apiUrl?: string, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Sends a friend request to `userId`.
      */
-    function sendFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
+    function sendFriendRequest(userId: number, apiUrl?: string, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Unfollows the user with `userId`.
