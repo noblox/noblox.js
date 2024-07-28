@@ -1414,12 +1414,12 @@ declare module "noblox.js" {
     /**
      * 🔐 Blocks the user with `userId`.
      */
-    function block(userId: number, jar?: CookieJar): Promise<void>;
+    function block(userId: number, apiUrl?: string, jar?: CookieJar): Promise<void>;
 
     /**
      * 🔐 Unblocks the user with `userId`.
      */
-    function unblock(userId: number, jar?: CookieJar): Promise<void>;
+    function unblock(userId: number, apiUrl?: string, jar?: CookieJar): Promise<void>;
 
     /// Asset
 
