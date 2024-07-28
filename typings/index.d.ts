@@ -1808,7 +1808,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets the friends list of the specified user.
      */
-    function getFriends(userId: number, jar?: CookieJar): Promise<Friends>;
+    function getFriends(userId: number, apiUrl?: string, jar?: CookieJar): Promise<Friends>;
 
     /**
      * 🔐 Removes friendship with `userId`.
