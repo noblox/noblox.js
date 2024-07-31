@@ -25,5 +25,8 @@ jobs:
       - name: Lint lib/
         run: yarn lint
       - name: Run tests
+        env:
+          COOKIE: ${{ secrets.COOKIE }}
+          COOKIE_2: ${{ secrets.COOKIE_2 }}
         run: yarn test
 
