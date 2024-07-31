@@ -19,7 +19,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 20
 
       - name: Install yarn
         run: npm install -g yarn
@@ -58,7 +58,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-        
+
       - name: Cache node modules
         uses: actions/cache@v1
         with:
@@ -66,7 +66,7 @@ jobs:
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
-            
+
       - name: Create Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
