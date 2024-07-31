@@ -1,0 +1,29 @@
+name: Run tests
+
+on:
+  workflow_dispatch
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint lib/
+        run: yarn lint
+      - name: Run tests
+        run: yarn test
+
