@@ -1,6 +1,7 @@
-const chalk = require('chalk')
-const figlet = require('figlet')
+import {Chalk} from 'chalk'
+import figlet from 'figlet'
 
+const chalk = new Chalk();
 console.log(chalk.yellow(figlet.textSync('noblox.js', {
   font: 'Big',
   horizontalLayout: 'default',
