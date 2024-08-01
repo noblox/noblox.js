@@ -9,7 +9,6 @@
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-blue.svg?style=flat-square" alt="JavaScript Style Guide"/></a>
     <a href="https://discord.gg/R5GVSyTVGv"><img src="https://img.shields.io/badge/discord-noblox.js-blue.svg?style=flat-square" alt="noblox.js Discord"/></a>
     <a href="https://npmjs.org/noblox.js"><img src="https://img.shields.io/npm/v/noblox.js.svg?style=flat-square" alt="NPM package"/>
-    <a href="https://travis-ci.org/noblox/noblox.js"><img src="https://img.shields.io/travis/noblox/noblox.js/master.svg?style=flat-square" alt="Travis Build Status"/></a></a>
 </p>
 
 <p align="center">
@@ -38,7 +37,7 @@ If you are looking for more information on how to create something like this, ch
 
 ## Prerequisites
 
-- [**Node.js®**](https://nodejs.org/en/download/current/)
+- [**Node.js®**](https://nodejs.org/en/download/current/) v18.18 or later
 
 ---
 
