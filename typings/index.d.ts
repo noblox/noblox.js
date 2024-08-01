@@ -1002,6 +1002,12 @@ declare module "noblox.js" {
         IsPremium: boolean
     }
 
+    interface AuthenticatedUserData {
+        id: number;
+        name: string;
+        displayName: string;
+    }
+
     interface UserLoginApiData {
         userId: number;
     }
