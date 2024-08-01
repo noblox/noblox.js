@@ -1383,6 +1383,15 @@ type LoggedInUserData = {
 /**
  * @typedef
 */
+type AuthenticatedUserData = {
+    id: number;
+    name: string;
+    displayName: string;
+}
+
+/**
+ * @typedef
+*/
 type UserLoginApiData = {
     userId: number;
 }
