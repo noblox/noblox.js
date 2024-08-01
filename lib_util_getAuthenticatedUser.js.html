@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/util/setOptions.js</title>
+  <title>noblox.js lib/util/getAuthenticatedUser.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/util/setOptions.js</h1>
+                    <h1>lib/util/getAuthenticatedUser.js</h1>
                 </header>
                 
 
@@ -146,60 +146,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const settings = require('../../settings.json')
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('./http.js').func
+
+// Args
+exports.optional = ['jar']
 
 // Docs
 /**
- * ✅ Updates library options. This allows you to modify settings such as time-out, or number of event retries without
- * altering the settings.json file. Objects passed to this function should match the format of the settings.json file.
- * Unknown keys, or malformed options will be rejected with an error.
+ * 🔐 Get the current authenticated user.
  * @category Utility
- * @param {NobloxOptions} newOptions - The new options to set, structured as per [settings.json](https://github.com/noblox/noblox.js/blob/master/settings.json)
- * @returns void
- * @see [settings.json](https://github.com/noblox/noblox.js/blob/master/settings.json) - default package settings
+ * @alias getAuthenticatedUser
+ * @returns {AuthenticatedUserData}
  * @example const noblox = require("noblox.js")
- * // This example overrides getPlayerThumbnail()'s response URL when a thumbnail is moderated.
- * // You usually want to run this before logging in with your cookie.
- * noblox.setOptions({
- *  thumbnail: {
- *    failedUrl: {
- *      blocked: "https://raw.githubusercontent.com/noblox/noblox.js/master/img/noblox-js.png"
- *    }
- *  }
- * })
- */
-function setOptions (newOptions) {
-  return setOptionsLevel(settings, newOptions)
-}
+ * // Login using your cookie.
+ * const user = await noblox.getAuthenticatedUser()
+**/
 
-// This function allows key validation to be performed at different "levels" of nesting.
-// Ensures the provided keys already exist, and discards invalid keys.
-function setOptionsLevel (settingsLevel, inputObj) {
-  const keys = Object.keys(inputObj)
-
-  for (const key of keys) {
-    const newValue = inputObj[key]
-    const currentValue = settingsLevel[key]
-
-    if (currentValue !== undefined) {
-      if (typeof currentValue === 'object') {
-        if (typeof inputObj[key] !== 'object') {
-          throw new Error(`Tried to set options key ${key}, an object, to a non-object value: ${newValue}`)
-        }
-
-        setOptionsLevel(currentValue, newValue)
-      } else {
-        // it's not undefined, and it's not a nested object - set the value.
-        settingsLevel[key] = newValue
-      }
-    } else {
-      // The key doesn't exist
-      throw new Error(`Tried to set option "${key}". This option does not exist, or has been nested incorrectly.`)
+// Define
+exports.func = async function (args) {
+  const jar = args.jar
+  const httpOpt = {
+    url: '//users.roblox.com/v1/users/authenticated',
+    options: {
+      method: 'GET',
+      followRedirect: false,
+      jar,
+      json: true,
+      resolveWithFullResponse: true
     }
   }
-}
 
-exports.func = setOptions
+  const res = await http(httpOpt)
+
+  if (res.statusCode === 401) {
+    throw new Error('You are not logged in.')
+  } else if (res.statusCode !== 200) {
+    throw new Error(JSON.stringify(res.body))
+  }
+
+  return res.body
+}
 </code></pre>
         </article>
     </section>
