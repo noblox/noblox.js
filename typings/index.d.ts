@@ -17,6 +17,9 @@ declare module "noblox.js" {
      * NobloxOptions for setOptions, based from settings.json
      */
     interface NobloxOptions {
+        /** Prints console warnings for functions that are being polyfilled by newer methods due to upstream Roblox API changes */
+        show_deprecation_warnings: boolean;
+
         /** Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well. (Default: true) */
         session_only: boolean;
 
@@ -996,9 +999,8 @@ declare module "noblox.js" {
         UserID: number,
         UserName: string,
         RobuxBalance: number,
-        TicketsBalance: number,
         ThumbnailUrl: string,
-        IsAnyBuildersClubMember: boolean,
+        IsAnyBuildersClubMember: false,
         IsPremium: boolean
     }
 
@@ -1670,7 +1672,7 @@ declare module "noblox.js" {
      * 🔐 Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */
-    function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
+    function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<AuthenticatedUserData>
 
     /// DataStores
 
@@ -1769,6 +1771,11 @@ declare module "noblox.js" {
      * 🔐 Gets the transaction history of the logged in user or of the user specified by the jar.
      */
     function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
+
+    /**
+     * 🔐 Returns the current user's robux balance
+     */
+    function getUserFunds(userId?: number, jar?: CookieJar): Promise<number>;
 
     /// Friends
 

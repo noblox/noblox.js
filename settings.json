@@ -1,4 +1,7 @@
 {
+  "show_deprecation_warnings": true,
+  "show_deprecation_warnings_desc": "Prints console warnings for functions that are being polyfilled by newer methods due to upstream Roblox API changes",
+
   "session_only": true,
   "session_only_desc": "Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well.",
 
