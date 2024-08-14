@@ -2304,7 +2304,7 @@ declare module "noblox.js" {
      * @param newOptions - The new options to set, structured as per settings.json
      * @see https://github.com/noblox/noblox.js/blob/master/settings.json
      */
-    function setOptions(newOptions: NobloxOptions): void
+    function setOptions(newOptions: Partial<NobloxOptions>): void
 
     // Events
 
