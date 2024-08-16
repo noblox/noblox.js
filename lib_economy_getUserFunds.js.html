@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/client/setCookie.js</title>
+  <title>noblox.js lib/economy/getUserFunds.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/client/setCookie.js</h1>
+                    <h1>lib/economy/getUserFunds.js</h1>
                 </header>
                 
 
@@ -146,43 +146,49 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const options = require('../options.js')
-const getAuthenticatedUser = require('../util/getAuthenticatedUser.js').func
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('../util/http.js').func
 
-exports.required = ['cookie']
-exports.optional = ['validate']
+// Args
+exports.required = ['userId']
+exports.optional = ['jar']
 
 // Docs
 /**
- * 🔑 Sign in with a cookie.
- * @category Client
- * @alias setCookie
- * @param {string} cookie - The cookie to sign in with.
- * @param {boolean=} [validate=true] - Whether to validate the cookie or not.
- * @returns {Promise&lt;AuthenticatedUserData>}
+ * 🔓 Gets the amount of robux for the authenticated user.
+ * @category User
+ * @param {number} userId - Must match the userId of the authenticated user
+ * @alias getUserFunds
+ * @returns {Promise&lt;number>}
  * @example const noblox = require("noblox.js")
- * noblox.setCookie("cookie").then(function() {
- *   //your code here
- * })
-**/
+ * // Login using your cookie
+ * const currentUser = await noblox.setCookie(process.env.ROBLOXCOOKIE)
+ * const robux = await noblox.getUserFunds(currentUser.id)
+ */
 
-exports.func = async function (args) {
-  // verify it
-  if (!args.cookie.toLowerCase().includes('warning:-')) {
-    console.error('Warning: No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY warning.')
-  }
-  if (args.validate === false) {
-    options.jar.session = args.cookie
-    return false
-  }
-  try {
-    const res = await getAuthenticatedUser({ jar: { session: args.cookie } })
-    options.jar.session = args.cookie
-    return res
-  } catch (error) {
-    console.error('Failed to validate cookie: Are you sure the cookie is valid?\nEnsure you include the full cookie, including warning text.')
-    throw new Error(error)
-  }
+// Define
+function getUserFunds (userId, jar) {
+  return http({
+    url: `//economy.roblox.com/v1/users/${userId}/currency`,
+    options: {
+      jar,
+      resolveWithFullResponse: true
+    }
+  })
+    .then(({ statusCode, body }) => {
+      const { robux, errors } = JSON.parse(body)
+      if (statusCode === 200) {
+        return robux
+      } else if (statusCode === 400 || statusCode === 403) {
+        throw new Error(`${errors[0].message} | userId: ${userId}`)
+      } else {
+        throw new Error(`An unknown error occurred with getUserFunds() | [${statusCode}] userId: ${userId}`)
+      }
+    })
+}
+
+exports.func = function ({ userId, jar }) {
+  return getUserFunds(userId, jar)
 }
 </code></pre>
         </article>
