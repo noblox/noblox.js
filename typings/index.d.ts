@@ -2187,6 +2187,11 @@ declare module "noblox.js" {
     function getAction(row: string): AuditItem;
 
     /**
+     * 🔐 Get the current authenticated user.
+     */
+    function getAuthenticatedUser(jar?: CookieJar): Promise<AuthenticatedUserData>
+    
+    /**
      * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option?: "UserID" | "UserName" | "RobuxBalance" | "ThumbnailUrl" | "IsAnyBuildersClubMember" | "IsPremium" | undefined, jar?: CookieJar): Promise<LoggedInUserData>;
