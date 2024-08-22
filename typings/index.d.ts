@@ -17,6 +17,9 @@ declare module "noblox.js" {
      * NobloxOptions for setOptions, based from settings.json
      */
     interface NobloxOptions {
+        /** Prints console warnings for functions that are being polyfilled by newer methods due to upstream Roblox API changes */
+        show_deprecation_warnings: boolean;
+
         /** Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well. (Default: true) */
         session_only: boolean;
 
@@ -624,20 +627,18 @@ declare module "noblox.js" {
     }
 
     interface DeveloperProductAddResult {
-        universeId: number,
+        id: number,
         name: string,
-        priceInRobux: number,
-        description?: string,
-        productId: string
+        Description: string, // API does not return camelCase
+        shopId: number,
+        iconImageAssetId: number | null
     }
 
-    interface CheckDeveloperProductNameResult {
-        Success: boolean;
-        /**
-         * When success is true: "Name available"
-         * When success is false, you can get: "Product name already exists"
-         */
-        Message: string;
+    interface DeveloperProductAddError {
+        errorCode: string,
+        errorMessage: string,
+        field: string,
+        hint: string | null
     }
 
     interface GamePassData {
@@ -736,7 +737,7 @@ declare module "noblox.js" {
         isFavoritedByUser: boolean;
         favoritedCount: number;
     }
-            
+
     interface PlaceInformation {
         placeId: number;
         name: string;
@@ -998,10 +999,15 @@ declare module "noblox.js" {
         UserID: number,
         UserName: string,
         RobuxBalance: number,
-        TicketsBalance: number,
         ThumbnailUrl: string,
-        IsAnyBuildersClubMember: boolean,
+        IsAnyBuildersClubMember: false,
         IsPremium: boolean
+    }
+
+    interface AuthenticatedUserData {
+        id: number;
+        name: string;
+        displayName: string;
     }
 
     interface UserLoginApiData {
@@ -1673,16 +1679,16 @@ declare module "noblox.js" {
      * 🔐 Allows the user to login with a provided cookie string, bypassing the username/password captcha issues.
      * By default, the provided cookie will be validated by making a HTTP request. To disable this behaviour, pass false as the second optional parameter (shouldValidate).
      */
-    function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<LoggedInUserData>
+    function setCookie<B extends boolean = true>(cookie: string, shouldValidate?: B): B extends false ? boolean : Promise<AuthenticatedUserData>
 
     /// DataStores
 
-    /** 
-     * ☁️ Marks the entry as deleted by creating a tombstone version. Entries are deleted permanently after 30 days. 
+    /**
+     * ☁️ Marks the entry as deleted by creating a tombstone version. Entries are deleted permanently after 30 days.
      */
     function deleteDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, scope?: string, jar?: CookieJar): Promise<void>
 
-    /** 
+    /**
      * ☁️ Returns the latest value and metadata associated with an entry, or a specific version if versionId is provided.
      */
     function getDatastoreEntry(universeId: number, datastoreName: string, entryKey: string, scope?: string, versionId?: string, jar?: CookieJar): Promise<DatastoreEntry>
@@ -1773,6 +1779,11 @@ declare module "noblox.js" {
      */
     function getUserTransactions(transactionType?: "Sale" | "Purchase" | "AffiliateSale" | "DevEx" | "GroupPayout" | "AdImpressionPayout", limit?: number, sortOrder?: SortOrder, jar?: CookieJar): Promise<TransactionItem[]>;
 
+    /**
+     * 🔐 Returns the current user's robux balance
+     */
+    function getUserFunds(userId?: number, jar?: CookieJar): Promise<number>;
+
     /// Friends
 
     /**
@@ -1828,17 +1839,10 @@ declare module "noblox.js" {
     /// Games
 
     /**
-     * 🔐 Adds a developer product to the specified universe. 
+     * 🔐 Adds a developer product to the specified universe.
      * Warning: The `productId` returned by this function does not match the `productId` used by other endpoints.
      */
     function addDeveloperProduct(universeId: number, name: string, priceInRobux: number, description?: string, jar?: CookieJar): Promise<DeveloperProductAddResult>;
-
-    /**
-     * 🔐 Checks to see if the provided `produceName` is able to be used on `productId`.
-     *
-     * NOTE: You actually need a valid `productId` and `universeId` otherwise, the http request returns a `404 Not Found` response.
-     */
-    function checkDeveloperProductName(universeId: number, productName: string, jar?: CookieJar, productId?: number): Promise<CheckDeveloperProductNameResult>;
 
     /**
      * 🔐 Configures a game pass with the id `gamePassId` to have a `name`, `description`, `price` in Robux, and `icon` image. If `name` is an empty string, only `price` is changed. Setting `price` to false, 0, or a negative value will place the game pass off-sale.
@@ -1878,11 +1882,16 @@ declare module "noblox.js" {
      */
     function getUniverseInfo(universeIds: number[] | number, jar?: CookieJar): Promise<UniverseInformation[]>;
 
-    /** 
+    /**
+    * ☁️ Publish a message to a subscribed topic.
+    */
+    function publishToTopic(universeId: number, topic: string, data: (Object | string), jar?: CookieJar): Promise<boolean>;
+
+    /**
      * 🔐 Returns information about the place(s) in question, such as name, description, etc.
      */
     function getPlaceInfo(placeIds: number[] | number, jar?: CookieJar): Promise<PlaceInformation[]>;
-            
+
     /**
      * 🔐 Update a developer product.
      */
@@ -2185,6 +2194,11 @@ declare module "noblox.js" {
     function getAction(row: string): AuditItem;
 
     /**
+     * 🔐 Get the current authenticated user.
+     */
+    function getAuthenticatedUser(jar?: CookieJar): Promise<AuthenticatedUserData>
+    
+    /**
      * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
     function getCurrentUser(option?: "UserID" | "UserName" | "RobuxBalance" | "ThumbnailUrl" | "IsAnyBuildersClubMember" | "IsPremium" | undefined, jar?: CookieJar): Promise<LoggedInUserData>;
@@ -2302,7 +2316,7 @@ declare module "noblox.js" {
      * @param newOptions - The new options to set, structured as per settings.json
      * @see https://github.com/noblox/noblox.js/blob/master/settings.json
      */
-    function setOptions(newOptions: NobloxOptions): void
+    function setOptions(newOptions: Partial<NobloxOptions>): void
 
     // Events
 

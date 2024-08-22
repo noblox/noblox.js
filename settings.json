@@ -1,9 +1,9 @@
 {
+  "show_deprecation_warnings": true,
+  "show_deprecation_warnings_desc": "Prints console warnings for functions that are being polyfilled by newer methods due to upstream Roblox API changes",
+
   "session_only": true,
   "session_only_desc": "Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well.",
-
-  "maxThreads": 50,
-  "maxThreads_desc": "This is usually used for functions that have to receive a lot of pages at once. Only this amount will be queued up as to preserve memory, make this as high as possible for fastest responses (although it will be somewhat limited by maxSockets).",
 
   "timeout": 10000,
   "timeout_desc": "Timeout for http requests. This is necessary for functions that make a very large number of requests, where it is possible some simply won't connect.",

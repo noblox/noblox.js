@@ -9,7 +9,6 @@
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-blue.svg?style=flat-square" alt="JavaScript Style Guide"/></a>
     <a href="https://discord.gg/R5GVSyTVGv"><img src="https://img.shields.io/badge/discord-noblox.js-blue.svg?style=flat-square" alt="noblox.js Discord"/></a>
     <a href="https://npmjs.org/noblox.js"><img src="https://img.shields.io/npm/v/noblox.js.svg?style=flat-square" alt="NPM package"/>
-    <a href="https://travis-ci.org/noblox/noblox.js"><img src="https://img.shields.io/travis/noblox/noblox.js/master.svg?style=flat-square" alt="Travis Build Status"/></a></a>
 </p>
 
 <p align="center">
@@ -30,7 +29,7 @@
 
 `noblox.js` is an open-source Roblox API wrapper written in JavaScript (with TypeScript compatibility) as a fork from sentanos's <a href="https://github.com/sentanos/roblox-js"> roblox-js module</a>.
 
-This NPM package enables operations froms the [Roblox website](https://www.roblox.com) to be executed via NodeJS; many individuals leverage `noblox.js` along side [Roblox's HTTPService](http://wiki.roblox.com/index.php?title=API:Class/HttpService) to create in-game scripts that interact with the website, i.e. promote users, shout events, and so on, or to create Discord utiltiies to manage their community.
+This NPM package enables operations froms the [Roblox website](https://www.roblox.com) to be executed via NodeJS; many individuals leverage `noblox.js` along side [Roblox's HTTPService](http://wiki.roblox.com/index.php?title=API:Class/HttpService) to create in-game scripts that interact with the website, i.e. promote users, shout events, and so on, or to create Discord utilities to manage their community.
 
 If you are looking for more information on how to create something like this, check out [our sister library, `noblox.js-server`](https://github.com/noblox/noblox.js-server) or [our YouTube series](https://www.youtube.com/playlist?list=PLEW4K4VqMUb_VMA3Yp9LI4gReRyVWGTnU). Keep in mind that these resources may not always be up to date, so it is **highly** encouraged that you learn to use the `noblox.js` library directly.
 
@@ -38,7 +37,7 @@ If you are looking for more information on how to create something like this, ch
 
 ## Prerequisites
 
-- [**Node.js®**](https://nodejs.org/en/download/current/)
+- [**Node.js®**](https://nodejs.org/en/download/current/) v18.18 or later
 
 ---
 

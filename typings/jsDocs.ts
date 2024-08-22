@@ -14,6 +14,9 @@ type CookieJar = {
  * NobloxOptions for setOptions, based from settings.json
  */
 type NobloxOptions = {
+    /** Prints console warnings for functions that are being polyfilled by newer methods due to upstream Roblox API changes */
+    show_deprecation_warnings: boolean;
+
     /** Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well. (Default: true) */
     session_only: boolean;
 
@@ -1374,10 +1377,18 @@ type LoggedInUserData = {
     UserID: number,
     UserName: string,
     RobuxBalance: number,
-    TicketsBalance: number,
     ThumbnailUrl: string,
-    IsAnyBuildersClubMember: boolean,
+    IsAnyBuildersClubMember: false,
     IsPremium: boolean
+}
+
+/**
+ * @typedef
+*/
+type AuthenticatedUserData = {
+    id: number;
+    name: string;
+    displayName: string;
 }
 
 /**
