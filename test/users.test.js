@@ -1,6 +1,5 @@
 const { getBlurb, getIdFromUsername, getPlayerInfo, getUsernameFromId, searchUsers, setCookie } = require('../lib')
 
-/**
 beforeAll(() => {
   return new Promise(resolve => {
     setCookie(process.env.COOKIE).then(() => {
@@ -8,7 +7,6 @@ beforeAll(() => {
     })
   })
 })
-  */
 
 describe('Users Methods', () => {
   it('getBlurb() returns a user\'s blurb', () => {
