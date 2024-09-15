@@ -1603,6 +1603,14 @@ type PromotionChannelsResponse = {
     guilded?: string;
 }
 
+type UserSearchResult = {
+    previousUsernames: string[];
+    hasVerifiedBadge: boolean;
+    id: number;
+    name: string;
+    displayName: string;
+}
+
 /// Badges
 
 /**

@@ -1162,6 +1162,14 @@ declare module "noblox.js" {
         guilded?: string;
     }
 
+    interface UserSearchResult {
+        previousUsernames: string[];
+        hasVerifiedBadge: boolean;
+        id: number;
+        name: string;
+        displayName: string;
+    }
+
     /// Badges
 
     interface BadgeAwarder {
