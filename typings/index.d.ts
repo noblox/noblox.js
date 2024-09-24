@@ -1096,6 +1096,10 @@ declare module "noblox.js" {
         displayName: string;
     }
 
+    interface UsernameHistoryEntry {
+        name: string;
+    }
+
     interface PrivateMessageParent {
         page: number;
     }

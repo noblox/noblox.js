@@ -1512,6 +1512,13 @@ type UserEntry = {
 /**
  * @typedef
 */
+type UsernameHistoryEntry = {
+    name: string;
+}
+
+/**
+ * @typedef
+*/
 type PrivateMessageParent = {
     page: number;
 }
