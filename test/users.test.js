@@ -1,4 +1,5 @@
-const { getBlurb, getIdFromUsername, getPlayerInfo, getUsernameFromId, setCookie } = require('../lib')
+const { it } = require('node:test')
+const { getBlurb, getIdFromUsername, getPlayerInfo, getUsernameFromId, getUsernameHistory, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -63,6 +64,20 @@ describe('Users Methods', () => {
   it('getUsernameFromId() returns a player\'s username given an ID', () => {
     return getUsernameFromId(1).then((res) => {
       return expect(res).toEqual(expect.any(String))
+    })
+  })
+
+  it('getUsernameHistory() returns a player\'s username history', () => {
+    return getUsernameHistory(55549140).then((res) => {
+      return expect(res).toMatchObject({
+        previousPageCursor: expect.toBeOneOf([expect.any(String), null]),
+        nextPageCursor: expect.toBeOneOf([expect.any(String), null]),
+        data: expect.arrayContaining([
+          expect.objectContaining({
+            name: expect.any(String)
+          })
+        ])
+      })
     })
   })
 })
