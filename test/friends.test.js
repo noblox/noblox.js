@@ -1,4 +1,4 @@
-const { acceptFriendRequest, declineAllFriendRequests, declineFriendRequest, getFollowers, getFollowings, getFriendRequests, getFriends, removeFriend, sendFriendRequest, unfollow, setCookie } = require('../lib')
+const { acceptFriendRequest, declineAllFriendRequests, declineFriendRequest, getFollowerCount, getFollowers, getFollowings, getFriendRequests, getFriends, removeFriend, sendFriendRequest, unfollow, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -30,6 +30,12 @@ describe('Friends Methods', () => {
 
   it('unfollow() unfollows a user on Roblox', async () => {
     return await expect(unfollow(55549140)).resolves.not.toThrow()
+  })
+
+  it('getFollowerCount() returns the number of user\'s followers', () => {
+    return getFollowerCount(55549140).then((res) => {
+      return expect(res).toBeGreaterThanOrEqual(0)
+    })
   })
 
   it('getFollowers() returns a user\'s followers', () => {
