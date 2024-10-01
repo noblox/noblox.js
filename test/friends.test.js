@@ -1,4 +1,4 @@
-const { acceptFriendRequest, declineAllFriendRequests, declineFriendRequest, getFollowerCount, getFollowers, getFollowingCount, getFollowings, getFriendRequests, getFriends, removeFriend, sendFriendRequest, unfollow, setCookie } = require('../lib')
+const { acceptFriendRequest, declineAllFriendRequests, declineFriendRequest, getFollowerCount, getFollowers, getFollowingCount, getFollowings, getFriendCount, getFriendRequests, getFriends, removeFriend, sendFriendRequest, unfollow, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -73,6 +73,12 @@ describe('Friends Methods', () => {
           })
         ])
       })
+    })
+  })
+
+  it('getFriendCount() returns the number of friends the specified user has', () => {
+    return getFriendCount(55549140).then((res) => {
+      return expect(res).toBeGreaterThanOrEqual(0)
     })
   })
 
