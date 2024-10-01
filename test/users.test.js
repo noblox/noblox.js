@@ -69,15 +69,13 @@ describe('Users Methods', () => {
 
   it('getUsernameHistory() returns a player\'s username history', () => {
     return getUsernameHistory(55549140).then((res) => {
-      return expect(res).toMatchObject({
-        previousPageCursor: expect.toBeOneOf([expect.any(String), null]),
-        nextPageCursor: expect.toBeOneOf([expect.any(String), null]),
-        data: expect.arrayContaining([
+      return expect(res).toMatchObject(
+        expect.arrayContaining([
           expect.objectContaining({
             name: expect.any(String)
           })
         ])
-      })
+      )
     })
   })
 })
