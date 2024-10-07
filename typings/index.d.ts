@@ -1148,6 +1148,17 @@ declare module "noblox.js" {
         oldNames?: string[];
         isBanned: boolean;
     }
+
+    interface UserInfo {
+        description: string;
+        created: Date;
+        isBanned: boolean;
+        hasVerifiedBadge: boolean;
+        id: number;
+        name: string;
+        displayName: string;
+    }
+
     interface Presences {
         userPresences: UserPresence[]
     }

@@ -1586,6 +1586,19 @@ type PlayerInfo = {
 /**
  * @typedef
 */
+type UserInfo = {
+    description: string;
+    created: Date;
+    isBanned: boolean;
+    hasVerifiedBadge: boolean;
+    id: number;
+    name: string;
+    displayName: string;
+}
+
+/**
+ * @typedef
+*/
 type Presences = {
     userPresences: Array<UserPresence>;
 }
