@@ -1162,6 +1162,14 @@ declare module "noblox.js" {
         guilded?: string;
     }
 
+    interface UserSearchResult {
+        previousUsernames: string[];
+        hasVerifiedBadge: boolean;
+        id: number;
+        name: string;
+        displayName: string;
+    }
+
     /// Badges
 
     interface BadgeAwarder {
@@ -2168,6 +2176,11 @@ declare module "noblox.js" {
      * ✅ Gets `username` of user with `id` and caches according to settings.
      */
     function getUsernameFromId(id: number): Promise<string>;
+
+    /**
+     * ✅ Gets user search results for a keyword.
+     */
+    function searchUsers(keyword: string, limit: number, cursor: string): Promise<UserSearchResult[]>;
 
     /// Utility
 
