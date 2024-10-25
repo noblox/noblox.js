@@ -2177,6 +2177,11 @@ declare module "noblox.js" {
      */
     function getUsernameFromId(id: number): Promise<string>;
 
+    /**
+     * ✅ Gets user search results for a keyword.
+     */
+    function searchUsers(keyword: string, limit: number, cursor: string): Promise<UserSearchResult[]>;
+
     /// Utility
 
     /**
