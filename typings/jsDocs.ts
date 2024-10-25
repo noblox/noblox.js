@@ -1203,6 +1203,13 @@ type GroupShout = {
 
 /**
  * @typedef
+*/
+type PayoutAllowedList = {
+    usersGroupPayoutEligibility: [string, string]
+}
+
+/**
+ * @typedef
  */
 type GroupDescriptionResult = {
     newDescription: string
