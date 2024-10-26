@@ -1810,14 +1810,29 @@ declare module "noblox.js" {
     function declineFriendRequest(userId: number, jar?: CookieJar): Promise<void>;
 
     /**
+     * ✅ Gets the number of followers a user has.
+     */
+    function getFollowerCount(userId: number): Promise<number>;
+
+    /**
      * ✅ Get the followers of a user (users who follow the specified person)
      */
     function getFollowers(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowersPage>;
 
     /**
+     * ✅ Gets the number of followings a user has (users who have been followed by the specified person).
+     */
+    function getFollowingCount(userId: number): Promise<number>;
+
+    /**
      * ✅ Get the followings of a user (users who have been followed by the specified person)
      */
     function getFollowings(userId: number, sortOrder?: SortOrder, limit?: Limit, cursor?: string, jar?: CookieJar): Promise<FollowingsPage>;
+
+    /**
+     * ✅ Get the number of friends a user has.
+     */
+    function getFriendCount(userId: number): Promise<number>;
 
     /**
      * 🔐 Gets the pending friend requests of the logged in user.
@@ -2180,9 +2195,19 @@ declare module "noblox.js" {
     function getPlayerInfo(userId: number): Promise<PlayerInfo>;
 
     /**
+     * ✅ Gets basic user information.
+     */
+    function getUserInfo(userId: number): Promise<UserInfo>;
+
+    /**
      * ✅ Gets `username` of user with `id` and caches according to settings.
      */
     function getUsernameFromId(id: number): Promise<string>;
+
+    /**
+     * ✅ Gets a list of usernames the specified user has used.
+     */
+    function getUsernameHistory(userId: number, limit?: Limit, sortOrder?: SortOrder, cursor?: string): Promise<UsernameHistoryEntry[]>;
 
     /// Utility
 
