@@ -1,5 +1,5 @@
 const { it } = require('node:test')
-const { getBlurb, getIdFromUsername, getPlayerInfo, getUsernameFromId, getUsernameHistory, setCookie } = require('../lib')
+const { getBlurb, getIdFromUsername, getPlayerInfo, getUserInfo, getUsernameFromId, getUsernameHistory, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -56,6 +56,21 @@ describe('Users Methods', () => {
         followingCount: expect.any(Number),
         oldNames: expect.any(Array),
         isBanned: expect.any(Boolean),
+        displayName: expect.any(String)
+      })
+    })
+  })
+
+  it('getUserInfo() returns profile information on the specified user', () => {
+    return getUserInfo(55549140).then((res) => {
+      return expect(res).toMatchObject({
+        description: expect.any(String),
+        created: expect.any(Date),
+        isBanned: expect.any(Boolean),
+        externalAppDisplayName: expect.any(null),
+        hasVerifiedBadge: expect.any(Boolean),
+        id: expect.any(Number),
+        name: expect.any(String),
         displayName: expect.any(String)
       })
     })
