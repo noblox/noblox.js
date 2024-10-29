@@ -1938,6 +1938,11 @@ declare module "noblox.js" {
     function getGroups(userId: number): Promise<IGroupPartial[]>
 
     /**
+     * 🔐 Gets the payout eligibility status of a group member.
+     */
+    function getGroupPayoutEligibility(groupId: number, userId: number): Promise<PayoutAllowedList>
+
+    /**
      * 🔐 Get the social link data associated with a group.
      */
     function getGroupSocialLinks(groupId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
