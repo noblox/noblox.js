@@ -1,4 +1,3 @@
-const { it } = require('node:test')
 const { getBlurb, getIdFromUsername, getPlayerInfo, getUserInfo, getUsernameFromId, getUsernameHistory, setCookie } = require('../lib')
 
 beforeAll(() => {
