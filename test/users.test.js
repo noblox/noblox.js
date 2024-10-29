@@ -1,4 +1,4 @@
-const { getBlurb, getIdFromUsername, getPlayerInfo, getUserInfo, getUsernameFromId, getUsernameHistory, setCookie } = require('../lib')
+const { getBlurb, getIdFromUsername, getPlayerInfo, getUserInfo, getUsernameFromId, getUsernameHistory, searchUsers, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -87,6 +87,22 @@ describe('Users Methods', () => {
         expect.arrayContaining([
           expect.objectContaining({
             name: expect.any(String)
+          })
+        ])
+      )
+    })
+  })
+
+  it('searchUsers() returns results for the specified keyword', () => {
+    return searchUsers('roblox').then((res) => {
+      return expect(res).toMatchObject(
+        expect.arrayContaining([
+          expect.objectContaining({
+            previousUsernames: expect.any(Array),
+            hasVerifiedBadge: expect.any(Boolean),
+            id: expect.any(Number),
+            name: expect.any(String),
+            displayName: expect.any(String)
           })
         ])
       )
