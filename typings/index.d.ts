@@ -1940,7 +1940,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Gets the payout eligibility status of a group member.
      */
-    function getGroupPayoutEligibility(groupId: number, userId: number): Promise<PayoutAllowedList>
+    function getGroupPayoutEligibility(groupId: number, userId: number, jar?: CookieJar): Promise<PayoutAllowedList>;
 
     /**
      * 🔐 Get the social link data associated with a group.
