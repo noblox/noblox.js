@@ -867,7 +867,9 @@ declare module "noblox.js" {
     }
 
     interface PayoutAllowedList {
-        usersGroupPayoutEligibility: [string, string]
+        usersGroupPayoutEligibility: {
+            [K: string]: string;
+        }
     }
 
     interface GroupDescriptionResult {

@@ -1205,7 +1205,9 @@ type GroupShout = {
  * @typedef
 */
 type PayoutAllowedList = {
-    usersGroupPayoutEligibility: [string, string]
+    usersGroupPayoutEligibility: {
+        [k: string]: string;
+    }
 }
 
 /**
