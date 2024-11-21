@@ -1512,6 +1512,13 @@ type UserEntry = {
 /**
  * @typedef
 */
+type UsernameHistoryEntry = {
+    name: string;
+}
+
+/**
+ * @typedef
+*/
 type PrivateMessageParent = {
     page: number;
 }
@@ -1574,6 +1581,19 @@ type PlayerInfo = {
     followingCount?: number;
     oldNames?: Array<string>;
     isBanned: boolean;
+}
+
+/**
+ * @typedef
+*/
+type UserInfo = {
+    description: string;
+    created: Date;
+    isBanned: boolean;
+    hasVerifiedBadge: boolean;
+    id: number;
+    name: string;
+    displayName: string;
 }
 
 /**
