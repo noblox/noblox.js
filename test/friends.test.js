@@ -1,4 +1,4 @@
-const { acceptFriendRequest, declineAllFriendRequests, declineFriendRequest, getFollowers, getFollowings, getFriendRequests, getFriends, removeFriend, sendFriendRequest, unfollow, setCookie } = require('../lib')
+const { acceptFriendRequest, declineAllFriendRequests, declineFriendRequest, getFollowerCount, getFollowers, getFollowingCount, getFollowings, getFriendCount, getFriendRequests, getFriends, removeFriend, sendFriendRequest, unfollow, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -32,6 +32,12 @@ describe('Friends Methods', () => {
     return await expect(unfollow(55549140)).resolves.not.toThrow()
   })
 
+  it('getFollowerCount() returns the number of user\'s followers', () => {
+    return getFollowerCount(55549140).then((res) => {
+      return expect(res).toBeGreaterThanOrEqual(0)
+    })
+  })
+
   it('getFollowers() returns a user\'s followers', () => {
     return getFollowers(55549140).then((res) => {
       return expect(res).toMatchObject({
@@ -48,6 +54,12 @@ describe('Friends Methods', () => {
     })
   })
 
+  it('getFollowingCount() returns the number of users that are following the user', () => {
+    return getFollowingCount(55549140).then((res) => {
+      return expect(res).toBeGreaterThanOrEqual(0)
+    })
+  })
+
   it('getFollowings() returns which users are being followed by the specified user', () => {
     return getFollowings(55549140).then((res) => {
       return expect(res).toMatchObject({
@@ -61,6 +73,12 @@ describe('Friends Methods', () => {
           })
         ])
       })
+    })
+  })
+
+  it('getFriendCount() returns the number of friends the specified user has', () => {
+    return getFriendCount(55549140).then((res) => {
+      return expect(res).toBeGreaterThanOrEqual(0)
     })
   })
 
