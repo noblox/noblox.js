@@ -1,4 +1,4 @@
-const { getBlurb, getIdFromUsername, getPlayerInfo, getUsernameFromId, searchUsers, setCookie } = require('../lib')
+const { getBlurb, getIdFromUsername, getPlayerInfo, getUserInfo, getUsernameFromId, getUsernameHistory, searchUsers, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -60,9 +60,36 @@ describe('Users Methods', () => {
     })
   })
 
+  it('getUserInfo() returns profile information on the specified user', () => {
+    return getUserInfo(55549140).then((res) => {
+      return expect(res).toMatchObject({
+        description: expect.any(String),
+        created: expect.any(Date),
+        isBanned: expect.any(Boolean),
+        externalAppDisplayName: expect.any(null),
+        hasVerifiedBadge: expect.any(Boolean),
+        id: expect.any(Number),
+        name: expect.any(String),
+        displayName: expect.any(String)
+      })
+    })
+  })
+
   it('getUsernameFromId() returns a player\'s username given an ID', () => {
     return getUsernameFromId(1).then((res) => {
       return expect(res).toEqual(expect.any(String))
+    })
+  })
+
+  it('getUsernameHistory() returns a player\'s username history', () => {
+    return getUsernameHistory(55549140).then((res) => {
+      return expect(res).toMatchObject(
+        expect.arrayContaining([
+          expect.objectContaining({
+            name: expect.any(String)
+          })
+        ])
+      )
     })
   })
 
@@ -71,11 +98,11 @@ describe('Users Methods', () => {
       return expect(res).toMatchObject(
         expect.arrayContaining([
           expect.objectContaining({
-          previousUsernames: expect.any(Array),
-          hasVerifiedBadge: expect.any(Boolean),
-          id: expect.any(Number),
-          name: expect.any(String),
-          displayName: expect.any(String)
+            previousUsernames: expect.any(Array),
+            hasVerifiedBadge: expect.any(Boolean),
+            id: expect.any(Number),
+            name: expect.any(String),
+            displayName: expect.any(String)
           })
         ])
       )
