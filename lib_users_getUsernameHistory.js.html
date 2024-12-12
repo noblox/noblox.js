@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/groups/getJoinRequest.js</title>
+  <title>noblox.js lib/users/getUsernameHistory.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/groups/getJoinRequest.js</h1>
+                    <h1>lib/users/getUsernameHistory.js</h1>
                 </header>
                 
 
@@ -147,56 +147,39 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
-const http = require('../util/http.js').func
+const getPageResults = require('../util/getPageResults.js').func
 
 // Args
-exports.required = ['group', 'userId']
-exports.optional = ['jar']
+exports.required = ['userId']
+exports.optional = ['limit', 'sortOrder', 'pageCursor']
 
 // Docs
 /**
- * 🔐 Gets a specific join request, given a user ID.
- * @category Group
- * @alias getJoinRequest
- * @param {number} group - The id of the group.
- * @param {number} userId - The user ID whose join request is wanted.
- * @returns {(Promise&lt;GroupJoinRequest>|Promise&lt;null>)} A join request if one exists, or null.
+ * ✅ Get a user's username history.
+ * @category User
+ * @alias getUsernameHistory
+ * @param {number} userId
+ * @param {Limit=} [limit=10]
+ * @param {SortOrder=} [sortOrder=Asc]
+ * @param {string} cursor
+ * @returns {Promise&lt;UsernameHistoryEntry[]>}
  * @example const noblox = require("noblox.js")
- * // Login using your cookie
- * const request = await noblox.getJoinRequest(4591072, 5903228)
+ * const history = await noblox.getUsernameHistory({ userId: 1, limit: 10, sortOrder: "Asc", cursor: "somecursorstring" })
 **/
 
 // Define
-function getJoinRequest (jar, group, userId) {
-  return new Promise((resolve, reject) => {
-    const httpOpt = {
-      url: `//groups.roblox.com/v1/groups/${group}/join-requests/users/${userId}`,
-      options: {
-        method: 'GET',
-        jar,
-        resolveWithFullResponse: true
-      }
-    }
-    return http(httpOpt)
-      .then(function (res) {
-        if (res.statusCode === 200) {
-          resolve(JSON.parse(res.body) || null)
-        } else {
-          const body = JSON.parse(res.body) || {}
-          if (body.errors &amp;&amp; body.errors.length > 0) {
-            const errors = body.errors.map((e) => {
-              return e.message
-            })
-            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-          }
-        }
-      }).catch(error => reject(error))
+function getUsernameHistory (userId, limit, sortOrder, cursor) {
+  return getPageResults({
+    url: `//users.roblox.com/v1/users/${userId}/username-history`,
+    query: {},
+    limit,
+    pageCursor: cursor,
+    sortOrder
   })
 }
 
 exports.func = function (args) {
-  const jar = args.jar
-  return getJoinRequest(jar, args.group, args.userId)
+  return getUsernameHistory(args.userId, args.limit, args.sortOrder, args.cursor)
 }
 </code></pre>
         </article>
