@@ -1579,7 +1579,6 @@ type PlayerInfo = {
     friendCount?: number;
     followerCount?: number;
     followingCount?: number;
-    oldNames?: Array<string>;
     isBanned: boolean;
 }
 
