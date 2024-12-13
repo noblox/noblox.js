@@ -53,7 +53,6 @@ describe('Users Methods', () => {
         friendCount: expect.any(Number),
         followerCount: expect.any(Number),
         followingCount: expect.any(Number),
-        oldNames: expect.any(Array),
         isBanned: expect.any(Boolean),
         displayName: expect.any(String)
       })
