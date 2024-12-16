@@ -107,7 +107,7 @@
      "UsernameHistory": {
       "expire": 86400,
       "refresh": false,
-      "desc": "Caches a user's full username history. The rate limit for the associated endpoint is very low, and this setting should be left alone as a result."
+      "desc": "Caches a user's username history based on user id, limit, sort order, and cursor. The rate limit for the associated endpoint is very low, and this setting should be left alone as a result."
      }
   }
 }
