@@ -6,27 +6,42 @@ on:
 
 jobs:
   test:
+    permissions:
+      id-token: write
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install yarn
-        run: npm install -g yarn
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Lint lib/
         run: yarn lint
+
+      - id: auth
+        name: Generate ID Token
+        uses: google-github-actions/auth@v2
+        with:
+          token_format: id_token
+          workload_identity_provider: ${{ vars.workload_identity_provider }}
+          service_account: ${{ vars.service_account }}
+          id_token_audience: "https://${{ vars.forwarder_hostname }}"
+          id_token_include_email: true
+
       - name: Run tests
         env:
           COOKIE: ${{ secrets.COOKIE }}
           COOKIE_2: ${{ secrets.COOKIE_2 }}
+          ID_TOKEN: ${{ steps.auth.outputs.id_token }}
         run: yarn test
 
