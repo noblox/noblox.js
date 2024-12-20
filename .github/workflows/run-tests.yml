@@ -40,6 +40,7 @@ jobs:
 
       - name: Run tests
         env:
+          API_KEY: ${{ secrets.API_KEY }}
           COOKIE: ${{ secrets.COOKIE }}
           COOKIE_2: ${{ secrets.COOKIE_2 }}
           FORWARDER_HOSTNAME: ${{ vars.forwarder_hostname }}
