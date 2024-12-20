@@ -42,6 +42,7 @@ jobs:
         env:
           COOKIE: ${{ secrets.COOKIE }}
           COOKIE_2: ${{ secrets.COOKIE_2 }}
+          FORWARDER_HOSTNAME: ${{ vars.forwarder_hostname }}
           ID_TOKEN: ${{ steps.auth.outputs.id_token }}
         run: yarn test
 
