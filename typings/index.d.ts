@@ -1145,7 +1145,6 @@ declare module "noblox.js" {
         friendCount?: number;
         followerCount?: number;
         followingCount?: number;
-        oldNames?: string[];
         isBanned: boolean;
     }
 
