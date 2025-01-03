@@ -966,6 +966,14 @@ declare module "noblox.js" {
         data: WallPost[];
     }
 
+    interface GroupBan {
+        user: UserEntry;
+        actingUser: {
+            user: UserEntry;
+        },
+        created: Date;
+    }
+
     /// Party
 
     interface PartyData {
@@ -1091,6 +1099,7 @@ declare module "noblox.js" {
     //
 
     interface UserEntry {
+        hasVerifiedBadge: boolean;
         userId: number;
         name: string;
         displayName: string;
