@@ -1938,6 +1938,12 @@ declare module "noblox.js" {
     function updateDeveloperProduct(universeId: number, productId: number, priceInRobux: number, name?: string, description?: string, jar?: CookieJar): Promise<void>;
 
     /// Groups
+
+    /**
+     * 🔐 Bans a user from the specified group.
+     */
+    function banFromGroup(groupId: number, userId: number, jar?: CookieJar): Promise<GroupBan>;
+
     /**
      * 🔐 Moves the user with userId `target` up or down the list of ranks in `group` by `change`. For example `changeRank(group, target, 1)` would promote the user 1 rank and `changeRank(group, target, -1)` would demote them down 1. Note that this simply follows the list, ignoring ambiguous ranks. The full `newRole` as well as the user's original `oldRole` is returned.
      */
@@ -1972,6 +1978,11 @@ declare module "noblox.js" {
      * ✅ Gets a brief overview of the specified group.
      */
     function getGroup(groupId: number): Promise<Group>;
+
+    /**
+     * 🔐 Gets a list of the group's bans.
+     */
+    function getGroupBans(groupId: number, limit?: Limit, sortOrder?: SortOrder, pageCursor?: string, jar?: CookieJar): Promise<{ previousPageCursor?: string, nextPageCursor?: string, data: GroupBan[] }>;
 
     /**
      * ✅ Gets the groups a player is in.
@@ -2081,6 +2092,11 @@ declare module "noblox.js" {
      * 🔐 Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
      */
     function shout(group: number, message: string, jar?: CookieJar): Promise<GroupShout>;
+
+    /**
+     * 🔐 Unbans a user from the specified group.
+     */
+    function unbanFromGroup(groupId: number, userId: number, jar?: CookieJar): Promise<void>;
 
     /// Inventory
 
