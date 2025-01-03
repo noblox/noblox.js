@@ -1982,7 +1982,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Gets a list of the group's bans.
      */
-    function getGroupBans(groupId: number, limit?: Limit, sortOrder?: SortOrder, pageCursor?: string, jar?: CookieJar): Promise<{ previousPageCursor?: string, nextPageCursor?: string, data: GroupBan[] }>;
+    function getGroupBans(groupId: number, limit?: number, sortOrder?: SortOrder, pageCursor?: string, jar?: CookieJar): Promise<{ previousPageCursor?: string, nextPageCursor?: string, data: GroupBan[] }>;
 
     /**
      * ✅ Gets the groups a player is in.
