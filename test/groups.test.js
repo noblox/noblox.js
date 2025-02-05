@@ -1,4 +1,4 @@
-const { changeRank, demote, getAuditLog, getGroup, getGroups, getGroupSocialLinks, getJoinRequests, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, promote, searchGroups, setRank, shout, setCookie } = require('../lib')
+const { banFromGroup, changeRank, demote, getAuditLog, getGroup, getGroupBans, getGroups, getGroupSocialLinks, getJoinRequests, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, promote, searchGroups, setRank, shout, setCookie, unbanFromGroup } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -307,5 +307,67 @@ describe('Groups Methods', () => {
         updated: expect.any(String)
       })
     })
+  })
+
+  it('banFromGroup() should ban a user from the specified group', () => {
+    return banFromGroup(4591072, 1).then((res) => {
+      return expect(res).toMatchObject({
+        user: {
+          hasVerifiedBadge: expect.any(Boolean),
+          userId: expect.any(Number),
+          username: expect.any(String),
+          displayName: expect.any(String)
+        },
+        actingUser: {
+          user: {
+            hasVerifiedBadge: expect.any(Boolean),
+            userId: expect.any(Number),
+            username: expect.any(String),
+            displayName: expect.any(String)
+          },
+          role: {
+            id: expect.any(Number),
+            name: expect.any(String),
+            rank: expect.any(Number)
+          }
+        },
+        created: expect.any(Date)
+      })
+    })
+  })
+
+  it('getGroupBans() should retrieve a page of group bans', () => {
+    return getGroupBans(4591072, 10, 'Asc').then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            user: {
+              hasVerifiedBadge: expect.any(Boolean),
+              userId: expect.any(Number),
+              username: expect.any(String),
+              displayName: expect.any(String)
+            },
+            actingUser: {
+              user: {
+                hasVerifiedBadge: expect.any(Boolean),
+                userId: expect.any(Number),
+                username: expect.any(String),
+                displayName: expect.any(String)
+              },
+              role: {
+                id: expect.any(Number),
+                name: expect.any(String),
+                rank: expect.any(Number)
+              }
+            },
+            created: expect.any(Date)
+          })
+        ])
+      )
+    })
+  })
+
+  it('unbanFromGroup() should unban a user from a group', async () => {
+    await expect(unbanFromGroup(4591072, 1)).resolves.not.toThrow()
   })
 })
