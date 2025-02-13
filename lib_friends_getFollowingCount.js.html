@@ -164,9 +164,9 @@ exports.required = ['userId']
 **/
 
 // Define
-exports.func = function (userId) {
+exports.func = function (args) {
   const httpOpt = {
-    url: `//friends.roblox.com/v1/users/${userId}/followings/count`,
+    url: `//friends.roblox.com/v1/users/${args.userId}/followings/count`,
     options: {
       json: true,
       method: 'GET',
@@ -178,7 +178,7 @@ exports.func = function (userId) {
     if (res.statusCode === 200) { return res.body.count }
 
     throw new Error(
-      `Failed to retrieve following count: (${res.statusCode}) ${res.body}`
+      `Failed to retrieve following count: (${res.statusCode}) ${JSON.stringify(res.body)}`
     )
   })
 }

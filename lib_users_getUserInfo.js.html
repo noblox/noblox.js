@@ -173,7 +173,7 @@ exports.func = function (args) {
   }
 
   return http(httpOpt).then(function (res) {
-    if (res.statusCode !== 200) { throw new Error(`Failed to fetch user information: ${res.body.errors?.join(', ')}`) }
+    if (res.statusCode !== 200) { throw new Error(`Failed to fetch user information: ${res.body?.errors?.at(0)?.message}`) }
 
     res.body.created = new Date(res.body.created)
 
