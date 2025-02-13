@@ -11,6 +11,7 @@ declare module "noblox.js" {
      */
     interface CookieJar {
         session?: string;
+        apiKey?: string;
     }
 
     /**
@@ -583,6 +584,12 @@ declare module "noblox.js" {
     }
 
     /// Game
+    type UserNotificationPayloadParameter = { stringValue: string } | { int64Value: number };
+
+    interface UserNotificationPayloadParameters {
+        [key: string]: UserNotificationPayloadParameter
+    }
+
     interface GameInstance {
         id: string;
         maxPlayers: number;
@@ -1918,6 +1925,11 @@ declare module "noblox.js" {
     function publishToTopic(universeId: number, topic: string, data: (Object | string), jar?: CookieJar): Promise<boolean>;
 
     /**
+* ☁️ Send a universe notification to a user.
+*/
+    function sendUserNotification(universeId: number, userId: number, assetId: string, parameters: UserNotificationPayloadParameters, jar?: CookieJar): Promise<boolean>;
+
+    /**
      * 🔐 Returns information about the place(s) in question, such as name, description, etc.
      */
     function getPlaceInfo(placeIds: number[] | number, jar?: CookieJar): Promise<PlaceInformation[]>;
@@ -2242,7 +2254,7 @@ declare module "noblox.js" {
      * 🔐 Get the current authenticated user.
      */
     function getAuthenticatedUser(jar?: CookieJar): Promise<AuthenticatedUserData>
-    
+
     /**
      * 🔐 Gets the current user logged into `jar` and returns an `option` if specified or all options if not.
      */
