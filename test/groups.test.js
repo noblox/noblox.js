@@ -309,3 +309,26 @@ describe('Groups Methods', () => {
     })
   })
 })
+
+it('setRank() should set a player\'s rank to the specified rank', () => {
+  return changeRank(4591072, 857710783, 2).then(() => {
+    return setRank(4591072, 857710783, 1).then((res) => {
+      return expect(res).toMatchObject({
+        name: expect.any(String),
+        rank: expect.any(Number),
+        memberCount: expect.any(Number),
+        ID: expect.any(Number)
+      })
+    })
+  })
+})
+
+it(`setRoleInfo() should update a role's information`, () => {
+  return setRoleInfo(4591072, 2, {name: "Programmer", description: "Programs on roblox n stuff", rank:160}).then(() => {
+      return expect(res).toMatchObject({
+        name: expect.any(String),
+        rank: expect.any(Number),
+        description: expect.any(String)
+    })
+  })
+})
