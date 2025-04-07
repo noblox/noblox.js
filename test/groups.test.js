@@ -323,12 +323,19 @@ it('setRank() should set a player\'s rank to the specified rank', () => {
   })
 })
 
-it(`setRoleInfo() should update a role's information`, () => {
-  return setRoleInfo(4591072, 2, {name: "Programmer", description: "Programs on roblox n stuff", rank:160}).then(() => {
-      return expect(res).toMatchObject({
-        name: expect.any(String),
-        rank: expect.any(Number),
-        description: expect.any(String)
-    })
-  })
-})
+
+// PASS: setRoleInfo -- skip this, do not own group
+
+// it('setRoleInfo() should update a role\'s information', () => {
+//   return getRole(4591072, 1).then((originalRoleInfo) => {
+//     return setRoleInfo(4591072, 1, { name: 'Programmer', description: 'Programs on roblox n stuff', rank: 2 }).then((res) => {
+//       return setRoleInfo(4591072, "Programmer", originalRoleInfo).then(() => {
+//         return expect(res).toMatchObject({
+//           name: expect.any(String),
+//           rank: expect.any(Number),
+//           description: expect.any(String)
+//         })
+//       })
+//     })
+//   })
+// })
