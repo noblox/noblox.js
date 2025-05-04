@@ -1152,7 +1152,6 @@ declare module "noblox.js" {
         friendCount?: number;
         followerCount?: number;
         followingCount?: number;
-        oldNames?: string[];
         isBanned: boolean;
     }
 
@@ -2079,6 +2078,11 @@ declare module "noblox.js" {
      * 🔐 Changes the rank of the player with the `target` userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
      */
     function setRank(group: number, target: number, rank: number | string | Role, jar?: CookieJar): Promise<Role>;
+
+    /**
+     * 🔐 Changes the rank of the player with the `target` userId in group with `groupId` to the provided rank. If rank <= 255, it is assumes to be rank. If rank is a string, it is assumed to be the name of a rank/role. If rank is > 255, it is assumed to be a rolesetId (which speeds up requests). If two or more ranks share a rank, this will not resolve properly (use the name of the rank instead). You may also pass a Role which can be gotten from `getRoles` or `getRole`.
+     */
+    function setRoleInfo(group: number, role: number | string | Role, newRoleInfo: Role, jar?: CookieJar): Promise<Role>;
 
     /**
      * 🔐 Shouts message `message` in the group with groupId `group`. Setting `message` to "" will clear the shout.
