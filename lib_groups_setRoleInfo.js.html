@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/friends/getFollowerCount.js</title>
+  <title>noblox.js lib/groups/setRoleInfo.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/friends/getFollowerCount.js</h1>
+                    <h1>lib/groups/setRoleInfo.js</h1>
                 </header>
                 
 
@@ -148,39 +148,87 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const getGeneralToken = require('../util/getGeneralToken.js').func
+const getRole = require('./getRole.js').func
 
 // Args
-exports.required = ['userId']
+exports.required = ['group', 'role', 'newRoleInfo']
+exports.optional = ['jar']
 
 // Docs
 /**
- * ✅ Gets the number of followers a user has.
- * @category User
- * @alias getFollowerCount
- * @param { number } userId
- * @returns Promise&lt;number>
+ * 🔐 Update a role's information
+ * @category Group
+ * @alias setRoleInfo
+ * @param {number} group - The id of the group.
+ * @param {number | string | Role} role - The rank, roleset ID, name of the role, or the actual Role itself.
+ * @param {Role} newRoleInfo - The new info for the role
+ * @returns {Promise&lt;Role>}
  * @example const noblox = require("noblox.js")
- * const numberOfFollowers = await noblox.getFollowerCount(55549140)
-**/
+ * // Login using your cookie
+ * noblox.setRoleInfo(1, 2342243, )
+ **/
 
 // Define
-exports.func = function (args) {
-  const httpOpt = {
-    url: `//friends.roblox.com/v1/users/${args.userId}/followers/count`,
-    options: {
-      json: true,
-      method: 'GET',
-      resolveWithFullResponse: true
+function setRoleInfo (jar, xcsrf, group, role, newRoleInfo) {
+  return new Promise((resolve, reject) => {
+    const httpOpt = {
+      url: `//groups.roblox.com/v1/groups/${group}/rolesets/${role.id}`,
+      options: {
+        resolveWithFullResponse: true,
+        method: 'PATCH',
+        jar,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': xcsrf
+        },
+        body: JSON.stringify({
+          name: newRoleInfo.name,
+          rank: newRoleInfo.rank,
+          description: newRoleInfo.description
+        })
+      }
     }
-  }
+    return http(httpOpt)
+      .then(function (res) {
+        if (res.statusCode === 200) {
+          role.name = newRoleInfo.name
+          role.rank = newRoleInfo.rank
+          role.description = newRoleInfo.description
 
-  return http(httpOpt).then(function (res) {
-    if (res.statusCode === 200) { return res.body.count }
-
-    throw new Error(
-      `Failed to retrieve follower count: (${res.statusCode}) ${JSON.stringify(res.body)}`
-    )
+          resolve(role)
+        } else {
+          const body = JSON.parse(res.body) || {}
+          if (body.errors &amp;&amp; body.errors.length > 0) {
+            const errors = body.errors.map((e) => {
+              return e.message
+            })
+            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
+          }
+        }
+      }).catch(error => reject(error))
   })
+}
+
+function runWithToken (args) {
+  const jar = args.jar
+  return getGeneralToken({ jar })
+    .then(function (xcsrf) {
+      return setRoleInfo(jar, xcsrf, args.group, args.role, args.newRoleInfo)
+    })
+}
+
+exports.func = function (args) {
+  if (typeof args.role === 'object') { // assumes they gave Role
+    return runWithToken(args)
+  } else if (typeof args.role === 'number' || typeof args.role === 'string') {
+    return getRole({ group: args.group, roleQuery: args.role }).then((role) => {
+      args.role = role
+      return runWithToken(args)
+    })
+  } else {
+    throw new Error('Please provide either a Role, rank, or role name to change its info')
+  }
 }
 </code></pre>
         </article>
