@@ -218,14 +218,6 @@ type PriceRange = {
 /**
  * @typedef
 */
-type BuyAssetResponse = {
-    productId: number;
-    price: number;
-}
-
-/**
- * @typedef
-*/
 type ChartDataPointResponse = {
     value?: number;
     date?: Date;
