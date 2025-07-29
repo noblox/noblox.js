@@ -220,21 +220,9 @@ declare module "noblox.js" {
 
     type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId" | "SaleAvailabilityLocations" | "SaleLocation" | "CollectibleItemId">;
 
-    interface BuyProductInfo {
-        ProductId: number;
-        Creator: { Id: number };
-        PriceInRobux: number;
-        UserAssetId: number;
-    }
-
     interface PriceRange {
         high: number;
         low: number;
-    }
-
-    interface BuyAssetResponse {
-        productId: number;
-        price: number;
     }
 
     interface ChartDataPointResponse {
@@ -1758,11 +1746,6 @@ declare module "noblox.js" {
     function updateUniverseAccess(universeId: number, isPublic?: boolean, jar?: CookieJar): Promise<void>;
 
     /// Economy
-
-    /**
-     * 🔐 Buys asset `asset` with `price` restrictions. This can be a single value or an object with `high` and `low` that sets the respective price limits (both inclusive). This allows you to buy assets with a minimum or maximum amount of robux that can be used or a single required value and therefore guarantees you can't be scammed by a sudden price change. If a price restriction is not set, the asset will be bought for however much it costs (works with free assets). You are able to use product instead of asset, the options in `product` are collected automatically if not provided.
-     */
-    function buy(asset: number | ProductInfo | BuyProductInfo, price?: number | PriceRange, jar?: CookieJar): Promise<BuyAssetResponse>;
 
     /**
      * 🔓 Gets the amount of Robux in a group.
