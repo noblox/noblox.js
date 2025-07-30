@@ -149,6 +149,7 @@
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
 const cache = require('../cache')
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['group', 'userId']
@@ -175,18 +176,9 @@ function getRankNameInGroup (group, userId) {
       throw new Error('Group id should be a number')
     }
   }
-  return http({ url: `//groups.roblox.com/v2/users/${userId}/groups/roles`, options: { json: true } }).then((body) => {
-    const error = body.errors &amp;&amp; body.errors[0]
-
-    if (error) {
-      if (error.message === 'NotFound') {
-        throw new Error('An invalid UserID or GroupID was provided.')
-      } else {
-        throw new Error(error.message)
-      }
-    }
-
-    const groupObject = body.data.find((info) => group === info.group.id)
+  return http({ url: `//groups.roblox.com/v2/users/${userId}/groups/roles`, options: { json: true, resolveWithFullResponse: true } }).then((res) => {
+    if (res.statusCode !== 200) throw new RobloxAPIError(res)
+    const groupObject = res.body.data.find((info) => group === info.group.id)
 
     return groupObject ? groupObject.role.name : 'Guest'
   })

@@ -149,6 +149,7 @@
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
 
+const RobloxAPIError = require('../util/apiError.js')
 // Args
 exports.required = ['groupId']
 exports.optional = ['jar']
@@ -173,16 +174,12 @@ function getGroupSocialLinks (groupId, jar) {
       resolveWithFullResponse: true
     }
   })
-    .then(({ statusCode, body }) => {
-      const { errors, data } = JSON.parse(body)
-      if (statusCode === 200 &amp;&amp; data) {
+    .then((res) => {
+      const { data } = JSON.parse(res.body)
+      if (res.statusCode === 200 &amp;&amp; data) {
         return data
-      } else if (statusCode === 400 || statusCode === 403 || statusCode === 404) {
-        throw new Error(`${errors[0].message} | groupId: ${groupId}`)
-      } else if (statusCode === 401) {
-        throw new Error(`${errors[0].message} (Are you logged in?) | groupId: ${groupId}`)
       } else {
-        throw new Error(`An unknown error occurred with getGroupSocialLinks() | [${statusCode}] groupId: ${groupId}`)
+        throw new RobloxAPIError(res)
       }
     })
 }

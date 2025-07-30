@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['userId']
@@ -175,14 +176,12 @@ function getUserFunds (userId, jar) {
       resolveWithFullResponse: true
     }
   })
-    .then(({ statusCode, body }) => {
-      const { robux, errors } = JSON.parse(body)
-      if (statusCode === 200) {
+    .then((res) => {
+      const { robux } = JSON.parse(res.body)
+      if (res.statusCode === 200) {
         return robux
-      } else if (statusCode === 400 || statusCode === 403) {
-        throw new Error(`${errors[0].message} | userId: ${userId}`)
       } else {
-        throw new Error(`An unknown error occurred with getUserFunds() | [${statusCode}] userId: ${userId}`)
+        throw new RobloxAPIError(res)
       }
     })
 }

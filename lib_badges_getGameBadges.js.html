@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http').func
+const RobloxAPIError = require('../util/apiError')
 
 // Args
 exports.required = ['universeId']
@@ -185,7 +186,7 @@ const gameBadges = async (id, limit, cursor, order) => {
       })
       return json.data
     } else {
-      throw new Error('The game is invalid or does not exist.')
+      throw new RobloxAPIError(res)
     }
   })
 }

@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['conversationId', 'message']
 exports.optional = ['jar']
@@ -185,12 +186,12 @@ function sendChatMessage (conversationId, messageText, jar, token) {
     return http(httpOpt).then((res) => {
       if (res.statusCode === 200) {
         if (!res.body.resultType === 'Success') {
-          reject(new Error(res.body.statusMessage))
+          reject(new RobloxAPIError(res))
         } else {
           resolve(res.body)
         }
       } else {
-        throw new Error('Send chat message failed')
+        reject(new RobloxAPIError(res))
       }
     }).catch(error => reject(error))
   })

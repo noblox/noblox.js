@@ -149,6 +149,7 @@
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['userIds']
@@ -189,11 +190,7 @@ function getPresences (userIds, jar, xcsrf) {
       .then(function (res) {
         const responseData = JSON.parse(res.body)
         if (res.statusCode !== 200) {
-          let error = 'An unknown error has occurred.'
-          if (responseData &amp;&amp; responseData.errors) {
-            error = responseData.errors.map((e) => e.message).join('\n')
-          }
-          reject(new Error(error))
+          reject(new RobloxAPIError(res))
         } else {
           resolve(responseData)
         }

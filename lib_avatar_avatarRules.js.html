@@ -147,6 +147,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.optional = ['option', 'jar']
 
@@ -180,7 +181,7 @@ exports.func = (args) => {
 
       return result
     } else {
-      throw new Error('Error fetching avatar rules')
+      throw new RobloxAPIError(res)
     }
   })
 }

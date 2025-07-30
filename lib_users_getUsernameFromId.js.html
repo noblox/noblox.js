@@ -149,6 +149,7 @@
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
 const cache = require('../cache')
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['id']
@@ -179,7 +180,7 @@ function getUsernameFromId (id) {
         const json = JSON.parse(res.body)
         return json.name
       } else {
-        throw new Error('User does not exist')
+        throw new RobloxAPIError(res)
       }
     })
 }

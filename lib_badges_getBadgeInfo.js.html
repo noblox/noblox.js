@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http').func
+const RobloxAPIError = require('../util/apiError')
 
 // Args
 exports.required = ['badgeId']
@@ -178,7 +179,7 @@ const badgeInfo = async (id) => {
       json.updated = new Date(json.updated)
       return json
     } else {
-      throw new Error('Badge is invalid or does not exist.')
+      throw new RobloxAPIError(res)
     }
   })
 }

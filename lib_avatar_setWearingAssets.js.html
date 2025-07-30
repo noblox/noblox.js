@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['assetIds']
 exports.optional = ['jar']
@@ -181,10 +182,10 @@ const nextFunction = (jar, token, assetIds) => {
   }).then((res) => {
     if (res.statusCode === 200) {
       if (!res.body.success) {
-        throw new Error('Invalid assets: ' + res.body.invalidAssetIds.join(', '))
+        throw new RobloxAPIError(res)
       }
     } else {
-      throw new Error('Wear assets failed')
+      throw new RobloxAPIError(res)
     }
   })
 }

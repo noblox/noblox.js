@@ -149,6 +149,7 @@
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['userId']
@@ -186,13 +187,7 @@ function acceptFriendRequest (jar, token, userId) {
         if (res.statusCode === 200) {
           resolve()
         } else {
-          const body = JSON.parse(res.body) || {}
-          if (body.errors &amp;&amp; body.errors.length > 0) {
-            const errors = body.errors.map((e) => {
-              return e.message
-            })
-            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-          }
+          reject(new RobloxAPIError(res))
         }
       })
   })

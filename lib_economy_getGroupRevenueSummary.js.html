@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['groupId']
@@ -175,18 +176,11 @@ function getGroupRevenueSummary (group, timeFrame, jar) {
       resolveWithFullResponse: true
     }
   })
-    .then(({ statusCode, body }) => {
-      const { errors } = JSON.parse(body)
-      if (statusCode === 200) {
-        return JSON.parse(body)
-      } else if (statusCode === 400) {
-        throw new Error(`${errors[0].message} | group: ${group}, timeFrame: ${timeFrame}`)
-      } else if (statusCode === 401) {
-        throw new Error(`${errors[0].message} (Are you logged in?) | group: ${group}, timeFrame: ${timeFrame}`)
-      } else if (statusCode === 403) {
-        throw new Error('Insufficient permissions: "Spend group funds" role permissions required')
+    .then((res) => {
+      if (res.statusCode === 200) {
+        return JSON.parse(res.body)
       } else {
-        throw new Error(`An unknown error occurred with getGroupRevenueSummary() | [${statusCode}] group: ${group}, timeFrame: ${timeFrame}`)
+        throw new RobloxAPIError(res)
       }
     })
 }

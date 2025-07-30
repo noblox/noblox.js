@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['conversationIds']
 exports.optional = ['jar']
@@ -181,10 +182,10 @@ const nextFunction = (jar, token, conversationIds) => {
   }).then((res) => {
     if (res.statusCode === 200) {
       if (!res.body.resultType === 'Success') {
-        throw new Error(res.body.statusMessage)
+        throw new RobloxAPIError(res)
       }
     } else {
-      throw new Error('Mark as seen failed')
+      throw new RobloxAPIError(res)
     }
   })
 }

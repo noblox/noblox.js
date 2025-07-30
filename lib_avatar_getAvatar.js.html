@@ -147,6 +147,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['userId']
 
@@ -172,7 +173,7 @@ const getAvatar = (userId) => {
     if (res.statusCode === 200) {
       return JSON.parse(res.body)
     } else {
-      throw new Error('User does not exist')
+      throw new RobloxAPIError(res)
     }
   })
 }

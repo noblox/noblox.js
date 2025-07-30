@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['group']
 exports.optional = ['actionType', 'userId', 'sortOrder', 'limit', 'cursor', 'jar']
@@ -184,11 +185,7 @@ function getAuditLog (group, actionType, userId, sortOrder, limit, cursor, jar) 
       .then(function (res) {
         const responseData = JSON.parse(res.body)
         if (res.statusCode !== 200) {
-          let error = 'An unknown error has occurred.'
-          if (responseData &amp;&amp; responseData.errors) {
-            error = responseData.errors.map((e) => e.message).join('\n')
-          }
-          reject(new Error(error))
+          reject(new RobloxAPIError(res))
         } else {
           responseData.data = responseData.data.map((entry) => {
             // We need to set milliseconds to 0 because Roblox does this fascinating thing

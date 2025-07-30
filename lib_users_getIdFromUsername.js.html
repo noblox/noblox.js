@@ -149,6 +149,7 @@
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
 const cache = require('../cache')
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['username']
@@ -175,12 +176,14 @@ function getIdFromUsername (usernames) {
       json: {
         usernames,
         excludeBannedUsers: false
-      }
+      },
+      resolveWithFullResponse: true
     }
   }
   return http(httpOpt)
-    .then(function (body) {
-      const data = body.data
+    .then(function (res) {
+      if (res.statusCode !== 200) throw new RobloxAPIError(res)
+      const data = res.body.data
 
       let results = usernames.map((username) => {
         return data.find((result) => result.requestedUsername === username)

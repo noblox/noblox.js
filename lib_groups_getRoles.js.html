@@ -149,6 +149,7 @@
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
 const cache = require('../cache')
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['group']
@@ -178,11 +179,7 @@ function getRoles (group) {
       .then(function (res) {
         const responseData = JSON.parse(res.body)
         if (res.statusCode !== 200) {
-          let error = 'An unknown error has occurred.'
-          if (responseData &amp;&amp; responseData.errors) {
-            error = responseData.errors.map((e) => e.message).join('\n')
-          }
-          reject(new Error(error))
+          reject(new RobloxAPIError(res))
         } else {
           let roles = responseData.roles
           roles = roles.sort((a, b) => a.rank - b.rank)

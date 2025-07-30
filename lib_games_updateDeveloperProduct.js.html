@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['universeId', 'productId', 'priceInRobux']
 exports.optional = ['name', 'description', 'jar']
@@ -185,21 +186,11 @@ function updateDeveloperProduct (universeId, productId, priceInRobux, name, desc
         },
         resolveWithFullResponse: true
       }
-    }).then(({ statusCode, body }) => {
-      if (statusCode === 200) {
-        resolve(body)
-      } else if (body &amp;&amp; body.errors) {
-        reject(new Error(`[${statusCode}] ${body.errors[0].message} | universeId: ${universeId}, body: ${JSON.stringify({
-          Name: name,
-          Description: description,
-          PriceInRobux: priceInRobux
-        })}`))
+    }).then((res) => {
+      if (res.statusCode === 200) {
+        resolve(res.body)
       } else {
-        reject(new Error(`An unknown error occurred with updateDeveloperProduct() | [${statusCode}] universeId: ${universeId}, body: ${JSON.stringify({
-          Name: name,
-          Description: description,
-          PriceInRobux: priceInRobux
-        })}`))
+        reject(new RobloxAPIError(res))
       }
     }).catch(reject)
   })

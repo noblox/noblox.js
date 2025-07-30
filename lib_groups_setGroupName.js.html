@@ -149,6 +149,7 @@
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['group', 'name']
@@ -190,15 +191,7 @@ function changeGroupName (group, name, jar, xcsrf) {
         if (res.statusCode === 200) {
           resolve(res.body)
         } else {
-          const body = res.body || {}
-          if (body.errors &amp;&amp; body.errors.length > 0) {
-            const errors = body.errors.map((e) => {
-              return e.message
-            })
-            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-          } else {
-            reject(new Error(`${res.statusCode} ${res.body}`))
-          }
+          reject(new RobloxAPIError(res))
         }
       })
   })

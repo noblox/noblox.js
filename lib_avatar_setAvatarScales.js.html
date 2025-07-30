@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['height', 'width', 'head']
 exports.optional = ['depth', 'proportion', 'bodyType', 'jar']
@@ -191,10 +192,10 @@ const nextFunction = (jar, token, height, width, head, depth, proportion, bodyTy
   }).then((res) => {
     if (res.statusCode === 200) {
       if (!res.body.success) {
-        throw new Error(res.body)
+        throw new RobloxAPIError(res)
       }
     } else {
-      throw new Error('Set avatar scale failed')
+      throw new RobloxAPIError(res)
     }
   })
 }

@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['universeId', 'name', 'priceInRobux']
 exports.optional = ['description', 'jar']
@@ -180,14 +181,13 @@ const nextFunction = (jar, token, universeId, name, priceInRobux, description) =
       resolveWithFullResponse: true
     }
   }).then(function (res) {
+    if (res.statusCode !== 200) {
+      throw new RobloxAPIError(res)
+    }
     try {
-      const json = JSON.parse(res.body)
-      if (res.statusCode === 200) {
-        return json
-      }
-      throw new Error(json)
-    } catch (err) {
-      throw new Error(res.body)
+      return JSON.parse(res.body)
+    } catch (_) {
+      throw new Error('Failed to parse response body (not valid JSON)')
     }
   })
 }

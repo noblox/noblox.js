@@ -147,6 +147,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.optional = ['pageNumber', 'pageSize', 'jar']
 
@@ -177,7 +178,7 @@ exports.func = (args) => {
     }
   }).then((res) => {
     if (res.statusCode !== 200) {
-      throw new Error('You are not logged in')
+      throw new RobloxAPIError(res)
     } else {
       return JSON.parse(res.body)
     }

@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['placeId']
@@ -179,13 +180,11 @@ function getPlaceInfo (placeIds, jar) {
     }
 
     return http(httpOpt)
-      .then(function ({ statusCode, body }) {
-        if (statusCode === 200) {
-          resolve(body)
-        } else if (body &amp;&amp; body.errors) {
-          reject(new Error(`[${statusCode}] ${body.errors[0].message} | placeIds: ${placeIds.join(',')} ${body.errors.field ? ` | ${body.errors.field} is incorrect` : ''}`))
+      .then(function (res) {
+        if (res.statusCode === 200) {
+          resolve(res.body)
         } else {
-          reject(new Error(`An unknown error occurred with getPlaceInfo() | [${statusCode}] placeIds: ${placeIds.join(',')}`))
+          reject(new RobloxAPIError(res))
         }
       }).catch(reject)
   })

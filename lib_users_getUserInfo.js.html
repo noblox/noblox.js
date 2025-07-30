@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['userId']
@@ -173,7 +174,7 @@ exports.func = function (args) {
   }
 
   return http(httpOpt).then(function (res) {
-    if (res.statusCode !== 200) { throw new Error(`Failed to fetch user information: ${res.body?.errors?.at(0)?.message}`) }
+    if (res.statusCode !== 200) { throw new RobloxAPIError(res) }
 
     res.body.created = new Date(res.body.created)
 

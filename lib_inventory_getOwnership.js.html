@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['userId', 'itemTargetId']
@@ -182,15 +183,7 @@ function getOwnership (userId, itemTargetId, itemType) {
           const body = JSON.parse(res.body)
           resolve(body.data.length > 0)
         } else {
-          const body = JSON.parse(res.body) || {}
-          if (body.errors &amp;&amp; body.errors.length > 0) {
-            const errors = body.errors.map((e) => {
-              return e.message
-            })
-            reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-          } else {
-            reject(new Error(`${res.statusCode} ${res.body}`))
-          }
+          reject(new RobloxAPIError(res))
         }
       })
   })

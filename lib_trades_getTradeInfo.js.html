@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>// Includes
 const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 // Args
 exports.required = ['tradeId']
@@ -183,13 +184,7 @@ const getTradeInfo = (jar, tradeId) => {
 
         resolve(body)
       } else {
-        const body = JSON.parse(res.body) || {}
-        if (body.errors &amp;&amp; body.errors.length > 0) {
-          const errors = body.errors.map((e) => {
-            return e.message
-          })
-          reject(new Error(`${res.statusCode} ${errors.join(', ')}`))
-        }
+        reject(new RobloxAPIError(res))
       }
     }).catch(error => reject(error))
   })

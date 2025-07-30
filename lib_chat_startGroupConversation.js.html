@@ -148,6 +148,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
 const getGeneralToken = require('../util/getGeneralToken.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.required = ['userIds', 'title']
 exports.optional = ['jar']
@@ -186,16 +187,12 @@ function startGroupConversation (userIds, chatTitle, jar, token) {
     return http(httpOpt).then((res) => {
       if (res.statusCode === 200) {
         if (!res.body.resultType === 'Success') {
-          reject(new Error(res.body.statusMessage))
+          reject(new RobloxAPIError(res))
         } else {
           resolve(res.body)
         }
       } else {
-        let error = 'An unknown error has occurred.'
-        if (res.body &amp;&amp; res.body.errors) {
-          error = res.body.errors.map((e) => e.message).join('\n')
-        }
-        reject(new Error(error))
+        reject(new RobloxAPIError(res))
       }
     }).catch(error => reject(error))
   })

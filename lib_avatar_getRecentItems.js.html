@@ -147,6 +147,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>const http = require('../util/http.js').func
+const RobloxAPIError = require('../util/apiError.js')
 
 exports.optional = ['listType', 'jar']
 
@@ -174,12 +175,10 @@ exports.func = (args) => {
       resolveWithFullResponse: true
     }
   }).then((res) => {
-    if (res.statusCode === 401) {
-      throw new Error('You are not logged in')
-    } else if (res.statusCode === 400) {
-      throw new Error('Invalid list type')
-    } else {
+    if (res.statusCode === 200) {
       return JSON.parse(res.body)
+    } else {
+      throw new RobloxAPIError(res)
     }
   })
 }
