@@ -67,12 +67,8 @@
       "lib/*/on*.js"
     ]
   },
-  "auto": {
-    "plugins": [
-      "npm",
-      "conventional-commits"
-    ],
-    "onlyPublishWithReleaseLabel": true
+   "release": {
+    "branches": ["master", "next"]
   },
   "engines": {
     "node": ">=18.18"
