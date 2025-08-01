@@ -713,6 +713,18 @@ type OnUserTypingChatEvent = {
 /// Game
 /**
  * @typedef
+ */
+type UserNotificationPayloadParameter = { stringValue: string } | { int64Value: number };
+
+/**
+ * @typedef
+ */
+type UserNotificationPayloadParameters = {
+    [key: string]: UserNotificationPayloadParameter
+}
+
+/**
+ * @typedef
 */
 type GameInstance = {
     id: string;
