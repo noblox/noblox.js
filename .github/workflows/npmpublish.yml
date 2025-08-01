@@ -4,22 +4,24 @@ on:
   pull_request:
     branches:
       - master
+      - next
 
   push:
     branches:
       - master
+      - next
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install yarn
         run: npm install -g yarn
@@ -35,18 +37,8 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code with ADMIN_TOKEN
-        if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: actions/checkout@v2
-        with:
-           token: ${{ secrets.ADMIN_TOKEN }}
-
       - name: Checkout code
-        if: github.event.pull_request.head.repo.full_name != github.repository
-        uses: actions/checkout@v2
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
+        uses: actions/checkout@v4
 
       - name: Set up node
         uses: actions/setup-node@v1
@@ -60,7 +52,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Cache node modules
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
@@ -68,8 +60,8 @@ jobs:
             yarn-deps-${{ hashFiles('yarn.lock') }}
 
       - name: Create Release
+        run: npx semantic-release@21.0.2
         env:
-          token: ${{ secrets.ADMIN_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          npx auto shipit
+    
