@@ -199,7 +199,7 @@ it('getPlaceInfo() should return an array of information about places', () => {
     const { id: userId } = await getAuthenticatedUser()
 
     return await expect(
-      await sendUserNotification({
+      sendUserNotification({
         universeId: 2152417643,
         userId,
         assetId: "",
