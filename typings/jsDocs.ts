@@ -1337,6 +1337,17 @@ type WallPostPage = {
     data: Array<WallPost>;
 }
 
+/**
+ * @typedef
+*/
+type GroupBan = {
+    user: UserEntry;
+    actingUser: {
+        user: UserEntry;
+    }
+    created: Date;
+}
+
 /// Party
 
 /**
@@ -1498,6 +1509,7 @@ type PrivateMessagesPage = {
  * @typedef
 */
 type UserEntry = {
+    hasVerifiedBadge: boolean;
     userId: number;
     name: string;
     displayName: string;
