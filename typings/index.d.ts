@@ -1756,7 +1756,7 @@ declare module "noblox.js" {
     /**
      * 🔐 Gets the payout eligibility status of a group member.
      */
-    function getGroupPayoutEligibility(groupId: number, userId: number, jar?: CookieJar): Promise<PayoutAllowedList>;
+    function getGroupPayoutEligibility(groupId: number, userIds: number[], jar?: CookieJar): Promise<PayoutAllowedList>;
 
     /**
      * 🔐 Gets recent Robux revenue summary for a group; shows pending Robux. | Requires "Spend group funds" permissions.
