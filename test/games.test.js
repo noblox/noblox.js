@@ -1,6 +1,8 @@
-const { addDeveloperProduct, checkDeveloperProductName, getGroupGames, configureGamePass, getGameInstances, getGamePasses, getGameSocialLinks, getUniverseInfo, setCookie } = require('../lib')
+const { addDeveloperProduct, checkDeveloperProductName, getAuthenticatedUser, getGroupGames, configureGamePass, getGameInstances, getGamePasses, getGameSocialLinks, getUniverseInfo, sendUserNotification, setAPIKey, setCookie } = require('../lib')
 
 beforeAll(() => {
+  setAPIKey(process.env.API_KEY)
+
   return new Promise(resolve => {
     setCookie(process.env.COOKIE).then(() => {
       resolve()
@@ -191,6 +193,21 @@ it('getPlaceInfo() should return an array of information about places', () => {
         ])
       )
     })
+  })
+
+  it('sendUserNotification() should successfully send a user notification', async () => {
+    const { id: userId } = await getAuthenticatedUser()
+
+    return await expect(
+      sendUserNotification({
+        universeId: 2152417643,
+        userId,
+        assetId: "",
+        parameters: {
+          test: "test"
+        }
+      })
+    ).resolves.not.toThrow()
   })
 
   // Dependency on getDeveloperProducts() which is broken as of 4.14.0
