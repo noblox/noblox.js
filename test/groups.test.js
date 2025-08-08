@@ -371,3 +371,33 @@ describe('Groups Methods', () => {
     await expect(unbanFromGroup(4591072, 1)).resolves.not.toThrow()
   })
 })
+
+it('setRank() should set a player\'s rank to the specified rank', () => {
+  return changeRank(4591072, 857710783, 2).then(() => {
+    return setRank(4591072, 857710783, 1).then((res) => {
+      return expect(res).toMatchObject({
+        name: expect.any(String),
+        rank: expect.any(Number),
+        memberCount: expect.any(Number),
+        ID: expect.any(Number)
+      })
+    })
+  })
+})
+
+
+// PASS: setRoleInfo -- skip this, do not own group
+
+// it('setRoleInfo() should update a role\'s information', () => {
+//   return getRole(4591072, 1).then((originalRoleInfo) => {
+//     return setRoleInfo(4591072, 1, { name: 'Programmer', description: 'Programs on roblox n stuff', rank: 2 }).then((res) => {
+//       return setRoleInfo(4591072, "Programmer", originalRoleInfo).then(() => {
+//         return expect(res).toMatchObject({
+//           name: expect.any(String),
+//           rank: expect.any(Number),
+//           description: expect.any(String)
+//         })
+//       })
+//     })
+//   })
+// })
