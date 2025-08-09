@@ -861,6 +861,12 @@ declare module "noblox.js" {
         updated: Date;
     }
 
+    interface PayoutAllowedList {
+        usersGroupPayoutEligibility: {
+            [K: string]: string;
+        }
+    }
+
     interface GroupDescriptionResult {
         newDescription: string
     }
@@ -1767,6 +1773,11 @@ declare module "noblox.js" {
      * 🔓 Gets the amount of Robux in a group.
      */
     function getGroupFunds(group: number): Promise<number>;
+    
+    /**
+     * 🔐 Gets the payout eligibility status of a group member.
+     */
+    function getGroupPayoutEligibility(groupId: number, userIds: number[], jar?: CookieJar): Promise<PayoutAllowedList>;
 
     /**
      * 🔐 Gets recent Robux revenue summary for a group; shows pending Robux. | Requires "Spend group funds" permissions.
