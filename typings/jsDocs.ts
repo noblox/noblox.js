@@ -200,27 +200,9 @@ type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId" | "SaleAvaila
 /**
  * @typedef
 */
-type BuyProductInfo = {
-    ProductId: number;
-    Creator: { Id: number };
-    PriceInRobux: number;
-    UserAssetId: number;
-}
-
-/**
- * @typedef
-*/
 type PriceRange = {
     high: number;
     low: number;
-}
-
-/**
- * @typedef
-*/
-type BuyAssetResponse = {
-    productId: number;
-    price: number;
 }
 
 /**
@@ -1521,6 +1503,13 @@ type UserEntry = {
 /**
  * @typedef
 */
+type UsernameHistoryEntry = {
+    name: string;
+}
+
+/**
+ * @typedef
+*/
 type PrivateMessageParent = {
     page: number;
 }
@@ -1581,8 +1570,20 @@ type PlayerInfo = {
     friendCount?: number;
     followerCount?: number;
     followingCount?: number;
-    oldNames?: Array<string>;
     isBanned: boolean;
+}
+
+/**
+ * @typedef
+*/
+type UserInfo = {
+    description: string;
+    created: Date;
+    isBanned: boolean;
+    hasVerifiedBadge: boolean;
+    id: number;
+    name: string;
+    displayName: string;
 }
 
 /**
@@ -1610,6 +1611,14 @@ type PromotionChannelsResponse = {
     youtube?: string;
     twitch?: string;
     guilded?: string;
+}
+
+type UserSearchResult = {
+    previousUsernames: string[];
+    hasVerifiedBadge: boolean;
+    id: number;
+    name: string;
+    displayName: string;
 }
 
 /// Badges
