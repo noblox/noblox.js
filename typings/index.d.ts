@@ -25,7 +25,7 @@ declare module "noblox.js" {
 
         /**
          * Whether to send the noblox.js library user agent. Defaults to true.
-         * When enabled, noblox will set the user-agent on requests to 'noblox.js@{version} where {version} is your library version.
+         * When enabled, noblox will set the user-agent on requests to 'noblox@{version}' where {version} is your library version.
          * This allows Roblox to track endpoint and library usage. If you are privacy or aggregation conscious set this to false.
          */
         use_noblox_ua: boolean;
