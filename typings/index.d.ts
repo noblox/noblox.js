@@ -24,6 +24,13 @@ declare module "noblox.js" {
         /** Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well. (Default: true) */
         session_only: boolean;
 
+        /**
+         * Whether to send the noblox.js library user agent. Defaults to true.
+         * When enabled, noblox will set the user-agent on requests to 'noblox@{version}' where {version} is your library version.
+         * This allows Roblox to track endpoint and library usage. If you are privacy or aggregation conscious set this to false.
+         */
+        use_noblox_ua: boolean;
+
         /** This is usually used for functions that have to receive a lot of pages at once. Only this amount will be queued up as to preserve memory, make this as high as possible for fastest responses (although it will be somewhat limited by maxSockets). (Default: 50) */
         max_threads: number;
 

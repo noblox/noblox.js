@@ -1,4 +1,6 @@
 {
+  "use_noblox_ua": true,
+
   "show_deprecation_warnings": true,
   "show_deprecation_warnings_desc": "Prints console warnings for functions that are being polyfilled by newer methods due to upstream Roblox API changes",
 
