@@ -2202,9 +2202,9 @@ declare module "noblox.js" {
     /// Thumbnails
 
     /**
-     * ✅ Gets the logo of the specified group.
+     * ✅ Gets the logo of the specified group(s).
      */
-    function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
+    function getLogo(groupIds: number | number[], size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string> | Promise<string[]>;
 
     /**
      * ✅ Gets the thumbnail of an array of users.
