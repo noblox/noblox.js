@@ -2034,6 +2034,11 @@ declare module "noblox.js" {
     function getPlayers(group: number, rolesetId: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
     /**
+     * ✅Gets the specified user's primary group.
+     */
+    function getPrimaryGroup(userId: number): Promise<Group>;
+
+    /**
      * ✅ Gets `rank` of user with `userId` in `group` and caches according to settings.
      */
     function getRankInGroup(group: number, userId: number): Promise<number>;
@@ -2066,7 +2071,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets the groups a player is in.
      */
-    function getUserGroups(userId: number): Promise<GroupMemberInfo[]>
+    function getUserGroups(userId: number): Promise<GroupMemberInfo[]>;
 
     /**
      * 🔓 Gets posts on the `group` wall. Parameter `page` may be a number or array where negative numbers indicate trailing pages, if it is not specified all pages of the wall will be retrieved.
@@ -2095,7 +2100,7 @@ declare module "noblox.js" {
     /**
      * ✅ Gets partial info of multiple groups.
      */
-    function multigetPartialGroups(groupIds: number[]): Promise<GroupMultigetPartial[]>
+    function multigetPartialGroups(groupIds: number[]): Promise<GroupMultigetPartial[]>;
 
     /**
      * 🔐 Alias of `changeRank(group, target, 1)`.

@@ -1,4 +1,4 @@
-const { banFromGroup, changeRank, demote, getAuditLog, getGroup, getGroupBans, getGroupSocialLinks, getJoinRequests, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getUserGroups, getWall, multigetPartialGroups, promote, searchGroups, setRank, shout, setCookie, unbanFromGroup } = require('../lib')
+const { banFromGroup, changeRank, demote, getAuditLog, getGroup, getGroupBans, getGroupSocialLinks, getJoinRequests, getPlayers, getPrimaryGroup, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getUserGroups, getWall, multigetPartialGroups, promote, searchGroups, setRank, shout, setCookie, unbanFromGroup } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -155,6 +155,36 @@ describe('Groups Methods', () => {
     })
   })
 
+  it('getPrimaryGroup() returns the specified user\'s primary group', () => {
+    return getPrimaryGroup(55549140).then((res) => {
+      return expect(res).toEqual(
+        expect.objectContaining({
+          group: expect.objectContaining({
+            id: expect.any(Number),
+            name: expect.any(String),
+            description: expect.any(String),
+            owner: expect.objectContaining({
+              hasVerifiedBadge: expect.any(Boolean),
+              userId: expect.any(Number),
+              username: expect.any(String),
+              displayName: expect.any(String)
+            }),
+            shout: expect.toBeNull(),
+            isBuildersClubOnly: expect.any(Boolean),
+            publicEntryAllowed: expect.any(Boolean),
+            hasVerifiedBadge: expect.any(Boolean),
+            hasSocialModules: expect.any(Boolean),
+          }),
+          role: expect.objectContaining({
+            id: expect.any(Number),
+            name: expect.any(String),
+            rank: expect.any(Number)
+          })
+        })
+      )
+    })
+  })
+
   it('getRankInGroup() returns a number reflecting a user\'s rank in a group (0-255)', () => {
     return getRankInGroup(4591072, 55549140).then((res) => {
       return expect(res).toEqual(expect.any(Number))
@@ -222,13 +252,13 @@ describe('Groups Methods', () => {
       return expect(res).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
-            group: expect.toMatchObject({
+            group: expect.objectContaining({
               id: expect.any(Number),
               name: expect.any(String),
               memberCount: expect.any(Number),
               hasVerifiedBadge: expect.any(Boolean)
             }),
-            role: expect.toMatchObject({
+            role: expect.objectContaining({
               id: expect.any(Number),
               name: expect.any(String),
               rank: expect.any(Number)
