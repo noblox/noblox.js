@@ -171,15 +171,18 @@ declare module "noblox.js" {
         HasVerifiedBadge: boolean;
     }
 
-    interface IGroupPartial {
-        Name: string,
-        Id: number,
-        EmblemUrl: string,
-        MemberCount: number,
-        Rank: number,
-        Role: string,
-        RoleId: number,
-        IsPrimary: boolean,
+    interface GroupMemberInfo {
+        group: {
+            id: number;
+            name: string;
+            memberCount: number;
+            hasVerifiedBadge: boolean;
+        };
+        role: {
+            id: number;
+            name: string;
+            rank: number;
+        }
     }
 
     interface GroupGameInfo {
@@ -835,6 +838,8 @@ declare module "noblox.js" {
         isBuildersClubOnly: boolean;
         publicEntryAllowed: boolean;
         isLocked: boolean;
+        hasVerifiedBadge: boolean;
+        hasSocialModules: boolean;
     }
 
     interface GroupSearchItem {
@@ -866,6 +871,18 @@ declare module "noblox.js" {
         poster: GroupUser;
         created: Date;
         updated: Date;
+    }
+
+    interface GroupMultigetPartial {
+        id: number;
+        name: string;
+        description: string;
+        owner: {
+            id: number;
+            type: string;
+        };
+        created: Date;
+        hasVerifiedBadge: boolean;
     }
 
     interface PayoutAllowedList {
@@ -1997,11 +2014,6 @@ declare module "noblox.js" {
     function getGroupBans(groupId: number, limit?: number, sortOrder?: SortOrder, pageCursor?: string, jar?: CookieJar): Promise<{ previousPageCursor?: string, nextPageCursor?: string, data: GroupBan[] }>;
 
     /**
-     * ✅ Gets the groups a player is in.
-     */
-    function getGroups(userId: number): Promise<IGroupPartial[]>
-
-    /**
      * 🔐 Get the social link data associated with a group.
      */
     function getGroupSocialLinks(groupId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
@@ -2052,6 +2064,11 @@ declare module "noblox.js" {
     function getShout(group: number, jar?: CookieJar): Promise<GroupShout>;
 
     /**
+     * ✅ Gets the groups a player is in.
+     */
+    function getUserGroups(userId: number): Promise<GroupMemberInfo[]>
+
+    /**
      * 🔓 Gets posts on the `group` wall. Parameter `page` may be a number or array where negative numbers indicate trailing pages, if it is not specified all pages of the wall will be retrieved.
      * The body of the post is in `content` and the `id` and `name` of the poster are stored in the `author` object. The `id` is the unique ID of the wall post that is internally used by ROBLOX. This serves no real use other than reporting it (although it can be used indirectly to track down specific posts).
      * The `page` the post was found on and its `index` on that page are both in the `parent` object.
@@ -2074,6 +2091,11 @@ declare module "noblox.js" {
      * 🔐 Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
      */
     function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * ✅ Gets partial info of multiple groups.
+     */
+    function multigetPartialGroups(groupIds: number[]): Promise<GroupMultigetPartial[]>
 
     /**
      * 🔐 Alias of `changeRank(group, target, 1)`.
