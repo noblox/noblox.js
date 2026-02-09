@@ -258,6 +258,8 @@ describe('Groups Methods', () => {
 
   // PASS: handleJoinRequest, would require being able to request to join a group
 
+  // PASS: handleJoinRequests, would require being able to request to join a group
+
   // PASS: leaveGroup, would require being able to request to join a group
 
   it('searchGroups() returns groups that match the query', () => {
