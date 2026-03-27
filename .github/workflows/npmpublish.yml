@@ -1,7 +1,20 @@
 name: Test & Publish
 
 on:
-  workflow_dispatch
+  pull_request:
+    branches:
+      - master
+      - next
+
+  push:
+    branches:
+      - master
+      - next
+
+permissions:
+  contents: read
+  packages: read
+  id-token: write
 
 jobs:
   test:
@@ -29,18 +42,8 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code with ADMIN_TOKEN
-        if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: actions/checkout@v4
-        with:
-           token: ${{ secrets.ADMIN_TOKEN }}
-
       - name: Checkout code
-        if: github.event.pull_request.head.repo.full_name != github.repository
         uses: actions/checkout@v4
-
-      - name: Prepare repository
-        run: git fetch --unshallow --tags
 
       - name: Set up node
         uses: actions/setup-node@v4
@@ -62,8 +65,7 @@ jobs:
             yarn-deps-${{ hashFiles('yarn.lock') }}
 
       - name: Create Release
+        run: npx semantic-release@21.0.2
         env:
-          token: ${{ secrets.ADMIN_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          npx auto shipit
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    

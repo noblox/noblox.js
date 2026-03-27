@@ -33,6 +33,8 @@ This NPM package enables operations froms the [Roblox website](https://www.roblo
 
 If you are looking for more information on how to create something like this, check out [our sister library, `noblox.js-server`](https://github.com/noblox/noblox.js-server) or [our YouTube series](https://www.youtube.com/playlist?list=PLEW4K4VqMUb_VMA3Yp9LI4gReRyVWGTnU). Keep in mind that these resources may not always be up to date, so it is **highly** encouraged that you learn to use the `noblox.js` library directly.
 
+
+Note: We use the semantic release plugin. You should treat npm as the source of truth regarding package versions - the package.json version in this repository will not be up to date.
 ---
 
 ## Prerequisites
