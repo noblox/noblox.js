@@ -11,6 +11,11 @@ on:
       - master
       - next
 
+permissions:
+  contents: read
+  packages: read
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
