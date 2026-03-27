@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -37,19 +37,19 @@ jobs:
     steps:
       - name: Checkout code with ADMIN_TOKEN
         if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
            token: ${{ secrets.ADMIN_TOKEN }}
 
       - name: Checkout code
         if: github.event.pull_request.head.repo.full_name != github.repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Prepare repository
         run: git fetch --unshallow --tags
 
       - name: Set up node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -60,7 +60,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Cache node modules
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
