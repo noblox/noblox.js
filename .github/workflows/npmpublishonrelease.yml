@@ -10,6 +10,7 @@ on:
 permissions:
   contents: read
   packages: read
+  id-token: write
 
 jobs:
   publish-npm:
@@ -22,5 +23,3 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: yarn install --frozen-lockfile
       - run: yarn publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
