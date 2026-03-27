@@ -7,6 +7,10 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: read
+  packages: read
+
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
