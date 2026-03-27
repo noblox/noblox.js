@@ -21,7 +21,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Install yarn
         run: npm install -g yarn
@@ -41,9 +41,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install yarn
         run: npm install -g yarn
@@ -63,5 +63,4 @@ jobs:
         run: npx semantic-release@21.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
     
