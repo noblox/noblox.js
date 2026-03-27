@@ -1,4 +1,4 @@
-const { buy, getGroupFunds, getGroupRevenueSummary, getGroupTransactions, getResaleData, getResellers, getUserTransactions, setCookie } = require('../lib')
+const { buy, getGroupFunds, getGroupPayoutEligibility, getGroupRevenueSummary, getGroupTransactions, getResaleData, getResellers, getUserTransactions, setCookie } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -21,6 +21,12 @@ describe('Economy Methods', () => {
   it('getGroupFunds() returns amount of robux in group funds', () => {
     return getGroupFunds(9997719).then((res) => {
       return expect(res).toEqual(expect.any(Number))
+    })
+  })
+
+  it('getGroupPayoutEligibility() returns a list of payout statuses for specified users', () => {
+    return getGroupPayoutEligibility({ group: 9997719, member: 55549140 }).then((res) => {
+      return expect(res).toMatchObject({ [expect.any(String)]: expect.any(String) })
     })
   })
 

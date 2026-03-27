@@ -17,6 +17,13 @@ type NobloxOptions = {
     /** Prints console warnings for functions that are being polyfilled by newer methods due to upstream Roblox API changes */
     show_deprecation_warnings: boolean;
 
+    /**
+     * Whether to send the noblox.js library user agent. Defaults to true.
+     * When enabled, noblox will set the user-agent on requests to 'noblox@{version}' where {version} is your library version.
+     * This allows Roblox to track endpoint and library usage. If you are privacy or aggregation conscious, set this to false.
+     */
+    use_noblox_ua: boolean;
+
     /** Minimizes data usage and speed up requests by only saving session cookies, disable if you need other cookies to be saved as well. (Default: true) */
     session_only: boolean;
 
@@ -200,27 +207,9 @@ type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId" | "SaleAvaila
 /**
  * @typedef
 */
-type BuyProductInfo = {
-    ProductId: number;
-    Creator: { Id: number };
-    PriceInRobux: number;
-    UserAssetId: number;
-}
-
-/**
- * @typedef
-*/
 type PriceRange = {
     high: number;
     low: number;
-}
-
-/**
- * @typedef
-*/
-type BuyAssetResponse = {
-    productId: number;
-    price: number;
 }
 
 /**
@@ -731,6 +720,18 @@ type OnUserTypingChatEvent = {
 /// Game
 /**
  * @typedef
+ */
+type UserNotificationPayloadParameter = { stringValue: string } | { int64Value: number };
+
+/**
+ * @typedef
+ */
+type UserNotificationPayloadParameters = {
+    [key: string]: UserNotificationPayloadParameter
+}
+
+/**
+ * @typedef
 */
 type GameInstance = {
     id: string;
@@ -810,7 +811,7 @@ type PlaceInformation = {
     price: number;
     imageToken: string;
 }
-        
+
 /**
  * @typedef
  */
@@ -921,7 +922,7 @@ type UniverseSettings = {
     universeAnimationType?: "Standard" | "PlayerChoice";
     universeCollisionType?: "InnerBox" | "OuterBox";
     universeJointPositioningType?: "Standard" | "ArtistIntent";
-    
+
     isArchived?: boolean;
     isFriendsOnly?: boolean;
 
@@ -935,7 +936,7 @@ type UniverseSettings = {
 
     isForSale?: boolean;
     price?: number;
-    
+
     universeAvatarMinScales?: AvatarScale;
     universeAvatarMaxScales?: AvatarScale;
 
@@ -963,7 +964,7 @@ type UniverseSettings = {
     universeAnimationType?: "Standard" | "PlayerChoice";
     universeCollisionType?: "InnerBox" | "OuterBox";
     universeJointPositioningType?: "Standard" | "ArtistIntent";
-    
+
     isArchived?: boolean;
     isFriendsOnly?: boolean;
 
@@ -977,7 +978,7 @@ type UniverseSettings = {
 
     isForSale?: boolean;
     price?: number;
-    
+
     universeAvatarMinScales?: AvatarScale;
     universeAvatarMaxScales?: AvatarScale;
 
@@ -1203,6 +1204,15 @@ type GroupShout = {
 
 /**
  * @typedef
+*/
+type PayoutAllowedList = {
+    usersGroupPayoutEligibility: {
+        [k: string]: string;
+    }
+}
+
+/**
+ * @typedef
  */
 type GroupDescriptionResult = {
     newDescription: string
@@ -1341,6 +1351,17 @@ type WallPostPage = {
     previousPageCursor?: string;
     nextPageCursor?: string;
     data: Array<WallPost>;
+}
+
+/**
+ * @typedef
+*/
+type GroupBan = {
+    user: UserEntry;
+    actingUser: {
+        user: UserEntry;
+    }
+    created: Date;
 }
 
 /// Party
@@ -1504,6 +1525,7 @@ type PrivateMessagesPage = {
  * @typedef
 */
 type UserEntry = {
+    hasVerifiedBadge: boolean;
     userId: number;
     name: string;
     displayName: string;
@@ -1895,7 +1917,7 @@ type GetLatestResponse = {
 /**
  * @typedef
 */
-type Datastore = { 
+type Datastore = {
     name: string;
     createdTime: Date;
 }
@@ -1903,7 +1925,7 @@ type Datastore = {
 /**
  * @typedef
 */
-type DatastoresResult = { 
+type DatastoresResult = {
     datastores: Datastore[];
     nextPageCursor?: string;
 }
@@ -1911,7 +1933,7 @@ type DatastoresResult = {
 /**
  * @typedef
 */
-type EntryKey = { 
+type EntryKey = {
     scope: string;
     key: string;
 }

@@ -1,6 +1,6 @@
 {
   "name": "noblox.js",
-  "version": "6.2.0",
+  "version": "7.4.0",
   "description": "A Node.js API wrapper for Roblox.",
   "main": "lib/index.js",
   "types": "typings/index.d.ts",
@@ -67,15 +67,11 @@
       "lib/*/on*.js"
     ]
   },
-  "auto": {
-    "plugins": [
-      "npm",
-      "conventional-commits"
-    ],
-    "onlyPublishWithReleaseLabel": true
+   "release": {
+    "branches": ["master", "next"]
   },
   "engines": {
-    "node": ">=18.18"
+    "node": ">=20.0"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }
