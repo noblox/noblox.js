@@ -16,7 +16,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>noblox.js lib/party/onPartyDeleted.js</title>
+  <title>noblox.js lib/economy/buy.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -137,7 +137,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>lib/party/onPartyDeleted.js</h1>
+                    <h1>lib/economy/buy.js</h1>
                 </header>
                 
 
@@ -146,58 +146,104 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const events = require('events')
+            <pre class="prettyprint source linenums"><code>// Includes
+const http = require('../util/http.js').func
+const getProductInfo = require('../asset/getProductInfo.js').func
+const getGeneralToken = require('../util/getGeneralToken.js').func
 
-const onNotification = require('../client/onNotification.js').func
-
-exports.optional = ['jar']
+// Args
+exports.required = [['asset', 'product']]
+exports.optional = ['price', 'jar']
 
 // Docs
 /**
- * 🔐 An event for when a party is deleted.
- * @category Party
- * @alias onPartyDeleted
- * @returns An EventEmitter that emits when a party is deleted.
+ * 🔐 Buy an asset from the marketplace.
+ * @category Assets
+ * @param {number} asset - The ID of the product.
+ * @param {number=} price - The price of the product.
+ * @returns {Promise&lt;BuyAssetResponse>}
  * @example const noblox = require("noblox.js")
  * // Login using your cookie
- * const partyDeleted = noblox.onPartyDeleted()
- * partyDeleted.on("data", function(data) {
- *  console.log("Party deleted! ", data)
- * })
- * partyDeleted.on("error", function(err) {
- *  console.error("Something went wrong: ", err)
- *  // Handle error as needed
- * })
+ * noblox.buy(1117747196)
 **/
 
-exports.func = (args) => {
-  const jar = args.jar
-  const newEvent = new events.EventEmitter()
-  const notifications = onNotification({ jar })
-
-  notifications.on('data', (name, message) => {
-    if (name === 'PartyNotifications' &amp;&amp; message.Type === 'PartyDeleted') {
-      newEvent.emit('data', {
-        PartyId: message.PartyId,
-        PartyType: message.PartyType
-      })
+// Define
+function buy (jar, token, product, price) {
+  const robux = product.PriceInRobux || 0
+  const productId = product.ProductId
+  if (price) {
+    if (typeof price === 'number') {
+      if (robux !== price) {
+        throw new Error('Price requirement not met. Requested price: ' + price + ' Actual price: ' + robux)
+      }
+    } else if (typeof price === 'object') {
+      const high = price.high
+      const low = price.low
+      if (high) {
+        if (robux > high) {
+          throw new Error('Price requirement not met. Requested price: &lt;=' + high + ' Actual price: ' + robux)
+        }
+      }
+      if (low) {
+        if (robux &lt; low) {
+          throw new Error('Price requirement not met. Requested price: >=' + low + ' Actual price: ' + robux)
+        }
+      }
     }
-  })
+  }
+  const httpOpt = {
+    url: '//economy.roblox.com/v1/purchases/products/' + productId,
+    options: {
+      method: 'POST',
+      jar,
+      headers: {
+        'X-CSRF-TOKEN': token
+      },
+      json: {
+        expectedCurrency: 1,
+        expectedPrice: robux,
+        expectedSellerId: product.Creator.Id
+      }
+    }
+  }
+  return http(httpOpt)
+    .then(function (json) {
+      let err = json.errorMsg
+      if (json.reason === 'InsufficientFunds') {
+        err = 'You need ' + json.shortfallPrice + ' more robux to purchase this item.'
+      } else if (json.errorMsg) {
+        err = json.errorMsg
+      }
+      if (!err) {
+        return { productId, price: robux }
+      } else {
+        throw new Error(err)
+      }
+    })
+}
 
-  notifications.on('error', (err) => {
-    newEvent.emit('error', err)
+function runWithToken (args) {
+  const jar = args.jar
+  return getGeneralToken({
+    jar
   })
+    .then(function (token) {
+      return buy(jar, token, args.product, args.price)
+    })
+}
 
-  notifications.on('connect', () => {
-    newEvent.emit('connect')
-  })
-
-  notifications.on('close', (internal) => {
-    if (internal) return
-    notifications.emit('close', true)
-  })
-
-  return newEvent
+exports.func = function (args) {
+  if (!args.product) {
+    return getProductInfo({
+      asset: args.asset
+    })
+      .then(function (product) {
+        args.product = product
+        return runWithToken(args)
+      })
+  } else {
+    return runWithToken(args)
+  }
 }
 </code></pre>
         </article>
