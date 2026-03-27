@@ -12,8 +12,8 @@ on:
       - next
 
 permissions:
-  contents: read
-  packages: read
+  contents: write
+  packages: write
   id-token: write
 
 jobs:
