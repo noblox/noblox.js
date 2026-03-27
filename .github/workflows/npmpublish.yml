@@ -1,13 +1,7 @@
 name: Test & Publish
 
 on:
-  pull_request:
-    branches:
-      - master
-
-  push:
-    branches:
-      - master
+  workflow_dispatch
 
 jobs:
   test:
@@ -19,7 +13,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install yarn
         run: npm install -g yarn
@@ -51,7 +45,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install yarn
         run: npm install -g yarn
