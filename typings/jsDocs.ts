@@ -200,27 +200,9 @@ type GamePassProductInfo = Omit<ProductInfo, "ContentRatingTypeId" | "SaleAvaila
 /**
  * @typedef
 */
-type BuyProductInfo = {
-    ProductId: number;
-    Creator: { Id: number };
-    PriceInRobux: number;
-    UserAssetId: number;
-}
-
-/**
- * @typedef
-*/
 type PriceRange = {
     high: number;
     low: number;
-}
-
-/**
- * @typedef
-*/
-type BuyAssetResponse = {
-    productId: number;
-    price: number;
 }
 
 /**
