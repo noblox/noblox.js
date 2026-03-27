@@ -2071,6 +2071,11 @@ declare module "noblox.js" {
     function handleJoinRequest(group: number, userId: number, accept: boolean, jar?: CookieJar): Promise<void>;
 
     /**
+     * 🔐 Batch accept/decline multiple users' join requests.
+     */
+    function handleJoinRequests(group: number, userIds: number[], accept: boolean, jar?: CookieJar): Promise<void>;
+
+    /**
      * 🔐 Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
      */
     function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
