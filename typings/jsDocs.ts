@@ -1134,7 +1134,7 @@ type GroupMultigetPartial = {
     description: string;
     owner: {
         id: number;
-        name: string;
+        type: string;
     };
     created: Date;
     hasVerifiedBadge: boolean;
