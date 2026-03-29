@@ -171,15 +171,18 @@ declare module "noblox.js" {
         HasVerifiedBadge: boolean;
     }
 
-    interface IGroupPartial {
-        Name: string,
-        Id: number,
-        EmblemUrl: string,
-        MemberCount: number,
-        Rank: number,
-        Role: string,
-        RoleId: number,
-        IsPrimary: boolean,
+    interface GroupMemberInfo {
+        group: {
+            id: number;
+            name: string;
+            memberCount: number;
+            hasVerifiedBadge: boolean;
+        };
+        role: {
+            id: number;
+            name: string;
+            rank: number;
+        }
     }
 
     interface GroupGameInfo {
@@ -767,6 +770,7 @@ declare module "noblox.js" {
         memberCount?: number;
         rank: number;
         id: number;
+        color?: number;
     }
 
     interface RoleWithDescription {
@@ -834,7 +838,8 @@ declare module "noblox.js" {
         memberCount: number;
         isBuildersClubOnly: boolean;
         publicEntryAllowed: boolean;
-        isLocked: boolean;
+        hasVerifiedBadge: boolean;
+        hasSocialModules: boolean;
     }
 
     interface GroupSearchItem {
@@ -866,6 +871,23 @@ declare module "noblox.js" {
         poster: GroupUser;
         created: Date;
         updated: Date;
+    }
+
+    interface GroupMultigetPartial {
+        id: number;
+        name: string;
+        description: string;
+        owner: {
+            id: number;
+            type: string;
+        };
+        created: Date;
+        hasVerifiedBadge: boolean;
+    }
+
+    interface PrimaryGroup {
+        group: Group;
+        role: Role;
     }
 
     interface PayoutAllowedList {
@@ -1997,11 +2019,6 @@ declare module "noblox.js" {
     function getGroupBans(groupId: number, limit?: number, sortOrder?: SortOrder, pageCursor?: string, jar?: CookieJar): Promise<{ previousPageCursor?: string, nextPageCursor?: string, data: GroupBan[] }>;
 
     /**
-     * ✅ Gets the groups a player is in.
-     */
-    function getGroups(userId: number): Promise<IGroupPartial[]>
-
-    /**
      * 🔐 Get the social link data associated with a group.
      */
     function getGroupSocialLinks(groupId: number, jar?: CookieJar): Promise<SocialLinkResponse[]>;
@@ -2022,8 +2039,13 @@ declare module "noblox.js" {
     function getPlayers(group: number, rolesetId: number[] | number, sortOrder?: SortOrder, limit?: number, jar?: CookieJar): Promise<GroupUser[]>;
 
     /**
-         * ✅ Gets `rank` of user with `userId` in `group` and caches according to settings.
-         */
+     * ✅Gets the specified user's primary group.
+     */
+    function getPrimaryGroup(userId: number): Promise<Group>;
+
+    /**
+     * ✅ Gets `rank` of user with `userId` in `group` and caches according to settings.
+     */
     function getRankInGroup(group: number, userId: number): Promise<number>;
 
     /**
@@ -2050,6 +2072,11 @@ declare module "noblox.js" {
      * 🔓 Gets the current shout in `group`. If there is no shout the promise is fulfilled but nothing is returned.
      */
     function getShout(group: number, jar?: CookieJar): Promise<GroupShout>;
+
+    /**
+     * ✅ Gets the groups a player is in.
+     */
+    function getUserGroups(userId: number): Promise<GroupMemberInfo[]>;
 
     /**
      * 🔓 Gets posts on the `group` wall. Parameter `page` may be a number or array where negative numbers indicate trailing pages, if it is not specified all pages of the wall will be retrieved.
@@ -2079,6 +2106,11 @@ declare module "noblox.js" {
      * 🔐 Leaves the group with id `group`. Unless `useCache` is enabled the function will not cache because errors will occur if joining or leaving the same group multiple times, you can enable it if you are only joining or leaving a group once or many differenct groups once.
      */
     function leaveGroup(group: number, jar?: CookieJar): Promise<void>;
+
+    /**
+     * ✅ Gets partial info of multiple groups.
+     */
+    function multigetPartialGroups(groupIds: number[]): Promise<GroupMultigetPartial[]>;
 
     /**
      * 🔐 Alias of `changeRank(group, target, 1)`.
@@ -2180,9 +2212,9 @@ declare module "noblox.js" {
     /// Thumbnails
 
     /**
-     * ✅ Gets the logo of the specified group.
+     * ✅ Gets the logo of the specified group(s).
      */
-    function getLogo(groupId: number, size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string>;
+    function getLogo(groupIds: number | number[], size?: GroupIconSize, circular?: boolean, format?: GroupIconFormat): Promise<string> | Promise<string[]>;
 
     /**
      * ✅ Gets the thumbnail of an array of users.

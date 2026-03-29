@@ -1026,6 +1026,7 @@ type Role = {
     memberCount?: number;
     rank: number;
     id: number;
+    color?: number;
 }
 
 /**
@@ -1120,7 +1121,23 @@ type Group = {
     memberCount: number;
     isBuildersClubOnly: boolean;
     publicEntryAllowed: boolean;
-    isLocked: boolean;
+    hasVerifiedBadge: boolean;
+    hasSocialModules: boolean;
+}
+
+/**
+ * @typedef
+*/
+type GroupMultigetPartial = {
+    id: number;
+    name: string;
+    description: string;
+    owner: {
+        id: number;
+        type: string;
+    };
+    created: Date;
+    hasVerifiedBadge: boolean;
 }
 
 /**
@@ -1161,16 +1178,27 @@ type GroupAssetInfo = {
 /**
  * @typedef
  */
-type IGroupPartial = {
-    Name: string;
-    Id: number;
-    EmblemUrl: string;
-    MemberCount: number;
-    Rank: number;
-    Role: string;
-    RoleId: number;
-    IsPrimary: boolean;
+type GroupMemberInfo = {
+    group: {
+        id: number;
+        name: string;
+        memberCount: number;
+        hasVerifiedBadge: boolean;
+    };
+    role: {
+        id: number;
+        name: string;
+        rank: number;
+    }
 }
+
+    /**
+     * @typedef
+     */
+    type PrimaryGroup = {
+        group: Group;
+        role: Role;
+    }
 
 /**
  * @typedef
