@@ -885,6 +885,11 @@ declare module "noblox.js" {
         hasVerifiedBadge: boolean;
     }
 
+    interface PrimaryGroup {
+        group: Group;
+        role: Role;
+    }
+
     interface PayoutAllowedList {
         usersGroupPayoutEligibility: {
             [K: string]: string;

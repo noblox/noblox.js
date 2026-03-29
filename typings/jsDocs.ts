@@ -1192,6 +1192,14 @@ type GroupMemberInfo = {
     }
 }
 
+    /**
+     * @typedef
+     */
+    type PrimaryGroup = {
+        group: Group;
+        role: Role;
+    }
+
 /**
  * @typedef
 */
