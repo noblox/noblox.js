@@ -1026,6 +1026,7 @@ type Role = {
     memberCount?: number;
     rank: number;
     id: number;
+    color?: number;
 }
 
 /**
