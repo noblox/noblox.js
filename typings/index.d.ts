@@ -838,7 +838,6 @@ declare module "noblox.js" {
         memberCount: number;
         isBuildersClubOnly: boolean;
         publicEntryAllowed: boolean;
-        isLocked: boolean;
         hasVerifiedBadge: boolean;
         hasSocialModules: boolean;
     }

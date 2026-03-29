@@ -1121,7 +1121,6 @@ type Group = {
     memberCount: number;
     isBuildersClubOnly: boolean;
     publicEntryAllowed: boolean;
-    isLocked: boolean;
     hasVerifiedBadge: boolean;
     hasSocialModules: boolean;
 }
