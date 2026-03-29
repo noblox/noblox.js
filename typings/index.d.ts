@@ -770,6 +770,7 @@ declare module "noblox.js" {
         memberCount?: number;
         rank: number;
         id: number;
+        color?: number;
     }
 
     interface RoleWithDescription {
