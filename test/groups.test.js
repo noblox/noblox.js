@@ -1,4 +1,4 @@
-const { banFromGroup, changeRank, demote, getAuditLog, getGroup, getGroupBans, getGroups, getGroupSocialLinks, getJoinRequests, getPlayers, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getWall, promote, searchGroups, setRank, shout, setCookie, unbanFromGroup } = require('../lib')
+const { banFromGroup, changeRank, demote, getAuditLog, getGroup, getGroupBans, getGroupSocialLinks, getJoinRequests, getPlayers, getPrimaryGroup, getRankInGroup, getRankNameInGroup, getRole, getRolePermissions, getRoles, getShout, getUserGroups, getWall, multigetPartialGroups, promote, searchGroups, setRank, shout, setCookie, unbanFromGroup } = require('../lib')
 
 beforeAll(() => {
   return new Promise(resolve => {
@@ -115,25 +115,6 @@ describe('Groups Methods', () => {
     })
   })
 
-  it('getGroups() should return groups the specified user is in', async () => {
-    return getGroups(55549140).then((res) => {
-      return expect(res).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            Id: expect.any(Number),
-            Name: expect.any(String),
-            EmblemUrl: expect.any(String),
-            MemberCount: expect.any(Number),
-            Rank: expect.any(Number),
-            Role: expect.any(String),
-            RoleId: expect.any(Number),
-            IsPrimary: expect.any(Boolean)
-          })
-        ])
-      )
-    })
-  })
-
   it('getGroupSocialLinks() should return social link information of a game, given universeId', () => {
     return getGroupSocialLinks(9997719).then((res) => {
       return expect(res).toEqual(
@@ -170,6 +151,36 @@ describe('Groups Methods', () => {
             username: expect.any(String)
           })
         ])
+      )
+    })
+  })
+
+  it('getPrimaryGroup() returns the specified user\'s primary group', () => {
+    return getPrimaryGroup(55549140).then((res) => {
+      return expect(res).toEqual(
+        expect.objectContaining({
+          group: expect.objectContaining({
+            id: expect.any(Number),
+            name: expect.any(String),
+            description: expect.any(String),
+            owner: expect.objectContaining({
+              hasVerifiedBadge: expect.any(Boolean),
+              userId: expect.any(Number),
+              username: expect.any(String),
+              displayName: expect.any(String)
+            }),
+            shout: expect.toBeNull(),
+            isBuildersClubOnly: expect.any(Boolean),
+            publicEntryAllowed: expect.any(Boolean),
+            hasVerifiedBadge: expect.any(Boolean),
+            hasSocialModules: expect.any(Boolean),
+          }),
+          role: expect.objectContaining({
+            id: expect.any(Number),
+            name: expect.any(String),
+            rank: expect.any(Number)
+          })
+        })
       )
     })
   })
@@ -236,6 +247,28 @@ describe('Groups Methods', () => {
     })
   })
 
+  it('getUserGroups() should return groups the specified user is in', async () => {
+    return getUserGroups(55549140).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            group: expect.objectContaining({
+              id: expect.any(Number),
+              name: expect.any(String),
+              memberCount: expect.any(Number),
+              hasVerifiedBadge: expect.any(Boolean)
+            }),
+            role: expect.objectContaining({
+              id: expect.any(Number),
+              name: expect.any(String),
+              rank: expect.any(Number)
+            })
+          })
+        ])
+      )
+    })
+  })
+
   it('getWall() returns the latest messages on the group wall', () => {
     return getWall(4591072).then((res) => {
       return expect(res).toMatchObject({
@@ -261,6 +294,26 @@ describe('Groups Methods', () => {
   // PASS: handleJoinRequests, would require being able to request to join a group
 
   // PASS: leaveGroup, would require being able to request to join a group
+
+  it('multigetPartialGroups() returns partial information of multiple groups', () => {
+    return multigetPartialGroups([4591072]).then((res) => {
+      return expect(res).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(Number),
+            name: expect.any(String),
+            description: expect.any(String),
+            owner: expect.objectContaining({
+              id: expect.any(Number),
+              name: expect.any(String)
+            }),
+            created: expect.any(Date),
+            hasVerifiedBadge: expect.any(Boolean)
+          })
+        ])
+      )
+    })
+  })
 
   it('searchGroups() returns groups that match the query', () => {
     return searchGroups('noblox.js').then((res) => {
